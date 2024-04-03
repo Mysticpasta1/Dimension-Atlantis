@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.blockentities.energy;
 
+import com.mystic.atlantis.capiablities.energy.AtlanteanCrystalEnergyCapability;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.TileEntityInit;
 import org.jetbrains.annotations.NotNull;
@@ -40,8 +41,9 @@ public class CrystalStorage extends BlockEntity {
 
     @Override
     public @NotNull <T>LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> cap, @Nullable net.minecraft.core.Direction side) {
-        if (cap == ForgeCapabilities.ENERGY) {
-            return LazyOptional.of(() -> ENERGY_STORAGE).cast();
+        LazyOptional<ModEnergyStorage> opt = LazyOptional.of(() -> ENERGY_STORAGE);
+        if (cap == AtlanteanCrystalEnergyCapability.ATLANTEAN_CRYSTAL_ENERGY_CAPABILITY) {
+            return AtlanteanCrystalEnergyCapability.ATLANTEAN_CRYSTAL_ENERGY_CAPABILITY.orEmpty(cap, opt);
         }
         return LazyEnergyHandler.cast();
     }
