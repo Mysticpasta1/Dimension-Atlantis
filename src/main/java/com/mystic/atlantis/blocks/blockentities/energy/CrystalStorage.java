@@ -26,7 +26,7 @@ import static com.mystic.atlantis.blocks.blockentities.energy.CrystalGenerator.E
 
 public class CrystalStorage extends BlockEntity {
     public CrystalStorage(BlockPos arg2, BlockState arg3) {
-        super(TileEntityInit.CRYSTAL_STORAGE.get(), arg2, arg3);
+        super(null, arg2, arg3);
     }
 
     public final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(25000, 32, 32) {
@@ -78,14 +78,14 @@ public class CrystalStorage extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, CrystalStorage blockEntity2) {
         blockEntity2.lifetimeTick++;
         if (blockEntity2.lifetimeTick % 30 == 0) {
-            if (level.getBlockState(pos.above()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get() && Objects.requireNonNull(level.getBlockEntity(pos.above())) instanceof CrystalGenerator blockEntity) {
+            if (level.getBlockState(pos.above()).getBlock() == null && Objects.requireNonNull(level.getBlockEntity(pos.above())) instanceof CrystalGenerator blockEntity) {
                 if (blockEntity.ENERGY_STORAGE.getEnergyStored() < blockEntity.ENERGY_STORAGE.getMaxEnergyStored()) {
                     if (blockEntity.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ) {
                         blockEntity.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);
                         blockEntity2.ENERGY_STORAGE.receiveEnergy(ENERGY_REQ, false);
                     }
                 }
-            } else if (level.getBlockState(pos.below()).getBlock() == BlockInit.CRYSTAL_GENERATOR.get() && level.getBlockEntity(pos.below()) instanceof CrystalGenerator blockEntity) {
+            } else if (level.getBlockState(pos.below()).getBlock() == null && level.getBlockEntity(pos.below()) instanceof CrystalGenerator blockEntity) {
                 if (blockEntity2.ENERGY_STORAGE.getEnergyStored() < blockEntity2.ENERGY_STORAGE.getMaxEnergyStored()) {
                     if (blockEntity2.ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ) {
                         blockEntity2.ENERGY_STORAGE.extractEnergy(ENERGY_REQ, false);

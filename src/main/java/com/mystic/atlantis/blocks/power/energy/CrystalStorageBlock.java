@@ -44,7 +44,7 @@ public class CrystalStorageBlock extends BaseEntityBlock {
         ItemStack stack = new ItemStack(BlockItem.byBlock(this));
         if (blockentity instanceof CrystalStorage crystalStorageTank) {
             stack = new ItemStack(this, 1);
-            BlockItem.setBlockEntityData(stack, TileEntityInit.CRYSTAL_STORAGE.get(), crystalStorageTank.saveWithoutMetadata());
+            BlockItem.setBlockEntityData(stack, null, crystalStorageTank.saveWithoutMetadata());
         }
         return List.of(stack);
     }
@@ -58,6 +58,6 @@ public class CrystalStorageBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, TileEntityInit.CRYSTAL_STORAGE.get(), CrystalStorage::tick);
+        return createTickerHelper(type, null, CrystalStorage::tick);
     }
 }

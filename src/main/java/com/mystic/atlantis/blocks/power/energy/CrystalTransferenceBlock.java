@@ -94,7 +94,7 @@ public class CrystalTransferenceBlock extends BaseEntityBlock {
         ItemStack stack = new ItemStack(BlockItem.byBlock(this));
         if (blockentity instanceof CrystalTransference crystalTransference) {
             stack = new ItemStack(this, 1);
-            BlockItem.setBlockEntityData(stack, TileEntityInit.CRYSTAL_TRANSFERENCE.get(), crystalTransference.saveWithoutMetadata());
+            BlockItem.setBlockEntityData(stack, null, crystalTransference.saveWithoutMetadata());
         }
         return List.of(stack);
     }
@@ -105,6 +105,6 @@ public class CrystalTransferenceBlock extends BaseEntityBlock {
 
     @Override
     public <A extends BlockEntity> BlockEntityTicker getTicker(Level level, BlockState state, BlockEntityType<A> type) {
-        return createTickerHelper(type, TileEntityInit.CRYSTAL_TRANSFERENCE.get(), CrystalTransference::tick);
+        return createTickerHelper(type, null, CrystalTransference::tick);
     }
 }

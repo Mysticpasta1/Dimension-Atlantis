@@ -118,7 +118,7 @@ public class CrystalGeneratorMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, BlockInit.CRYSTAL_GENERATOR.get());
+                player, null);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

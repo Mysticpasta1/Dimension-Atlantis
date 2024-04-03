@@ -100,7 +100,7 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
                 }
             });
             ItemStack stack = new ItemStack(this, 1);
-            BlockItem.setBlockEntityData(stack, TileEntityInit.CRYSTAL_GENERATOR.get(), crystalGenerator.saveWithoutMetadata());
+            BlockItem.setBlockEntityData(stack, null, crystalGenerator.saveWithoutMetadata());
             list = super.getDrops(pState, pParams);
             list.listIterator().add(stack);
         }
@@ -130,6 +130,6 @@ public class CrystalGeneratorBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, TileEntityInit.CRYSTAL_GENERATOR.get(), CrystalGenerator::tick);
+        return createTickerHelper(type, null, CrystalGenerator::tick);
     }
 }
