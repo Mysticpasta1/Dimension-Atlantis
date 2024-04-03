@@ -35,8 +35,8 @@ public class ItemInit {
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1);
 
     //Energy
-    public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmuletItem::new);
-    public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", AtlanteanSpearItem::new);
+   // public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmuletItem::new);
+   // public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", AtlanteanSpearItem::new);
 
     //BOATS
     public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1)));
