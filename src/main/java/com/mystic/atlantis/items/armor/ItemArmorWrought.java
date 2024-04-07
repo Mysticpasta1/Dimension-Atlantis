@@ -53,7 +53,7 @@ public class ItemArmorWrought extends ArmorItem {
         boolean hasPlayerEffect = player.hasEffect(mapStatusEffect);
 
         if (hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
-            player.addEffect(new MobEffectInstance(mapStatusEffect, 200));
+            player.addEffect(new MobEffectInstance(mapStatusEffect, 2001, 1, false, false));
         }
     }
 
