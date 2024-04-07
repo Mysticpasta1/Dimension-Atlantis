@@ -54,10 +54,6 @@ public class ItemArmorAtlantis extends ArmorItem {
 
         if (hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
             player.addEffect(new MobEffectInstance(mapStatusEffect, 200));
-
-            if (new Random().nextFloat() > 0.6f) { // 40% of damaging the armor! Possibly!
-                player.getInventory().hurtArmor(player.damageSources().magic(), 1f, new int[]{0, 1, 2, 3});
-            }
         }
     }
 

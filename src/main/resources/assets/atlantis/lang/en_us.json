@@ -1064,5 +1064,19 @@
   "text.autoconfig.atlantis.option.minCrabSpawnHeight": "Minimum Crab Spawn Height",
   "text.autoconfig.atlantis.option.minCrabSpawnHeight.@Tooltip": "The Minimum Height The Atlantean Crab Will Spawn At",
   "text.autoconfig.atlantis.option.volcanoesOn": "Are volcanoes on?",
-  "text.autoconfig.atlantis.title": "Atlantean Config"
+  "text.autoconfig.atlantis.title": "Atlantean Config",
+  "block.atlantis.oyster_shell_cracked": "Oyster Shell Cracked Block",
+  "block.atlantis.nautilus_shell_cracked": "Nautilus Shell Cracked Block",
+  "block.atlantis.oyster_shell_cracked_mossy": "Oyster Shell Mossy Cracked Block",
+  "block.atlantis.nautilus_shell_cracked_mossy": "Nautilus Shell Mossy Cracked Block",
+  "block.atlantis.oyster_shell_mossy": "Oyster Shell Mossy Block",
+  "block.atlantis.nautilus_shell_mossy": "Nautilus Shell Mossy Block",
+  "block.atlantis.algae_detritus_stone": "Algae Detritus Stone",
+  "block.atlantis.detritus_sandstone": "Detritus Sandstone",
+  "block.atlantis.blue_sea_glass": "Blue Sea Glass",
+  "block.atlantis.blue_sea_glass_slab": "Blue Sea Glass Slab",
+  "block.atlantis.blue_sea_glass_wall": "Blue Sea Glass Wall",
+  "block.atlantis.blue_sea_glass_button": "Blue Sea Glass Button",
+  "block.atlantis.blue_sea_glass_pressure_plate": "Blue Sea Glass Pressure Plate",
+  "item.atlantis.broken_shells": "Broken Shells"
 }
