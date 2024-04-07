@@ -82,6 +82,4 @@ public abstract class RedstoneWireBlockMixin{
             cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
         }
     }
-
-
 }

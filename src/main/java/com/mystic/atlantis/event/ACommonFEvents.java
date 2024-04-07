@@ -84,40 +84,7 @@ public class ACommonFEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onBiomeLightingRegister(BiomeLightingRegister event) {
-        event.register(AtlantisBiomeSource.VOLCANIC_DARKSEA, 11);
-        event.register(AtlantisBiomeSource.JELLYFISH_FIELDS, 8);
-        event.register(AtlantisBiomeSource.ATLANTEAN_ISLANDS, 3);
-        event.register(AtlantisBiomeSource.ATLANTIS_BIOME, 3);
-        event.register(AtlantisBiomeSource.GOO_LAGOONS, 1);
-        event.register(AtlantisBiomeSource.ATLANTEAN_GARDEN, 0);
-    }
-
     public static Map<ResourceLocation, Integer> map;
-
-    @SubscribeEvent
-    public static void onServerLoad(ServerStartingEvent event) {
-        BiomeLightingRegister biomeLightingRegister = new BiomeLightingRegister();
-        MinecraftForge.EVENT_BUS.post(biomeLightingRegister);
-        map = biomeLightingRegister.getBiomeMap();
-    }
-
-
-    public static class BiomeLightingRegister extends Event {
-        Map<ResourceLocation, Integer> biomeMap = new HashMap<>();
-
-        public BiomeLightingRegister() {
-        }
-
-        public void register(ResourceLocation resourceLocation, int lightLevel) {
-            biomeMap.put(resourceLocation, lightLevel);
-        }
-
-        public Map<ResourceLocation, Integer> getBiomeMap() {
-            return biomeMap;
-        }
-    }
 
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {

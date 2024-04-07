@@ -1,6 +1,5 @@
 package com.mystic.atlantis.init;
 
-import com.mystic.atlantis.inventory.CrystalGeneratorMenu;
 import com.mystic.atlantis.inventory.LinguisticMenu;
 import com.mystic.atlantis.inventory.WritingMenu;
 import com.mystic.atlantis.util.Reference;
@@ -16,9 +15,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class MenuTypeInit {
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Reference.MODID);
-
-    public static final RegistryObject<MenuType<CrystalGeneratorMenu>> CRYSTAL_GENERATOR_MENU =
-            registerMenuType(CrystalGeneratorMenu::new, "crystal_generator_menu");
     public static final RegistryObject<MenuType<LinguisticMenu>> LINGUISTIC = CONTAINERS.register("linguistic", () -> new MenuType<>(LinguisticMenu::new, FeatureFlagSet.of()));
     public static final RegistryObject<MenuType<WritingMenu>> WRITING = CONTAINERS.register("writing", () -> new MenuType<>(WritingMenu::new, FeatureFlagSet.of()));
 

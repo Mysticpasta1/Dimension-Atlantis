@@ -1,7 +1,6 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
-import com.mystic.atlantis.capiablities.player.IPlayerCap;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.datagen.Providers;
@@ -49,15 +48,10 @@ public class Atlantis {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
-        bus.addListener(this::registerAllCapabilities);
         onInitialize(bus);
         AtlantisFeature.init(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
-    }
-
-    private void registerAllCapabilities(final RegisterCapabilitiesEvent event) {
-        event.register(IPlayerCap.class);
     }
 
     @SubscribeEvent

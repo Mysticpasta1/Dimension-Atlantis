@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "atlantis:crystal_generator"
+          "name": "atlantis:wave_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "atlantis:blocks/crystal_generator"
+  "random_sequence": "atlantis:blocks/wave_block"
 }

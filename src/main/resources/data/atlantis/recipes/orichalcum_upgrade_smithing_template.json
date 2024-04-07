@@ -20,12 +20,12 @@
 
 		"C":
 		{
-			"item": "atlantis_orichalcum_upgrade_smithing_template"
+			"item": "atlantis:orichalcum_upgrade_smithing_template"
 		}
 	},
 	"result":
 	{
-		"item": "atlantis_orichalcum_upgrade_smithing_template",
+		"item": "atlantis:orichalcum_upgrade_smithing_template",
 		"count": 2
 	}
 	

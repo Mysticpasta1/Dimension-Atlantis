@@ -1,4 +1,4 @@
-package com.mystic.atlantis.items.item.energybased;
+package com.mystic.atlantis.items;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,7 +24,7 @@ public class AtlanteanCrystal extends Item {
         {
             if(playerIn.getHealth() < playerIn.getMaxHealth())
             {
-                playerIn.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 1));
+                playerIn.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 1, false, false));
                 itemstack.shrink(1);
             }
         }

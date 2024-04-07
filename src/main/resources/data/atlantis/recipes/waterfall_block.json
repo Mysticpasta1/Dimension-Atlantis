@@ -2,9 +2,9 @@
 	"type": "minecraft:crafting_shaped",
 	"pattern":
 	[
-		"ICI",
-		"ICI",
-		"CIC"
+		"CWC",
+		"CWC",
+		"CCC"
 	],
 	"key":
 	{
@@ -12,15 +12,15 @@
 		{
 			"item": "atlantis:atlantean_crystal"
 		},
-		
-		"I":
+
+		"W":
 		{
-			"item": "minecraft:iron_ingot"
+			"item": "atlantis:ocean_stone"
 		}
 	},
 	"result":
 	{
-		"item": "atlantis:crystal_generator",
-		"count": 1
+		"item": "atlantis:waterfall_block",
+		"count": 3
 	}
 }					

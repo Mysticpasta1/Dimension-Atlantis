@@ -37,7 +37,8 @@ public class AtlanteanPowerStoneBlock extends PoweredBlock {
     }
 
     public boolean isSubmergedInWater(BlockGetter getter, BlockPos targetPos){
-        return getter.getBlockState(targetPos.above()).is(Blocks.WATER);
+        return getter.getBlockState(targetPos.east()).is(Blocks.WATER) || getter.getBlockState(targetPos.west()).is(Blocks.WATER) || getter.getBlockState(targetPos.north()).is(Blocks.WATER) ||
+                getter.getBlockState(targetPos.south()).is(Blocks.WATER) || getter.getBlockState(targetPos.above()).is(Blocks.WATER);
     }
 
 }

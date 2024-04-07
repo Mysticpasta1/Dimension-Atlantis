@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "atlantis:crystal_storage_tank"
+          "name": "atlantis:waterfall_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "atlantis:blocks/crystal_storage_tank"
+  "random_sequence": "atlantis:blocks/waterfall_block"
 }
