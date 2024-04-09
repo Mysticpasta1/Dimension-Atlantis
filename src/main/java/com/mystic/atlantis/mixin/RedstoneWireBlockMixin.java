@@ -56,7 +56,7 @@ public abstract class RedstoneWireBlockMixin {
                 }
             }
             cir.setReturnValue(receivedPower);
-        } else if (receivedPower >= 0) {
+        } else if (receivedPower > 0) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos relativePos = targetPos.relative(direction);
                 BlockState relativeState = level.getBlockState(relativePos);
