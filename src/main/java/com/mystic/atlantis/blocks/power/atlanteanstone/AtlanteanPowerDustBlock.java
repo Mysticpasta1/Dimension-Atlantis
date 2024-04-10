@@ -137,7 +137,7 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
                 }
             }
             return receivedPower;
-        } else if (receivedPower > 0) {
+        } else if (receivedPower >= 0) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos relativePos = targetPos.relative(direction);
                 BlockState relativeState = level.getBlockState(relativePos);
@@ -149,7 +149,11 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
                     calculatedPower = Math.max(calculatedPower, this.getWireSignal(level.getBlockState(relativePos.below())));
                 }
             }
-            return Math.max(receivedPower - 1, calculatedPower - 1);
+            if (receivedPower == 0) {
+                return Math.max(receivedPower, calculatedPower -1);
+            } else {
+                return Math.max(receivedPower - 1, calculatedPower - 1);
+            }
         } else {
             return 0;
         }

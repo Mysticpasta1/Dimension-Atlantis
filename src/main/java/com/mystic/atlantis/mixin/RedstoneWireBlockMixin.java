@@ -56,7 +56,7 @@ public abstract class RedstoneWireBlockMixin {
                 }
             }
             cir.setReturnValue(receivedPower);
-        } else if (receivedPower > 0) {
+        } else if (receivedPower >= 0) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos relativePos = targetPos.relative(direction);
                 BlockState relativeState = level.getBlockState(relativePos);
@@ -68,7 +68,11 @@ public abstract class RedstoneWireBlockMixin {
                     calculatedPower = Math.max(calculatedPower, this.getWireSignal(level.getBlockState(relativePos.below())));
                 }
             }
-            cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
+            if (receivedPower == 0) {
+                cir.setReturnValue(Math.max(receivedPower, calculatedPower -1));
+            } else {
+                cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
+            }
         } else {
             cir.setReturnValue(0);
         }
