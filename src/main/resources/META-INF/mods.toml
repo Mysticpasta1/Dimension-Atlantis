@@ -1,13 +1,11 @@
-modLoader="javafml" 
-loaderVersion="[47,)"
-license="LGPLv3"
-issueTrackerURL="https://github.com/Exploding-Creeper/atlantis/issues" 
-
-[[mods]] 
-modId="atlantis" 
-version="2024.4.9-1.20.1-5.5-forge"
-displayName="Atlantis" 
-displayURL="https://github.com/Exploding-Creeper/atlantis" 
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+[[mods]]
+modId="atlantis"
+version="${mod_version}"
+displayName="Atlantis"
+displayURL="https://github.com/Exploding-Creeper/atlantis"
 logoFile= "logo.png"
 credits='''
 TelepathicGrunt for his help with the JSON files,
@@ -20,33 +18,23 @@ authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulk
 description='''
 An Underwater Dimension Mod.
 '''
-
-# Base
 [[dependencies.atlantis]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47,)"
-    ordering="NONE"
-    side="BOTH"
+modId="neoforge"
+type="required"
+versionRange="${neo_version_range}"
+ordering="NONE"
+side="BOTH"
 
 [[dependencies.atlantis]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1, 1.20.2)"
-    ordering="NONE"
-    side="BOTH"
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
 
-# Libraries
-[[dependencies.atlantis]] 
-    modId="cloth_config"
-    mandatory=true 
-    versionRange="[8.0.75,)" 
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.atlantis]] 
-    modId="geckolib3"
-    mandatory=false
-    versionRange="[4.2.2,)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.atlantis]]
+modId="geckolib3"
+mandatory=false
+versionRange="[4.4.4,)"
+ordering="NONE"
+side="BOTH"

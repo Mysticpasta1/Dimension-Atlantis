@@ -1,10 +1,10 @@
 [
   {
     "modid": "atlantis",
-    "name": "Dimension Atlantis",
+    "name": "Atlantis",
     "description": "An Underwater Dimension Mod.",
-    "version": "2024.4.9-1.20.1-5.5-forge",
-    "mcversion": "1.20.1",
+    "version": "2024.4.20-1.20.1-2.0.0-neoforge",
+    "mcversion": "1.20.4",
     "url": "",
     "updateUrl": "",
     "authorList": ["Mysticpasta1, TelepathicGrunt, Waterpicker, BingJ, LudoCrypt, LimeShulkerBox, Divinity, Booneraniaro"],
