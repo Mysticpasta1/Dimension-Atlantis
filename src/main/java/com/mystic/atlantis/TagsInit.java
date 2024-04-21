@@ -31,7 +31,7 @@ public class TagsInit {
                     ItemInit.ORICHALCUM_CHESTPLATE,
                     ItemInit.ORICHALCUM_LEGGINGS,
                     ItemInit.ORICHALCUM_BOOTS,
-                    BlockInit.ORICHALCUM_BLOCK.lazyMap(Block::asItem));
+                    () -> BlockInit.ORICHALCUM_BLOCK.get().asItem());
         }
 
         public static void init() {

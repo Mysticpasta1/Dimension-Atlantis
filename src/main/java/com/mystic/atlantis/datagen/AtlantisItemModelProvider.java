@@ -4,7 +4,6 @@ import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
@@ -13,9 +12,6 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.Supplier;
-
-import java.io.DataOutput;
 
 public class AtlantisItemModelProvider extends ItemModelProvider {
     public AtlantisItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
@@ -24,43 +20,43 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_A);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_B);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_C);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_D);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_E);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_F);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_G);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_H);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_I);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_J);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_K);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_L);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_M);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_N);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_O);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_P);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_Q);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_R);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_S);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_T);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_U);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_V);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_W);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_X);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_Y);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_Z);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_0);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_1);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_2);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_3);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_4);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_5);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_6);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_7);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_8);
-        item(ItemInit.LINGUISTIC_GLYPH_SCROLL_9);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_A);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_B);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_C);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_D);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_E);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_F);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_G);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_H);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_I);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_J);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_K);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_L);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_M);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_N);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_O);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_P);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_Q);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_R);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_S);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_T);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_U);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_V);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_W);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_X);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_Y);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_Z);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_0);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_1);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_2);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_3);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_4);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_5);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_6);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_7);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_8);
+        item((DeferredHolder<Item, Item>) ItemInit.LINGUISTIC_GLYPH_SCROLL_9);
 
         for(LinguisticGlyph glyph : LinguisticGlyph.values()) {
             for(DyeColor color : DyeColor.values()) {
@@ -71,20 +67,20 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         }
 
         //        block(BlockInit.WRITING_BLOCK);
-        block(BlockInit.ORICHALCUM_BLOCK);
+        block((DeferredHolder<Block, Block>) BlockInit.ORICHALCUM_BLOCK);
 
-        item(ItemInit.ORICHALCUM_INGOT);
-        item(ItemInit.ORICHALCUM_BLEND);
+        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_INGOT);
+        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_BLEND);
 
-        item(ItemInit.ORICHALCUM_HELMET);
-        item(ItemInit.ORICHALCUM_CHESTPLATE);
-        item(ItemInit.ORICHALCUM_LEGGINGS);
-        item(ItemInit.ORICHALCUM_BOOTS);
-        itemTool(ItemInit.ORICHALCUM_AXE);
-        itemTool(ItemInit.ORICHALCUM_PICKAXE);
-        itemTool(ItemInit.ORICHALCUM_SHOVEL);
-        itemTool(ItemInit.ORICHALCUM_SWORD);
-        itemTool(ItemInit.ORICHALCUM_HOE);
+        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_HELMET);
+        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_CHESTPLATE);
+        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_LEGGINGS);
+        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_BOOTS);
+        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_AXE);
+        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_PICKAXE);
+        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_SHOVEL);
+        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_SWORD);
+        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_HOE);
     }
 
     private void itemTool(DeferredHolder<Item, Item> tool) {

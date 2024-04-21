@@ -2,6 +2,7 @@ package com.mystic.atlantis.structures;
 
 import java.util.Optional;
 
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -63,7 +64,7 @@ public class OysterStructure extends Structure {
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
+                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter, PoolAliasLookup.EMPTY);
         return structurePiecesGenerator;
     }
 

@@ -17,7 +17,7 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
 
     @Override
     protected void registerModels() {
-        this.cubeAll(BlockInit.ORICHALCUM_BLOCK);
+        this.cubeAll((DeferredHolder<Block, Block>) BlockInit.ORICHALCUM_BLOCK);
         this.cubeBottomTop("writing_block", Atlantis.id("block/writing_table_side"), Atlantis.id("block/atlantean_planks"), Atlantis.id("block/writing_table_top"));
     }
 

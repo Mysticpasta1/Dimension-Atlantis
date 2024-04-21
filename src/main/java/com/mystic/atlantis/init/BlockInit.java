@@ -16,7 +16,6 @@ import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabBlock;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -26,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 public class BlockInit {
@@ -334,18 +333,18 @@ public class BlockInit {
         return reg;
     }
 
-    public static Supplier<Block> getLinguisticBlock(LinguisticGlyph symbol, DyeColor color) {
+    public static DeferredHolder<Block, Block> getLinguisticBlock(LinguisticGlyph symbol, DyeColor color) {
         if (color != null) {
             if (symbol != null && symbol != LinguisticGlyph.BLANK) {
-                return DYED_LINGUISTICS.get(symbol).get(color);
+                return (DeferredHolder<Block, Block>) DYED_LINGUISTICS.get(symbol).get(color);
             } else {
-                return DYED_LINGUISTICS.get(LinguisticGlyph.BLANK).get(color);
+                return (DeferredHolder<Block, Block>) DYED_LINGUISTICS.get(LinguisticGlyph.BLANK).get(color);
             }
         } else {
             if (symbol != null && symbol != LinguisticGlyph.BLANK) {
-                return NON_LINGUISTICS.get(symbol);
+                return (DeferredHolder<Block, Block>) NON_LINGUISTICS.get(symbol);
             } else {
-                return NON_LINGUISTICS.get(LinguisticGlyph.BLANK);
+                return (DeferredHolder<Block, Block>) NON_LINGUISTICS.get(LinguisticGlyph.BLANK);
             }
         }
     }

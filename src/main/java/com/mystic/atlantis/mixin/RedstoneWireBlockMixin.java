@@ -49,9 +49,9 @@ public abstract class RedstoneWireBlockMixin {
         int calculatedPower = 0;
         if(receivedPower >= 15) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
-                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
-                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
-                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
+                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().value() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
+                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().value() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
+                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().value() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
                     cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
                 }
             }

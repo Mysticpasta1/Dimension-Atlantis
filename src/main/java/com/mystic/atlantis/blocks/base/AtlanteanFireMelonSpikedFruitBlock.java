@@ -36,7 +36,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.ForgeHooks;
 import net.neoforged.neoforge.common.ToolActions;
 
 import javax.annotation.Nullable;
@@ -198,5 +197,4 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
             return super.use(targetState, level, targetPos, player, hand, result);
         }
     }
-
 }

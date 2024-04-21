@@ -12,7 +12,6 @@ import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -22,19 +21,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.neoforged.neoforge.client.ConfigScreenHandler;
-import net.neoforged.neoforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.eventbus.api.IEventBus;
-import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
-import net.neoforged.neoforge.fml.ModContainer;
-import net.neoforged.neoforge.fml.ModList;
-import net.neoforged.neoforge.fml.ModLoadingContext;
-import net.neoforged.neoforge.fml.common.Mod;
-import net.neoforged.neoforge.fml.config.ModConfig;
-import net.neoforged.neoforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.neoforged.neoforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib.GeckoLib;
@@ -54,14 +48,6 @@ public class Atlantis {
         Providers.init(bus);
     }
 
-    @SubscribeEvent
-    public void loadCompleted(FMLLoadCompleteEvent event) {
-        ModContainer createContainer = ModList.get()
-                .getModContainerById(Reference.MODID)
-                .orElseThrow(() -> new IllegalStateException("Create Mod Container missing after loadCompleted"));
-        createContainer.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, previousScreen) -> AutoConfig.getConfigScreen(AtlantisConfig.class, previousScreen).get()));
-    }
-
     public static ResourceLocation id(String id) {
         return new ResourceLocation("atlantis", id);
     }
@@ -73,7 +59,7 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
-        GeckoLib.initialize();
+        GeckoLib.initialize(bus);
         BlockInit.init(bus);
         ItemInit.init(bus);
         PaintingVariantsInit.init(bus);

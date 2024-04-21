@@ -15,37 +15,37 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.neoforge.api.distmarker.Dist;
-import net.neoforged.neoforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
-import net.neoforged.neoforge.fml.common.Mod;
-import net.neoforged.neoforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.mystic.atlantis.init.BlockInit.*;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
-    public static DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Reference.MODID);
-    public static final RegistryObject<SimpleParticleType> PUSH_BUBBLESTREAM = PARTICLES.register("push_bubblestream", () -> new SimpleParticleType(false));
+    public static DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Reference.MODID);
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> PUSH_BUBBLESTREAM = PARTICLES.register("push_bubblestream", () -> new SimpleParticleType(false));
 
     @SubscribeEvent
     public static void onInitializeClient(FMLClientSetupEvent event) {
@@ -137,7 +137,7 @@ public class ClientSetup {
                 BlockInit.ATLANTEAN_LEAVES.get());
     }
 
-    private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(RegistryObject<BlockEntityType<T>> registryObject, String name) {
+    private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(Supplier<BlockEntityType<T>> registryObject, String name) {
         BlockEntityRenderers.register(registryObject.get(), pContext -> new GeneralPlantRenderer<T>(name));
     }
 
@@ -175,7 +175,7 @@ public class ClientSetup {
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> mapLinguistic = ArrayListMultimap.create();
 
-        for(Map<DyeColor, RegistryObject<Block>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, Supplier<Block>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
             colorMapLinguistics.forEach((k,v) -> mapLinguistic.put(k, v.get()));
         }
 
@@ -285,7 +285,7 @@ public class ClientSetup {
         blockColors.register(BLACK, MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
 
 
-        BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
+        BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(Supplier::get).forEach(block -> blockColors.register(REGULAR, block));
 
         BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> 0x100a60D0;
         blockColors.register(SaltySeaWaterColor, BlockInit.SALTY_SEA_WATER_BLOCK.get());
@@ -302,7 +302,7 @@ public class ClientSetup {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
-        for(Map<DyeColor, RegistryObject<Block>> colorMap : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, Supplier<Block>> colorMap : DYED_LINGUISTICS.values()) {
             colorMap.forEach((k,v) -> map.put(k, v.get()));
         }
 
@@ -410,6 +410,6 @@ public class ClientSetup {
         blockColors.register(RED, MOSSY_SHELL_BLOCKS.get(DyeColor.RED).get());
         blockColors.register(BLACK, MOSSY_SHELL_BLOCKS.get(DyeColor.BLACK).get());
 
-        ItemColor REGULAR = (arg, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
+        ItemColor REGULAR = (arg, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(Supplier::get).forEach(block -> blockColors.register(REGULAR, block));
     }
 }

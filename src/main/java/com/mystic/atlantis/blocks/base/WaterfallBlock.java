@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +23,11 @@ public class WaterfallBlock extends DirectionalBlock {
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return simpleCodec(WaterfallBlock::new);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

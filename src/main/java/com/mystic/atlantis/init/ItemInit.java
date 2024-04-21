@@ -21,6 +21,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -160,14 +161,14 @@ public class ItemInit {
     public static final Supplier<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
     public static final Supplier<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final Supplier<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.BOOTS, new Item.Properties()));
-    public static final Supplier<Item> ORICHALCUM_UPGRADE_SMITHING_TEMPLATE = register("orichalcum_upgrade_smithing_template", OrichalcumSmithingTemplateItem::new);
+    public static final DeferredHolder<Item, Item> ORICHALCUM_UPGRADE_SMITHING_TEMPLATE = register("orichalcum_upgrade_smithing_template", OrichalcumSmithingTemplateItem::new);
 
     public static final Supplier<Item> ORICHALCUM_HELMET = register("orichalcum_helmet", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final Supplier<Item> ORICHALCUM_CHESTPLATE = register("orichalcum_chestplate", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
     public static final Supplier<Item> ORICHALCUM_LEGGINGS= register("orichalcum_leggings", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final Supplier<Item> ORICHALCUM_BOOTS = register("orichalcum_boots", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.BOOTS, new Item.Properties()));
 
-    public static <T extends Item> Supplier<T> register(String name, Supplier<T> item) {
+    public static <T extends Item> DeferredHolder<Item, T> register(String name, Supplier<T> item) {
         var register = ITEMS.register(name, item);
         AtlantisGroupInit.addToMainTabItems(register);
         return register;

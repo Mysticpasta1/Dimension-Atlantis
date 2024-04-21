@@ -24,7 +24,6 @@ public class Providers {
 
         if(event.includeServer()) {
             event.getGenerator().addProvider(true, new AtlantisLootTableProvider(event.getGenerator()));
-            event.getGenerator().addProvider(true, new AtlantisRecipeProvider(output));
         }
 
         if(event.includeClient()) {
