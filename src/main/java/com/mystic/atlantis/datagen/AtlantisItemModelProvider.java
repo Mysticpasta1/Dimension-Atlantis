@@ -10,9 +10,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.Supplier;
 
 import java.io.DataOutput;
 
@@ -86,21 +87,21 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         itemTool(ItemInit.ORICHALCUM_HOE);
     }
 
-    private void itemTool(RegistryObject<Item> tool) {
+    private void itemTool(DeferredHolder<Item, Item> tool) {
         getBuilder(tool.getId().getPath())
                 .parent(getExistingFile(mcLoc("item/handheld")))
                 .texture("layer0", items(tool.getId()));
     }
 
-    private void withParent(RegistryObject<Block> block, LinguisticGlyph glyph) {
+    private void withParent(DeferredHolder<Block, Block> block, LinguisticGlyph glyph) {
         withExistingParent(block.getId().getPath(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
     }
 
-    private void block(RegistryObject<Block> block) {
+    private void block(DeferredHolder<Block, Block> block) {
         withExistingParent(block.getId().getPath(), block(block.getId()));
     }
 
-    private void item(RegistryObject<Item> block) {
+    private void item(DeferredHolder<Item, Item> block) {
         try {
             getBuilder(block.getId().getPath())
                     .parent(getExistingFile(mcLoc("item/generated")))

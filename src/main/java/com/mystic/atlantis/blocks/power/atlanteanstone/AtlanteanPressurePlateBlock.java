@@ -8,7 +8,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -23,12 +22,10 @@ import java.util.List;
 public class AtlanteanPressurePlateBlock extends PressurePlateBlock implements SimpleWaterloggedBlock {
     private static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
     private static final BooleanProperty POWERED;
-    private final PressurePlateBlock.Sensitivity sensitivity;
 
-    public AtlanteanPressurePlateBlock(PressurePlateBlock.Sensitivity sensitivity, Properties settings) {
-        super(sensitivity, settings, BlockSetType.OAK);
+    public AtlanteanPressurePlateBlock(Properties settings) {
+        super(BlockSetType.OAK, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(WATERLOGGED, false));
-        this.sensitivity = sensitivity;
     }
 
     @Override
@@ -71,7 +68,7 @@ public class AtlanteanPressurePlateBlock extends PressurePlateBlock implements S
         AABB touchableAABB = TOUCH_AABB.move(targetPos);
         List<? extends Entity> touchingEntities;
         
-        switch(this.sensitivity) {
+        switch(this.type.pressurePlateSensitivity()) {
             case EVERYTHING:
                 touchingEntities = level.getEntities(null, touchableAABB);
                 break;

@@ -12,5 +12,4 @@ public class AtlanteanPowerLampBlock extends RedstoneLampBlock {
         		.lightLevel(value -> value.getValue(LIT) ? 15 : 0)
         		.isValidSpawn((state, world, pos, type) -> true));
     }
-
 }

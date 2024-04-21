@@ -17,12 +17,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.Supplier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class AtlantisRecipeProvider extends RecipeProvider {
@@ -31,7 +32,7 @@ public class AtlantisRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    public void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    public void buildRecipes(RecipeOutput consumer) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemInit.LINGUISTIC_GLYPH_SCROLL.get(), 1).requires(Items.INK_SAC).requires(Items.PAPER).requires(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get()).unlockedBy("has_fire_melon_spike", RecipeProvider.has(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockInit.getLinguisticBlock(LinguisticGlyph.BLANK, null).get(), 2).pattern("XX").pattern("XX").define('X', BlockInit.ATLANTEAN_PRISMARINE.get()).unlockedBy("has_atlantean_prismarine", RecipeProvider.has(BlockInit.ATLANTEAN_PRISMARINE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BlockInit.WRITING_BLOCK.get())
@@ -56,7 +57,7 @@ public class AtlantisRecipeProvider extends RecipeProvider {
         Ingredient ingredient = Ingredient.of(Stream.of(
                         LinguisticGlyph.values())
                 .map(ItemInit::getScroll)
-                .map(RegistryObject::get)
+                .map(Supplier::get)
                 .map(ItemStack::new));
 
         for(LinguisticGlyph glyph : LinguisticGlyph.values()) {
@@ -123,7 +124,7 @@ public class AtlantisRecipeProvider extends RecipeProvider {
                 .requires(Items.ORANGE_DYE).requires(Items.YELLOW_DYE).requires(Items.LIME_DYE).requires(Items.GREEN_DYE).requires(Items.BLUE_DYE).requires(Items.MAGENTA_DYE).requires(Items.PURPLE_DYE).unlockedBy("has_sea_glass", RecipeProvider.has(BlockInit.SEA_GLASS.block().get())).save(consumer);
     }
 
-    public void orichalcumUpgrade(RegistryObject<Item> base, RegistryObject<Item> result, Consumer<FinishedRecipe> consumer) {
+    public void orichalcumUpgrade(Supplier<Item> base, Supplier<Item> result, Consumer<FinishedRecipe> consumer) {
         SmithingTransformRecipeBuilder.smithing(
                 ItemInit.ORICHALCUM_UPGRADE_SMITHING_TEMPLATE.lazyMap(Ingredient::of).get(),
                         base.lazyMap(Ingredient::of).get(),

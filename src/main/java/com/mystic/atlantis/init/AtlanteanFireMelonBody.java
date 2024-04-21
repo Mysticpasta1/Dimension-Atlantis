@@ -27,8 +27,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.IPlantable;
+import net.neoforged.neoforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.IPlantable;
 
 public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer, IPlantable {
     public static final int MAX_AGE = 7;

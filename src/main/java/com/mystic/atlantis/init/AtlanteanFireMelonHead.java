@@ -22,8 +22,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.IPlantable;
+import net.neoforged.neoforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.IPlantable;
 
 public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockContainer, IPlantable {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 9.0, 16.0);

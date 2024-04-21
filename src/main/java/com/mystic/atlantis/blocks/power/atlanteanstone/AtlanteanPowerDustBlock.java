@@ -99,7 +99,7 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
         return !((RedstoneAccessor) this).getShouldSignal() ? 0 : targetState.getSignal(getter, targetPos, curDir);
     }
 
-    @Override
+
     public void updatePowerStrength(Level level, BlockPos targetPos, BlockState targetState) {
         int receivedPower = this.calculateTargetStrength(level, targetPos);
 
@@ -122,8 +122,7 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
         }
     }
 
-    @Override
-    public int calculateTargetStrength(Level level, BlockPos targetPos) {
+    private int calculateTargetStrength(Level level, BlockPos targetPos) {
         ((RedstoneAccessor) this).setShouldSignal(false);
         int receivedPower = level.getBestNeighborSignal(targetPos);
         ((RedstoneAccessor) this).setShouldSignal(true);

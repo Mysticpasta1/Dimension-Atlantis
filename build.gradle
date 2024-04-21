@@ -83,8 +83,8 @@ repositories {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
-    implementation fg.deobf("curse.geckolib-388172:${geckolib_version}")
-    implementation fg.deobf("org.reflections:reflections:${reflections_version}")
+    implementation "curse.maven:geckolib-388172:${geckolib_version}"
+    implementation "org.reflections:reflections:${reflections_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

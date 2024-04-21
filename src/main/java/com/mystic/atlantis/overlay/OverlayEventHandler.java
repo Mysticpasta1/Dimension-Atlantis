@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.neoforged.neoforge.client.gui.overlay.ForgeGui;
+import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 
 public class OverlayEventHandler implements IGuiOverlay {
 
@@ -19,7 +19,7 @@ public class OverlayEventHandler implements IGuiOverlay {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     @Override
-    public void render(ForgeGui gui, GuiGraphics poseStack, float partialTick, int width, int height) {
+    public void render(NeoForgeGui gui, GuiGraphics poseStack, float partialTick, int width, int height) {
         gui.setupOverlayRenderState(true, false);
         renderCoconutBlur(gui, poseStack, width, height);
     }
