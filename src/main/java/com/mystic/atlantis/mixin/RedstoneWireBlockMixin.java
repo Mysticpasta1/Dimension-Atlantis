@@ -40,48 +40,40 @@ public abstract class RedstoneWireBlockMixin{
     }
 
     @Inject(method = "calculateTargetStrength", at = @At(value = "HEAD"), cancellable = true)
-    public void setPowerToWires1(Level world, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
-       cir.cancel();
-        ((RedstoneAccessor) Blocks.REDSTONE_WIRE).setShouldSignal(false);
-        int receivedPower = world.getBestNeighborSignal(pos);
-        ((RedstoneAccessor) Blocks.REDSTONE_WIRE).setShouldSignal(true);
+    public void setPowerToWires1(Level level, BlockPos targetPos, CallbackInfoReturnable<Integer> cir) {
+        cir.cancel();
+        ((RedstoneAccessor) ((RedStoneWireBlock) (Object) this)).setShouldSignal(false);
+        int receivedPower = level.getBestNeighborSignal(targetPos);
+        ((RedstoneAccessor) ((RedStoneWireBlock) (Object) this)).setShouldSignal(true);
         int calculatedPower = 0;
-        if(receivedPower == 15) {
-            calculatedPower = 15;
-            cir.setReturnValue(calculatedPower);
-        }
-        else if (receivedPower < 15 && receivedPower > 0) {
+        if(receivedPower >= 15) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
-                BlockPos blockPos = pos.relative(direction);
-                BlockState blockState = world.getBlockState(blockPos);
-                calculatedPower = Math.max(calculatedPower, this.getWireSignal(blockState));
-                BlockPos blockPos2 = pos.above();
-                if (blockState.isRedstoneConductor(world, blockPos) && !world.getBlockState(blockPos2).isRedstoneConductor(world, blockPos2)) {
-                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(world.getBlockState(blockPos.above())));
-                } else if (!blockState.isRedstoneConductor(world, blockPos)) {
-                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(world.getBlockState(blockPos.below())));
+                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
+                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
+                        || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
+                    cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
                 }
             }
-
-            cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
-        } else if (receivedPower == 0) {
+            cir.setReturnValue(receivedPower);
+        } else if (receivedPower >= 0) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
-                BlockPos blockPos = pos.relative(direction);
-                BlockState blockState = world.getBlockState(blockPos);
-                calculatedPower = Math.max(calculatedPower, this.getWireSignal(blockState));
-                BlockPos blockPos2 = pos.above();
-                if (blockState.isRedstoneConductor(world, blockPos) && !world.getBlockState(blockPos2).isRedstoneConductor(world, blockPos2)) {
-                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(world.getBlockState(blockPos.above())));
-                } else if (!blockState.isRedstoneConductor(world, blockPos)) {
-                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(world.getBlockState(blockPos.below())));
+                BlockPos relativePos = targetPos.relative(direction);
+                BlockState relativeState = level.getBlockState(relativePos);
+                calculatedPower = Math.max(calculatedPower, this.getWireSignal(relativeState));
+                BlockPos aboveTargetPos = targetPos.above();
+                if (relativeState.isRedstoneConductor(level, relativePos) && !level.getBlockState(aboveTargetPos).isRedstoneConductor(level, aboveTargetPos)) {
+                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(level.getBlockState(relativePos.above())));
+                } else if (!relativeState.isRedstoneConductor(level, relativePos)) {
+                    calculatedPower = Math.max(calculatedPower, this.getWireSignal(level.getBlockState(relativePos.below())));
                 }
             }
-
-            cir.setReturnValue(Math.max(receivedPower, calculatedPower - 1));
+            if (receivedPower == 0) {
+                cir.setReturnValue(Math.max(receivedPower, calculatedPower -1));
+            } else {
+                cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
+            }
         } else {
-            cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
+            cir.setReturnValue(0);
         }
     }
-
-
 }
