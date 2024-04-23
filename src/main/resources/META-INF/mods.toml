@@ -18,6 +18,9 @@ authors="Mysticpasta1, TelepathicGrunt, WaterPicker, BingJ, LudoCrypt, LimeShulk
 description='''
 An Underwater Dimension Mod.
 '''
+[[mixins]]
+config = "atlantis.mixins.json"
+
 [[dependencies.atlantis]]
 modId="neoforge"
 type="required"
@@ -33,8 +36,8 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.atlantis]]
-modId="geckolib3"
-mandatory=false
+modId="geckolib"
+type="required"
 versionRange="[4.4.4,)"
 ordering="NONE"
 side="BOTH"

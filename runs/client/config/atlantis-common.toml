@@ -1,0 +1,35 @@
+#Should Islands Generate?
+islandsOn = true
+#Should Volcanoes Generate?
+volcanoesOn = true
+#Should Glowstone Crysts Generate?
+glowstoneCrystsOn = true
+#Minimum Crab Spawn Height
+#Range: -64 ~ 320
+minCrabSpawnHeight = 100
+#Maximum Crab Spawn Height
+#Range: -64 ~ 320
+maxCrabSpawnHeight = 125
+#Rate at which Magma Accelerates you
+#Range: 0.0 ~ 100.0
+magmaAcceleration = 0.1
+#Max Distance that the Push Bubble Columns from Bubble Magma Blocks can go
+#Range: 0 ~ 30
+maxDistanceOfPushBubbleColumn = 15
+#Max Magma Velocity 
+#Range: 0.0 ~ 100.0
+magmaThreshold = 1.8
+#Start In Atlantis?
+startInAtlantis = false
+#Should Dimension Wide Water Breathing Be On?
+turnOnDimensionalWaterBreathing = true
+#Should Dimension Wide Haste Be On?
+turnOnDimensionalHaste = true
+#How far is visibility in Water?
+#Range: 1.0 ~ 200.0
+waterVisibility = 120.0
+#Can Atlantean Cities generate? (Cities are disable for now without config - this does nothing!)
+shouldCitiesGenerate = false
+#Should Per Biome Lighting for Atlantis be on? (Currently doesn't work!!!)
+shouldHavePerBiomeLighting = false
+

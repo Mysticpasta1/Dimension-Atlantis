@@ -75,6 +75,7 @@ public class Atlantis {
         MenuTypeInit.init(bus);
         RecipesInit.init(bus);
         POITypesInit.init(bus);
+        DimensionAtlantis.init(bus);
     }
 
     @SubscribeEvent
@@ -89,8 +90,6 @@ public class Atlantis {
     public static void onCommonSet(FMLCommonSetupEvent event) {
         ToolInit.init();
         TagsInit.init();
-
-        event.enqueueWork(DimensionAtlantis::registerBiomeSources);
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
 
