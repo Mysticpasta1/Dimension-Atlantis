@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
+import com.mojang.math.Vector3f;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 
 import net.minecraft.core.BlockPos;
@@ -27,11 +28,10 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 public class AtlanteanPowerLeverBlock extends LeverBlock implements SimpleWaterloggedBlock {
 	private static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
-	public static final Vector3f COLOR = Vec3.fromRGB24(0x0000FF).toVector3f();
+	public static final Vector3f COLOR = new Vector3f((float) Vec3.fromRGB24(0x0000FF).x(), (float) Vec3.fromRGB24(0x0000FF).y(), (float) Vec3.fromRGB24(0x0000FF).z());
 
 	public AtlanteanPowerLeverBlock(Properties settings) {
 		super(settings);

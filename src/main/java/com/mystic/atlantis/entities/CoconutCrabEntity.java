@@ -1,15 +1,9 @@
 package com.mystic.atlantis.entities;
 
-import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -23,7 +17,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,24 +27,24 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatable {
+public class CoconutCrabEntity extends Animal implements NeutralMob, IAnimatable {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
-    private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, this::mainPredicate);
-    static final RawAnimation NUTON_ANIMATION = RawAnimation.begin().thenLoop("animation.coconut_crab.nuton");
-    static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.walk");
-    static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.idle");
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<>(this, "coconutCrabController", 2, this::mainPredicate);
+    static final AnimationBuilder NUTON_ANIMATION = new AnimationBuilder().addAnimation("animation.coconut_crab.nuton", true);
+    static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", true);
+    static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
 
     private int remainingPersistentAngerTime;
     @Nullable
@@ -130,7 +123,7 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
         if (player.getItemInHand(hand).getItem() == Blocks.SEAGRASS.asItem()) {
             if (player instanceof ServerPlayer) {
                 if (this.isFood(Blocks.SEAGRASS.asItem().getDefaultInstance())) {
-                    if (!this.level().isClientSide && this.canFallInLove()) {
+                    if (!this.level.isClientSide && this.canFallInLove()) {
                         this.usePlayerItem(player, hand, Blocks.SEAGRASS.asItem().getDefaultInstance());
                         this.setInLove(player);
                         this.gameEvent(GameEvent.ENTITY_INTERACT, this);
@@ -168,7 +161,7 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
     @Override
     public void aiStep() {
         super.aiStep();
-        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public boolean isMovingSlowly(){
@@ -180,7 +173,7 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
-    private <P extends GeoAnimatable> PlayState mainPredicate(AnimationState<P> event) {
+    private <P extends IAnimatable> PlayState mainPredicate(AnimationEvent<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(WALK_ANIMATION);
         } else if (!isMovingSlowly()) {
@@ -215,17 +208,12 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(mainController);
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(mainController);
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
+    public AnimationFactory getFactory() {
         return factory;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return 0;
     }
 }

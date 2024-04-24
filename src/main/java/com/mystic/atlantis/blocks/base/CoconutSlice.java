@@ -19,7 +19,7 @@ public class CoconutSlice extends Block {
 
     public CoconutSlice(BlockBehaviour.Properties pProperties) {
         super(pProperties
-                .sound(SoundType.CHERRY_WOOD)
+                .sound(SoundType.WOOD)
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));
         this.defaultBlockState().setValue(HAS_MILK, Boolean.FALSE);

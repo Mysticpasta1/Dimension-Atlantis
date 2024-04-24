@@ -7,14 +7,12 @@ import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.MapColor;
 
 public class WaveBlock extends DirectionalBlock {
 	
     public WaveBlock(Properties settings) {
         super(settings
                 .strength(4.5F)
-                .mapColor(MapColor.COLOR_LIGHT_BLUE)
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));

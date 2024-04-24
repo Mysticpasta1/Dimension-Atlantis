@@ -32,24 +32,23 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class CrabEntity extends Animal implements GeoEntity, Bucketable {
+public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.INT);
     protected static final Ingredient TEMPT_ITEMS = Ingredient.of(Items.SEAGRASS);
-    static final RawAnimation WALK_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.walk");
-    static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.crab.idle");
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
-    private final AnimationController<CrabEntity> mainController = new AnimationController<CrabEntity>(this, "crabController", 2, this::mainPredicate);
+    static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", true);
+    static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimationController<CrabEntity> mainController = new AnimationController<>(this, "crabController", 2, this::mainPredicate);
 
     public CrabEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
@@ -102,11 +101,6 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     @Override
     public boolean canBreatheUnderwater() {
         return true;
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(mainController);
     }
 
     @Override
@@ -172,7 +166,7 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
         if (player.getItemInHand(hand).getItem() == Blocks.SEAGRASS.asItem()) {
             if (player instanceof ServerPlayer) {
                 if (this.isFood(Blocks.SEAGRASS.asItem().getDefaultInstance())) {
-                    if (!this.level().isClientSide && this.canFallInLove()) {
+                    if (!this.level.isClientSide && this.canFallInLove()) {
                         this.usePlayerItem(player, hand, Blocks.SEAGRASS.asItem().getDefaultInstance());
                         this.setInLove(player);
                         this.gameEvent(GameEvent.ENTITY_INTERACT, this);
@@ -213,14 +207,14 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     @Override
     public void aiStep() {
         super.aiStep();
-        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public boolean isMovingSlowly(){
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
-    private <P extends GeoAnimatable> PlayState mainPredicate(AnimationState<P> event) {
+    private <P extends CrabEntity> PlayState mainPredicate(AnimationEvent<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(WALK_ANIMATION);
             return PlayState.CONTINUE;
@@ -231,12 +225,17 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
         return PlayState.CONTINUE;
     }
 
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
-
     public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         return pos.getY() >= AtlantisConfig.INSTANCE.minCrabSpawnHeight.get() && AtlantisConfig.INSTANCE.maxCrabSpawnHeight.get() >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(mainController);
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 }

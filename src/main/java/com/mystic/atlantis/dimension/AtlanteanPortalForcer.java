@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -112,14 +113,14 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
 
     private boolean canPortalReplaceBlock(BlockPos.MutableBlockPos pPos) {
         BlockState blockstate = this.level.getBlockState(pPos);
-        return blockstate.canBeReplaced() && blockstate.getFluidState().isEmpty();
+        return blockstate.getFluidState().isEmpty();
     }
 
     private boolean canHostFrame(BlockPos pOriginalPos, BlockPos.MutableBlockPos pOffsetPos, Direction pDirection, int pOffsetScale) {
         for (int i = -1; i < 3; ++i) {
             for (int j = -1; j < 3; ++j) {
                 pOffsetPos.setWithOffset(pOriginalPos, pDirection.getStepX() * i + pDirection.getStepX() * pOffsetScale, j, pDirection.getStepZ() * i + pDirection.getStepZ() * pOffsetScale);
-                if (j < 0 && !this.level.getBlockState(pOffsetPos).isSolid()) {
+                if (j < 0 && !this.level.getBlockState(pOffsetPos).isSolidRender(level, pOriginalPos)) {
                     return false;
                 }
 

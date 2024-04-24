@@ -10,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,25 +60,25 @@ public class SodiumPrimedBombBlock extends Entity {
         }
         this.move(MoverType.SELF, this.getDeltaMovement());
         this.setDeltaMovement(this.getDeltaMovement().scale(0.98));
-        if (this.onGround()) {
+        if (this.onGround) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.7, -0.5, 0.7));
         }
         int fuse = this.getFuse() - 1;
         this.setFuse(fuse);
         if (fuse <= 0) {
             this.discard();
-            if (!this.level().isClientSide) {
+            if (!this.level.isClientSide) {
                 this.explode();
             }
         } else {
-            if (this.level().isClientSide) {
-                this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), 0.0, 0.0, 0.0);
+            if (this.level.isClientSide) {
+                this.level.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), 0.0, 0.0, 0.0);
             }
         }
     }
 
     protected void explode() {
-        this.level().explode(this, this.getX(), this.getY(0.0625), this.getZ(), 4.0f, this.isUnderWater(), Level.ExplosionInteraction.BLOCK);
+        this.level.explode(this, this.getX(), this.getY(0.0625), this.getZ(), 4.0f, this.isUnderWater(), Explosion.BlockInteraction.BREAK);
     }
 
     @Override

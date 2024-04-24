@@ -1,5 +1,5 @@
 plugins {
-    id 'net.neoforged.gradle' version '[6.0.13, 6.2)'
+    id 'net.minecraftforge.gradle' version '6.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
     id 'eclipse'
@@ -26,11 +26,11 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            
+
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'examplemod'
-            
+
             arg "-mixin.config=atlantis.mixins.json"
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -48,7 +48,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'examplemod'
-            
+
             arg "-mixin.config=atlantis.mixins.json"
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -66,11 +66,11 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'examplemod'
-            
+
             arg "-mixin.config=atlantis.mixins.json"
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            
+
             mods {
                 atlantis {
                     source sourceSets.main
@@ -83,7 +83,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            
+
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
@@ -98,26 +98,36 @@ minecraft {
     }
 }
 
-sourceSets.main.resources {
-    srcDir 'src/generated/resources' }
-
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
         name = "CurseForge Maven" //Base
-		url = "https://www.cursemaven.com"
+        url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
-	}
-    maven { 
-	    name = "Shedaniel Maven" //REI + Cloth Config
-	    url "https://maven.shedaniel.me/" 
-	}
-	maven { 
-	 	name = "Jitpack IO" //Jitpack
-		url 'https://jitpack.io' 
-	}
+    }
+    maven {
+        name = "Shedaniel Maven" //REI + Cloth Config
+        url "https://maven.shedaniel.me/"
+    }
+    maven {
+        name = "Architectury Maven" //Architectury
+        url "https://maven.architectury.dev/"
+    }
+    maven {
+        name = "GeckoLib Maven" //Geckolib
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
+    maven {
+        name = "IllusiveC4 Maven" //Curios
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name = "Jitpack IO" //Jitpack
+        url 'https://jitpack.io'
+    }
     maven {
         name = "TerraformersMC" //Terraformers
         url = 'https://maven.terraformersmc.com/'
@@ -126,10 +136,6 @@ repositories {
         name = "ModMaven" //ModMaven
         url = "https://modmaven.dev"
     }
-    maven {
-        name = 'GeckoLib'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-    }
     flatDir {
         dir 'libs'
     }
@@ -137,25 +143,20 @@ repositories {
 
 dependencies {
     // Base
-    minecraft "net.neoforged:forge:${minecraft_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    // Libraries
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.2')
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.19:${geckolib_version}")
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
-    implementation fg.deobf("curse.maven:architectury-api-419699:${architectury_version}")
+
     implementation fg.deobf("org.reflections:reflections:${reflections_version}")
 }
 
 mixin {
     add sourceSets.main, "atlantis.refmap.json"
     config "atlantis.mixins.json"
-    
-    debug.verbose = true
-}
 
-processResources {
-    duplicatesStrategy = DuplicatesStrategy.WARN
+    debug.verbose = true
 }
 
 jar {

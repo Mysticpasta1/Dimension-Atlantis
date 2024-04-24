@@ -7,14 +7,13 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorchBlock.WATERLOGGED;
 
 public class AtlanteanButtonBlock extends ButtonBlock implements SimpleWaterloggedBlock {
 	
     public AtlanteanButtonBlock(Properties settings) {
-        super(settings, BlockSetType.OAK, 30, true); //TODO: Custom BlockSetType
+        super(true, settings); //TODO: Custom BlockSetType
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(WATERLOGGED, false));
     }
 

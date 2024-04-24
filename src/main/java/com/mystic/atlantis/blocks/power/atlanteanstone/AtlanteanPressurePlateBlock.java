@@ -8,10 +8,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -26,7 +24,7 @@ public class AtlanteanPressurePlateBlock extends PressurePlateBlock implements S
     private final PressurePlateBlock.Sensitivity sensitivity;
 
     public AtlanteanPressurePlateBlock(PressurePlateBlock.Sensitivity sensitivity, Properties settings) {
-        super(sensitivity, settings, BlockSetType.OAK);
+        super(sensitivity, settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(WATERLOGGED, false));
         this.sensitivity = sensitivity;
     }

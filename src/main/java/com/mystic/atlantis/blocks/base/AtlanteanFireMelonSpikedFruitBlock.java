@@ -138,8 +138,8 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        return pState.getValue(AGE) < 4;
+    public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, boolean b) {
+        return blockState.getValue(AGE) < 4;
     }
 
     @Override

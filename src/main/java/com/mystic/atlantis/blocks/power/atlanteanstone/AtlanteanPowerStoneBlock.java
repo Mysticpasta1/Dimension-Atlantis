@@ -9,14 +9,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PoweredBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.MapColor;
 
 public class AtlanteanPowerStoneBlock extends PoweredBlock {
 
     public AtlanteanPowerStoneBlock(Properties settings) {
         super(settings
-                .sound(SoundType.STONE)
-                .mapColor(MapColor.COLOR_BLUE));
+                .sound(SoundType.STONE));
     }
 
     @Override

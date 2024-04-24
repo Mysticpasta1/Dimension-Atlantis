@@ -3,7 +3,6 @@ package com.mystic.atlantis;
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.feature.AtlantisFeature;
-import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.*;
 import com.mystic.atlantis.init.*;
@@ -14,7 +13,7 @@ import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModContainer;
@@ -37,7 +35,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib.GeckoLib;
+import software.bernie.geckolib3.GeckoLib;
 
 @Mod(Reference.MODID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -51,7 +49,6 @@ public class Atlantis {
         onInitialize(bus);
         AtlantisFeature.init(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
-        Providers.init(bus);
     }
 
     @SubscribeEvent
@@ -69,19 +66,19 @@ public class Atlantis {
     //Don't remove needed for legacy portal block!
     public static ResourceKey<Level> getOverworldKey() {
         ResourceLocation OVERWORLD_ID = LevelStem.OVERWORLD.location();
-        return ResourceKey.create(Registries.DIMENSION, OVERWORLD_ID);
+        return ResourceKey.create(Registry.DIMENSION_REGISTRY, OVERWORLD_ID);
     }
 
     public void onInitialize(IEventBus bus) {
         GeckoLib.initialize();
-        BlockInit.init(bus);
         ItemInit.init(bus);
+        BlockInit.init(bus);
         PaintingVariantsInit.init(bus);
         AtlantisModifierInit.init(bus);
         TileEntityInit.init(bus);
         FluidTypesInit.init(bus);
         FluidInit.init(bus);
-        AtlantisGroupInit.init(bus);
+        AtlantisGroupInit.init();
         AtlantisEntityInit.init(bus);
         AtlantisSoundEventInit.init(bus);
         EffectsInit.init(bus);

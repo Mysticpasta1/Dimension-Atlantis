@@ -37,31 +37,30 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketable {
 
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
-    private static final RawAnimation HOVER_ANIMATION = RawAnimation.begin().thenLoop("animation.jellyfish.hover");
-    private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.jellyfish.idle");
+    private static final AnimationBuilder HOVER_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.hover", true);
+    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.jellyfish.idle", true);
     private int randomTimer;
     private float tx;
     private float ty;
     private float tz;
 
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
@@ -199,13 +198,13 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level().isClientSide) {
+        if (!this.level.isClientSide) {
             if (--this.randomTimer <= 0) {
                 this.randomTimer = this.getRandom().nextInt(21);
                 this.setDeltaMovement(this.tx * 1.2, this.ty * 1.6, this.tz * 1.2);
             }
         }
-        setTarget(level().getNearestPlayer(getX(), getY(), getZ(), 10, true));
+        setTarget(level.getNearestPlayer(getX(), getY(), getZ(), 10, true));
     }
 
     public void createChild(ServerLevel world, JellyfishEntity entity) {
@@ -227,8 +226,8 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
     @Override
@@ -242,7 +241,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
+    public AnimationFactory getFactory() {
         return factory;
     }
 
@@ -250,7 +249,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
-    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
+    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(HOVER_ANIMATION);
         }

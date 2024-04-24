@@ -1,11 +1,7 @@
 package com.mystic.atlantis.blocks.plants;
 
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -81,8 +77,8 @@ public class AtlanteanSaplingBlock extends SaplingBlock implements SimpleWaterlo
     }
 
     private void growTree(ServerLevel level, ChunkGenerator generator, BlockPos targetPos, BlockState targetState, RandomSource random) {
-        if (level.registryAccess().registry(Registries.CONFIGURED_FEATURE).isPresent()) {
-            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registries.CONFIGURED_FEATURE).get().get(new ResourceLocation(Reference.MODID, "atlantean_tree_configured"));
+        if (level.registryAccess().registry(Registry.CONFIGURED_FEATURE_REGISTRY).isPresent()) {
+            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registry.CONFIGURED_FEATURE_REGISTRY).get().get(new ResourceLocation(Reference.MODID, "atlantean_tree_configured"));
             BlockState legacyTargetState = level.getFluidState(targetPos).createLegacyBlock();
             
             level.setBlock(targetPos, legacyTargetState, 4);

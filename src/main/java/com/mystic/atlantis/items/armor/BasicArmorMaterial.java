@@ -4,6 +4,7 @@ import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Lazy;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,13 +41,13 @@ public class BasicArmorMaterial {
         }
 
         @Override
-        public int getDurabilityForType(ArmorItem.Type pType) {
-            return Max_Damage_Array[pType.getSlot().getIndex()] * maxDamageFactor;
+        public int getDurabilityForSlot(EquipmentSlot pType) {
+            return Max_Damage_Array[pType.getIndex()] * maxDamageFactor;
         }
 
         @Override
-        public int getDefenseForType(ArmorItem.Type pType) {
-            return damageReductionAmountArray[pType.getSlot().getIndex()];
+        public int getDefenseForSlot(EquipmentSlot pType) {
+            return damageReductionAmountArray[pType.getIndex()];
         }
 
         @Override

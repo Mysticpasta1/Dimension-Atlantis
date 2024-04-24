@@ -5,17 +5,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.RegistryObject;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class GeneralPlantBlockEntity<T extends GeneralPlantBlockEntity<?>> extends BlockEntity implements GeoBlockEntity {
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+public class GeneralPlantBlockEntity<T extends GeneralPlantBlockEntity<?>> extends BlockEntity implements IAnimatable {
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private final AnimationController<T> mainController;
 
     public GeneralPlantBlockEntity(RegistryObject<BlockEntityType<T>> registryObject, String name, BlockPos targetPos, BlockState targetState) {
@@ -23,18 +22,18 @@ public class GeneralPlantBlockEntity<T extends GeneralPlantBlockEntity<?>> exten
         mainController = new AnimationController<T>((T) this, name, 0, this::predicate);
     }
 
-    private <E extends BlockEntity & GeoAnimatable> PlayState predicate(AnimationState<E> event) {
+    private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         AnimationController<?> controller = event.getController();
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(mainController);
+    public void registerControllers(AnimationData controllerRegistrar) {
+        controllerRegistrar.addAnimationController(mainController);
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
+    public AnimationFactory getFactory() {
         return factory;
     }
 }

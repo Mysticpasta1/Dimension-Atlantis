@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -20,7 +21,7 @@ public class ItemArmorOrichalcum extends ArmorItem {
             (new ImmutableMap.Builder<ArmorMaterial, MobEffect>())
                     .put(BasicArmorMaterial.ARMOR_ORICHALCUM, MobEffects.DAMAGE_RESISTANCE).build();
 
-    public ItemArmorOrichalcum(ArmorMaterial material, Type slot, Properties settings) {
+    public ItemArmorOrichalcum(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
     }
 

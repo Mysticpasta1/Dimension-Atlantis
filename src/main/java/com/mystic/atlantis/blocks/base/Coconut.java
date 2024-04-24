@@ -25,7 +25,7 @@ public class Coconut extends DirectionalBlock {
 
     public Coconut(Properties properties) {
         super(properties
-                .sound(SoundType.CHERRY_WOOD)
+                .sound(SoundType.WOOD)
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));
         this.defaultBlockState().setValue(FACING, Direction.UP);

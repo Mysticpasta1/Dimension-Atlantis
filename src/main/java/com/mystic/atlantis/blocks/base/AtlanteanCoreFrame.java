@@ -15,11 +15,10 @@ import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.Nullable;
 
 public class AtlanteanCoreFrame extends EndPortalFrameBlock implements SimpleWaterloggedBlock {
@@ -28,7 +27,7 @@ public class AtlanteanCoreFrame extends EndPortalFrameBlock implements SimpleWat
     public static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
 
     public AtlanteanCoreFrame() {
-        super(Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.GLASS)
+        super(Properties.of(Material.METAL).sound(SoundType.GLASS)
                 .lightLevel((p_50847_) -> 1).strength(3.0F, 12f));
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE);
     }

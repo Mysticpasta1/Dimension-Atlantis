@@ -4,6 +4,7 @@ import com.mystic.atlantis.util.Reference;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,7 +17,7 @@ public class AtlantisSoundEventInit {
     public static final RegistryObject<SoundEvent> COLUMN = registerSound("column_cavitation");
 
     private static RegistryObject<SoundEvent> registerSound(String name) {
-        return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Reference.MODID, name)));
+        return SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation(Reference.MODID, name)));
     }
     
     public static void init(IEventBus bus) {

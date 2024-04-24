@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
-import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -13,9 +12,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.MapColor;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -24,7 +20,6 @@ public class CrystalRedstoneTransferenceBlock extends Block {
 
     public CrystalRedstoneTransferenceBlock(Properties properties) {
         super(properties.strength(4.5F)
-                .mapColor(MapColor.COLOR_LIGHT_BLUE)
                 .lightLevel((state) -> 5)
                 .sound(SoundType.AMETHYST)
                 .randomTicks());

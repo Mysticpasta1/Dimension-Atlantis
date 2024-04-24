@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,7 +26,7 @@ public class GeneralPlantBlock<T extends GeneralPlantBlockEntity<?>> extends Bus
     private final RegistryObject<BlockEntityType<T>> type;
 
     public GeneralPlantBlock(RegistryObject<BlockEntityType<T>> type) {
-        super(BlockBehaviour.Properties.of()
+        super(BlockBehaviour.Properties.of(Material.PLANT)
                 .noOcclusion()
                 .noCollission()
                 .sound(SoundType.GRASS)

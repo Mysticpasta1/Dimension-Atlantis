@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks.base;
 
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
@@ -39,7 +38,7 @@ public class AncientWoodDoorBlock extends DoorBlock implements SimpleWaterlogged
                 .sound(SoundType.WOOD)
                 .noOcclusion()
                 .requiresCorrectToolForDrops()
-                .strength(3.0F, 6.0F), BlockSetType.OAK);
+                .strength(3.0F, 6.0F));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(OPEN, false).setValue(HINGE, DoorHingeSide.LEFT).setValue(POWERED, false).setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
 

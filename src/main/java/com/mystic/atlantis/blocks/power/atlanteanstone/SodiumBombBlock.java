@@ -68,7 +68,7 @@ public class SodiumBombBlock extends Block {
 	@Override
 	public void wasExploded(Level level, BlockPos targetPos, Explosion explosion) {
 		if (!level.isClientSide) {
-			SodiumPrimedBombBlock primedtnt = new SodiumPrimedBombBlock(level, (double)targetPos.getX() + 0.5, targetPos.getY(), (double)targetPos.getZ() + 0.5, explosion.getIndirectSourceEntity());
+			SodiumPrimedBombBlock primedtnt = new SodiumPrimedBombBlock(level, (double)targetPos.getX() + 0.5, targetPos.getY(), (double)targetPos.getZ() + 0.5, explosion.getSourceMob());
 			int fuse = primedtnt.getFuse();
 			primedtnt.setFuse((short)(level.random.nextInt(fuse / 4) + fuse / 8));
 			level.addFreshEntity(primedtnt);

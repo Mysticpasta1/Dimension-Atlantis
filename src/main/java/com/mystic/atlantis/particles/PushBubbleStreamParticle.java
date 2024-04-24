@@ -1,5 +1,6 @@
 package com.mystic.atlantis.particles;
 
+import com.mojang.math.Vector3f;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
@@ -9,7 +10,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public class PushBubbleStreamParticle extends TextureSheetParticle {

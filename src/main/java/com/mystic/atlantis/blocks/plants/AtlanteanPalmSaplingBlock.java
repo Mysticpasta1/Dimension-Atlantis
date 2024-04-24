@@ -1,12 +1,9 @@
 package com.mystic.atlantis.blocks.plants;
 
-import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -16,18 +13,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.OakTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
@@ -69,8 +60,8 @@ public class AtlanteanPalmSaplingBlock extends SaplingBlock {
     }
 
     private void growTree(ServerLevel level, ChunkGenerator generator, BlockPos targetPos, BlockState targetState, RandomSource random) {
-        if (level.registryAccess().registry(Registries.CONFIGURED_FEATURE).isPresent()) {
-            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registries.CONFIGURED_FEATURE).get().get(new ResourceLocation(Reference.MODID, "atlantean_palm_tree_configured"));
+        if (level.registryAccess().registry(Registry.CONFIGURED_FEATURE_REGISTRY).isPresent()) {
+            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registry.CONFIGURED_FEATURE_REGISTRY).get().get(new ResourceLocation(Reference.MODID, "atlantean_palm_tree_configured"));
             BlockState legacyTargetState = level.getFluidState(targetPos).createLegacyBlock();
             
             level.setBlock(targetPos, legacyTargetState, 4);

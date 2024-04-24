@@ -61,20 +61,20 @@ public class AtlantisClearPortalBlock extends EndPortalBlock implements SimpleWa
             AtlanteanPortalForcer atlanteanPortalForcer = new AtlanteanPortalForcer(serverlevel);
 
             if(pEntity instanceof ServerPlayer player) {
-                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
+                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.portalCooldown == 0) {
                     player.changeDimension(serverlevel, atlanteanPortalForcer);
-                    player.setPortalCooldown(300);
-                } else if (player.getPortalCooldown() == 0) {
+                    player.portalCooldown = 300;
+                } else if (resourcekey.equals(Level.OVERWORLD) && pEntity.portalCooldown == 0) {
                     player.changeDimension(serverlevel, atlanteanPortalForcer);
-                    player.setPortalCooldown(300);
+                    player.setPortalCooldown();
                 }
             } else {
-                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
+                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.portalCooldown == 0) {
                     pEntity.changeDimension(serverlevel, atlanteanPortalForcer);
-                    pEntity.setPortalCooldown(300);
-                } else if (pEntity.getPortalCooldown() == 0) {
+                    pEntity.portalCooldown = 300;
+                } else if (resourcekey.equals(Level.OVERWORLD) && pEntity.portalCooldown == 0) {
                     pEntity.changeDimension(serverlevel, atlanteanPortalForcer);
-                    pEntity.setPortalCooldown(300);
+                    pEntity.portalCooldown = 300;
                 }
             }
         }
@@ -87,7 +87,7 @@ public class AtlantisClearPortalBlock extends EndPortalBlock implements SimpleWa
             }
 
             if (pLevel.getBlockState(pPos).isValidSpawn(pLevel, pPos, EntityType.DROWNED)) {
-                Entity entity = EntityType.DROWNED.spawn(pLevel, pPos.above(), MobSpawnType.STRUCTURE);
+                Entity entity = EntityType.DROWNED.create(pLevel);
                 if (entity != null) {
                     entity.setPortalCooldown();
                 }

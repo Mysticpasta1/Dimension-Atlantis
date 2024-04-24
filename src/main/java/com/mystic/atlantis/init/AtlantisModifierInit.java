@@ -47,7 +47,7 @@ public class AtlantisModifierInit {
 
 	private static class DataProvider extends GlobalLootModifierProvider {
 		public DataProvider(DataGenerator gen, String modid) {
-			super(gen.getPackOutput(), modid);
+			super(gen, modid);
 		}
 
 		@Override

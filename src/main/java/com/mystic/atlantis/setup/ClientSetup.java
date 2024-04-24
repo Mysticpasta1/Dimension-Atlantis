@@ -138,7 +138,7 @@ public class ClientSetup {
     }
 
     private static <T extends GeneralPlantBlockEntity<T>> void registerPlantRenderer(RegistryObject<BlockEntityType<T>> registryObject, String name) {
-        BlockEntityRenderers.register(registryObject.get(), pContext -> new GeneralPlantRenderer<T>(name));
+        BlockEntityRenderers.register(registryObject.get(), pContext -> new GeneralPlantRenderer<T>(pContext, name));
     }
 
     @SubscribeEvent

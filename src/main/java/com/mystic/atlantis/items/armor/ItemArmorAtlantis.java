@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -21,7 +22,7 @@ public class ItemArmorAtlantis extends ArmorItem {
             (new ImmutableMap.Builder<ArmorMaterial, MobEffect>())
                     .put(BasicArmorMaterial.ARMOR_AQUAMARINE, MobEffects.DOLPHINS_GRACE).build();
 
-    public ItemArmorAtlantis(ArmorMaterial material, Type slot, Properties settings) {
+    public ItemArmorAtlantis(ArmorMaterial material, EquipmentSlot slot, Properties settings) {
         super(material, slot, settings);
     }
 

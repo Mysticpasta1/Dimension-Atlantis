@@ -1,9 +1,10 @@
 package com.mystic.atlantis.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -18,13 +19,7 @@ public class OverlayEventHandler implements IGuiOverlay {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    @Override
-    public void render(ForgeGui gui, GuiGraphics poseStack, float partialTick, int width, int height) {
-        gui.setupOverlayRenderState(true, false);
-        renderCoconutBlur(gui, poseStack, width, height);
-    }
-
-    public void renderCoconutBlur(ForgeGui gui, GuiGraphics stack, int screenWidth, int screenHeight) {
+    public void renderCoconutBlur(ForgeGui gui, PoseStack stack, int screenWidth, int screenHeight) {
         if (minecraft.player != null) {
             if (minecraft.options.getCameraType().isFirstPerson()) {
                 if (!minecraft.player.isScoping()) {
@@ -37,13 +32,22 @@ public class OverlayEventHandler implements IGuiOverlay {
         }
     }
 
-    public static void renderTextureOverlay(GuiGraphics pGuiGraphics, ResourceLocation pShaderLocation, float pAlpha, int width, int height) {
+    public static void renderTextureOverlay(PoseStack stack, ResourceLocation pShaderLocation, float pAlpha, int width, int height) {
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
-        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, pAlpha);
-        pGuiGraphics.blit(pShaderLocation, 0, 0, -90, 0.0F, 0.0F, width, height, width, height);
+        RenderSystem.bindTexture(Minecraft.getInstance().textureManager.getTexture(pShaderLocation).getId());
+        stack.pushPose();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, pAlpha);
+        GuiComponent.blit(stack, 0, 0, -90, 0.0F, 0.0F, width, height, width, height);
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
-        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        stack.popPose();
+    }
+
+    @Override
+    public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
+        gui.setupOverlayRenderState(true, false);
+        renderCoconutBlur(gui, poseStack, width, height);
     }
 }

@@ -33,28 +33,27 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class SeahorseEntity extends WaterAnimal implements IAnimatable, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.INT);
-    private static final RawAnimation CORAL_IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.seahorse.coral-idle");
-    private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("animation.seahorse.idle");
-    private static final RawAnimation SWIM_ANIMATION = RawAnimation.begin().thenLoop("animation.seahorse.swim");
+    private static final AnimationBuilder CORAL_IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.seahorse.coral-idle", true);
+    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.seahorse.idle", true);
+    private static final AnimationBuilder SWIM_ANIMATION = new AnimationBuilder().addAnimation("animation.seahorse.swim", true);
 
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public SeahorseEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
@@ -198,8 +197,8 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
     @Override
@@ -208,7 +207,7 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
+    public AnimationFactory getFactory() {
         return factory;
     }
 
@@ -237,13 +236,13 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
-    private <P extends GeoAnimatable> PlayState predicate(AnimationState<P> event) {
+    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if (isMovingSlowly()) {
             event.getController().setAnimation(SWIM_ANIMATION);
         } else {
             for(BlockPos pos : HORIZONAL_DIRECTIONS) {
                 for (Block block : CORALS) {
-                    if (this.level().getBlockState(this.blockPosition().offset(pos)).equals(block.defaultBlockState())) {
+                    if (this.level.getBlockState(this.blockPosition().offset(pos)).equals(block.defaultBlockState())) {
                         event.getController().setAnimation(IDLE_ANIMATION); //TODO Coral Animation is borked atm so regular animation is used for now!
                     } else {
                         event.getController().setAnimation(IDLE_ANIMATION);

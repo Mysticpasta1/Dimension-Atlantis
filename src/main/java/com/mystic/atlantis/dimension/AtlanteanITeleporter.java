@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.border.WorldBorder;
@@ -38,7 +39,7 @@ public interface AtlanteanITeleporter extends ITeleporter {
                     vec3 = new Vec3(0.5D, 0.0D, 0.0D);
                 }
 
-                return PortalShape.createPortalInfo(destWorld, p_258249_, direction$axis, vec3, player, player.getDeltaMovement(), player.getYRot(), player.getXRot());
+                return PortalShape.createPortalInfo(destWorld, p_258249_, direction$axis, vec3, EntityDimensions.fixed(player.getBbWidth(), player.getBbHeight()), player.getDeltaMovement(), player.getYRot(), player.getXRot());
             }).orElse(null);
         } else {
             return this.getExitPortal(destWorld, entity.blockPosition(), DimensionAtlantis.isAtlantisDimension(destWorld), destWorld.getWorldBorder(), entity).map((p_258249_) -> {
@@ -54,7 +55,7 @@ public interface AtlanteanITeleporter extends ITeleporter {
                     vec3 = new Vec3(0.5D, 0.0D, 0.0D);
                 }
 
-                return PortalShape.createPortalInfo(destWorld, p_258249_, direction$axis, vec3, entity, entity.getDeltaMovement(), entity.getYRot(), entity.getXRot());
+                return PortalShape.createPortalInfo(destWorld, p_258249_, direction$axis, vec3, EntityDimensions.fixed(entity.getBbWidth(), entity.getBbHeight()), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot());
             }).orElse(null);
         }
     }
@@ -62,15 +63,15 @@ public interface AtlanteanITeleporter extends ITeleporter {
     default Optional<BlockUtil.FoundRectangle> getExitPortal(ServerLevel pDestination, BlockPos pFindFrom, boolean doesNothing, boolean pIsToAtlantis, WorldBorder pWorldBorder, ServerPlayer serverPlayer) {
         Optional<BlockUtil.FoundRectangle> optional = this.getExitPortal(pDestination, pFindFrom, pIsToAtlantis, pWorldBorder, serverPlayer);
         if (optional.isPresent()) {
-            if (serverPlayer.getPortalCooldown() == 0) {
-                serverPlayer.setPortalCooldown(300);
+            if (serverPlayer.portalCooldown == 0) {
+                serverPlayer.portalCooldown = 300;
                 return optional;
             }
         } else {
-            Direction.Axis direction$axis = serverPlayer.level().getBlockState(serverPlayer.blockPosition()).getOptionalValue(BlockStateProperties.AXIS).orElse(Direction.Axis.Y);
+            Direction.Axis direction$axis = serverPlayer.level.getBlockState(serverPlayer.blockPosition()).getOptionalValue(BlockStateProperties.AXIS).orElse(Direction.Axis.Y);
             AtlanteanPortalForcer atlanteanPortalForcer = new AtlanteanPortalForcer(pDestination);
-            if (serverPlayer.getPortalCooldown() == 0) {
-                serverPlayer.setPortalCooldown(300);
+            if (serverPlayer.portalCooldown == 0) {
+                serverPlayer.portalCooldown = 300;
                 Optional<BlockUtil.FoundRectangle> optional1 = atlanteanPortalForcer.createPortal(pFindFrom, direction$axis);
                 if (optional1.isEmpty()) {
                     LOGGER.error("Unable to create a portal, likely target out of worldborder");

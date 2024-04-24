@@ -359,30 +359,6 @@
           ]
         }
       ]
-    },
-    {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "entries": [
-        {
-          "type": "minecraft:empty",
-          "weight": 11
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:angler_pottery_sherd"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "atlantis:orichalcum_upgrade_smithing_template"
-        }
-      ]
     }
   ],
   "random_sequence": "atlantis:chests/atlantean_loot"

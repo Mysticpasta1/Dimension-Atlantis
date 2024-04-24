@@ -107,7 +107,7 @@ public class AtlanteanFireMelonFruitBlock extends HorizontalDirectionalBlock imp
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, boolean b) {
         return true;
     }
 

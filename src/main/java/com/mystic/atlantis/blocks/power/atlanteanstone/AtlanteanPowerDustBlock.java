@@ -1,6 +1,7 @@
 package com.mystic.atlantis.blocks.power.atlanteanstone;
 
 import com.google.common.collect.Sets;
+import com.mojang.math.Vector3f;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.mixin.RedstoneAccessor;
@@ -31,13 +32,13 @@ import java.util.Set;
 public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements SimpleWaterloggedBlock {
     public static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
     public static final Property<Integer> POWER = RedStoneWireBlock.POWER;
-    private static Vec3[] COLOR = Util.make(new Vec3[16], (vec3ds) -> {
+    private static Vector3f[] COLOR = Util.make(new Vector3f[16], (vec3ds) -> {
         for (int i = 0; i <= 15; ++i) {
             float f = (float) i / 15.0F;
             float r = Mth.clamp(f * f * 0.7F - 0.5F, 0.0F, 1.0F);
             float g = Mth.clamp(f * f * 0.6F - 0.7F, 0.0F, 1.0F);
             float b = f * 0.6F + (f > 0.0F ? 0.4F : 0.3F);
-            vec3ds[i] = new Vec3(r, g, b);
+            vec3ds[i] = new Vector3f(r, g, b);
         }
     });
 
@@ -68,7 +69,7 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
         }
     }
 
-    private void spawnParticlesAlongLine(Level level, RandomSource random, BlockPos targetPos, Vec3 spawnVec, Direction curDir, Direction targetDir, float of1, float of2) {
+    private void spawnParticlesAlongLine(Level level, RandomSource random, BlockPos targetPos, Vector3f spawnVec, Direction curDir, Direction targetDir, float of1, float of2) {
         float offsetMod = of2 - of1;
 
         if (!(random.nextFloat() >= 0.2F * offsetMod)) {
@@ -76,7 +77,7 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
             double targetX = 0.5D + (double) (0.4375F * (float) curDir.getStepX()) + (double) (offset * (float) targetDir.getStepX());
             double targetY = 0.5D + (double) (0.4375F * (float) curDir.getStepY()) + (double) (offset * (float) targetDir.getStepY());
             double targetZ = 0.5D + (double) (0.4375F * (float) curDir.getStepZ()) + (double) (offset * (float) targetDir.getStepZ());
-            level.addParticle(new DustParticleOptions(spawnVec.toVector3f(), 1.0F), (double) targetPos.getX() + targetX, (double) targetPos.getY() + targetY, (double) targetPos.getZ() + targetZ, 0.0D, 0.0D, 0.0D);
+            level.addParticle(new DustParticleOptions(spawnVec, 1.0F), (double) targetPos.getX() + targetX, (double) targetPos.getY() + targetY, (double) targetPos.getZ() + targetZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
