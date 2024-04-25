@@ -66,7 +66,7 @@ public class AtlantisClearPortalBlock extends EndPortalBlock implements SimpleWa
                     player.portalCooldown = 300;
                 } else if (resourcekey.equals(Level.OVERWORLD) && pEntity.portalCooldown == 0) {
                     player.changeDimension(serverlevel, atlanteanPortalForcer);
-                    player.setPortalCooldown();
+                    player.portalCooldown = 300;
                 }
             } else {
                 if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.portalCooldown == 0) {
