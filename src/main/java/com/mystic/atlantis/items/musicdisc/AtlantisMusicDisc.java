@@ -2,6 +2,7 @@ package com.mystic.atlantis.items.musicdisc;
 
 import java.util.function.Supplier;
 
+import com.mystic.atlantis.init.AtlantisGroupInit;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.RecordItem;
 

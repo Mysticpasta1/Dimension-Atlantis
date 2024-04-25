@@ -11,10 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "atlantis:atlantis_clear_portal"
+          "name": "minecraft:air"
         }
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "atlantis:blocks/atlantis_clear_portal"
 }

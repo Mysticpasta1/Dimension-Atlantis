@@ -4,6 +4,8 @@ import com.mystic.atlantis.Atlantis;
 
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Arrays;
+
 public enum LinguisticGlyph {
     BLANK(""),
     A("a"),

@@ -1,12 +1,7 @@
 package com.mystic.atlantis.entities;
 
-import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
-
-import org.jetbrains.annotations.Nullable;
-
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.init.ItemInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,21 +15,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -47,6 +31,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -60,10 +45,10 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.INT);
     protected static final Ingredient TEMPT_ITEMS = Ingredient.of(Items.SEAGRASS);
-    private static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", LOOP);
-    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", LOOP);
+    static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", true);
+    static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    private final AnimationController<CrabEntity> mainController = new AnimationController<CrabEntity>(this, "crabController", 2, this::mainPredicate);
+    private final AnimationController<CrabEntity> mainController = new AnimationController<>(this, "crabController", 2, this::mainPredicate);
 
     public CrabEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
@@ -116,11 +101,6 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
     @Override
     public boolean canBreatheUnderwater() {
         return true;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(mainController);
     }
 
     @Override
@@ -234,7 +214,7 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
         return this.getDeltaMovement().x() != 0.0f && this.getDeltaMovement().y() != 0.0f && this.getDeltaMovement().z() != 0.0f;
     }
 
-    private <P extends IAnimatable> PlayState mainPredicate(AnimationEvent<P> event) {
+    private <P extends CrabEntity> PlayState mainPredicate(AnimationEvent<P> event) {
         if(isMovingSlowly()) {
             event.getController().setAnimation(WALK_ANIMATION);
             return PlayState.CONTINUE;
@@ -245,12 +225,17 @@ public class CrabEntity extends Animal implements IAnimatable, Bucketable {
         return PlayState.CONTINUE;
     }
 
+    public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= AtlantisConfig.INSTANCE.minCrabSpawnHeight.get() && AtlantisConfig.INSTANCE.maxCrabSpawnHeight.get() >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(mainController);
+    }
+
     @Override
     public AnimationFactory getFactory() {
         return factory;
-    }
-
-    public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= AtlantisConfig.INSTANCE.minCrabSpawnHeight.get() && AtlantisConfig.INSTANCE.maxCrabSpawnHeight.get() >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 }

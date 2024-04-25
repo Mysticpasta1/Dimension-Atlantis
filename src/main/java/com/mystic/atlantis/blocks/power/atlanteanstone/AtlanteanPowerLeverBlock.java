@@ -31,7 +31,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class AtlanteanPowerLeverBlock extends LeverBlock implements SimpleWaterloggedBlock {
 	private static final Property<Boolean> WATERLOGGED = UnderwaterFlower.WATERLOGGED;
-	public static final Vector3f COLOR = new Vector3f(Vec3.fromRGB24(0x0000FF));
+	public static final Vector3f COLOR = new Vector3f((float) Vec3.fromRGB24(0x0000FF).x(), (float) Vec3.fromRGB24(0x0000FF).y(), (float) Vec3.fromRGB24(0x0000FF).z());
 
 	public AtlanteanPowerLeverBlock(Properties settings) {
 		super(settings);

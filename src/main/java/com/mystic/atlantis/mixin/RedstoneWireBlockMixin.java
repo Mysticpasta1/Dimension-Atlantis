@@ -2,6 +2,7 @@ package com.mystic.atlantis.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -18,10 +19,10 @@ import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(RedStoneWireBlock.class)
-public abstract class RedstoneWireBlockMixin{
+public abstract class RedstoneWireBlockMixin {
 
     @Redirect(method = "shouldConnectTo(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0))
-    private static boolean is(BlockState state, Block block){
+    private static boolean is(BlockState state, Block block) {
         return state.is(block) || state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get());
     }
 
@@ -50,7 +51,7 @@ public abstract class RedstoneWireBlockMixin{
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
                         || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
-                        || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
+                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
                     cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
                 }
             }

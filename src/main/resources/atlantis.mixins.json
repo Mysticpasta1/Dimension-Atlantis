@@ -5,7 +5,6 @@
   "refmap": "atlantis.refmap.json",
   "mixins": [
     "BlockEntityTypeMixin",
-    "BlockMixin",
     "BoatEntityAccessor",
     "BucketItemMixin",
     "CanBreatheInDimension",
@@ -15,11 +14,9 @@
     "ItemCombinerMenuMixin",
     "ItemEntityMixin",
     "ItemMixin",
-    "LightingProviderMixin",
     "RedstoneAccessor",
     "RedstoneWireBlockMixin",
-    "RenderBubblesMixin",
-    "WorldLightManagerMixin"
+    "RenderBubblesMixin"
   ],
   "client": [
     "VisibilityMixin"

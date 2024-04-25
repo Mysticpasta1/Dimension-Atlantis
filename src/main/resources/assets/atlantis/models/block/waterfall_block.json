@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "atlantis:block/waterfall_block_bottom",
+    "front": "atlantis:block/waterfall_block_front",
+    "side": "atlantis:block/waterfall_block_side",
+    "top": "atlantis:block/waterfall_block_top"
+  }
+}

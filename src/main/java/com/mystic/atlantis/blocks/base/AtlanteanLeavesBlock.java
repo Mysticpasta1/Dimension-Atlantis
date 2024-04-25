@@ -10,6 +10,8 @@ public class AtlanteanLeavesBlock extends LeavesBlock implements SimpleWaterlogg
         super(settings
                 .sound(SoundType.GRASS)
                 .requiresCorrectToolForDrops()
-                .strength(1.0F, 2.0F));
+                .strength(0.5F)
+                .randomTicks()
+                .noOcclusion());
     }
 }

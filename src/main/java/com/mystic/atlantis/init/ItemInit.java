@@ -1,36 +1,24 @@
 package com.mystic.atlantis.init;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
-
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.items.*;
 import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
+import com.mystic.atlantis.items.armor.ItemArmorOrichalcum;
 import com.mystic.atlantis.items.armor.ItemArmorWrought;
-import com.mystic.atlantis.items.item.energybased.AtlanteanCrystal;
+import com.mystic.atlantis.items.tools.AtlanteanAmuletItem;
+import com.mystic.atlantis.items.AtlanteanCrystal;
+import com.mystic.atlantis.items.tools.AtlanteanSpearItem;
 import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
-import com.mystic.atlantis.items.tools.AquamarineAxe;
-import com.mystic.atlantis.items.tools.AquamarineHoe;
-import com.mystic.atlantis.items.tools.AquamarinePickaxe;
-import com.mystic.atlantis.items.tools.AquamarineShovel;
-import com.mystic.atlantis.items.tools.AquamarineSword;
+import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
-
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SignItem;
-import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -38,60 +26,63 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 public class ItemInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
     private static final Map<LinguisticGlyph, RegistryObject<Item>> scrolls = new HashMap<>();
 
-    private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1).tab(AtlantisGroupInit.MAIN);
-//    private static final Item.Properties ATLANTIS_GLYPH = new Item.Properties().tab(AtlantisGroupInit.GLYPH);
+    private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().tab(AtlantisGroupInit.MAIN).stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1);
 
-    //Energy TODO fix Energy Items
-  //  public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmuletItem::new);
-  //  public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(new Item.Properties().tab(AtlantisGroup.MAIN).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmuletItem::new);
+    public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(ToolInit.AQUAMARINE, 5));
 
     //BOATS
-    public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1).tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().tab(AtlantisGroupInit.MAIN).stacksTo(1)));
 
     //SPAWN EGGS
-    public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> ATLANTEAN_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SHRIMP, 0xff0000, 0xff8000, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> ATLANTEAN_JELLYFISH_EGG = register("atlantean_jellyfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.JELLYFISH, 0x00458a, 0x0582ff, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> ATLANTEAN_SHRIMP_EGG = register("atlantean_shrimp_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SHRIMP, 0xff0000, 0xff8000, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> LEVIATHAN_EGG = register("leviathan_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.LEVIATHAN, 0x01ddddd, 0xaddedb, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
 
-    public static final RegistryObject<Item> ATLANTEAN_SEAHORSE_EGG = register("atlantean_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ATLANTEAN_SEAHORSE_EGG = register("atlantean_seahorse_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.SEAHORSE, 0xf6eb3e, 0xcfc85b, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
 
-    //public static final RegistryObject<Item> COCONUT_CRAB_EGG = register("coconut_crab_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.COCONUT_CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH_ZOM, 0xFE00F6, 0x00A170, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> COCONUT_CRAB_EGG = register("coconut_crab_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.COCONUT_CRAB, 0x800002, 0xff0f45, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH_ZOM, 0xFE00F6, 0x00A170, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     //MUSIC DISC
     public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.PANBEE, ATLANTIS_SETTINGS, 10));
     public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 10));
 
     //ITEMS
-    public static final RegistryObject<Item> SODIUM_NUGGET = register("sodium_nugget", () -> new SodiumItem(new Item.Properties()));
+    public static final RegistryObject<Item> BROKEN_SHELLS = register("broken_shells", DefaultItem::new);
+    public static final RegistryObject<Item> SODIUM_NUGGET = register("sodium_nugget", () -> new SodiumItem(new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> SEA_SALT = register("sea_salt", DefaultItem::new);
-    public static final RegistryObject<Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", () -> new FireMelonJellyBottle(new Item.Properties()));
-    public static final RegistryObject<Item> JELLY_BOTTLE = register("jellyfish_jelly_bottle", () -> new JellyfishJellyBottle(new Item.Properties()));
+    public static final RegistryObject<Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", () -> new FireMelonJellyBottle(new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> JELLY_BOTTLE = register("jellyfish_jelly_bottle", () -> new JellyfishJellyBottle(new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> AQUAMARINE_GEM = register("aquamarine_gem", DefaultItem::new);
-    public static final RegistryObject<Item> ORICHALCUM_IGNOT = register("orichalcum_ignot", DefaultItem::new);
+    public static final RegistryObject<Item> ORICHALCUM_INGOT = register("orichalcum_ingot", DefaultItem::new);
     public static final RegistryObject<Item> ORICHALCUM_BLEND = register("orichalcum_blend", DefaultItem::new);
-    public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis", DefaultItem::new);
+    public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis", OrbOfAtlantis::new);
     public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = register("atlantean_crystal", AtlanteanCrystal::new);
     public static final RegistryObject<Item> OCEAN_STONE = register("ocean_stone", DefaultItem::new);
     public static final RegistryObject<Item> DROP_OF_ATLANTIS = register("drop_of_atlantis", DefaultItem::new);
     public static final RegistryObject<Item> BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", DefaultItem::new);
     public static final RegistryObject<Item> CRAB_LEGS = register("crab_legs", () -> new CrabLegsItem(new Item.Properties().tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> SHRIMP = register("shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(0.2f).effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100), 0.05f).build()).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> COOKED_SHRIMP = register("cooked_shrimp", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(2).saturationMod(0.4f).build()).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", () -> new StandingAndWallBlockItem(BlockInit.ATLANTEAN_POWER_TORCH.get(), BlockInit.WALL_ATLANTEAN_POWER_TORCH.get(), (new Item.Properties().tab(AtlantisGroupInit.MAIN))));
-    public static final RegistryObject<Item> ATLANTEAN_POWER_DUST = register("atlantean_power_dust",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get(), (new Item.Properties().tab(AtlantisGroupInit.MAIN))));
+    public static final RegistryObject<Item> SHRIMP = register("shrimp", () -> new Item(new Item.Properties().tab(AtlantisGroupInit.MAIN).food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(0.2f).effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100), 0.05f).build())));
+    public static final RegistryObject<Item> COOKED_SHRIMP = register("cooked_shrimp", () -> new Item(new Item.Properties().tab(AtlantisGroupInit.MAIN).food(new FoodProperties.Builder().meat().nutrition(2).saturationMod(0.4f).build())));
+    public static final RegistryObject<Item> ATLANTEAN_POWER_TORCH = register("atlantean_power_torch", () -> new StandingAndWallBlockItem(BlockInit.ATLANTEAN_POWER_TORCH.get(), BlockInit.WALL_ATLANTEAN_POWER_TORCH.get(), new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> ATLANTEAN_POWER_DUST = register("atlantean_power_dust",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get(), new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties().tab(AtlantisGroupInit.MAIN))));
     public static final RegistryObject<Item> SUBMARINE = register("submarine", () -> new SubmarineItem(new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> WATER_PILL = register("water_pill", WaterPill::new);
     public static final RegistryObject<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties().tab(AtlantisGroupInit.MAIN), BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
 
-    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT = register("atlantean_fire_melon_fruit", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).build())));
-    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = register("atlantean_fire_melon_fruit_spiked", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));
+    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT = register("atlantean_fire_melon_fruit", () -> new Item(new Item.Properties().tab(AtlantisGroupInit.MAIN).food(new FoodProperties.Builder().nutrition(1).saturationMod(1).build())));
+    public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = register("atlantean_fire_melon_fruit_spiked", () -> new Item(new Item.Properties().tab(AtlantisGroupInit.MAIN).food(new FoodProperties.Builder().nutrition(1).saturationMod(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));
 
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SEEDS = register("atlantean_fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(), new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SPIKE = register("atlantean_fire_melon_spike",  DefaultItem::new);
@@ -135,20 +126,20 @@ public class ItemInit {
     public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_9 = registerGlyph(LinguisticGlyph.NINE);
 
     //Fluid Buckets
-    public static final RegistryObject<Item> JETSTREAM_WATER_BUCKET = ITEMS.register("jetstream_water_bucket",
-            () -> new BucketItem(FluidInit.JETSTREAM_WATER,
+    public static final RegistryObject<Item> JETSTREAM_WATER_BUCKET = ITEMS.register("jetstream_water_bucket", () -> new BucketItem(FluidInit.JETSTREAM_WATER,
                     new Item.Properties().tab(AtlantisGroupInit.MAIN).craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final RegistryObject<Item> SALTY_SEA_WATER_BUCKET = ITEMS.register("salty_sea_water_bucket",
             () -> new BucketItem(FluidInit.SALTY_SEA_WATER,
                     new Item.Properties().tab(AtlantisGroupInit.MAIN).craftRemainder(Items.BUCKET).stacksTo(1)));
+    //public static final RegistryObject<Item> COCONUT_MILK_BUCKET = ITEMS.register("coconut_milk_bucket",
+    //        () -> new BucketItem(FluidInit.COCONUT_MILK,
+    //                new Item.Properties().tab(AtlantisGroupInit.MAIN).craftRemainder(Items.BUCKET).stacksTo(1)));
 
     //Entity Buckets
-    public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> SEAHORSE_BUCKET = register("seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
-
-    //public static final RegistryObject<Item> COCONUT_CRAB_BUCKET = register("coconut_crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.COCONUT_CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1).tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> CRAB_BUCKET = register("crab_bucket", ()->new CrabEntityBucketItem(AtlantisEntityInit.CRAB, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties().tab(AtlantisGroupInit.MAIN)).stacksTo(1)));
+    public static final RegistryObject<Item> JELLYFISH_BUCKET = register("jellyfish_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.JELLYFISH, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties().tab(AtlantisGroupInit.MAIN)).stacksTo(1)));
+    public static final RegistryObject<Item> SHRIMP_BUCKET = register("shrimp_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SHRIMP, ()->Fluids.WATER, ()->SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties().tab(AtlantisGroupInit.MAIN)).stacksTo(1)));
+    public static final RegistryObject<Item> SEAHORSE_BUCKET = register("seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties().tab(AtlantisGroupInit.MAIN)).stacksTo(1)));
 
     //TOOLS
     public static final RegistryObject<Item> AXE_AQUAMARINE = register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 3));
@@ -171,21 +162,22 @@ public class ItemInit {
     public static final RegistryObject<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
     public static final RegistryObject<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> ORICHALCUM_HELMET = register("orichalcum_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> ORICHALCUM_CHESTPLATE = register("orichalcum_chestplate", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> ORICHALCUM_LEGGINGS= register("orichalcum_leggings", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
-    public static final RegistryObject<Item> ORICHALCUM_BOOTS = register("orichalcum_boots", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+
+    public static final RegistryObject<Item> ORICHALCUM_HELMET = register("orichalcum_helmet", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.HEAD, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> ORICHALCUM_CHESTPLATE = register("orichalcum_chestplate", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.CHEST, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> ORICHALCUM_LEGGINGS= register("orichalcum_leggings", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.LEGS, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
+    public static final RegistryObject<Item> ORICHALCUM_BOOTS = register("orichalcum_boots", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, EquipmentSlot.FEET, new Item.Properties().tab(AtlantisGroupInit.MAIN)));
 
     public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> item) {
         return ITEMS.register(name, item);
     }
 
-    static <T extends Item> RegistryObject<T> register(Supplier<T> c, String id) {
-        return register(id, c);
+    public static <T extends Item> RegistryObject<T> registerToGlyph(String name, Supplier<T> item) {
+        return ITEMS.register(name, item);
     }
 
     static RegistryObject<Item> registerGlyph(LinguisticGlyph symbol) {
-        RegistryObject<Item> registryObject = register(() -> new LinguisticGlyphScrollItem(symbol), "linguistic_glyph_scroll" + symbol.toString());
+        RegistryObject<Item> registryObject = registerToGlyph("linguistic_glyph_scroll" + symbol.toString(), () -> new LinguisticGlyphScrollItem(symbol));
         scrolls.put(symbol, registryObject);
         return registryObject;
     }

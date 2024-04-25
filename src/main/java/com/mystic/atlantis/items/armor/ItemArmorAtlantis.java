@@ -1,12 +1,7 @@
 package com.mystic.atlantis.items.armor;
 
-import java.util.Map;
-import java.util.Random;
-
 import com.google.common.collect.ImmutableMap;
-
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -17,6 +12,10 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+import java.util.Random;
 
 public class ItemArmorAtlantis extends ArmorItem {
     private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP =
@@ -28,12 +27,10 @@ public class ItemArmorAtlantis extends ArmorItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-        if(!world.isClientSide()) {
-            if(entity instanceof Player) {
-                Player player = (Player)entity;
-
-                if(hasFullSuitOfArmorOn(player)) {
+    public void inventoryTick(@NotNull ItemStack stack, Level world, @NotNull Entity entity, int slot, boolean selected) {
+        if (!world.isClientSide()) {
+            if (entity instanceof Player player) {
+                if (hasFullSuitOfArmorOn(player)) {
                     evaluateArmorEffects(player);
                 }
             }
@@ -47,7 +44,7 @@ public class ItemArmorAtlantis extends ArmorItem {
             ArmorMaterial mapArmorMaterial = entry.getKey();
             MobEffect mapStatusEffect = entry.getValue();
 
-            if(hasCorrectArmorOn(mapArmorMaterial, player)) {
+            if (hasCorrectArmorOn(mapArmorMaterial, player)) {
                 addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
             }
         }
@@ -56,12 +53,8 @@ public class ItemArmorAtlantis extends ArmorItem {
     private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffect mapStatusEffect) {
         boolean hasPlayerEffect = player.hasEffect(mapStatusEffect);
 
-        if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
-            player.addEffect(new MobEffectInstance(mapStatusEffect, 200));
-
-            if(new Random().nextFloat() > 0.6f) { // 40% of damaging the armor! Possibly!
-                player.getInventory().hurtArmor(DamageSource.MAGIC, 1f, new int[]{0, 1, 2, 3});
-            }
+        if (hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
+            player.addEffect(new MobEffectInstance(mapStatusEffect, 200, 1, false, false));
         }
     }
 

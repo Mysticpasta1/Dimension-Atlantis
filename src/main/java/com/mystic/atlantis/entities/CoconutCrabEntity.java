@@ -1,43 +1,22 @@
 package com.mystic.atlantis.entities;
 
-import java.util.UUID;
-
-import org.jetbrains.annotations.Nullable;
-
-import com.mystic.atlantis.init.ItemInit;
-
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.NeutralMob;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -47,10 +26,26 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob {
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CoconutCrabEntity.class, EntityDataSerializers.BOOLEAN);
+import java.util.UUID;
+
+public class CoconutCrabEntity extends Animal implements NeutralMob, IAnimatable {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<>(this, "coconutCrabController", 2, this::mainPredicate);
+    static final AnimationBuilder NUTON_ANIMATION = new AnimationBuilder().addAnimation("animation.coconut_crab.nuton", true);
+    static final AnimationBuilder WALK_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.walk", true);
+    static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
+
     private int remainingPersistentAngerTime;
     @Nullable
     private UUID persistentAngerTarget;
@@ -64,42 +59,13 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
         return world.isUnobstructed(this);
     }
 
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
-    }
-
-    @Override
-    public void saveToBucketTag(ItemStack stack) {
-        Bucketable.saveDefaultDataToBucketTag(this, stack);
+    public static boolean canSpawn(EntityType<CoconutCrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
+        return pos.getY() >= 350 && 512 >= pos.getY();
     }
 
     @Override
     public MobType getMobType() {
         return MobType.WATER;
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag nbt) {
-        Bucketable.loadDefaultDataFromBucketTag(this, nbt);
-    }
-
-    @Override
-    public ItemStack getBucketItemStack() {
-        return ItemInit.CRAB_BUCKET.get().getDefaultInstance();
-    }
-
-    @Override
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_FISH;
-    }
-
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
     }
 
     public static AttributeSupplier.Builder createCoconutCrabAttributes() {
@@ -108,18 +74,17 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
 
     @Override
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.fromBucket();
+        return super.requiresCustomPersistence();
     }
 
     @Override
     public boolean removeWhenFarAway(double distanceSquared) {
-        return !this.fromBucket() && !this.hasCustomName();
+        return !this.hasCustomName();
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
     }
 
     @Override
@@ -129,13 +94,11 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
 
     @Override
     public void load(CompoundTag nbt) {
-        this.setFromBucket(nbt.getBoolean("FromBucket"));
         super.load(nbt);
     }
 
     @Override
     public CompoundTag saveWithoutId(CompoundTag nbt) {
-        nbt.putBoolean("FromBucket", this.fromBucket());
         return super.saveWithoutId(nbt);
     }
 
@@ -146,12 +109,10 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
 
     @Override
     protected void registerGoals() {
-
-        goalSelector.addGoal(8, new LookAtPlayerGoal(this, LivingEntity.class, 10));
-        goalSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers(CoconutCrabEntity.class));
-        goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
-        goalSelector.addGoal(4, new PanicGoal(this, 0.8));
+        goalSelector.addGoal(7, new LookAtPlayerGoal(this, LivingEntity.class, 10));
+        goalSelector.addGoal(6, new HurtByTargetGoal(this).setAlertOthers(CoconutCrabEntity.class));
+        goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.SEAGRASS), false));
         goalSelector.addGoal(2, new TryFindWaterGoal(this));
         goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
@@ -172,13 +133,8 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
                         }
                         return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.FAIL;
                 }
-                return InteractionResult.FAIL;
             }
-            return InteractionResult.FAIL;
-        } else if (player.getItemInHand(hand).getItem() == Items.WATER_BUCKET) {
-            return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
         }
         return InteractionResult.FAIL;
     }
@@ -217,6 +173,19 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
+    private <P extends IAnimatable> PlayState mainPredicate(AnimationEvent<P> event) {
+        if(isMovingSlowly()) {
+            event.getController().setAnimation(WALK_ANIMATION);
+        } else if (!isMovingSlowly()) {
+            if (this.hurtMarked) {
+                event.getController().setAnimation(NUTON_ANIMATION);
+            } else {
+                event.getController().setAnimation(IDLE_ANIMATION);
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
     @Override
     public void setRemainingPersistentAngerTime(int i) {
         this.remainingPersistentAngerTime = i;
@@ -238,4 +207,13 @@ public class CoconutCrabEntity extends Animal implements Bucketable, NeutralMob 
         return this.persistentAngerTarget;
     }
 
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(mainController);
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
+    }
 }

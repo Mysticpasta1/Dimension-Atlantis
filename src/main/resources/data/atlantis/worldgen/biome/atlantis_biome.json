@@ -2,7 +2,6 @@
   "temperature": 0.5,
   "downfall": 0,
   "precipitation": "none",
-  "category": "ocean",
   "effects": {
     "sky_color": 27571,
     "fog_color": 59110,
@@ -103,7 +102,7 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_redstone_lower",
       "minecraft:ore_tuff",
-      "atlantis:aquamarine_placed",
+      "atlantis:aquamarine",
       "atlantis:ore_sunken_gravel_placed"
     ],
     [],

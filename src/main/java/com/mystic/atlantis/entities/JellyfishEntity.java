@@ -1,15 +1,7 @@
 package com.mystic.atlantis.entities;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.mystic.atlantis.init.ItemInit;
-
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,7 +33,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -48,6 +44,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketable {
 
@@ -61,7 +60,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     private float ty;
     private float tz;
 
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
@@ -144,7 +143,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
         this.entityData.set(VARIANT, this.random.nextInt(100) > 50 ? 1 : 2);
-        this.entityData.set(COLOR, betterNiceColor());
+        this.entityData.set(COLOR, this.random.nextInt(15));
         return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
@@ -193,7 +192,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(COLOR, betterNiceColor());
+        this.entityData.define(COLOR, this.random.nextInt(15));
     }
 
     @Override
@@ -216,10 +215,6 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
         }
     }
 
-    public static int betterNiceColor() {
-        return ThreadLocalRandom.current().nextInt(0x01000000);
-    }
-
     @Override
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
@@ -232,7 +227,7 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
     @Override

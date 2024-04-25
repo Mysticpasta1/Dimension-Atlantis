@@ -1,7 +1,7 @@
 {
   "type": "minecraft:ore",
   "config": {
-    "size": 25,
+    "size": 10,
     "discard_chance_on_air_exposure": 0,
     "targets": [
       {
@@ -19,7 +19,7 @@
           "tag": "minecraft:deepslate_ore_replaceables"
         },
         "state": {
-          "Name": "atlantis:aquamarine_ore"
+          "Name": "atlantis:aquamarine_deepslate_ore"
         }
       }
     ]

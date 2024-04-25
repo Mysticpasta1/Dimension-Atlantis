@@ -3,7 +3,6 @@ package com.mystic.atlantis.recipes;
 import com.google.gson.JsonObject;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.RecipesInit;
-
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;

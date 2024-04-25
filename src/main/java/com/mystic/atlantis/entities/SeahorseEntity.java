@@ -1,12 +1,6 @@
 package com.mystic.atlantis.entities;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import javax.annotation.Nullable;
-
 import com.mystic.atlantis.init.ItemInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,11 +15,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -50,6 +40,11 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SeahorseEntity extends WaterAnimal implements IAnimatable, Bucketable {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.BOOLEAN);
@@ -58,7 +53,7 @@ public class SeahorseEntity extends WaterAnimal implements IAnimatable, Bucketab
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.seahorse.idle", true);
     private static final AnimationBuilder SWIM_ANIMATION = new AnimationBuilder().addAnimation("animation.seahorse.swim", true);
 
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public SeahorseEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
@@ -203,7 +198,7 @@ public class SeahorseEntity extends WaterAnimal implements IAnimatable, Bucketab
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
     @Override
@@ -247,7 +242,7 @@ public class SeahorseEntity extends WaterAnimal implements IAnimatable, Bucketab
         } else {
             for(BlockPos pos : HORIZONAL_DIRECTIONS) {
                 for (Block block : CORALS) {
-                    if (this.getLevel().getBlockState(new BlockPos(this.getX(), this.getY(), this.getZ()).offset(pos)).equals(block.defaultBlockState())) {
+                    if (this.level.getBlockState(this.blockPosition().offset(pos)).equals(block.defaultBlockState())) {
                         event.getController().setAnimation(IDLE_ANIMATION); //TODO Coral Animation is borked atm so regular animation is used for now!
                     } else {
                         event.getController().setAnimation(IDLE_ANIMATION);

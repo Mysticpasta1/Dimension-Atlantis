@@ -1,18 +1,11 @@
 package com.mystic.atlantis.event;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
-
-import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
+import com.mystic.atlantis.init.EnchantmentInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
@@ -26,30 +19,36 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.*;
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ACommonFEvents {
 
+    public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchantment) {
+        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
+        return enchantments.containsKey(enchantment);
+    }
+
     @SubscribeEvent
-    public static void onLightningStrikeItem(EntityStruckByLightningEvent event) {
-        if(event.getEntity() instanceof ItemEntity item) {
-            if(item.getItem().getItem() == ItemInit.SEA_SALT.get()) {
+    public static void onLightningStrike(EntityStruckByLightningEvent event) {
+        if (event.getEntity() instanceof ItemEntity item) {
+            if (item.getItem().getItem() == ItemInit.SEA_SALT.get()) {
                 Level world = item.level;
                 ItemEntity item2 = new ItemEntity(world, item.getX(), item.getY(), item.getZ(), new ItemStack(ItemInit.SODIUM_NUGGET.get(), item.getItem().getCount()));
-                if(!world.isClientSide) {
+                if (!world.isClientSide) {
                     world.addFreshEntity(item2);
                     if (item2.isOnFire()) {
                         item2.clearFire();
@@ -76,39 +75,7 @@ public class ACommonFEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onBiomeLightingRegister(BiomeLightingRegister event) {
-        event.register(AtlantisBiomeSource.VOLCANIC_DARKSEA, 11);
-        event.register(AtlantisBiomeSource.JELLYFISH_FIELDS, 8);
-        event.register(AtlantisBiomeSource.ATLANTEAN_ISLANDS, 3);
-        event.register(AtlantisBiomeSource.ATLANTIS_BIOME, 3);
-        event.register(AtlantisBiomeSource.GOO_LAGOONS, 1);
-        event.register(AtlantisBiomeSource.ATLANTEAN_GARDEN, 0);
-    }
-
     public static Map<ResourceLocation, Integer> map;
-
-    @SubscribeEvent
-    public static void onServerLoad(ServerStartingEvent event) {
-        BiomeLightingRegister biomeLightingRegister = new BiomeLightingRegister();
-        MinecraftForge.EVENT_BUS.post(biomeLightingRegister);
-        map = biomeLightingRegister.getBiomeMap();
-    }
-
-
-    public static class BiomeLightingRegister extends Event {
-        Map<ResourceLocation, Integer> biomeMap = new HashMap<>();
-
-        public BiomeLightingRegister() {}
-
-        public void register(ResourceLocation resourceLocation, int lightLevel) {
-            biomeMap.put(resourceLocation, lightLevel);
-        }
-
-        public Map<ResourceLocation, Integer> getBiomeMap() {
-            return biomeMap;
-        }
-    }
 
     @SubscribeEvent
     public static void onPlayerLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
@@ -156,7 +123,21 @@ public class ACommonFEvents {
 
     @SubscribeEvent
     public static void onDeathEvent(LivingDeathEvent event) {
-        previousDimension = event.getEntity().getLevel().dimension();
+        previousDimension = event.getEntity().level.dimension();
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurtEvent(LivingHurtEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            for (ItemStack stack : player.getArmorSlots()) {
+                if (hasEnchantment(stack, EnchantmentInit.LIGHTNING_PROTECTION.get())) {
+                    if (event.getSource() == DamageSource.LIGHTNING_BOLT) {
+                        event.setAmount(0);
+                        event.setCanceled(true);
+                    }
+                }
+            }
+        }
     }
 
     public static ServerLevel getDimension(ResourceKey<Level> arg, ServerPlayer player) {
@@ -165,14 +146,14 @@ public class ACommonFEvents {
 
     private static void sendPlayerToDimension(ServerPlayer serverPlayer, ServerLevel targetWorld, Vec3 targetVec) {
         // ensure destination chunk is loaded before we put the player in it
-        targetWorld.getChunk(new BlockPos(targetVec));
+        targetWorld.getChunk(new BlockPos((int) targetVec.x, (int) targetVec.y, (int) targetVec.z));
         serverPlayer.teleportTo(targetWorld, targetVec.x(), targetVec.y(), targetVec.z(), serverPlayer.getYRot(), serverPlayer.getXRot());
     }
 
     private static int getDamage(int i, Random random) {
         return i > 10 ? i - 10 : 1 + random.nextInt(4);
     }
-  
+
     private static boolean isAtlanteanBiome(ResourceKey<Biome> key) {
 
         return key.location().getNamespace().

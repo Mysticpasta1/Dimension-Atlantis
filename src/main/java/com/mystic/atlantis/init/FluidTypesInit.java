@@ -3,7 +3,6 @@ package com.mystic.atlantis.init;
 import com.mojang.math.Vector3f;
 import com.mystic.atlantis.fluids.BaseFluidType;
 import com.mystic.atlantis.util.Reference;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.common.SoundAction;
@@ -36,6 +35,40 @@ public class FluidTypesInit {
     private static RegistryObject<FluidType> registerSaltySeaWaterFluidType(String name, FluidType.Properties properties) {
         return FLUID_TYPES.register(name, () -> new BaseFluidType(WATER_STILL, WATER_FLOWING, WATER_OVERLAY,
                 0x100A60D0, new Vector3f(224f / 255f, 56f / 255f, 208f / 255f), properties));
+    }
+
+    //public static final RegistryObject<FluidType> COCONUT_MILK_FLUID_TYPE = registerMilkType("coconut_milk", new FluidType(FluidType.Properties.create()
+    //        .canSwim(false)
+    //        .canDrown(true)
+    //        .pathType(BlockPathTypes.WATER)
+    //        .adjacentPathType(null)
+    //        .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
+    //        .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
+    //        .lightLevel(0)
+    //        .density(10)) {
+    //    @Override
+    //    public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+    //        consumer.accept(new IClientFluidTypeExtensions() {
+    //            @Override
+    //            public ResourceLocation getStillTexture() {
+    //                return WATER_STILL;
+    //            }
+//
+    //            @Override
+    //            public ResourceLocation getFlowingTexture() {
+    //                return WATER_FLOWING;
+    //            }
+//
+    //            @Override
+    //            public @NotNull ResourceLocation getOverlayTexture() {
+    //                return WATER_OVERLAY;
+    //            }
+    //        });
+    //    }
+    //});
+
+    private static RegistryObject<FluidType> registerMilkType(String name, FluidType fluidType) {
+        return FLUID_TYPES.register(name, () -> fluidType);
     }
 
     public static void init(IEventBus eventBus) {

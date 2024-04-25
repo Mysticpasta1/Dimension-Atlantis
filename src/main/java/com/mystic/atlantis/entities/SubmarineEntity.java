@@ -25,12 +25,13 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class SubmarineEntity extends Boat implements IAnimatable {
     public boolean pressingForward;
     public float prevRoll = 0;
     public float rotorAngle;
-    private AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public SubmarineEntity(EntityType<? extends Boat> entityType, Level world) {
         super(entityType, world);
@@ -115,4 +116,3 @@ public class SubmarineEntity extends Boat implements IAnimatable {
         return factory;
     }
 }
-
