@@ -11,6 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.level.Level;
@@ -30,8 +31,7 @@ public class WritingRecipe extends SingleItemRecipe {
         return new ItemStack(BlockInit.WRITING_BLOCK.get());
     }
 
-    public static class Serializer<T extends SingleItemRecipe> implements RecipeSerializer<WritingRecipe>
-    {
+    public static class Serializer<T extends SingleItemRecipe> implements RecipeSerializer<WritingRecipe> {
         final SingleItemRecipe.Factory<WritingRecipe> factory;
         private final MapCodec<WritingRecipe> codec;
         private final StreamCodec<RegistryFriendlyByteBuf, WritingRecipe> streamCodec;

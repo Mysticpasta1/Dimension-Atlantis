@@ -1,0 +1,35 @@
+[25Apr2024 19:40:49.599] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--mod, atlantis, --all, --output, C:\Users\Admin\Documents\GitHub\atlantis\src\generated\resources, --existing, C:\Users\Admin\Documents\GitHub\atlantis\src\main\resources, --launchTarget, forgedatauserdev, --assetIndex, asset-index, --assetsDir, C:\Users\Admin\.gradle\caches\minecraft\assets\1.20.5, --gameDir, ., --fml.neoForgeVersion, 20.5.3-beta, --fml.fmlVersion, 3.0.18, --fml.mcVersion, 1.20.5, --fml.neoFormVersion, 20240423.152201]
+[25Apr2024 19:40:49.603] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Azul Systems, Inc. OpenJDK 64-Bit Server VM 21.0.3+9-LTS
+[25Apr2024 19:40:49.604] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.1.10+main.26f72269 starting: java version 21.0.3 by Azul Systems, Inc.; OS Windows 11 arch amd64 version 10.0
+[25Apr2024 19:40:49.741] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[25Apr2024 19:40:49.812] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Admin/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.13.1+mixin.0.8.5/618f4dff860cf2d6b5196073b1a5f5e0a8591acb/sponge-mixin-0.13.1+mixin.0.8.5.jar%23198!/ Service=ModLauncher Env=CLIENT
+[25Apr2024 19:40:50.119] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-20.5.3-beta.jar" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@28c0b664
+[25Apr2024 19:40:50.119] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "main" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@28c0b664
+[25Apr2024 19:40:50.119] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@28c0b664
+[25Apr2024 19:40:50.144] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "geckolib-388172-5289593.jar" of type MOD with provider net.neoforged.fml.loading.moddiscovery.ClasspathLocator@9fecdf1
+[25Apr2024 19:40:50.144] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "geckolib-388172-5289593.jar" of type MOD with provider net.neoforged.fml.loading.moddiscovery.ClasspathLocator@9fecdf1
+[25Apr2024 19:40:50.237] [main/INFO] [net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[25Apr2024 19:40:50.237] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "mixinextras-neoforge-0.3.5.jar" of type GAMELIBRARY with provider net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator@7a9c84a5
+[25Apr2024 19:40:51.709] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
+[25Apr2024 19:40:51.719] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Admin\.gradle\caches\minecraft\assets\1.20.5, --mod, atlantis, --all, --output, C:\Users\Admin\Documents\GitHub\atlantis\src\generated\resources, --existing, C:\Users\Admin\Documents\GitHub\atlantis\src\main\resources, --assetIndex, asset-index]
+[25Apr2024 19:40:51.812] [main/WARN] [mixin/]: Reference map 'atlantis.refmap.json' for atlantis.mixins.json could not be read. If this is a development environment you can ignore this message
+[25Apr2024 19:40:51.813] [main/WARN] [mixin/]: Reference map 'geckolib.refmap.json' for geckolib.mixins.json could not be read. If this is a development environment you can ignore this message
+[25Apr2024 19:40:52.735] [main/INFO] [net.neoforged.neoforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [atlantis]
+[25Apr2024 19:40:53.001] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.3.5).
+[25Apr2024 19:40:58.300] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 20.5.3-beta, for MC 1.20.5 with MCP 20240423.152201
+[25Apr2024 19:40:59.276] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Admin/Documents/GitHub/atlantis/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.5.3-beta/neoforge-20.5.3-beta.jar%23203!/assets/.mcassetsroot' uses unexpected schema
+[25Apr2024 19:40:59.276] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Admin/Documents/GitHub/atlantis/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.5.3-beta/neoforge-20.5.3-beta.jar%23203!/data/.mcassetsroot' uses unexpected schema
+[25Apr2024 19:40:59.503] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block Models: atlantis
+[25Apr2024 19:40:59.522] [main/INFO] [net.minecraft.data.DataGenerator/]: Block Models: atlantis finished after 19 ms
+[25Apr2024 19:40:59.523] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: atlantis
+[25Apr2024 19:40:59.842] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: atlantis finished after 318 ms
+[25Apr2024 19:40:59.843] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: atlantis
+[25Apr2024 19:41:00.104] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: atlantis finished after 261 ms
+[25Apr2024 19:41:00.104] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us for mod: atlantis
+[25Apr2024 19:41:00.109] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us for mod: atlantis finished after 3 ms
+[25Apr2024 19:41:00.109] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id atlantis
+[25Apr2024 19:41:00.126] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id atlantis finished after 17 ms
+[25Apr2024 19:41:00.126] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id atlantis
+[25Apr2024 19:41:00.130] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id atlantis finished after 4 ms
+[25Apr2024 19:41:00.130] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 628 ms
+[25Apr2024 19:41:00.167] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 1117, old count: 0, new count: 1118, removed stale: 0, written: 1137
