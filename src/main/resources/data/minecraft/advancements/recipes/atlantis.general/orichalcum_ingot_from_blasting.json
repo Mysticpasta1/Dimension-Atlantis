@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:orichalcum_ignot_from_blasting"
+        "recipe": "minecraft:orichalcum_ingot_from_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

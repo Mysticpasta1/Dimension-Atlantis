@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:orichalcum_ignot_from_smelting"
+        "recipe": "minecraft:orichalcum_ingot_from_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
