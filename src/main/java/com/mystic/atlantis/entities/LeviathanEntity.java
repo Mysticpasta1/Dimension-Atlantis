@@ -168,14 +168,6 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
         return true;
     }
 
-    @Override
-    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pPose) {
-        int i = this.getLeviathanEntitySize();
-        EntityDimensions entitydimensions = super.getDimensions(pPose);
-        float f = (entitydimensions.width() + 0.2F * (float)i) / entitydimensions.width();
-        return entitydimensions.scale(f);
-    }
-
     public int getLeviathanEntitySize() {
         return this.entityData.get(ID_SIZE);
     }

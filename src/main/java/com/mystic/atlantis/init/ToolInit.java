@@ -6,6 +6,7 @@ import com.mystic.atlantis.util.Lazy;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 
@@ -44,7 +45,7 @@ public enum ToolInit implements Tier {
 
     @Override
     public TagKey<Block> getIncorrectBlocksForDrops() {
-        return null;
+        return Tiers.IRON.getIncorrectBlocksForDrops();
     }
 
     @Override

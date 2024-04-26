@@ -79,6 +79,8 @@ public class SubmarineEntity extends Boat implements GeoEntity {
     protected void positionRider(Entity pPassenger, Entity.MoveFunction pCallback) {
         super.positionRider(pPassenger, pCallback);
 
+        pCallback.accept(pPassenger, this.getX(), this.getY() - 0.5, this.getZ());
+
         if (this.hasPassenger(pPassenger)) {
             if (pPassenger instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 2, 1, true, false, false));
