@@ -33,7 +33,7 @@ public class LinguisticBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand curHand, BlockHitResult result) {
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {

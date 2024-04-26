@@ -1,9 +1,9 @@
 modLoader="javafml"
-loaderVersion="${loader_version_range}"
-license="${mod_license}"
+loaderVersion="[3,)"
+license="LGPLv3"
 [[mods]]
 modId="atlantis"
-version="${mod_version}"
+version="2024.4.25-1.20.5-1.0.0-neoforge"
 displayName="Atlantis"
 displayURL="https://github.com/Exploding-Creeper/atlantis"
 logoFile= "logo.png"
@@ -24,20 +24,20 @@ config = "atlantis.mixins.json"
 [[dependencies.atlantis]]
 modId="neoforge"
 type="required"
-versionRange="${neo_version_range}"
+versionRange="[20.5.3-beta,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.atlantis]]
 modId="minecraft"
 type="required"
-versionRange="${minecraft_version_range}"
+versionRange="[1.20.5,1.21)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.atlantis]]
 modId="geckolib"
 type="required"
-versionRange="[4.4.4,)"
+versionRange="[4.5,)"
 ordering="NONE"
 side="BOTH"

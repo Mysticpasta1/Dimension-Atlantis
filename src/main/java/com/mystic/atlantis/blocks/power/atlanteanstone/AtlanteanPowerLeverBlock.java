@@ -39,7 +39,7 @@ public class AtlanteanPowerLeverBlock extends LeverBlock implements SimpleWaterl
 	}
 
 	@Override
-	public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
+	public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
 		BlockState cycledState;
 		if (level.isClientSide) {
 			cycledState = targetState.cycle(POWERED);

@@ -114,5 +114,7 @@
       "item": "atlantis:linguistic_glyph_scroll_9"
     }
   ],
-  "result": "atlantis:linguistic_glyph_scroll_z"
+  "result": {
+    "id": "atlantis:linguistic_glyph_scroll_z"
+  }
 }

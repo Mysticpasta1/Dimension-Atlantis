@@ -3,6 +3,7 @@ package com.mystic.atlantis.structures;
 
 import java.util.Optional;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +23,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 public class AtlanteanFountain extends Structure {
 
-    public static final Codec<AtlanteanFountain> CODEC = RecordCodecBuilder.<AtlanteanFountain>mapCodec(instance ->
+    public static final MapCodec<AtlanteanFountain> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(AtlanteanFountain.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -30,7 +31,7 @@ public class AtlanteanFountain extends Structure {
                     HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
                     Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
-            ).apply(instance, AtlanteanFountain::new)).codec();
+            ).apply(instance, AtlanteanFountain::new));
 
 
     private final Holder<StructureTemplatePool> startPool;

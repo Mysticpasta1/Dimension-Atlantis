@@ -25,10 +25,8 @@
 			"type": "minecraft:count_on_every_layer",
 			"count": {
 				"type": "minecraft:biased_to_bottom",
-				"value": {
-					"min_inclusive": 0,
-					"max_inclusive": 30
-				}
+				"min_inclusive": 0,
+				"max_inclusive": 30
 			}
 		},
 		{

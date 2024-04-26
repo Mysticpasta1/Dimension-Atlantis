@@ -2,31 +2,27 @@ package com.mystic.atlantis.init;
 
 import java.util.function.Supplier;
 
-import com.google.common.collect.Lists;
-import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.util.Lazy;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.common.TierSortingRegistry;
+import net.minecraft.world.level.block.Block;
 
 public enum ToolInit implements Tier {
-    AQUAMARINE(286,5,4,2, 10, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get())),
-    ORICHAClUM(286,5,4,2, 10, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));;
+    AQUAMARINE(286,5,4,2, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get())),
+    ORICHAClUM(286,5,4,2, () -> Ingredient.of(ItemInit.ORICHALCUM_INGOT.get()));;
 
     private final int maxUses;
     private final float toolEfficiency;
     private final float attackDamage;
-    private final int harvestLvl;
     private final int enchantability;
     private final Lazy<Ingredient> repairMaterial;
 
-    ToolInit(int uses, float efficiency, float damage, int harvest, int enchant, Supplier<Ingredient> material) {
+    ToolInit(int uses, float efficiency, float damage, int enchant, Supplier<Ingredient> material) {
         maxUses = uses;
         toolEfficiency = efficiency;
         attackDamage = damage;
-        harvestLvl = harvest;
         enchantability = enchant;
         repairMaterial = new Lazy<>(material);
     }
@@ -47,8 +43,8 @@ public enum ToolInit implements Tier {
     }
 
     @Override
-    public int getLevel() {
-        return harvestLvl;
+    public TagKey<Block> getIncorrectBlocksForDrops() {
+        return null;
     }
 
     @Override
@@ -59,9 +55,5 @@ public enum ToolInit implements Tier {
     @Override
     public Ingredient getRepairIngredient() {
         return this.repairMaterial.get();
-    }
-
-    public static void init() {
-        TierSortingRegistry.registerTier(AQUAMARINE, Atlantis.id("aquamarine"), Lists.newArrayList(new ResourceLocation("stone")), Lists.newArrayList(new ResourceLocation("iron")));
     }
 }

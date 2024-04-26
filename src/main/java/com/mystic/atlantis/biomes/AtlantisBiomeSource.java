@@ -1,6 +1,7 @@
 package com.mystic.atlantis.biomes;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Holder;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 
 
 public class AtlantisBiomeSource extends BiomeSource {
-    public static final Codec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<AtlantisBiomeSource> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             RegistryOps.retrieveRegistryLookup(Registries.BIOME).forGetter(AtlantisBiomeSource::biomeHolderLookup),
             Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter(AtlantisBiomeSource::biomeSize),
             Codec.LONG.fieldOf("seed").stable().forGetter(AtlantisBiomeSource::seed)).apply(instance, AtlantisBiomeSource::new));
@@ -47,7 +48,7 @@ public class AtlantisBiomeSource extends BiomeSource {
     }
 
     @Override
-    protected @NotNull Codec<? extends BiomeSource> codec() {
+    protected @NotNull MapCodec<? extends BiomeSource> codec() {
         return CODEC;
     }
 

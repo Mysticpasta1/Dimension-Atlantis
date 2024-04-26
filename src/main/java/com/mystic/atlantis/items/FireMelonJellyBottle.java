@@ -2,6 +2,7 @@ package com.mystic.atlantis.items;
 
 import com.mystic.atlantis.init.EffectsInit;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -31,7 +32,7 @@ public class FireMelonJellyBottle extends Item {
         }
 
         if (!arg2.isClientSide) {
-            arg3.addEffect(new MobEffectInstance(EffectsInit.SPIKES.get(), 230, 0));
+            arg3.addEffect(new MobEffectInstance(Holder.direct(EffectsInit.SPIKES.get()), 230, 0));
         }
 
         if (arg.isEmpty()) {

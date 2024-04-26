@@ -291,9 +291,7 @@
                                   "type": "minecraft:block",
                                   "result_state": {
                                     "Name": "minecraft:sand",
-                                    "Properties": {
-                                      "snowy": "false"
-                                    }
+                                    "Properties": {}
                                   }
                                 }
                               }

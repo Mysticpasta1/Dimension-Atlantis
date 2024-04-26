@@ -137,7 +137,7 @@ public class AtlanteanFireMelonFruitBlock extends HorizontalDirectionalBlock imp
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
+    public boolean isPathfindable(BlockState targetState, PathComputationType type) {
         return false;
     }
 }

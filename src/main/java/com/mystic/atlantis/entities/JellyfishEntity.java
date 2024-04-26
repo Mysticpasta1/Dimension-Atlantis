@@ -37,17 +37,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
@@ -142,10 +136,10 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
         this.entityData.set(VARIANT, this.random.nextInt(100) > 50 ? 1 : 2);
         this.entityData.set(COLOR, this.random.nextInt(15));
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -189,11 +183,11 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(COLOR, this.random.nextInt(15));
+    protected void defineSynchedData(SynchedEntityData.Builder p_326499_) {
+        super.defineSynchedData(p_326499_);
+        p_326499_.define(VARIANT, 0);
+        p_326499_.define(FROM_BUCKET, false);
+        p_326499_.define(COLOR, this.random.nextInt(15));
     }
 
     @Override
@@ -228,7 +222,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.mystic.atlantis.init.EnchantmentInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,11 +22,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
@@ -34,12 +37,11 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.*;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
 public class ACommonFEvents {
 
     public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchantment) {
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
-        return enchantments.containsKey(enchantment);
+        return itemStack.getEnchantments().getLevel(enchantment) > 0;
     }
 
     @SubscribeEvent
@@ -67,7 +69,7 @@ public class ACommonFEvents {
             Player player = (Player) event.getEntity();
             RandomSource random = player.getRandom();
             Entity entity = event.getSource().getEntity();
-            if (player.hasEffect(EffectsInit.SPIKES.get())) {
+            if (player.hasEffect(Holder.direct(EffectsInit.SPIKES.get()))) {
                 if (player.isHurt()) {
                     entity.hurt(player.damageSources().thorns(player), (float) getDamage(3, (Random) random));
                 }
@@ -91,7 +93,7 @@ public class ACommonFEvents {
                             persistedTag.putBoolean(NOT_FIRST_SPAWN_NBT, true);
                             tag.put(Player.PERSISTED_NBT_TAG, persistedTag);
                             if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-                                sendPlayerToDimension(serverPlayer, atlantisLevel, new Vec3(atlantisLevel.getLevel().getLevelData().getXSpawn(), 100, atlantisLevel.getLevel().getLevelData().getZSpawn()));
+                                sendPlayerToDimension(serverPlayer, atlantisLevel, new Vec3(atlantisLevel.getLevel().getLevelData().getSpawnPos().getX(), atlantisLevel.getLevel().getLevelData().getSpawnPos().getY(), atlantisLevel.getLevel().getLevelData().getSpawnPos().getZ()));
                             }
                         }
                     }

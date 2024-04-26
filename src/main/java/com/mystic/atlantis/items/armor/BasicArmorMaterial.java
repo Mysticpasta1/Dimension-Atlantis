@@ -1,83 +1,50 @@
 package com.mystic.atlantis.items.armor;
 
 import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.util.Lazy;
-import net.minecraft.sounds.SoundEvent;
+import com.mystic.atlantis.util.Reference;
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Supplier;
+import java.util.EnumMap;
+import java.util.List;
 
 public class BasicArmorMaterial {
-    public static final net.minecraft.world.item.ArmorMaterial ARMOR_AQUAMARINE = new ArmorMaterial( "aquamarine", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));
-    public static final net.minecraft.world.item.ArmorMaterial ARMOR_ORICHALCUM = new ArmorMaterial( "orichalcum", 24, new int[] {2, 6, 7, 3} , 9, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()));
-    public static final net.minecraft.world.item.ArmorMaterial ARMOR_BROWN_WROUGHT = new ArmorMaterial("wrought", 24, new int[] {3, 5, 5, 4} , 7, SoundEvents.ARMOR_EQUIP_IRON, 2.0F, 0.0F, () -> Ingredient.of(ItemInit.BROWN_WROUGHT_PATCHES.get()));
+    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIAL = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, Reference.MODID);
 
-    private static class ArmorMaterial implements net.minecraft.world.item.ArmorMaterial{
+    public static final Holder<ArmorMaterial> ARMOR_AQUAMARINE = ARMOR_MATERIAL.register("aquamarine", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), p_323378_ -> {
+                p_323378_.put(ArmorItem.Type.BOOTS, 2);
+                p_323378_.put(ArmorItem.Type.LEGGINGS, 6);
+                p_323378_.put(ArmorItem.Type.CHESTPLATE, 7);
+                p_323378_.put(ArmorItem.Type.HELMET, 3);
+                p_323378_.put(ArmorItem.Type.BODY, 6);
+            }), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()), List.of(new ArmorMaterial.Layer(new ResourceLocation("aquamarine"))), 1.0F, 0.0F));
+    public static final Holder<ArmorMaterial> ARMOR_ORICHALCUM = ARMOR_MATERIAL.register("orichalcum", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), p_323378_ -> {
+        p_323378_.put(ArmorItem.Type.BOOTS, 3);
+        p_323378_.put(ArmorItem.Type.LEGGINGS, 7);
+        p_323378_.put(ArmorItem.Type.CHESTPLATE, 8);
+        p_323378_.put(ArmorItem.Type.HELMET, 4);
+        p_323378_.put(ArmorItem.Type.BODY, 7);
+    }), 9, SoundEvents.ARMOR_EQUIP_GOLD, () -> Ingredient.of(ItemInit.AQUAMARINE_GEM.get()), List.of(new ArmorMaterial.Layer(new ResourceLocation("orichalcum"))), 1.0F, 0.0F));
+    public static final Holder<ArmorMaterial> ARMOR_BROWN_WROUGHT = ARMOR_MATERIAL.register("wrought", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), p_323378_ -> {
+                p_323378_.put(ArmorItem.Type.BOOTS, 3);
+                p_323378_.put(ArmorItem.Type.LEGGINGS, 5);
+                p_323378_.put(ArmorItem.Type.CHESTPLATE, 5);
+                p_323378_.put(ArmorItem.Type.HELMET, 4);
+                p_323378_.put(ArmorItem.Type.BODY, 5);
+            }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(ItemInit.BROWN_WROUGHT_PATCHES.get()), List.of(new ArmorMaterial.Layer(new ResourceLocation("wrought"))), 2.0F, 0.0F));
 
-        private static final int[] Max_Damage_Array = new int[] {13,15,16,11};
-        private final String name;
-        private final int maxDamageFactor;
-        private final int[] damageReductionAmountArray;
-        private final int enchantability;
-        private final SoundEvent soundEvent;
-        private final float toughness;
-        private final float knockbackResistance;
-        private final Lazy<Ingredient> repairMaterial;
-
-        public ArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, double toughness, float knockbackResistance, Supplier<Ingredient> supplier) {
-            this.name = name;
-            this.maxDamageFactor = maxDamageFactor;
-            this.damageReductionAmountArray = damageReductionAmountArray;
-            this.enchantability = enchantability;
-            this.soundEvent = soundEvent;
-            this.toughness = (float)toughness;
-            this.knockbackResistance = knockbackResistance;
-            this.repairMaterial = new Lazy<>(supplier);
-        }
-
-        @Override
-        public int getDurabilityForType(ArmorItem.Type pType) {
-            return Max_Damage_Array[pType.getSlot().getIndex()] * maxDamageFactor;
-        }
-
-        @Override
-        public int getDefenseForType(ArmorItem.Type pType) {
-            return damageReductionAmountArray[pType.getSlot().getIndex()];
-        }
-
-        @Override
-        public int getEnchantmentValue() {
-            return enchantability;
-        }
-
-        @Override
-        public SoundEvent getEquipSound() {
-            return soundEvent;
-        }
-
-        @Override
-        public Ingredient getRepairIngredient() {
-            return repairMaterial.get();
-        }
-
-        @OnlyIn(Dist.CLIENT)
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public float getToughness() {
-            return toughness;
-        }
-
-        @Override
-        public float getKnockbackResistance() {
-            return this.knockbackResistance;
-        }
+    public static void init(IEventBus bus) {
+        ARMOR_MATERIAL.register(bus);
     }
 }

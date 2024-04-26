@@ -1,13 +1,13 @@
 package com.mystic.atlantis.recipes;
 
-import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.RecipesInit;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,39 +30,41 @@ public class WritingRecipe extends SingleItemRecipe {
         return new ItemStack(BlockInit.WRITING_BLOCK.get());
     }
 
-    public static class Serializer implements RecipeSerializer<WritingRecipe>
+    public static class Serializer<T extends SingleItemRecipe> implements RecipeSerializer<WritingRecipe>
     {
-        public WritingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            String s = GsonHelper.getAsString(json, "group", "");
-            Ingredient ingredient;
-            if (GsonHelper.isArrayNode(json, "ingredient")) {
-                ingredient = Ingredient.fromJson(GsonHelper.getAsJsonArray(json, "ingredient"), false);
-            } else {
-                ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "ingredient"), false);
-            }
+        final SingleItemRecipe.Factory<WritingRecipe> factory;
+        private final MapCodec<WritingRecipe> codec;
+        private final StreamCodec<RegistryFriendlyByteBuf, WritingRecipe> streamCodec;
 
-            String s1 = GsonHelper.getAsString(json, "result");
-            int i = GsonHelper.getAsInt(json, "count");
-            ItemStack itemstack = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(s1)), i);
-            return new WritingRecipe(s, ingredient, itemstack);
-        }
-
-        public WritingRecipe fromNetwork(FriendlyByteBuf buffer) {
-            String s = buffer.readUtf();
-            Ingredient ingredient = Ingredient.fromNetwork(buffer);
-            ItemStack itemstack = buffer.readItem();
-            return new WritingRecipe(s, ingredient, itemstack);
+        public Serializer(WritingRecipe.Factory<WritingRecipe> pFactory) {
+            this.factory = pFactory;
+            this.codec = RecordCodecBuilder.mapCodec(
+                    p_340781_ -> p_340781_.group(
+                                    Codec.STRING.optionalFieldOf("group", "").forGetter(p_300947_ -> p_300947_.group),
+                                    Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(p_301068_ -> p_301068_.ingredient),
+                                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_302316_ -> p_302316_.result)
+                            )
+                            .apply(p_340781_, pFactory::create)
+            );
+            this.streamCodec = StreamCodec.composite(
+                    ByteBufCodecs.STRING_UTF8,
+                    p_319737_ -> p_319737_.group,
+                    Ingredient.CONTENTS_STREAM_CODEC,
+                    p_319738_ -> p_319738_.ingredient,
+                    ItemStack.STREAM_CODEC,
+                    p_319736_ -> p_319736_.result,
+                    pFactory::create
+            );
         }
 
         @Override
-        public Codec<WritingRecipe> codec() {
-            return null;
+        public MapCodec<WritingRecipe> codec() {
+            return this.codec;
         }
 
-        public void toNetwork(FriendlyByteBuf buffer, WritingRecipe recipe) {
-            buffer.writeUtf(recipe.group);
-            recipe.ingredient.toNetwork(buffer);
-            buffer.writeItem(recipe.result);
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, WritingRecipe> streamCodec() {
+            return this.streamCodec;
         }
     }
 }

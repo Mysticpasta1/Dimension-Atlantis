@@ -20,7 +20,7 @@
 	},
 	"result":
 	{
-		"item": "atlantis:waterfall_block",
+		"id": "atlantis:waterfall_block",
 		"count": 3
 	}
 }					

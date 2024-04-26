@@ -1,7 +1,10 @@
 package com.mystic.atlantis.items;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -38,7 +41,7 @@ public class AtlanteanEntityBucketItem extends MobBucketItem {
         Entity entity = this.entityType.get().spawn(world, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
         if (entity instanceof Bucketable) {
             Bucketable bucketable = (Bucketable)entity;
-            bucketable.loadFromBucketTag(stack.getOrCreateTag());
+            bucketable.loadFromBucketTag(Objects.requireNonNull(stack.get(DataComponents.BUCKET_ENTITY_DATA)).copyTag());
             bucketable.setFromBucket(true);
         }
     }

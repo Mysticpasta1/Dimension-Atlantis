@@ -27,14 +27,14 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class StarfishEntity extends Animal implements GeoEntity { //TODO make bucketable
@@ -58,39 +58,6 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         return world.isUnobstructed(this);
     }
 
-    //  public boolean fromBucket() {
-    //      return this.entityData.get(FROM_BUCKET);
-    //  }
-
-    //  public void setFromBucket(boolean fromBucket) {
-    //      this.entityData.set(FROM_BUCKET, fromBucket);
-    //  }
-
-    //   @Override
-    //  public void saveToBucketTag(ItemStack stack) {
-    //       Bucketable.saveDefaultDataToBucketTag(this, stack);
-    //   }
-
-    @Override
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    // @Override
-    // public void loadFromBucketTag(CompoundTag nbt) {
-    //     Bucketable.loadDefaultDataFromBucketTag(this, nbt);
-    // }
-
-    //  @Override
-    //  public ItemStack getBucketItemStack() {
-    //      return ItemInit.STARFISH_BUCKET.get().getDefaultInstance();
-    //  }
-
-    //  @Override
-    //  public SoundEvent getPickupSound() {
-    //     return SoundEvents.BUCKET_FILL_FISH;
-    // }
-
     @Override
     public boolean canBreatheUnderwater() {
         return true;
@@ -105,25 +72,9 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         data.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
-//    @Override
-//    public boolean requiresCustomPersistence() {
-//        return super.requiresCustomPersistence() || this.fromBucket();
-//    }
-
-//   @Override
-//   public boolean removeWhenFarAway(double distanceSquared) {
-//       return !this.fromBucket() && !this.hasCustomName();
-//   }
-
-    //   @Override
-    //   protected void defineSynchedData() {
-    //       super.defineSynchedData();
-    //       this.entityData.define(FROM_BUCKET, false);
-    //   }
-
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityNbt) {
-        return super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityNbt);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData) {
+        return super.finalizeSpawn(world, difficulty, spawnReason, entityData);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.mystic.atlantis.biomes;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.level.biome.Biome;
@@ -19,7 +19,7 @@ public record AtlantisBiomeModifier(HolderSet<Biome> biomes, Holder<PlacedFeatur
         }
     }
 
-    public Codec<? extends BiomeModifier> codec()
+    public MapCodec<? extends BiomeModifier> codec()
     {
         return AtlantisModifierSerializer.ATLANTIS_SERIALIZED_CODEC.get();
     }

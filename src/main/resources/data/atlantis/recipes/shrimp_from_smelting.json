@@ -3,7 +3,9 @@
   "ingredient": {
     "item": "atlantis:shrimp"
   },
-  "result": "atlantis:cooked_shrimp",
+  "result": {
+    "id": "atlantis:cooked_shrimp"
+  },
   "experience": 0.5,
   "cookingtime": 200
 }

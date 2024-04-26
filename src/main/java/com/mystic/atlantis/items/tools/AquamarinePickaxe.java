@@ -5,8 +5,8 @@ import net.minecraft.world.item.Tier;
 
 public class AquamarinePickaxe extends PickaxeItem {
     public AquamarinePickaxe(Tier tier, int attack) {
-        super(tier, attack, -3.2F, new Properties()
+        super(tier, new Properties()
                 .stacksTo(1)
-                .defaultDurability(tier.getUses()));
+                .durability(tier.getUses()));
     }
 }

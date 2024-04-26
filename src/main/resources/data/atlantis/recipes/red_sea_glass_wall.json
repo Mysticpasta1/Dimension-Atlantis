@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "atlantis:red_sea_glass_wall"
+    "id": "atlantis:red_sea_glass_wall"
   },
   "show_notification": true
 }

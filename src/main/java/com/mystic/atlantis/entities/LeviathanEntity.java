@@ -31,14 +31,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -103,16 +103,16 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ID_SIZE, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder p_326499_) {
+        super.defineSynchedData(p_326499_);
+        p_326499_.define(ID_SIZE, 0);
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor pLevel, @NotNull DifficultyInstance pDifficulty, @NotNull MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor pLevel, @NotNull DifficultyInstance pDifficulty, @NotNull MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
         this.anchorPoint = this.blockPosition().above(5);
         this.setLeviathanEntitySize(0);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Override
@@ -159,11 +159,6 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     }
 
     @Override
-    public @NotNull MobType getMobType() {
-        return MobType.UNDEAD;
-    }
-
-    @Override
     protected float getSoundVolume() {
         return 1.0F;
     }
@@ -174,10 +169,10 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pPose) {
         int i = this.getLeviathanEntitySize();
         EntityDimensions entitydimensions = super.getDimensions(pPose);
-        float f = (entitydimensions.width + 0.2F * (float)i) / entitydimensions.width;
+        float f = (entitydimensions.width() + 0.2F * (float)i) / entitydimensions.width();
         return entitydimensions.scale(f);
     }
 
@@ -186,8 +181,9 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     }
 
     @Override
-    protected float getStandingEyeHeight(@NotNull Pose pPose, EntityDimensions pSize) {
-        return pSize.height * 0.35F;
+    public float getEyeHeightAccess(Pose pose) {
+        EntityDimensions entityDimensions = super.getDimensions(pose);
+        return entityDimensions.height() * 0.35F;
     }
 
     @Override

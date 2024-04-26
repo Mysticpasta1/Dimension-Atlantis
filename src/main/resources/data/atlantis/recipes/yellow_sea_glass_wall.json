@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "atlantis:yellow_sea_glass_wall"
+    "id": "atlantis:yellow_sea_glass_wall"
   },
   "show_notification": true
 }

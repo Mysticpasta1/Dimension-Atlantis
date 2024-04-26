@@ -3,6 +3,7 @@ package com.mystic.atlantis.blocks.blockentities;
 import com.mystic.atlantis.init.TileEntityInit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,8 +20,8 @@ public class DummyDataStorage extends BlockEntity {
     }
 
     @Override
-    public void saveAdditional(CompoundTag nbt) {
-        super.saveAdditional(nbt);
+    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider p_323635_) {
+        super.saveAdditional(nbt, p_323635_);
 
         // Save the current value of the number to the tag
         if(this.destinationPos != null) {
@@ -32,9 +33,9 @@ public class DummyDataStorage extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag nbt) {
+    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider p_338445_) {
         if(nbt.contains("destination_x")) {
-            super.load(nbt);
+            super.loadAdditional(nbt, p_338445_);
             int destination_x = nbt.getInt("destination_x");
             int destination_y = nbt.getInt("destination_y");
             int destination_z = nbt.getInt("destination_z");

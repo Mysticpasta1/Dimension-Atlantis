@@ -37,8 +37,8 @@ public class SodiumPrimedBombBlock extends Entity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        this.entityData.define(DATA_FUSE_ID, 80);
+    protected void defineSynchedData(SynchedEntityData.Builder p_326003_) {
+        p_326003_.define(DATA_FUSE_ID, 80);
     }
 
     @NotNull
@@ -96,7 +96,7 @@ public class SodiumPrimedBombBlock extends Entity {
     }
 
     @Override
-    protected float getEyeHeight(@NotNull Pose curPose, @NotNull EntityDimensions dimensions) {
+    public float getEyeHeightAccess(@NotNull Pose curPose) {
         return 0.15f;
     }
 

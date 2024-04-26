@@ -7,7 +7,7 @@
     "item": "atlantis:aquamarine_boots"
   },
   "result": {
-    "item": "atlantis:orichalcum_boots"
+    "id": "atlantis:orichalcum_boots"
   },
   "template": {
     "item": "atlantis:orichalcum_upgrade_smithing_template"

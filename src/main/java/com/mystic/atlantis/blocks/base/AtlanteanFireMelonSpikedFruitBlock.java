@@ -14,6 +14,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -164,13 +165,13 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
+    public boolean isPathfindable(BlockState targetState, PathComputationType type) {
         return false;
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
-        ItemStack mainHandStack = player.getItemInHand(hand);
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
+        ItemStack mainHandStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         
         if (mainHandStack.canPerformAction(ToolActions.SHEARS_CARVE) && targetState.getValue(SPIKED)) {
             if (!level.isClientSide) {
@@ -187,14 +188,14 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
                 );
                 fireMelonSpikeItemEntity.setDeltaMovement(0.05 * (double)oppositeDir.getStepX() + level.random.nextDouble() * 0.02, 0.05, 0.05 * (double)oppositeDir.getStepZ() + level.random.nextDouble() * 0.02);
                 level.addFreshEntity(fireMelonSpikeItemEntity);
-                mainHandStack.hurtAndBreak(1, player, arg2x -> arg2x.broadcastBreakEvent(hand));
+                mainHandStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 level.gameEvent(player, GameEvent.SHEAR, targetPos);
                 player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            return super.use(targetState, level, targetPos, player, hand, result);
+            return super.useWithoutItem(targetState, level, targetPos, player, result);
         }
     }
 }

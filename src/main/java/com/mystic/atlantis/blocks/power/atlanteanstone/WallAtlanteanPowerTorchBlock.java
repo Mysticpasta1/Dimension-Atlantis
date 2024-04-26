@@ -55,7 +55,7 @@ public class WallAtlanteanPowerTorchBlock extends AtlanteanPowerTorchBlock {
 	@Override
 	public boolean canSurvive(BlockState targetState, LevelReader reader, BlockPos targetPos) {
 		if (reader.getFluidState(targetPos).is(FluidTags.WATER)) {
-			return Blocks.WALL_TORCH.canSurvive(targetState, reader, targetPos);
+			return true;
 		} else {
 			return false;
 		}

@@ -4,7 +4,10 @@ import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.GeckoLib;
+import software.bernie.geckolib.GeckoLibClient;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.platform.GeckoLibClientNeoForge;
+import software.bernie.geckolib.platform.GeckoLibNeoForge;
 
 public class GeneralPlantModel<T extends GeneralPlantBlockEntity<?>> extends GeoModel<T> {
     private final ResourceLocation model;
@@ -28,6 +31,6 @@ public class GeneralPlantModel<T extends GeneralPlantBlockEntity<?>> extends Geo
 
     @Override
     public ResourceLocation getAnimationResource(T object) {
-        return new ResourceLocation(GeckoLib.MOD_ID, "animations/jackinthebox.animation.json");
+        return new ResourceLocation("geckolib", "animations/jackinthebox.animation.json");
     }
 }

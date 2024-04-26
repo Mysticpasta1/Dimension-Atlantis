@@ -32,7 +32,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand handIn, BlockHitResult result) {
+	public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
 		if (!DimensionAtlantis.isAtlantisDimension(level)) {
 			if(!level.isClientSide) {
 				// From Overworld to Atlantis

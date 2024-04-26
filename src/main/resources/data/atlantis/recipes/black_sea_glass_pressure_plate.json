@@ -10,7 +10,6 @@
     "##"
   ],
   "result": {
-    "item": "atlantis:black_sea_glass_pressure_plate"
-  },
-  "show_notification": true
+    "id": "atlantis:black_sea_glass_pressure_plate"
+  }
 }

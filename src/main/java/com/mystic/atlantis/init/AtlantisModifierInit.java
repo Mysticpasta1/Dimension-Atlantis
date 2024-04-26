@@ -2,6 +2,7 @@ package com.mystic.atlantis.init;
 
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.util.Reference;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -26,12 +27,14 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 public class AtlantisModifierInit {
-	public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Reference.MODID);
+	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Reference.MODID);
 
-	public static final Supplier<Codec<SeaGrassModifier>> SEEDS_DROP = GLM.register("seeds_drop", SeaGrassModifier.CODEC);
+	public static final Supplier<MapCodec<SeaGrassModifier>> SEEDS_DROP = GLM.register("seeds_drop", SeaGrassModifier.CODEC);
 
 	public static void init(IEventBus bus) {
 		GLM.register(bus); 
@@ -46,7 +49,7 @@ public class AtlantisModifierInit {
 
 	private static class DataProvider extends GlobalLootModifierProvider {
 		public DataProvider(DataGenerator gen, String modid) {
-			super(gen.getPackOutput(), modid);
+			super(gen.getPackOutput(), new CompletableFuture<>(), modid);
 		}
 
 		@Override
@@ -60,7 +63,7 @@ public class AtlantisModifierInit {
 	}
 
 	private static class SeaGrassModifier extends LootModifier {
-		public static final Supplier<Codec<SeaGrassModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst)
+		public static final Supplier<MapCodec<SeaGrassModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
 				.apply(inst, SeaGrassModifier::new)
 				));
 
@@ -79,7 +82,7 @@ public class AtlantisModifierInit {
 					return generatedLoot;
 				}
 			}
-			int bonusLevel = ctxTool != null ? EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, ctxTool) : 0;
+			int bonusLevel = ctxTool != null ? EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FORTUNE, ctxTool) : 0;
 			int seedRarity = (int) (0.5f - (bonusLevel * 2));
 			if (seedRarity < 1 || random.nextInt(seedRarity) == 0) {
 				BlockState ctxBlockState = context.getParamOrNull(LootContextParams.BLOCK_STATE);
@@ -91,7 +94,7 @@ public class AtlantisModifierInit {
 		}
 
 		@Override
-		public Codec<? extends IGlobalLootModifier> codec() {
+		public MapCodec<? extends IGlobalLootModifier> codec() {
 			return CODEC.get();
 		}
 	}

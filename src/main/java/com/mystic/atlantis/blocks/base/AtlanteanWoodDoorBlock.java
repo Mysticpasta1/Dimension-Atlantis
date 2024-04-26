@@ -44,7 +44,7 @@ public class AtlanteanWoodDoorBlock extends DoorBlock implements SimpleWaterlogg
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
+    public boolean isPathfindable(BlockState targetState, PathComputationType type) {
         return switch (type) {
             case LAND, AIR -> targetState.getValue(OPEN);
             case WATER -> targetState.getValue(WATERLOGGED);
@@ -52,8 +52,8 @@ public class AtlanteanWoodDoorBlock extends DoorBlock implements SimpleWaterlogg
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
-        InteractionResult superResult = super.use(targetState, level, targetPos, player, hand, result);
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
+        InteractionResult superResult = super.useWithoutItem(targetState, level, targetPos, player, result);
         if (superResult.consumesAction()) {
             level.scheduleTick(targetPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }

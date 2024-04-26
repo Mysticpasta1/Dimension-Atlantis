@@ -48,7 +48,7 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         //Shrimp Rainbow color END
 
         stack.scale(0.5f, 0.5f, 0.5f);
-        renderFinal(stack, entity, this.getGeoModel().getBakedModel(this.getGeoModel().getModelResource(entity)) ,bufferIn, bufferIn.getBuffer(RenderType.cutout()), partialTicks, packedLightIn, getPackedOverlay(entity, 0), rColor, gColor,  bColor, 255.0f);
+        renderFinal(stack, entity, this.getGeoModel().getBakedModel(this.getGeoModel().getModelResource(entity)) ,bufferIn, bufferIn.getBuffer(RenderType.cutout()), partialTicks, packedLightIn, getPackedOverlay(entity, 0, partialTicks), rColor, gColor,  bColor, 255.0f);
         stack.popPose();
     }
 }

@@ -119,11 +119,11 @@ public class AtlanteanPortalForcer implements AtlanteanITeleporter {
         for (int i = -1; i < 3; ++i) {
             for (int j = -1; j < 3; ++j) {
                 pOffsetPos.setWithOffset(pOriginalPos, pDirection.getStepX() * i + pDirection.getStepX() * pOffsetScale, j, pDirection.getStepZ() * i + pDirection.getStepZ() * pOffsetScale);
-                if (j < 0 && !this.level.getBlockState(pOffsetPos).isSolid()) {
+                if (j < 0 && this.level.getBlockState(pOffsetPos).isSolid() && !this.level.getBlockState(pOffsetPos).is(Blocks.WATER)) {
                     return false;
                 }
 
-                if (j >= 0 && !this.canPortalReplaceBlock(pOffsetPos)) {
+                if (j >= 0 && !this.canPortalReplaceBlock(pOffsetPos) && !this.level.getBlockState(pOffsetPos).is(Blocks.WATER)) {
                     return false;
                 }
             }

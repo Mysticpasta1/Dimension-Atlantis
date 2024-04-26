@@ -1,6 +1,8 @@
 package com.mystic.atlantis.mixin;
 
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
@@ -26,7 +28,7 @@ public class ItemMixin {
         float f5 = Mth.sin(-f * ((float)Math.PI / 180));
         float f6 = f3 * f4;
         float f7 = f2 * f4;
-        double d0 = Objects.requireNonNull(player.getAttribute(NeoForgeMod.BLOCK_REACH.value())).getValue();
+        double d0 = Objects.requireNonNull(player.getAttribute(Attributes.BLOCK_INTERACTION_RANGE)).getValue();
         Vec3 vec31 = vec3.add((double)f6 * d0, (double)f5 * d0, (double)f7 * d0);
         return level.clip(new ClipContext(vec3, vec31, ClipContext.Block.OUTLINE, fluidMode, player));
     }

@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -55,8 +56,8 @@ public class Coconut extends DirectionalBlock {
         return this.defaultBlockState().setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+    public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        ItemStack itemstack = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
         if (itemstack.canPerformAction(net.neoforged.neoforge.common.ToolActions.SHEARS_CARVE)) {
             if (!pLevel.isClientSide) {
                 Direction direction = pHit.getDirection();
@@ -66,16 +67,14 @@ public class Coconut extends DirectionalBlock {
                 ItemEntity itementity = new ItemEntity(pLevel, (double)pPos.getX() + 0.5D + (double)direction1.getStepX() * 0.65D, (double)pPos.getY() + 0.1D, (double)pPos.getZ() + 0.5D + (double)direction1.getStepZ() * 0.65D, ItemStack.EMPTY);
                 itementity.setDeltaMovement(0.05D * (double)direction1.getStepX() + pLevel.random.nextDouble() * 0.02D, 0.05D, 0.05D * (double)direction1.getStepZ() + pLevel.random.nextDouble() * 0.02D);
                 pLevel.addFreshEntity(itementity);
-                itemstack.hurtAndBreak(1, pPlayer, (p_55287_) -> {
-                    p_55287_.broadcastBreakEvent(pHand);
-                });
+                itemstack.hurtAndBreak(1, pPlayer, EquipmentSlot.MAINHAND);
                 pLevel.gameEvent(pPlayer, GameEvent.SHEAR, pPos);
                 pPlayer.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }
 
             return InteractionResult.sidedSuccess(pLevel.isClientSide);
         } else {
-            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+            return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
         }
     }
 }

@@ -27,9 +27,8 @@ public class AtlantianSeaLanternBlock extends Block {
     public void playerDestroy(Level level, Player player, BlockPos targetPos, BlockState targetState, @Nullable BlockEntity targetTileEntity, ItemStack curStack) {
         super.playerDestroy(level, player, targetPos, targetState, targetTileEntity, curStack);
         
-        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.SILK_TOUCH, curStack) == 0) {
+        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, player) == 0) {
             level.removeBlock(targetPos, false);
-            return;
         }
     }
 }

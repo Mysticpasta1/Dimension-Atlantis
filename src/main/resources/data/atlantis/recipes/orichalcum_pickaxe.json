@@ -7,7 +7,7 @@
     "item": "atlantis:pickaxe_aquamarine"
   },
   "result": {
-    "item": "atlantis:orichalcum_pickaxe"
+    "id": "atlantis:orichalcum_pickaxe"
   },
   "template": {
     "item": "atlantis:orichalcum_upgrade_smithing_template"

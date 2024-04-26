@@ -11,9 +11,4 @@ public class SodiumItem extends Item {
                 .stacksTo(64)
                 .fireResistant());
     }
-
-    @Override
-    public boolean canBeHurtBy(@NotNull DamageSource arg) {
-        return !(arg.is(DamageTypes.LIGHTNING_BOLT));
-    }
 }

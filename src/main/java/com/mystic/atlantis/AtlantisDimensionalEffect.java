@@ -28,16 +28,15 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
     }
 
     @Override
-    public boolean renderSky(@NotNull ClientLevel world, int ticks, float tickDelta, PoseStack matrixStack, @NotNull Camera camera, @NotNull Matrix4f projectionMatrix, boolean isFoggy, @NotNull Runnable setupFog) {
+    public boolean renderSky(@NotNull ClientLevel world, int ticks, float tickDelta, Matrix4f matrixStack, @NotNull Camera camera, @NotNull Matrix4f projectionMatrix, boolean isFoggy, @NotNull Runnable setupFog) {
         RenderSystem.disableDepthTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(false);
-        matrixStack.pushPose();
-        drawSun(tickDelta, matrixStack, world);
-        drawMoonPhases(tickDelta, matrixStack, world);
+        PoseStack poseStack = new PoseStack();
+        drawSun(tickDelta, poseStack, world);
+        drawMoonPhases(tickDelta, poseStack, world);
         createStars();
-        matrixStack.popPose();
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
         RenderSystem.enableDepthTest();

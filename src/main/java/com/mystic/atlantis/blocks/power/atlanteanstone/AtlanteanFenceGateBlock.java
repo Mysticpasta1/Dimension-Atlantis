@@ -87,7 +87,7 @@ public class AtlanteanFenceGateBlock extends FenceGateBlock implements SimpleWat
     }
 
     @Override
-    public boolean isPathfindable(BlockState targetState, BlockGetter getter, BlockPos targetPos, PathComputationType type) {
+    public boolean isPathfindable(BlockState targetState, PathComputationType type) {
         switch(type) {
             case LAND:
             case WATER:
@@ -115,7 +115,7 @@ public class AtlanteanFenceGateBlock extends FenceGateBlock implements SimpleWat
     }
 
     @Override
-    public InteractionResult use(BlockState targetState, Level level, BlockPos targetPos, Player player, InteractionHand hand, BlockHitResult result) {
+    public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
         if (targetState.getValue(OPEN)) {
             targetState = targetState.setValue(OPEN, false);
             level.setBlock(targetPos, targetState, 10);

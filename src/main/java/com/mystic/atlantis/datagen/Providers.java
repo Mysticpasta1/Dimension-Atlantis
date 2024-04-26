@@ -21,11 +21,6 @@ public class Providers {
     public static void dataGather(GatherDataEvent event) {
         var output = event.getGenerator().getPackOutput();
 
-
-        if(event.includeServer()) {
-            event.getGenerator().addProvider(true, new AtlantisLootTableProvider(event.getGenerator()));
-        }
-
         if(event.includeClient()) {
             event.getGenerator().addProvider(true, new AtlantisBlockModelProvider(output, event.getExistingFileHelper()));
             event.getGenerator().addProvider(true, new AtlantisMainProvider(output, event.getExistingFileHelper(), AtlantisBlockStateProvider::new));

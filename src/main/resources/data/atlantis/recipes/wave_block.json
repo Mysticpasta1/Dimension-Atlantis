@@ -13,14 +13,14 @@
       "item": "atlantis:atlantean_crystal"
     },
 
-    "I":
+    "W":
     {
       "item": "atlantis:ocean_stone"
     }
   },
   "result":
   {
-    "item": "atlantis:crystal_storage_tank",
+    "id": "atlantis:wave_block",
     "count": 3
   }
 }
