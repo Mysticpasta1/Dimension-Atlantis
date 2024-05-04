@@ -1,7 +1,5 @@
 package com.mystic.atlantis.entities.renders;
 
-import static com.mystic.atlantis.entities.renders.JellyfishEntityRenderer.method_23187;
-
 import java.util.Collections;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,6 +9,7 @@ import com.mystic.atlantis.entities.ShrimpEntity;
 import com.mystic.atlantis.entities.models.ShrimpEntityModel;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -189,5 +188,21 @@ public class ShrimpEntityRenderer extends GeoEntityRenderer<ShrimpEntity> {
         }
 
         matrices.popPose();
+    }
+
+    public static void method_23187(VertexConsumer vertexConsumer, Matrix4f matrix4f, float f, float g, float h, int i, int j, int k, int l, float m, float n, float o, float p, int q, boolean bl) {
+        float r = (float)q / 24.0F;
+        int s = (int) Mth.lerp(r, (float) i, (float) j);
+        int t = (int) Mth.lerp(r, (float) k, (float) l);
+        int u = LightTexture.pack(s, t);
+        float v = q % 2 == (bl ? 1 : 0) ? 0.7F : 1.0F;
+        float w = 0.5F * v;
+        float x = 0.4F * v;
+        float y = 0.3F * v;
+        float z = f * r;
+        float aa = g > 0.0F ? g * r * r : g - g * (1.0F - r) * (1.0F - r);
+        float ab = h * r;
+        vertexConsumer.vertex(matrix4f, z - o, aa + n, ab + p).color(w, x, y, 1.0F).uv2(u).endVertex();
+        vertexConsumer.vertex(matrix4f, z + o, aa + m - n, ab - p).color(w, x, y, 1.0F).uv2(u).endVertex();
     }
 }

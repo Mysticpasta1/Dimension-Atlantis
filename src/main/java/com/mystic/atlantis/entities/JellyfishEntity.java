@@ -1,5 +1,6 @@
 package com.mystic.atlantis.entities;
 
+import com.mystic.atlantis.init.FluidTypesInit;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -65,7 +67,12 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
         this.randomTimer = this.getRandom().nextInt(61);
-        this.setNoGravity(true);
+        this.setNoGravity(false);
+    }
+
+    @Override
+    public boolean canSwimInFluidType(FluidType type) {
+        return isInFluidType(Blocks.WATER.defaultBlockState().getFluidState().getFluidType());
     }
 
     public static AttributeSupplier.Builder createJellyfishAttributes() {
@@ -122,9 +129,9 @@ public class JellyfishEntity extends WaterAnimal implements IAnimatable, Bucketa
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(0, new JellyFishRandomMovementGoal(this));
-        goalSelector.addGoal(1, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(2, new TryFindWaterGoal(this));
+        goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        goalSelector.addGoal(1, new JellyFishRandomMovementGoal(this));
+        goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         goalSelector.addGoal(3, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
     }
 
