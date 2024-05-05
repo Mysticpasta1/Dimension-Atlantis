@@ -85,7 +85,7 @@ public class AtlantisDimensionalEffect extends DimensionSpecialEffects {
 
     @Override
     public float getCloudHeight() {
-        return 400.0f;
+        return 550.0f;
     }
 
     @Override

@@ -64,6 +64,11 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, IAnimatable
     }
 
     @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    @Override
     public MobType getMobType() {
         return MobType.WATER;
     }
