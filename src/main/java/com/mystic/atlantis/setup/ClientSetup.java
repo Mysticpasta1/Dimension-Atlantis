@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -287,11 +288,11 @@ public class ClientSetup {
 
         BlockColor REGULAR = (arg, arg2, arg3, i) -> 0x8caed2; NON_LINGUISTICS.values().stream().map(RegistryObject::get).forEach(block -> blockColors.register(REGULAR, block));
 
-        BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> 0x100a60D0;
-        blockColors.register(SaltySeaWaterColor, BlockInit.SALTY_SEA_WATER_BLOCK.get());
-
-        BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> 0x52A9FFD0;
+        BlockColor JetstreamWaterColor = (arg, arg2, arg3, i) -> FastColor.ARGB32.color(255, 169, 255, 208);
         blockColors.register(JetstreamWaterColor, BlockInit.JETSTREAM_WATER_BLOCK.get());
+
+        BlockColor SaltySeaWaterColor = (arg, arg2, arg3, i) -> FastColor.ARGB32.color(255, 10, 96, 208);
+        blockColors.register(SaltySeaWaterColor, BlockInit.SALTY_SEA_WATER_BLOCK.get());
 
         //BlockColor CoconutMilkColor = (arg, arg2, arg3, i) -> 0xFFFFFFFF;
         //blockColors.register(CoconutMilkColor, BlockInit.COCONUT_MILK.get());
