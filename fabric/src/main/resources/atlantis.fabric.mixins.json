@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.mystic.atlantis.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "atlantis.fabric.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "client.GuiMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
