@@ -21,6 +21,7 @@ public class AtlantisEntityInit {
 
     //Boats
     public static final RegistryObject<EntityType<AtlanteanBoatEntity>> ATLANTEAN_BOAT = register("atlantean_boat", EntityType.Builder.of(AtlanteanBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10));
+    public static final RegistryObject<EntityType<PalmBoatEntity>> PALM_BOAT = register("palm_boat", EntityType.Builder.of(PalmBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10));
 
     //Geckolib Creatures
     public static final RegistryObject<EntityType<CrabEntity>> CRAB = register("atlantean_crab", EntityType.Builder.of(CrabEntity::new, MobCategory.WATER_CREATURE).sized(1.2f, 0.3f));

@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"   ",
+		" W ",
+		" W "
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:palm_planks"
+		}
+	},
+	"result":
+	{
+		"item": "minecraft:stick",
+		"count": 2
+	}
+
+}	

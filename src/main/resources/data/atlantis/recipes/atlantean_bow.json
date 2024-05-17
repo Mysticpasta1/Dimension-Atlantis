@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		" SW",
+		"S W",
+		" SW"
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:atlantean_string"
+		},
+
+		"S":
+		{
+			"item": "minecraft:stick"
+		}
+	},
+	"result":
+	{
+		"item": "minecraft:stick",
+		"count": 2
+	}
+
+}	
