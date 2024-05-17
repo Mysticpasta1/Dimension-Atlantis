@@ -1,5 +1,15 @@
 {
   "values": [
+    "atlantis:palm_button",
+    "atlantis:palm_door",
+    "atlantis:palm_fence",
+    "atlantis:palm_fence_gate",
+    "atlantis:palm_pressure_plate",
+    "atlantis:palm_sign",
+    "atlantis:palm_slab",
+    "atlantis:palm_stairs",
+    "atlantis:palm_trapdoor",
+    "atlantis:palm_wall_sign",
     "atlantis:palm_planks",
     "atlantis:stripped_palm_log",
     "atlantis:stripped_atlantean_log",

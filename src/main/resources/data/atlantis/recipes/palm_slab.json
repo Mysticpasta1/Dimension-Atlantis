@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"   ",
+		"   ",
+		"WWW"
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:palm_planks"
+		}
+	},
+	"result":
+	{
+		"item": "atlantis:palm_slab",
+		"count": 3
+	}
+
+}	
