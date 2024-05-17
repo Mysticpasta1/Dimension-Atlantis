@@ -40,6 +40,7 @@ public class ItemInit {
 
     //BOATS
     public static final RegistryObject<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> PALM_BOAT = register("palm_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1)));
 
     //SPAWN EGGS
     public static final RegistryObject<Item> ATLANTEAN_CRAB_EGG = register("atlantean_crab_egg",() -> new ForgeSpawnEggItem(AtlantisEntityInit.CRAB, 0x800002, 0xff0f45, new Item.Properties()));
