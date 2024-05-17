@@ -6,14 +6,14 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class PalmBoatEntity extends Boat implements GeoEntity {
+public class PalmBoatEntity extends Boat implements IAnimatable {
 
-    private AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public PalmBoatEntity(EntityType<? extends Boat> arg, Level arg2) {
         super(arg, arg2);
@@ -25,10 +25,10 @@ public class PalmBoatEntity extends Boat implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar data) {}
+    public void registerControllers(AnimationData data) {}
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
+    public AnimationFactory getFactory() {
         return factory;
     }
 }

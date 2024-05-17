@@ -5,6 +5,6 @@ import net.minecraft.client.model.geom.ModelPart;
 
 public class PalmBoatModel extends BoatModel {
     public PalmBoatModel(ModelPart bakeLayer) {
-        super(bakeLayer);
+        super(bakeLayer, false);
     }
 }

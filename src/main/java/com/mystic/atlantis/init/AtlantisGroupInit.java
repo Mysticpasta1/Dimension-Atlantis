@@ -10,6 +10,16 @@ public class AtlantisGroupInit {
             public ItemStack makeIcon() {
                 return BlockInit.CHISELED_GOLDEN_AQUAMARINE.get().asItem().getDefaultInstance();
             }
+
+            @Override
+            public boolean hasSearchBar() {
+                return true;
+            }
+
+            @Override
+            public int getSearchbarWidth() {
+                return 58;
+            }
         }
         .hideTitle().setBackgroundImage(new ResourceLocation("atlantis", "textures/gui/atlantis_tab.png"));
 
@@ -17,6 +27,16 @@ public class AtlantisGroupInit {
             @Override
             public ItemStack makeIcon() {
                 return BlockInit.LINGUISTIC_BLOCK.get().asItem().getDefaultInstance();
+            }
+
+            @Override
+            public boolean hasSearchBar() {
+                return true;
+            }
+
+            @Override
+            public int getSearchbarWidth() {
+                return 58;
             }
         }.hideTitle().setBackgroundImage(new ResourceLocation("atlantis", "textures/gui/glyph_tab.png"));
 
