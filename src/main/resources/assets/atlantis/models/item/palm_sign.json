@@ -2,6 +2,6 @@
    "parent": "item/generated",
    "textures":
    {
-      "layer0": "atlantis:item/palm_sign_item"
+      "layer0": "atlantis:item/palm_sign"
    }
 }

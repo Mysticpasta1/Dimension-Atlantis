@@ -21,7 +21,7 @@ public class PalmBoatEntity extends Boat implements GeoEntity {
 
     @Override
     public @NotNull Item getDropItem() {
-        return ItemInit.ATLANTEAN_BOAT.get();
+        return ItemInit.PALM_BOAT.get();
     }
 
     @Override
