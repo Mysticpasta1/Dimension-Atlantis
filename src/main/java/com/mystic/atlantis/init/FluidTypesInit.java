@@ -30,12 +30,12 @@ public class FluidTypesInit {
 
     private static Supplier<FluidType> registerJetstreamWaterType(String name, FluidType.Properties properties) {
         return FLUID_TYPES.register(name, () -> new BaseFluidType(WATER_STILL, WATER_FLOWING, WATER_OVERLAY,
-                0x52A9FFD0, new Vector3f(224f / 255f, 56f / 255f, 208f / 255f), properties));
+                FastColor.ARGB32.color(255, 169, 255, 208), new Vector3f(169f / 255f, 1f, 208f / 255f), properties));
     }
 
     private static Supplier<FluidType> registerSaltySeaWaterFluidType(String name, FluidType.Properties properties) {
         return FLUID_TYPES.register(name, () -> new BaseFluidType(WATER_STILL, WATER_FLOWING, WATER_OVERLAY,
-                0x100A60D0, new Vector3f(224f / 255f, 56f / 255f, 208f / 255f), properties));
+                FastColor.ARGB32.color(255, 10, 96, 208), new Vector3f(10f / 255f, 96f / 255f, 208f / 255f), properties));
     }
 
     //public static final RegistryObject<FluidType> COCONUT_MILK_FLUID_TYPE = registerMilkType("coconut_milk", new FluidType(FluidType.Properties.create()

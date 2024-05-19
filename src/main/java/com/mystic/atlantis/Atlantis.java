@@ -94,7 +94,7 @@ public class Atlantis {
     public static void onCommonSet(FMLCommonSetupEvent event) {
         TagsInit.init();
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
-    }
+        ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get());
 
     @SubscribeEvent
     public static void spawnPlacements(SpawnPlacementRegisterEvent event) {
