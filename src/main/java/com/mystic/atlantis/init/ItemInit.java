@@ -39,7 +39,7 @@ public class ItemInit {
     public static final Supplier<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(ToolInit.AQUAMARINE, 5));
 
     //BOATS
-    public static final RegistryObject<Item> PALM_BOAT = register("palm_boat", () -> new PalmBoatItem(new Item.Properties().stacksTo(1)));
+    public static final Supplier<Item> PALM_BOAT = register("palm_boat", () -> new PalmBoatItem(new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> ATLANTEAN_BOAT = register("atlantean_boat", () -> new AtlanteanBoatItem(new Item.Properties().stacksTo(1)));
 
     //SPAWN EGGS
@@ -58,7 +58,7 @@ public class ItemInit {
     public static final Supplier<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 10));
 
     //ITEMS
-    public static final RegistryObject<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get()));
+    public static final Supplier<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get()));
     public static final Supplier<Item> BROKEN_SHELLS = register("broken_shells", DefaultItem::new);
     public static final Supplier<Item> SODIUM_NUGGET = register("sodium_nugget", () -> new SodiumItem(new Item.Properties()));
     public static final Supplier<Item> SEA_SALT = register("sea_salt", DefaultItem::new);

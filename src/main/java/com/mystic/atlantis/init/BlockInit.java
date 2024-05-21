@@ -81,19 +81,19 @@ public class BlockInit {
     public static final Supplier<CarvedCoconut> SATIRE_LANTERN = registerBlock("satire_lantern", () -> new CarvedCoconut(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(1.0F).sound(SoundType.WOOD).lightLevel((p_50870_) -> 15)));
 
     //Atlantean Palm Wood Variants
-    public static final RegistryObject<PalmLog> PALM_LOG = registerBlock("palm_log", () -> new PalmLog(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<StrippedPalmLog> STRIPPED_PALM_LOG = registerBlock("stripped_palm_log", () -> new StrippedPalmLog(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<PalmWoodBlock> PALM_PLANKS = registerBlock("palm_planks", () -> new PalmWoodBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanButtonBlock> PALM_BUTTON = registerBlock("palm_button", () -> new AtlanteanButtonBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodDoorBlock> PALM_DOOR = registerBlock("palm_door", () -> new AtlanteanWoodDoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodFenceBlock> PALM_FENCE = registerBlock("palm_fence", () -> new AtlanteanWoodFenceBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanFenceGateBlock> PALM_FENCE_GATE = registerBlock("palm_fence_gate", () -> new AtlanteanFenceGateBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanPressurePlateBlock> PALM_PRESSURE_PLATE = registerBlock("palm_pressure_plate", () -> new AtlanteanPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanSignBlock> PALM_SIGNS = registerOnlyBlock("palm_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(), PALM));
-    public static final RegistryObject<AtlanteanWoodSlabBlock> PALM_SLAB = registerBlock("palm_slab", () -> new AtlanteanWoodSlabBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodStairBlock> PALM_STAIRS = registerBlock("palm_stairs", () -> new AtlanteanWoodStairBlock(BlockInit.PALM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWoodTrapdoorBlock> PALM_TRAPDOOR = registerBlock("palm_trapdoor", () -> new AtlanteanWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<AtlanteanWallSignBlock> PALM_WALL_SIGN = registerOnlyBlock("palm_wall_sign", () -> new AtlanteanWallSignBlock(BlockBehaviour.Properties.of(), PALM));
+    public static final Supplier<PalmLog> PALM_LOG = registerBlock("palm_log", () -> new PalmLog(BlockBehaviour.Properties.of()));
+    public static final Supplier<StrippedPalmLog> STRIPPED_PALM_LOG = registerBlock("stripped_palm_log", () -> new StrippedPalmLog(BlockBehaviour.Properties.of()));
+    public static final Supplier<PalmWoodBlock> PALM_PLANKS = registerBlock("palm_planks", () -> new PalmWoodBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanButtonBlock> PALM_BUTTON = registerBlock("palm_button", () -> new AtlanteanButtonBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanWoodDoorBlock> PALM_DOOR = registerBlock("palm_door", () -> new AtlanteanWoodDoorBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanWoodFenceBlock> PALM_FENCE = registerBlock("palm_fence", () -> new AtlanteanWoodFenceBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanFenceGateBlock> PALM_FENCE_GATE = registerBlock("palm_fence_gate", () -> new AtlanteanFenceGateBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanPressurePlateBlock> PALM_PRESSURE_PLATE = registerBlock("palm_pressure_plate", () -> new AtlanteanPressurePlateBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanSignBlock> PALM_SIGNS = registerOnlyBlock("palm_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(), PALM));
+    public static final Supplier<AtlanteanWoodSlabBlock> PALM_SLAB = registerBlock("palm_slab", () -> new AtlanteanWoodSlabBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanWoodStairBlock> PALM_STAIRS = registerBlock("palm_stairs", () -> new AtlanteanWoodStairBlock(BlockInit.PALM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanWoodTrapdoorBlock> PALM_TRAPDOOR = registerBlock("palm_trapdoor", () -> new AtlanteanWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
+    public static final Supplier<AtlanteanWallSignBlock> PALM_WALL_SIGN = registerOnlyBlock("palm_wall_sign", () -> new AtlanteanWallSignBlock(BlockBehaviour.Properties.of(), PALM));
 
 
     //Atlantean Wood Variants
@@ -278,6 +278,24 @@ public class BlockInit {
     public static final BlockType BROWN_SEA_GLASS = registerSeaGlass("brown");
     public static final BlockType LIME_SEA_GLASS = registerSeaGlass("lime");
 
+    public static final Supplier<Block> ANCIENT_METAL = registerBlock("ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL = registerBlock("exposed_ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL = registerBlock("oxidized_ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL = registerBlock("weathered_ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> ANCIENT_METAL_BUTTON = registerBlock("ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL_BUTTON = registerBlock("exposed_ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL_BUTTON = registerBlock("oxidized_ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL_BUTTON = registerBlock("weathered_ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> ANCIENT_METAL = registerBlock("ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL = registerBlock("exposed_ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL = registerBlock("oxidized_ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL = registerBlock("weathered_ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> ANCIENT_METAL = registerBlock("ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL = registerBlock("exposed_ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL = registerBlock("oxidized_ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL = registerBlock("weathered_ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
+
+
     public static final Supplier<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of() .sound(SoundType.BONE_BLOCK)
             .requiresCorrectToolForDrops()
             .strength(3.0F, 7.0F)
@@ -305,13 +323,13 @@ public class BlockInit {
         var blockWall = woodType == null ? registerMainTabBlock(name + "_wall", blockBase, block1 -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockFence = woodType != null ? registerMainTabBlock(name + "_fence", blockBase, block1 -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockGateBlock = woodType != null ? registerMainTabBlock(name + "_fence_gate", blockBase, block1 -> new FenceGateBlock(woodType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
-
+        var blockStairs = registerMainTabBlock(name + "_stairs", blockBase, block1 -> new StairBlock(block1.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var blockDoor = genDoors ? registerMainTabBlock(name + "_door", blockBase, block1 -> new DoorBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockTrapDoor = genDoors ? registerMainTabBlock(name + "_trap_door", blockBase, block1 -> new TrapDoorBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockButton = registerMainTabBlock(name + "_button", blockBase, block1 -> new ButtonBlock(blockSetType, pTicksToStayPressed, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var pressurePlate = registerMainTabBlock(name + "_pressure_plate", blockBase, block1 -> new PressurePlateBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
 
-        return BlockType.of(blockBase, blockSlab, blockWall, blockFence, blockGateBlock, blockDoor, blockTrapDoor, blockButton, pressurePlate);
+        return BlockType.of(blockBase, blockSlab, blockWall, blockFence, blockGateBlock, blockStairs, blockDoor, blockTrapDoor, blockButton, pressurePlate);
     }
 
     private static BlockType registerSeaGlass(String name) {

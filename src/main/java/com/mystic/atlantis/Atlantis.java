@@ -95,6 +95,7 @@ public class Atlantis {
         TagsInit.init();
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get());
+    }
 
     @SubscribeEvent
     public static void spawnPlacements(SpawnPlacementRegisterEvent event) {
@@ -106,6 +107,5 @@ public class Atlantis {
         event.register(AtlantisEntityInit.SHRIMP.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShrimpEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(AtlantisEntityInit.LEVIATHAN.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LeviathanEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(AtlantisEntityInit.SEAHORSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SeahorseEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.AND);
-
     }
 }

@@ -22,7 +22,7 @@ public class AtlantisEntityInit {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, Reference.MODID);
 
     //Boats
-    public static final RegistryObject<EntityType<PalmBoatEntity>> PALM_BOAT = register("palm_boat", EntityType.Builder.of(PalmBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10));
+    public static final Supplier<EntityType<PalmBoatEntity>> PALM_BOAT = register("palm_boat", EntityType.Builder.of(PalmBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10));
     public static final Supplier<EntityType<AtlanteanBoatEntity>> ATLANTEAN_BOAT = register("atlantean_boat", EntityType.Builder.of(AtlanteanBoatEntity::new, MobCategory.MISC).sized(1.375f, 0.5625f).clientTrackingRange(10));
 
     //Geckolib Creatures
