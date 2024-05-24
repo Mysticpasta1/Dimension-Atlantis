@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-@Mixin(RedStoneWireBlock.class)
+@Mixin(value = RedStoneWireBlock.class, priority = 99999)
 public abstract class RedstoneWireBlockMixin {
 
     @Redirect(method = "shouldConnectTo(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0))
@@ -40,7 +40,7 @@ public abstract class RedstoneWireBlockMixin {
         return 0;
     }
 
-    @Inject(method = "calculateTargetStrength", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "calculateTargetStrength", at = @At(value = "HEAD"), cancellable = true, require = 1)
     public void setPowerToWires1(Level level, BlockPos targetPos, CallbackInfoReturnable<Integer> cir) {
         cir.cancel();
         ((RedstoneAccessor) ((RedStoneWireBlock) (Object) this)).setShouldSignal(false);
