@@ -1,6 +1,8 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.BlockType;
+import com.mystic.atlantis.blocks.ancient_metal.*;
+import com.mystic.atlantis.blocks.ancient_metal.WaterloggedTransparentBlock;
 import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
@@ -14,16 +16,22 @@ import com.mystic.atlantis.blocks.signs.AtlanteanWallSignBlock;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabBlock;
 import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabBlock;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -34,6 +42,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 public class BlockInit {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, Reference.MODID);
@@ -54,9 +63,9 @@ public class BlockInit {
 
     //Fluid Blocks
     public static final Supplier<LiquidBlock> JETSTREAM_WATER_BLOCK = BLOCKS.register("jetstream_water",
-            () -> new LiquidBlock(FluidInit.JETSTREAM_WATER, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+            () -> new LiquidBlock(FluidInit.JETSTREAM_WATER.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
     public static final Supplier<LiquidBlock> SALTY_SEA_WATER_BLOCK = BLOCKS.register("salty_sea_water",
-            () -> new LiquidBlock(FluidInit.SALTY_SEA_WATER, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+            () -> new LiquidBlock(FluidInit.SALTY_SEA_WATER.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
 
     //public static final Supplier<LiquidBlock> COCONUT_MILK = BLOCKS.register("coconut_milk",
     //        () -> new LiquidBlock(FluidInit.COCONUT_MILK, BlockBehaviour.Properties.copy(Blocks.WATER)));
@@ -278,23 +287,333 @@ public class BlockInit {
     public static final BlockType BROWN_SEA_GLASS = registerSeaGlass("brown");
     public static final BlockType LIME_SEA_GLASS = registerSeaGlass("lime");
 
-    public static final Supplier<Block> ANCIENT_METAL = registerBlock("ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> EXPOSED_ANCIENT_METAL = registerBlock("exposed_ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL = registerBlock("oxidized_ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> WEATHERED_ANCIENT_METAL = registerBlock("weathered_ancient_metal", () -> new WeatheringCopperFullBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> ANCIENT_METAL_BUTTON = registerBlock("ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> EXPOSED_ANCIENT_METAL_BUTTON = registerBlock("exposed_ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL_BUTTON = registerBlock("oxidized_ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> WEATHERED_ANCIENT_METAL_BUTTON = registerBlock("weathered_ancient_metal_button", () -> new WeatheringCopperBulbBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> ANCIENT_METAL = registerBlock("ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> EXPOSED_ANCIENT_METAL = registerBlock("exposed_ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL = registerBlock("oxidized_ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> WEATHERED_ANCIENT_METAL = registerBlock("weathered_ancient_metal", () -> new WeatheringCopperDoorBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> ANCIENT_METAL = registerBlock("ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.UNAFFECTED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> EXPOSED_ANCIENT_METAL = registerBlock("exposed_ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.EXPOSED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL = registerBlock("oxidized_ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.OXIDIZED, BlockBehaviour.Properties.of()));
-    public static final Supplier<Block> WEATHERED_ANCIENT_METAL = registerBlock("weathered_ancient_metal", () -> new WeatheringCopperTrapDoorBlock(WeatheringCopper.WeatherState.WEATHERED, BlockBehaviour.Properties.of()));
+    public static final Supplier<Block> ANCIENT_METAL_BLOCK = registerBlock(
+            "ancient_metal_block",
+            () -> new WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.UNAFFECTED,
+                    BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)
+            )
+    );
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL = registerBlock(
+            "exposed_ancient_metal",
+            () -> new WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get()).mapColor(MapColor.COLOR_GRAY)
+            )
+    );
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL = registerBlock(
+            "weathered_ancient_metal",
+            () -> new WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get()).mapColor(MapColor.WARPED_STEM)
+            )
+    );
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL = registerBlock(
+            "oxidized_ancient_metal",
+            () -> new  WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.OXIDIZED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get()).mapColor(MapColor.WARPED_NYLIUM)
+            )
+    );
 
+    public static final Supplier<Block> OXIDIZED_CUT_ANCIENT_METAL = registerBlock(
+            "oxidized_cut_ancient_metal", () -> new  WeatheringMetalFullBlock(WeatheringMetal.WeatherState.OXIDIZED, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WEATHERED_CUT_ANCIENT_METAL = registerBlock(
+            "weathered_cut_ancient_metal", () -> new  WeatheringMetalFullBlock(WeatheringMetal.WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> EXPOSED_CUT_ANCIENT_METAL = registerBlock(
+            "exposed_cut_ancient_metal", () -> new  WeatheringMetalFullBlock(WeatheringMetal.WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> CUT_ANCIENT_METAL = registerBlock(
+            "cut_ancient_metal", () -> new  WeatheringMetalFullBlock(WeatheringMetal.WeatherState.UNAFFECTED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get()))
+    );
+    public static final Supplier<Block> OXIDIZED_CHISELED_ANCIENT_METAL = registerBlock(
+            "oxidized_chiseled_ancient_metal",
+            () -> new  WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.OXIDIZED, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> WEATHERED_CHISELED_ANCIENT_METAL = registerBlock(
+            "weathered_chiseled_ancient_metal",
+            () -> new  WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> EXPOSED_CHISELED_ANCIENT_METAL = registerBlock(
+            "exposed_chiseled_ancient_metal",
+            () -> new  WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> CHISELED_ANCIENT_METAL = registerBlock(
+            "chiseled_ancient_metal",
+            () -> new  WeatheringMetalFullBlock(
+                    WeatheringMetal.WeatherState.UNAFFECTED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> WAXED_OXIDIZED_CHISELED_ANCIENT_METAL = registerBlock(
+            "waxed_oxidized_chiseled_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(OXIDIZED_CHISELED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WAXED_WEATHERED_CHISELED_ANCIENT_METAL = registerBlock(
+            "waxed_weathered_chiseled_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(WEATHERED_CHISELED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WAXED_EXPOSED_CHISELED_ANCIENT_METAL = registerBlock(
+            "waxed_exposed_chiseled_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(EXPOSED_CHISELED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WAXED_CHISELED_ANCIENT_METAL = registerBlock("waxed_chiseled_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(CHISELED_ANCIENT_METAL.get())));
+    public static final Supplier<Block> OXIDIZED_CUT_ANCIENT_METAL_STAIRS = registerBlock(
+            "oxidized_cut_ancient_metal_stairs",
+            () -> new  WeatheringMetalStairBlock(
+                    WeatheringMetal.WeatherState.OXIDIZED, OXIDIZED_CUT_ANCIENT_METAL.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(OXIDIZED_CUT_ANCIENT_METAL.get())
+            )
+    );
+    public static final Supplier<Block> WEATHERED_CUT_ANCIENT_METAL_STAIRS = registerBlock(
+            "weathered_cut_ancient_metal_stairs",
+            () -> new WeatheringMetalStairBlock(
+                    WeatheringMetal.WeatherState.WEATHERED, WEATHERED_CUT_ANCIENT_METAL.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL.get())
+            )
+    );
+    public static final Supplier<Block> EXPOSED_CUT_ANCIENT_METAL_STAIRS = registerBlock(
+            "exposed_cut_ancient_metal_stairs",
+            () -> new  WeatheringMetalStairBlock(
+                    WeatheringMetal.WeatherState.EXPOSED, EXPOSED_CUT_ANCIENT_METAL.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL.get())
+            )
+    );
+    public static final Supplier<Block> CUT_ANCIENT_METAL_STAIRS = registerBlock(
+            "cut_ancient_metal_stairs",
+            () -> new  WeatheringMetalStairBlock(
+                    WeatheringMetal.WeatherState.UNAFFECTED, CUT_ANCIENT_METAL.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get())
+            )
+    );
+    public static final Supplier<Block> OXIDIZED_CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "oxidized_cut_ancient_metal_slab",
+            () -> new  WeatheringMetalSlabBlock(WeatheringMetal.WeatherState.OXIDIZED, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_CUT_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WEATHERED_CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "weathered_cut_ancient_metal_slab",
+            () -> new  WeatheringMetalSlabBlock(WeatheringMetal.WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(WEATHERED_CUT_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> EXPOSED_CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "exposed_cut_ancient_metal_slab",
+            () -> new WeatheringMetalSlabBlock(WeatheringMetal.WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(EXPOSED_CUT_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "cut_ancient_metal_slab", () -> new  WeatheringMetalSlabBlock(WeatheringMetal.WeatherState.UNAFFECTED, BlockBehaviour.Properties.ofFullCopy(CUT_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WAXED_ANCIENT_METAL_BLOCK = registerBlock("waxed_ancient_metal_block", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get())));
+    public static final Supplier<Block> WAXED_WEATHERED_ANCIENT_METAL = registerBlock("waxed_weathered_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL.get())));
+    public static final Supplier<Block> WAXED_EXPOSED_ANCIENT_METAL = registerBlock("waxed_exposed_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL.get())));
+    public static final Supplier<Block> WAXED_OXIDIZED_ANCIENT_METAL = registerBlock("waxed_oxidized_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL.get())));
+    public static final Supplier<Block> WAXED_OXIDIZED_CUT_ANCIENT_METAL = registerBlock(
+            "waxed_oxidized_cut_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WAXED_WEATHERED_CUT_ANCIENT_METAL = registerBlock(
+            "waxed_weathered_cut_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL.get()))
+    );
+    public static final Supplier<Block> WAXED_EXPOSED_CUT_ANCIENT_METAL = registerBlock("waxed_exposed_cut_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL.get())));
+    public static final Supplier<Block> WAXED_CUT_ANCIENT_METAL = registerBlock("waxed_cut_ancient_metal", () -> new  Block(BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get())));
+    public static final Supplier<Block> WAXED_OXIDIZED_CUT_ANCIENT_METAL_STAIRS = registerBlock("waxed_oxidized_cut_ancient_metal_stairs", () -> new StairBlock(WAXED_OXIDIZED_CUT_ANCIENT_METAL.get().defaultBlockState(), WAXED_OXIDIZED_CUT_ANCIENT_METAL.get().properties()));
+    public static final Supplier<Block> WAXED_WEATHERED_CUT_ANCIENT_METAL_STAIRS = registerBlock("waxed_weathered_cut_ancient_metal_stairs", () -> new StairBlock(WAXED_WEATHERED_CUT_ANCIENT_METAL.get().defaultBlockState(), WAXED_WEATHERED_CUT_ANCIENT_METAL.get().properties()));
+    public static final Supplier<Block> WAXED_EXPOSED_CUT_ANCIENT_METAL_STAIRS = registerBlock("waxed_exposed_cut_ancient_metal_stairs", () -> new StairBlock(WAXED_EXPOSED_CUT_ANCIENT_METAL.get().defaultBlockState(), WAXED_EXPOSED_CUT_ANCIENT_METAL.get().properties()));
+    public static final Supplier<Block> WAXED_CUT_ANCIENT_METAL_STAIRS = registerBlock("waxed_cut_ancient_metal_stairs", () -> new StairBlock(WAXED_CUT_ANCIENT_METAL.get().defaultBlockState(), WAXED_CUT_ANCIENT_METAL.get().properties()));
+    public static final Supplier<Block> WAXED_OXIDIZED_CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "waxed_oxidized_cut_ancient_metal_slab", () -> new  SlabBlock(BlockBehaviour.Properties.ofFullCopy(WAXED_OXIDIZED_CUT_ANCIENT_METAL.get()).requiresCorrectToolForDrops())
+    );
+    public static final Supplier<Block> WAXED_WEATHERED_CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "waxed_weathered_cut_ancient_metal_slab", () -> new  SlabBlock(BlockBehaviour.Properties.ofFullCopy(WAXED_WEATHERED_CUT_ANCIENT_METAL.get()).requiresCorrectToolForDrops())
+    );
+    public static final Supplier<Block> WAXED_EXPOSED_CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "waxed_exposed_cut_ancient_metal_slab", () -> new  SlabBlock(BlockBehaviour.Properties.ofFullCopy(WAXED_EXPOSED_CUT_ANCIENT_METAL.get()).requiresCorrectToolForDrops())
+    );
+    public static final Supplier<Block> WAXED_CUT_ANCIENT_METAL_SLAB = registerBlock(
+            "waxed_cut_ancient_metal_slab", () -> new  SlabBlock(BlockBehaviour.Properties.ofFullCopy(WAXED_CUT_ANCIENT_METAL.get()).requiresCorrectToolForDrops())
+    );
+    public static final Supplier<Block> ANCIENT_METAL_DOOR = registerBlock(
+            "ancient_metal_door",
+            () -> new WeatheringMetalDoorBlock(
+                    BlockSetType.COPPER,
+                    WeatheringMetal.WeatherState.UNAFFECTED,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(ANCIENT_METAL_BLOCK.get().defaultMapColor())
+                            .strength(3.0F, 6.0F)
+                            .noOcclusion()
+                            .requiresCorrectToolForDrops()
+                            .pushReaction(PushReaction.DESTROY)
+                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL_DOOR = registerBlock(
+            "exposed_ancient_metal_door",
+            () -> new  WeatheringMetalDoorBlock(
+                    BlockSetType.COPPER,
+                    WeatheringMetal.WeatherState.EXPOSED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_DOOR.get()).mapColor(EXPOSED_ANCIENT_METAL.get().defaultMapColor())
+            )
+    );
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL_DOOR = registerBlock(
+            "oxidized_ancient_metal_door",
+            () -> new  WeatheringMetalDoorBlock(
+                    BlockSetType.COPPER,
+                    WeatheringMetal.WeatherState.OXIDIZED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_DOOR.get()).mapColor(OXIDIZED_ANCIENT_METAL.get().defaultMapColor())
+            )
+    );
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL_DOOR = registerBlock(
+            "weathered_ancient_metal_door",
+            () -> new  WeatheringMetalDoorBlock(
+                    BlockSetType.COPPER,
+                    WeatheringMetal.WeatherState.WEATHERED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_DOOR.get()).mapColor(WEATHERED_ANCIENT_METAL.get().defaultMapColor())
+            )
+    );
+    public static final Supplier<Block> WAXED_ANCIENT_METAL_DOOR = registerBlock(
+            "waxed_ancient_metal_door", () -> new  DoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_DOOR.get()))
+    );
+    public static final Supplier<Block> WAXED_EXPOSED_ANCIENT_METAL_DOOR = registerBlock(
+            "waxed_exposed_ancient_metal_door", () -> new  DoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL_DOOR.get()))
+    );
+    public static final Supplier<Block> WAXED_OXIDIZED_ANCIENT_METAL_DOOR = registerBlock(
+            "waxed_oxidized_ancient_metal_door", () -> new  DoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL_DOOR.get()))
+    );
+    public static final Supplier<Block> WAXED_WEATHERED_ANCIENT_METAL_DOOR = registerBlock(
+            "waxed_weathered_ancient_metal_door", () -> new  DoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL_DOOR.get()))
+    );
+    public static final Supplier<Block> ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "ancient_metal_trapdoor",
+            () -> new WeatheringMetalTrapDoorBlock(
+                    WeatheringMetal.WeatherState.UNAFFECTED,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(ANCIENT_METAL_BLOCK.get().defaultMapColor())
+                            .strength(3.0F, 6.0F)
+                            .requiresCorrectToolForDrops()
+                            .noOcclusion()
+                            .isValidSpawn((pState, pLevel, pPos, pValue) -> false)
+                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "exposed_ancient_metal_trapdoor",
+            () -> new  WeatheringMetalTrapDoorBlock(
+                    WeatheringMetal.WeatherState.EXPOSED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_TRAPDOOR.get()).mapColor(EXPOSED_ANCIENT_METAL.get().defaultMapColor())
+            )
+    );
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "oxidized_ancient_metal_trapdoor",
+            () -> new  WeatheringMetalTrapDoorBlock(
+                    WeatheringMetal.WeatherState.OXIDIZED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_TRAPDOOR.get()).mapColor(OXIDIZED_ANCIENT_METAL.get().defaultMapColor())
+            )
+    );
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "weathered_ancient_metal_trapdoor",
+            () -> new  WeatheringMetalTrapDoorBlock(
+                    WeatheringMetal.WeatherState.WEATHERED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_TRAPDOOR.get()).mapColor(WEATHERED_ANCIENT_METAL.get().defaultMapColor())
+            )
+    );
+    public static final Supplier<Block> WAXED_ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "waxed_ancient_metal_trapdoor", () -> new  TrapDoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_TRAPDOOR.get()))
+    );
+    public static final Supplier<Block> WAXED_EXPOSED_ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "waxed_exposed_ancient_metal_trapdoor", () -> new  TrapDoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL_TRAPDOOR.get()))
+    );
+    public static final Supplier<Block> WAXED_OXIDIZED_ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "waxed_oxidized_ancient_metal_trapdoor", () -> new  TrapDoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL_TRAPDOOR.get()))
+    );
+    public static final Supplier<Block> WAXED_WEATHERED_ANCIENT_METAL_TRAPDOOR = registerBlock(
+            "waxed_weathered_ancient_metal_trapdoor", () -> new  TrapDoorBlock(BlockSetType.COPPER, BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL_TRAPDOOR.get()))
+    );
+    public static final Supplier<Block> ANCIENT_METAL_GRATE = registerBlock(
+            "ancient_metal_grate",
+            () -> new WeatheringMetalGrateBlock(
+                    WeatheringMetal.WeatherState.UNAFFECTED,
+                    BlockBehaviour.Properties.of()
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.COPPER_GRATE)
+                            .mapColor(MapColor.COLOR_ORANGE)
+                            .noOcclusion()
+                            .requiresCorrectToolForDrops()
+                            .isValidSpawn((pState, pLevel, pPos, pValue) -> false)
+                            .isRedstoneConductor((pState, pLevel, pPos) -> false)
+                            .isSuffocating((pState, pLevel, pPos) -> false)
+                            .isViewBlocking((pState, pLevel, pPos) -> false)
+                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL_GRATE = registerBlock(
+            "exposed_ancient_metal_grate",
+            () -> new  WeatheringMetalGrateBlock(
+                    WeatheringMetal.WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_GRATE.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)
+            )
+    );
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL_GRATE = registerBlock(
+            "weathered_ancient_metal_grate",
+            () -> new  WeatheringMetalGrateBlock(
+                    WeatheringMetal.WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_GRATE.get()).mapColor(MapColor.WARPED_STEM)
+            )
+    );
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL_GRATE = registerBlock(
+            "oxidized_ancient_metal_grate",
+            () -> new  WeatheringMetalGrateBlock(
+                    WeatheringMetal.WeatherState.OXIDIZED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_GRATE.get()).mapColor(MapColor.WARPED_NYLIUM)
+            )
+    );
+    public static final Supplier<Block> WAXED_ANCIENT_METAL_GRATE = registerBlock(
+            "waxed_ancient_metal_grate", () -> new WaterloggedTransparentBlock(BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_GRATE.get()))
+    );
+    public static final Supplier<Block> WAXED_EXPOSED_ANCIENT_METAL_GRATE = registerBlock(
+            "waxed_exposed_ancient_metal_grate", () -> new WaterloggedTransparentBlock(BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL_GRATE.get()))
+    );
+    public static final Supplier<Block> WAXED_WEATHERED_ANCIENT_METAL_GRATE = registerBlock(
+            "waxed_weathered_ancient_metal_grate", () -> new  WaterloggedTransparentBlock(BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL_GRATE.get()))
+    );
+    public static final Supplier<Block> WAXED_OXIDIZED_ANCIENT_METAL_GRATE = registerBlock(
+            "waxed_oxidized_ancient_metal_grate", () -> new  WaterloggedTransparentBlock(BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL_GRATE.get()))
+    );
+    public static final Supplier<Block> ANCIENT_METAL_BULB = registerBlock(
+            "ancient_metal_bulb",
+            () -> new  WeatheringMetalBulbBlock(
+                    WeatheringMetal.WeatherState.UNAFFECTED,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(ANCIENT_METAL_BLOCK.get().defaultMapColor())
+                            .strength(3.0F, 6.0F)
+                            .sound(SoundType.COPPER_BULB)
+                            .requiresCorrectToolForDrops()
+                            .isRedstoneConductor((pState, pLevel, pPos) -> false)
+                            .lightLevel(value -> 15)
+                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
+            )
+    );
+    public static final Supplier<Block> EXPOSED_ANCIENT_METAL_BULB = registerBlock(
+            "exposed_ancient_metal_bulb",
+            () -> new  WeatheringMetalBulbBlock(
+                    WeatheringMetal.WeatherState.EXPOSED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BULB.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).lightLevel(value -> 12)
+            )
+    );
+    public static final Supplier<Block> WEATHERED_ANCIENT_METAL_BULB = registerBlock(
+            "weathered_ancient_metal_bulb",
+            () -> new  WeatheringMetalBulbBlock(
+                    WeatheringMetal.WeatherState.WEATHERED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BULB.get()).mapColor(MapColor.WARPED_STEM).lightLevel(value -> 8)
+            )
+    );
+    public static final Supplier<Block> OXIDIZED_ANCIENT_METAL_BULB = registerBlock(
+            "oxidized_ancient_metal_bulb",
+            () -> new  WeatheringMetalBulbBlock(
+                    WeatheringMetal.WeatherState.OXIDIZED,
+                    BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BULB.get()).mapColor(MapColor.WARPED_NYLIUM).lightLevel(value -> 4)
+            )
+    );
+    public static final Supplier<Block> WAXED_ANCIENT_METAL_BULB = registerBlock("waxed_ancient_metal_bulb", () -> new  MetalBulbBlock(BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BULB.get())));
+    public static final Supplier<Block> WAXED_EXPOSED_ANCIENT_METAL_BULB = registerBlock(
+            "waxed_exposed_ancient_metal_bulb", () -> new  MetalBulbBlock(BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL_BULB.get()))
+    );
+    public static final Supplier<Block> WAXED_WEATHERED_ANCIENT_METAL_BULB = registerBlock(
+            "waxed_weathered_ancient_metal_bulb", () -> new  MetalBulbBlock(BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL_BULB.get()))
+    );
+    public static final Supplier<Block> WAXED_OXIDIZED_ANCIENT_METAL_BULB = registerBlock(
+            "waxed_oxidized_ancient_metal_bulb", () -> new MetalBulbBlock(BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL_BULB.get()))
+    );
 
     public static final Supplier<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of() .sound(SoundType.BONE_BLOCK)
             .requiresCorrectToolForDrops()
@@ -322,14 +641,14 @@ public class BlockInit {
         var blockSlab = registerMainTabBlock(name + "_slab", blockBase, block1 -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var blockWall = woodType == null ? registerMainTabBlock(name + "_wall", blockBase, block1 -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockFence = woodType != null ? registerMainTabBlock(name + "_fence", blockBase, block1 -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
-        var blockGateBlock = woodType != null ? registerMainTabBlock(name + "_fence_gate", blockBase, block1 -> new FenceGateBlock(woodType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
+        var blockGate = woodType != null ? registerMainTabBlock(name + "_fence_gate", blockBase, block1 -> new FenceGateBlock(woodType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockStairs = registerMainTabBlock(name + "_stairs", blockBase, block1 -> new StairBlock(block1.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var blockDoor = genDoors ? registerMainTabBlock(name + "_door", blockBase, block1 -> new DoorBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockTrapDoor = genDoors ? registerMainTabBlock(name + "_trap_door", blockBase, block1 -> new TrapDoorBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties())) : null;
         var blockButton = registerMainTabBlock(name + "_button", blockBase, block1 -> new ButtonBlock(blockSetType, pTicksToStayPressed, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
         var pressurePlate = registerMainTabBlock(name + "_pressure_plate", blockBase, block1 -> new PressurePlateBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(block1)), block2 -> new BlockItem(block2, new Item.Properties()));
 
-        return BlockType.of(blockBase, blockSlab, blockWall, blockFence, blockGateBlock, blockStairs, blockDoor, blockTrapDoor, blockButton, pressurePlate);
+        return BlockType.of(blockBase, blockSlab, blockWall, blockFence, blockGate, blockStairs, blockDoor, blockTrapDoor, blockButton, pressurePlate);
     }
 
     private static BlockType registerSeaGlass(String name) {

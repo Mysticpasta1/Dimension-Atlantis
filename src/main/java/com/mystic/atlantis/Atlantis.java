@@ -28,9 +28,9 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -83,11 +83,9 @@ public class Atlantis {
     }
 
     @SubscribeEvent
-    public static void onClientSet(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            MenuScreens.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new);
-            MenuScreens.register(MenuTypeInit.WRITING.get(), WritingScreen::new);
-        });
+    public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(MenuTypeInit.LINGUISTIC.get(), LinguisticScreen::new);
+        event.register(MenuTypeInit.WRITING.get(), WritingScreen::new);
     }
 
     @SubscribeEvent
