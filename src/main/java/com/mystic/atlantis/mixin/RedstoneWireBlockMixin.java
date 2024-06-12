@@ -26,12 +26,8 @@ public abstract class RedstoneWireBlockMixin {
         return state.is(block) || state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get());
     }
 
-    /**
-     * @author WaterPicker
-     * @reason valid reason here :P
-     */
-    @Overwrite
-    private int getWireSignal(BlockState state) {
+    @Redirect(method = "getWireSignal", at = @At("HEAD"))
+    public int getWireSignal(BlockState state) {
         if (state.is(Blocks.REDSTONE_WIRE)) {
             return state.getValue(RedStoneWireBlock.POWER);
         } else if (state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get())) {
