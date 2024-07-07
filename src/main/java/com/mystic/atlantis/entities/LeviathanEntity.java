@@ -173,12 +173,6 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
     }
 
     @Override
-    public float getEyeHeightAccess(Pose pose) {
-        EntityDimensions entityDimensions = super.getDimensions(pose);
-        return entityDimensions.height() * 0.35F;
-    }
-
-    @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> pKey) {
         if (ID_SIZE.equals(pKey)) {
             this.updateLeviathanEntitySizeInfo();

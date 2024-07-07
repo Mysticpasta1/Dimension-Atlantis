@@ -328,25 +328,25 @@ public class BlockInit {
     public static final Supplier<Block> OXIDIZED_CHISELED_ANCIENT_METAL = registerBlock(
             "oxidized_chiseled_ancient_metal",
             () -> new  WeatheringMetalFullBlock(
-                    WeatheringMetal.WeatherState.OXIDIZED, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+                    WeatheringMetal.WeatherState.OXIDIZED, BlockBehaviour.Properties.ofFullCopy(OXIDIZED_ANCIENT_METAL.get())
             )
     );
     public static final Supplier<Block> WEATHERED_CHISELED_ANCIENT_METAL = registerBlock(
             "weathered_chiseled_ancient_metal",
             () -> new  WeatheringMetalFullBlock(
-                    WeatheringMetal.WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+                    WeatheringMetal.WeatherState.WEATHERED, BlockBehaviour.Properties.ofFullCopy(WEATHERED_ANCIENT_METAL.get())
             )
     );
     public static final Supplier<Block> EXPOSED_CHISELED_ANCIENT_METAL = registerBlock(
             "exposed_chiseled_ancient_metal",
             () -> new  WeatheringMetalFullBlock(
-                    WeatheringMetal.WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+                    WeatheringMetal.WeatherState.EXPOSED, BlockBehaviour.Properties.ofFullCopy(EXPOSED_ANCIENT_METAL.get())
             )
     );
     public static final Supplier<Block> CHISELED_ANCIENT_METAL = registerBlock(
             "chiseled_ancient_metal",
             () -> new  WeatheringMetalFullBlock(
-                    WeatheringMetal.WeatherState.UNAFFECTED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get()).requiredFeatures(FeatureFlags.UPDATE_1_21)
+                    WeatheringMetal.WeatherState.UNAFFECTED, BlockBehaviour.Properties.ofFullCopy(ANCIENT_METAL_BLOCK.get())
             )
     );
     public static final Supplier<Block> WAXED_OXIDIZED_CHISELED_ANCIENT_METAL = registerBlock(
@@ -437,7 +437,6 @@ public class BlockInit {
                             .noOcclusion()
                             .requiresCorrectToolForDrops()
                             .pushReaction(PushReaction.DESTROY)
-                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
             )
     );
     public static final Supplier<Block> EXPOSED_ANCIENT_METAL_DOOR = registerBlock(
@@ -486,7 +485,6 @@ public class BlockInit {
                             .requiresCorrectToolForDrops()
                             .noOcclusion()
                             .isValidSpawn((pState, pLevel, pPos, pValue) -> false)
-                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
             )
     );
     public static final Supplier<Block> EXPOSED_ANCIENT_METAL_TRAPDOOR = registerBlock(
@@ -536,7 +534,6 @@ public class BlockInit {
                             .isRedstoneConductor((pState, pLevel, pPos) -> false)
                             .isSuffocating((pState, pLevel, pPos) -> false)
                             .isViewBlocking((pState, pLevel, pPos) -> false)
-                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
             )
     );
     public static final Supplier<Block> EXPOSED_ANCIENT_METAL_GRATE = registerBlock(
@@ -580,7 +577,6 @@ public class BlockInit {
                             .requiresCorrectToolForDrops()
                             .isRedstoneConductor((pState, pLevel, pPos) -> false)
                             .lightLevel(value -> 15)
-                            .requiredFeatures(FeatureFlags.UPDATE_1_21)
             )
     );
     public static final Supplier<Block> EXPOSED_ANCIENT_METAL_BULB = registerBlock(

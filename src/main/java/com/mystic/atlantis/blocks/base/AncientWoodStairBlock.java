@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class AncientWoodStairBlock extends StairBlock {
     
     public AncientWoodStairBlock(BlockState baseBlockState, Properties settings) {
-    	super(() -> baseBlockState, settings
+    	super(baseBlockState, settings
     			.sound(SoundType.WOOD)
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F));

@@ -108,11 +108,11 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
     }
 
     private ResourceLocation block(ResourceLocation location) {
-        return new ResourceLocation(location.getNamespace(), "block/" + location.getPath());
+        return ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "block/" + location.getPath());
     }
 
 
     private ResourceLocation items(ResourceLocation location) {
-        return new ResourceLocation(location.getNamespace(), "item/" + location.getPath());
+        return ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "item/" + location.getPath());
     }
 }

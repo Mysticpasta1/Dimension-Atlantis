@@ -23,7 +23,7 @@ public class CrabEntityBucketItem extends MobBucketItem {
     private final Supplier<? extends EntityType<?>> entityType;
 
     public CrabEntityBucketItem(Supplier<? extends EntityType<?>> type, Supplier<Fluid> fluid, Supplier<SoundEvent> emptyingSound, Properties settings) {
-        super(type, fluid, emptyingSound, settings);
+        super(type.get(), fluid.get(), emptyingSound.get(), settings);
         this.entityType = type;
     }
 

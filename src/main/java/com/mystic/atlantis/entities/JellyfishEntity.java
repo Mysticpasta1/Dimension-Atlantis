@@ -231,7 +231,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     }
 
     @Override
-    public boolean canBeLeashed(@NotNull Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -96,8 +97,8 @@ public class SodiumPrimedBombBlock extends Entity {
     }
 
     @Override
-    public float getEyeHeightAccess(@NotNull Pose curPose) {
-        return 0.15f;
+    public double getEyeY() {
+        return 0.15;
     }
 
     public void setFuse(int fuse) {
@@ -106,10 +107,5 @@ public class SodiumPrimedBombBlock extends Entity {
 
     public int getFuse() {
         return this.entityData.get(DATA_FUSE_ID);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return new ClientboundAddEntityPacket(this);
     }
 }

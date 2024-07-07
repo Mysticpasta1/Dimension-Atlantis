@@ -13,7 +13,6 @@ import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -24,12 +23,11 @@ import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 import org.apache.logging.log4j.LogManager;
@@ -41,9 +39,8 @@ import software.bernie.geckolib.GeckoLibClient;
 public class Atlantis {
     public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 
-    public Atlantis() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
+    public Atlantis(IEventBus bus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
         AtlantisFeature.init(bus);
@@ -52,7 +49,7 @@ public class Atlantis {
     }
 
     public static ResourceLocation id(String id) {
-        return new ResourceLocation("atlantis", id);
+        return ResourceLocation.fromNamespaceAndPath("atlantis", id);
     }
 
     //Don't remove needed for legacy portal block!

@@ -9,11 +9,12 @@ import com.mystic.atlantis.items.armor.ItemArmorWrought;
 import com.mystic.atlantis.items.tools.AtlanteanAmuletItem;
 import com.mystic.atlantis.items.AtlanteanCrystal;
 import com.mystic.atlantis.items.tools.AtlanteanSpearItem;
-import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +54,8 @@ public class ItemInit {
     public static final Supplier<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new SpawnEggItem(AtlantisEntityInit.STARFISH.get(), 0xFFA41D, 0xF6E25F, new Item.Properties()));
     public static final Supplier<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new SpawnEggItem(AtlantisEntityInit.STARFISH_ZOM.get(), 0xFE00F6, 0x00A170, new Item.Properties()));
     //MUSIC DISC
-    public static final Supplier<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.PANBEE, ATLANTIS_SETTINGS, 10));
-    public static final Supplier<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 10));
+    public static final Supplier<Item> PANBEE = register("panbee", () -> new Item(ATLANTIS_SETTINGS.jukeboxPlayable(ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Reference.MODID, "panbee")))));
+    public static final Supplier<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new Item(ATLANTIS_SETTINGS.jukeboxPlayable(ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Reference.MODID, "column_cavitation")))));
 
     //ITEMS
     public static final Supplier<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get()));
@@ -127,10 +127,10 @@ public class ItemInit {
     public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_9 = registerGlyph(LinguisticGlyph.NINE);
 
     //Fluid Buckets
-    public static final Supplier<Item> JETSTREAM_WATER_BUCKET = ITEMS.register("jetstream_water_bucket", () -> new BucketItem(FluidInit.JETSTREAM_WATER,
+    public static final Supplier<Item> JETSTREAM_WATER_BUCKET = ITEMS.register("jetstream_water_bucket", () -> new BucketItem(FluidInit.JETSTREAM_WATER.get(),
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Supplier<Item> SALTY_SEA_WATER_BUCKET = ITEMS.register("salty_sea_water_bucket",
-            () -> new BucketItem(FluidInit.SALTY_SEA_WATER,
+            () -> new BucketItem(FluidInit.SALTY_SEA_WATER.get(),
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     //public static final Supplier<Item> COCONUT_MILK_BUCKET = ITEMS.register("coconut_milk_bucket",
     //        () -> new BucketItem(FluidInit.COCONUT_MILK,

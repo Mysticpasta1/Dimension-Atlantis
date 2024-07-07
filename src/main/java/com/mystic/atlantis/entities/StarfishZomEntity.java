@@ -116,7 +116,7 @@ public class StarfishZomEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

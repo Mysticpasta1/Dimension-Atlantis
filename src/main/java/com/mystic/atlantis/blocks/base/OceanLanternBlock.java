@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mystic.atlantis.init.EnchantmentInit;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,7 @@ public class OceanLanternBlock extends Block {
     public void playerDestroy(Level level, Player player, BlockPos targetPos, BlockState targetState, @Nullable BlockEntity targetTileEntity, ItemStack curStack) {
         super.playerDestroy(level, player, targetPos, targetState, targetTileEntity, curStack);
         
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, player) == 0) {
+        if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.getEnchantmentHolder(level, Enchantments.SILK_TOUCH), player) == 0) {
             level.removeBlock(targetPos, false);
         }
     }

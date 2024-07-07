@@ -1,6 +1,7 @@
 package com.mystic.atlantis.inventory;
 
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.init.MenuTypeInit;
 import com.mystic.atlantis.init.RecipesInit;
 import com.mystic.atlantis.recipes.WritingRecipe;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -104,6 +106,10 @@ public class WritingMenu extends AbstractContainerMenu {
         this.addDataSlot(this.selectedRecipeIndex);
     }
 
+    private static SingleRecipeInput createRecipeInput(Container p_346312_) {
+        return new SingleRecipeInput(p_346312_.getItem(0));
+    }
+
     /**
      * Returns the index of the selected recipe.
      */
@@ -143,19 +149,20 @@ public class WritingMenu extends AbstractContainerMenu {
 
     @Override
     public void slotsChanged(Container inventory) {
-        ItemStack itemStack = this.inputSlot.getItem();
-        if (!itemStack.is(this.input.getItem())) {
-            this.input = itemStack.copy();
-            this.setupRecipeList(inventory, itemStack);
+        ItemStack itemstack = this.inputSlot.getItem();
+        if (!itemstack.is(this.input.getItem())) {
+            this.input = itemstack.copy();
+            this.setupRecipeList(inventory, itemstack);
         }
     }
 
-    private void setupRecipeList(Container inventory, ItemStack stack) {
+    private void setupRecipeList(Container container, ItemStack stack) {
         this.recipes.clear();
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, inventory, this.level);
+            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, createRecipeInput(container), this.level);
+            System.out.println(this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, createRecipeInput(container), this.level));
         }
     }
 
@@ -163,7 +170,7 @@ public class WritingMenu extends AbstractContainerMenu {
         if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
             RecipeHolder<WritingRecipe> stonecutterRecipe = this.recipes.get(this.selectedRecipeIndex.get());
             this.resultContainer.setRecipeUsed(stonecutterRecipe);
-            this.resultSlot.set(stonecutterRecipe.value().assemble(this.container, null));
+            this.resultSlot.set(stonecutterRecipe.value().assemble(createRecipeInput(this.container), this.level.registryAccess()));
         } else {
             this.resultSlot.set(ItemStack.EMPTY);
         }
@@ -198,7 +205,7 @@ public class WritingMenu extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickCraft(itemStack2, itemStack);
-            } else if (index == 0 ? !this.moveItemStackTo(itemStack2, 2, 38, false) : (this.level.getRecipeManager().getRecipeFor(RecipeType.STONECUTTING, new SimpleContainer(itemStack2), this.level).isPresent() ? !this.moveItemStackTo(itemStack2, 0, 1, false) : (index >= 2 && index < 29 ? !this.moveItemStackTo(itemStack2, 29, 38, false) : index >= 29 && index < 38 && !this.moveItemStackTo(itemStack2, 2, 29, false)))) {
+            } else if (index == 0 ? !this.moveItemStackTo(itemStack2, 2, 38, false) : (this.level.getRecipeManager().getRecipeFor(RecipeType.STONECUTTING, new SingleRecipeInput(itemStack2), this.level).isPresent() ? !this.moveItemStackTo(itemStack2, 0, 1, false) : (index >= 2 && index < 29 ? !this.moveItemStackTo(itemStack2, 29, 38, false) : index >= 29 && index < 38 && !this.moveItemStackTo(itemStack2, 2, 29, false)))) {
                 return ItemStack.EMPTY;
             }
             if (itemStack2.isEmpty()) {

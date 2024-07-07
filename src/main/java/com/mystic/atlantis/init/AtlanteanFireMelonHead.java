@@ -25,9 +25,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.IPlantable;
 
-public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockContainer, IPlantable {
+public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockContainer {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 9.0, 16.0);
     private static final double GROW_PER_TICK_PROBABILITY = 0.14;
 
@@ -43,11 +42,11 @@ public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements Liq
 
     @Override
     public void randomTick(BlockState arg, ServerLevel arg2, BlockPos arg3, RandomSource random) {
-        if (arg.getValue(AGE) < 8 && CommonHooks.onCropsGrowPre(arg2, arg3.relative(this.growthDirection), arg2.getBlockState(arg3.relative(this.growthDirection)), random.nextDouble() < GROW_PER_TICK_PROBABILITY)) {
+        if (arg.getValue(AGE) < 8 && CommonHooks.canCropGrow(arg2, arg3.relative(this.growthDirection), arg2.getBlockState(arg3.relative(this.growthDirection)), random.nextDouble() < GROW_PER_TICK_PROBABILITY)) {
             BlockPos blockpos = arg3.relative(this.growthDirection);
             if (this.canGrowInto(arg2.getBlockState(blockpos))) {
                 arg2.setBlockAndUpdate(blockpos, this.getGrowIntoState(arg, arg2.random));
-                CommonHooks.onCropsGrowPost(arg2, blockpos, arg2.getBlockState(blockpos));
+                CommonHooks.fireCropGrowPost(arg2, blockpos, arg2.getBlockState(blockpos));
             }
         }
     }
@@ -107,10 +106,5 @@ public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements Liq
     @Override
     public FluidState getFluidState(BlockState arg) {
         return Fluids.WATER.getSource(false);
-    }
-
-    @Override
-    public BlockState getPlant(BlockGetter arg, BlockPos arg2) {
-        return this.defaultBlockState();
     }
 }

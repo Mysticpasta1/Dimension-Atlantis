@@ -31,10 +31,9 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.IPlantable;
 import org.jetbrains.annotations.Nullable;
 
-public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer, IPlantable {
+public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements LiquidBlockContainer {
     public static final int MAX_AGE = 7;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
     protected static final float AABB_OFFSET = 1.0F;
@@ -51,13 +50,13 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
         BlockPos blockpos = blockPos.relative(direction);
         if(level.getBlockState(blockpos.offset(direction.getOpposite().getNormal().multiply(2))) == Blocks.WATER.defaultBlockState()) {
             if (level.isAreaLoaded(blockPos, 1)) {
-                float f = CropBlock.getGrowthSpeed(this, level, blockPos);
-                if (CommonHooks.onCropsGrowPre(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
+                int f = CropBlock.getId(this.defaultBlockState());
+                if (CommonHooks.canCropGrow(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
                     if (level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(Fluids.WATER))) {
                         level.setBlockAndUpdate(blockpos.offset(direction.getOpposite().getNormal().multiply(2)), BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                     }
 
-                    CommonHooks.onCropsGrowPost(level, blockPos, blockState);
+                    CommonHooks.fireCropGrowPost(level, blockPos, blockState);
                 }
             }
         }
@@ -101,10 +100,5 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
     @Override
     public boolean placeLiquid(LevelAccessor arg, BlockPos arg2, BlockState arg3, FluidState arg4) {
         return false;
-    }
-
-    @Override
-    public BlockState getPlant(BlockGetter arg, BlockPos arg2) {
-        return this.defaultBlockState();
     }
 }

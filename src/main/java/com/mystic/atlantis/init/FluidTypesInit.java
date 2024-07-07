@@ -15,9 +15,9 @@ import org.joml.Vector3f;
 import java.util.function.Supplier;
 
 public class FluidTypesInit {
-    public static final ResourceLocation WATER_STILL = new ResourceLocation("block/water_still");
-    public static final ResourceLocation WATER_FLOWING = new ResourceLocation("block/water_flow");
-    public static final ResourceLocation WATER_OVERLAY = new ResourceLocation("block/water_overlay");
+    public static final ResourceLocation WATER_STILL = ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_still");
+    public static final ResourceLocation WATER_FLOWING = ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_flow");
+    public static final ResourceLocation WATER_OVERLAY = ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_overlay");
 
     public static final DeferredRegister<FluidType> FLUID_TYPES =
             DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, Reference.MODID);

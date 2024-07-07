@@ -1,8 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
-import com.mystic.atlantis.dimension.AtlanteanPortalForcer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -19,18 +17,14 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.border.WorldBorder;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
 
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
@@ -51,30 +45,33 @@ public class AtlantisClearPortalBlock extends EndPortalBlock implements SimpleWa
 
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pLevel instanceof ServerLevel && pEntity.canChangeDimensions() && Shapes.joinIsNotEmpty(Shapes.create(pEntity.getBoundingBox().move(-pPos.getX(), -pPos.getY(), -pPos.getZ())), pState.getShape(pLevel, pPos), BooleanOp.AND)) {
+        if (pLevel instanceof ServerLevel && Shapes.joinIsNotEmpty(Shapes.create(pEntity.getBoundingBox().move(-pPos.getX(), -pPos.getY(), -pPos.getZ())), pState.getShape(pLevel, pPos), BooleanOp.AND)) {
             ResourceKey<Level> resourcekey = DimensionAtlantis.isAtlantisDimension(pLevel) ? Level.OVERWORLD : DimensionAtlantis.ATLANTIS_WORLD;
+            ResourceKey<Level> resourcekey2 = !DimensionAtlantis.isAtlantisDimension(pLevel) ? Level.OVERWORLD : DimensionAtlantis.ATLANTIS_WORLD;
             ServerLevel serverlevel = ((ServerLevel) pLevel).getServer().getLevel(resourcekey);
-            if (serverlevel == null) {
+            ServerLevel serverLevel2 = ((ServerLevel) pLevel).getServer().getLevel(resourcekey2);
+            if (serverlevel == null && serverLevel2 == null) {
                 return;
             }
 
-            AtlanteanPortalForcer atlanteanPortalForcer = new AtlanteanPortalForcer(serverlevel);
+            if (pEntity.canChangeDimensions(serverlevel, serverLevel2)) {
 
-            if(pEntity instanceof ServerPlayer player) {
-                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
-                    player.changeDimension(serverlevel, atlanteanPortalForcer);
-                    player.setPortalCooldown(300);
-                } else if (player.getPortalCooldown() == 0) {
-                    player.changeDimension(serverlevel, atlanteanPortalForcer);
-                    player.setPortalCooldown(300);
-                }
-            } else {
-                if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
-                    pEntity.changeDimension(serverlevel, atlanteanPortalForcer);
-                    pEntity.setPortalCooldown(300);
-                } else if (pEntity.getPortalCooldown() == 0) {
-                    pEntity.changeDimension(serverlevel, atlanteanPortalForcer);
-                    pEntity.setPortalCooldown(300);
+                if (pEntity instanceof ServerPlayer player) {
+                    if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
+                        player.changeDimension(new DimensionTransition(serverlevel, player, DimensionTransition.PLAY_PORTAL_SOUND));
+                        player.setPortalCooldown(300);
+                    } else if (player.getPortalCooldown() == 0) {
+                        player.changeDimension(new DimensionTransition(serverlevel, player, DimensionTransition.PLAY_PORTAL_SOUND));
+                        player.setPortalCooldown(300);
+                    }
+                } else {
+                    if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
+                        pEntity.changeDimension(new DimensionTransition(serverlevel, pEntity, DimensionTransition.PLAY_PORTAL_SOUND));
+                        pEntity.setPortalCooldown(300);
+                    } else if (pEntity.getPortalCooldown() == 0) {
+                        pEntity.changeDimension(new DimensionTransition(serverlevel, pEntity, DimensionTransition.PLAY_PORTAL_SOUND));
+                        pEntity.setPortalCooldown(300);
+                    }
                 }
             }
         }

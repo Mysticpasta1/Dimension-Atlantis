@@ -134,12 +134,6 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     }
 
     @Override
-    public float getEyeHeightAccess(Pose pose) {
-        EntityDimensions dimensions = getDimensions(pose);
-        return dimensions.height() * 0.6875f;
-    }
-
-    @Override
     public boolean isVisuallySwimming() {
         return super.isVisuallySwimming();
     }
@@ -204,7 +198,7 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

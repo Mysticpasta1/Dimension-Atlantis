@@ -1,6 +1,5 @@
 {
   "type": "atlantis:writing",
-  "count": 1,
   "ingredient": [
     {
       "item": "atlantis:linguistic_glyph_scroll"
@@ -115,6 +114,7 @@
     }
   ],
   "result": {
+    "count": 1,
     "id": "atlantis:linguistic_glyph_scroll_0"
   }
 }

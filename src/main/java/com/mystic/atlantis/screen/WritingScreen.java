@@ -21,7 +21,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
-    private static final ResourceLocation BG_LOCATION = new ResourceLocation("textures/gui/container/stonecutter.png");
+    private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/container/stonecutter.png");
     private static final ResourceLocation GRADIENT = Atlantis.id("textures/gui/container/gradient.png");
     private static final ResourceLocation GRADIENT_TOP = Atlantis.id("textures/gui/container/gradient_top.png");
     private static final int SCROLLER_WIDTH = 12;
@@ -58,7 +58,6 @@ public class WritingScreen extends AbstractContainerScreen<WritingMenu> {
 
     @Override
     protected void renderBg(GuiGraphics poseStack, float partialTick, int mouseX, int mouseY) {
-        this.renderBackground(poseStack, mouseX, mouseY, partialTick);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         int i = this.leftPos;
         int j = this.topPos;

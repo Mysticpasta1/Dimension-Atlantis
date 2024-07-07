@@ -102,7 +102,7 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

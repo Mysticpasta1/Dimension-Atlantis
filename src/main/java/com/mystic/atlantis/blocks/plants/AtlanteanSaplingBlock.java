@@ -82,7 +82,7 @@ public class AtlanteanSaplingBlock extends SaplingBlock implements SimpleWaterlo
 
     private void growTree(ServerLevel level, ChunkGenerator generator, BlockPos targetPos, BlockState targetState, RandomSource random) {
         if (level.registryAccess().registry(Registries.CONFIGURED_FEATURE).isPresent()) {
-            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registries.CONFIGURED_FEATURE).get().get(new ResourceLocation(Reference.MODID, "atlantean_tree_configured"));
+            ConfiguredFeature<?, ?> configuredAtlanteanTreeFeature = level.registryAccess().registry(Registries.CONFIGURED_FEATURE).get().get(ResourceLocation.fromNamespaceAndPath(Reference.MODID, "atlantean_tree_configured"));
             BlockState legacyTargetState = level.getFluidState(targetPos).createLegacyBlock();
             
             level.setBlock(targetPos, legacyTargetState, 4);

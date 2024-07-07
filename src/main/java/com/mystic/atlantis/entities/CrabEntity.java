@@ -146,7 +146,7 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

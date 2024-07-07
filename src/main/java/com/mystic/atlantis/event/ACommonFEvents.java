@@ -21,18 +21,14 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.*;
@@ -41,7 +37,7 @@ import java.util.*;
 public class ACommonFEvents {
 
     public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchantment) {
-        return itemStack.getEnchantments().getLevel(enchantment) > 0;
+        return itemStack.getEnchantments().getLevel(Holder.direct(enchantment)) > 0;
     }
 
     @SubscribeEvent
@@ -64,7 +60,7 @@ public class ACommonFEvents {
     public static ResourceKey<Level> previousDimension;
 
     @SubscribeEvent
-    public static void spikesEffectEvent(final LivingHurtEvent event) {
+    public static void spikesEffectEvent(final LivingDeathEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
             RandomSource random = player.getRandom();
@@ -102,26 +98,26 @@ public class ACommonFEvents {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onPlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event) {
-        LivingEntity livingEntity = event.getEntity();
-        if (livingEntity instanceof ServerPlayer serverPlayer) {
-            ServerLevel serverLevel = serverPlayer.serverLevel();
-            if (DimensionAtlantis.ATLANTIS_DIMENSION != null) {
-                if (previousDimension == DimensionAtlantis.ATLANTIS_WORLD) {
-                    serverPlayer.setRespawnPosition(DimensionAtlantis.ATLANTIS_WORLD, serverPlayer.blockPosition(), serverPlayer.getYHeadRot(), true, false);
-                    serverPlayer.serverLevel().setDefaultSpawnPos(serverPlayer.blockPosition(), 16);
-                    if (serverPlayer.getRespawnPosition() != null) {
-                        Optional<Vec3> bedPos = Player.findRespawnPositionAndUseSpawnBlock(DimensionAtlantis.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
-                        if (bedPos.isEmpty()) {
-                            serverPlayer.setRespawnPosition(DimensionAtlantis.ATLANTIS_WORLD, serverLevel.getSharedSpawnPos(), serverPlayer.getYHeadRot(), true, false);
-                            sendPlayerToDimension(serverPlayer, DimensionAtlantis.ATLANTIS_DIMENSION, new Vec3(serverPlayer.getRespawnPosition().getX(), serverPlayer.getRespawnPosition().getY(), serverPlayer.getRespawnPosition().getZ()));
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //@SubscribeEvent(priority = EventPriority.HIGHEST)
+    //public static void onPlayerRespawnEvent(PlayerEvent.PlayerRespawnEvent event) {
+    //    LivingEntity livingEntity = event.getEntity();
+    //    if (livingEntity instanceof ServerPlayer serverPlayer) {
+    //        ServerLevel serverLevel = serverPlayer.serverLevel();
+    //        if (DimensionAtlantis.ATLANTIS_DIMENSION != null) {
+    //            if (previousDimension == DimensionAtlantis.ATLANTIS_WORLD) {
+    //                serverPlayer.setRespawnPosition(DimensionAtlantis.ATLANTIS_WORLD, serverPlayer.blockPosition(), serverPlayer.getYHeadRot(), true, false);
+    //                serverPlayer.serverLevel().setDefaultSpawnPos(serverPlayer.blockPosition(), 16);
+    //                if (serverPlayer.getRespawnPosition() != null) {
+    //                    Optional<Vec3> bedPos = Player.spawn(DimensionAtlantis.ATLANTIS_DIMENSION, serverPlayer.getRespawnPosition(), serverPlayer.getRespawnAngle(), serverPlayer.isRespawnForced(), false);
+    //                    if (bedPos.isEmpty()) {
+    //                        serverPlayer.setRespawnPosition(DimensionAtlantis.ATLANTIS_WORLD, serverLevel.getSharedSpawnPos(), serverPlayer.getYHeadRot(), true, false);
+    //                        sendPlayerToDimension(serverPlayer, DimensionAtlantis.ATLANTIS_DIMENSION, new Vec3(serverPlayer.getRespawnPosition().getX(), serverPlayer.getRespawnPosition().getY(), serverPlayer.getRespawnPosition().getZ()));
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     @SubscribeEvent
     public static void onDeathEvent(LivingDeathEvent event) {
@@ -129,12 +125,11 @@ public class ACommonFEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingHurtEvent(LivingHurtEvent event) {
+    public static void onLivingHurtEvent(LivingDeathEvent event) {
         if (event.getEntity() instanceof Player player) {
             for (ItemStack stack : player.getArmorSlots()) {
                 if (hasEnchantment(stack, EnchantmentInit.LIGHTNING_PROTECTION.get())) {
                     if (event.getSource().is(DamageTypes.LIGHTNING_BOLT)) {
-                        event.setAmount(0);
                         event.setCanceled(true);
                     }
                 }

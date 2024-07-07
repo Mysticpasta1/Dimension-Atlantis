@@ -58,7 +58,7 @@ public class Coconut extends DirectionalBlock {
 
     public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
         ItemStack itemstack = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-        if (itemstack.canPerformAction(net.neoforged.neoforge.common.ToolActions.SHEARS_CARVE)) {
+        if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_CARVE)) {
             if (!pLevel.isClientSide) {
                 Direction direction = pHit.getDirection();
                 Direction direction1 = direction.getAxis() == Direction.Axis.Y ? pPlayer.getDirection().getOpposite() : direction;

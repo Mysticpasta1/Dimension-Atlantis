@@ -14,8 +14,8 @@ public class GeneralPlantModel<T extends GeneralPlantBlockEntity<?>> extends Geo
     private final ResourceLocation texture;
 
     public GeneralPlantModel(String name) {
-        this.model = new ResourceLocation(Reference.MODID, "geo/" + name + ".geo.json");
-        this.texture = new ResourceLocation(Reference.MODID, "textures/block/" + name + ".png");
+        this.model = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "geo/" + name + ".geo.json");
+        this.texture = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "textures/block/" + name + ".png");
     }
 
 
@@ -31,6 +31,6 @@ public class GeneralPlantModel<T extends GeneralPlantBlockEntity<?>> extends Geo
 
     @Override
     public ResourceLocation getAnimationResource(T object) {
-        return new ResourceLocation("geckolib", "animations/jackinthebox.animation.json");
+        return ResourceLocation.fromNamespaceAndPath("geckolib", "animations/jackinthebox.animation.json");
     }
 }

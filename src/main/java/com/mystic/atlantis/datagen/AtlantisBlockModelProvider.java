@@ -26,6 +26,6 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
     }
 
     private ResourceLocation blockTexture(ResourceLocation loc) {
-        return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath());
+        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath());
     }
 }

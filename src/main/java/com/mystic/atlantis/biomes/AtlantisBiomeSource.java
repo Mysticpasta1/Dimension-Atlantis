@@ -24,13 +24,13 @@ public class AtlantisBiomeSource extends BiomeSource {
             Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter(AtlantisBiomeSource::biomeSize),
             Codec.LONG.fieldOf("seed").stable().forGetter(AtlantisBiomeSource::seed)).apply(instance, AtlantisBiomeSource::new));
 
-    public static final ResourceLocation ATLANTEAN_GARDEN = new ResourceLocation(Reference.MODID, "atlantean_garden");
-    public static final ResourceLocation ATLANTIS_BIOME = new ResourceLocation(Reference.MODID, "atlantis_biome");
-    public static final ResourceLocation JELLYFISH_FIELDS = new ResourceLocation(Reference.MODID, "jellyfish_fields");
-    public static final ResourceLocation ATLANTEAN_ISLANDS = new ResourceLocation(Reference.MODID, "atlantean_islands_biome");
-    public static final ResourceLocation VOLCANIC_DARKSEA = new ResourceLocation(Reference.MODID, "volcanic_darksea");
-    public static final ResourceLocation GOO_LAGOONS = new ResourceLocation(Reference.MODID, "goo_lagoons");
-    public static final ResourceLocation COCONUT_ISLES = new ResourceLocation(Reference.MODID, "coconut_isles");
+    public static final ResourceLocation ATLANTEAN_GARDEN = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "atlantean_garden");
+    public static final ResourceLocation ATLANTIS_BIOME = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "atlantis_biome");
+    public static final ResourceLocation JELLYFISH_FIELDS = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "jellyfish_fields");
+    public static final ResourceLocation ATLANTEAN_ISLANDS = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "atlantean_islands_biome");
+    public static final ResourceLocation VOLCANIC_DARKSEA = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "volcanic_darksea");
+    public static final ResourceLocation GOO_LAGOONS = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "goo_lagoons");
+    public static final ResourceLocation COCONUT_ISLES = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "coconut_isles");
 
     private final HolderLookup.RegistryLookup<Biome> biomeHolderLookup;
     private final long seed;
@@ -53,7 +53,7 @@ public class AtlantisBiomeSource extends BiomeSource {
     }
 
     @Override
-    protected Stream<Holder<Biome>> collectPossibleBiomes() {
+    protected @NotNull Stream<Holder<Biome>> collectPossibleBiomes() {
         return Stream.of(AtlantisBiomeSource.GOO_LAGOONS, AtlantisBiomeSource.VOLCANIC_DARKSEA, AtlantisBiomeSource.JELLYFISH_FIELDS,
                 AtlantisBiomeSource.ATLANTIS_BIOME, AtlantisBiomeSource.ATLANTEAN_GARDEN, AtlantisBiomeSource.ATLANTEAN_ISLANDS,
                 AtlantisBiomeSource.COCONUT_ISLES).map(this::getHolderBiome);

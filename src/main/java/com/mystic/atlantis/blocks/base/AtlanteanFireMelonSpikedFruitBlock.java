@@ -37,7 +37,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 import javax.annotation.Nullable;
 
@@ -71,9 +71,9 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     public void randomTick(BlockState targetState, ServerLevel level, BlockPos targetPos, RandomSource random) {
         int age = targetState.getValue(AGE);
         
-        if (age < 4 && CommonHooks.onCropsGrowPre(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
+        if (age < 4 && CommonHooks.canCropGrow(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
             level.setBlock(targetPos, targetState.setValue(AGE, age + 1), 4);
-            CommonHooks.onCropsGrowPost(level, targetPos, targetState);
+            CommonHooks.fireCropGrowPost(level, targetPos, targetState);
         }
 
     }
@@ -173,7 +173,7 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
         ItemStack mainHandStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         
-        if (mainHandStack.canPerformAction(ToolActions.SHEARS_CARVE) && targetState.getValue(SPIKED)) {
+        if (mainHandStack.canPerformAction(ItemAbilities.SHEARS_CARVE) && targetState.getValue(SPIKED)) {
             if (!level.isClientSide) {
                 Direction resultDir = result.getDirection();
                 Direction oppositeDir = resultDir.getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : resultDir;

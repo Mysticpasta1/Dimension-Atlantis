@@ -44,8 +44,9 @@ public class JellyfishJellyBottle extends Item {
         }
     }
 
+
     @Override
-    public int getUseDuration(ItemStack arg) {
+    public int getUseDuration(ItemStack stack, LivingEntity p_344979_) {
         return 30;
     }
 

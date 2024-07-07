@@ -25,7 +25,7 @@ public class AtlanteanEntityBucketItem extends MobBucketItem {
     private final Supplier<? extends EntityType<?>> entityType;
 
     public AtlanteanEntityBucketItem(Supplier<? extends EntityType<?>> entitySupplier, Supplier<? extends Fluid> fluidSupplier, Supplier<? extends SoundEvent> soundSupplier, Properties properties) {
-        super(entitySupplier, fluidSupplier, soundSupplier, properties);
+        super(entitySupplier.get(), fluidSupplier.get(), soundSupplier.get(), properties);
         this.entityType = entitySupplier;
     }
 

@@ -56,12 +56,6 @@ public class ShrimpEntity extends AbstractSchoolingFish implements GeoEntity, Bu
     }
 
     @Override
-    public float getEyeHeightAccess(Pose pose) {
-        EntityDimensions dimensions = getDimensions(pose);
-        return dimensions.height() * 0.6875f;
-    }
-
-    @Override
     public boolean isVisuallySwimming() {
         return true;
     }
@@ -136,7 +130,7 @@ public class ShrimpEntity extends AbstractSchoolingFish implements GeoEntity, Bu
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

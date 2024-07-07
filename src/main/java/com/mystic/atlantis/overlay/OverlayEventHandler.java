@@ -2,6 +2,7 @@ package com.mystic.atlantis.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mystic.atlantis.init.BlockInit;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -11,17 +12,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class OverlayEventHandler implements LayeredDraw.Layer {
 
-    public static final ResourceLocation COCONUT_BLUR = new ResourceLocation("atlantis", "textures/misc/coconutblur.png");
+    public static final ResourceLocation COCONUT_BLUR = ResourceLocation.fromNamespaceAndPath("atlantis", "textures/misc/coconutblur.png");
 
     public OverlayEventHandler() {
     }
 
     private static final Minecraft minecraft = Minecraft.getInstance();
-
-    @Override
-    public void render(GuiGraphics poseStack, float partialTick) {
-        renderCoconutBlur(poseStack);
-    }
 
     public void renderCoconutBlur(GuiGraphics stack) {
         if (minecraft.player != null) {
@@ -45,5 +41,10 @@ public class OverlayEventHandler implements LayeredDraw.Layer {
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
         pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    @Override
+    public void render(GuiGraphics p_316811_, DeltaTracker p_348559_) {
+        renderCoconutBlur(p_316811_);
     }
 }

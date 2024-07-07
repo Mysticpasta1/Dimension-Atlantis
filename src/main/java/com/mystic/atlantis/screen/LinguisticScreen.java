@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BlockItem;
@@ -22,9 +23,9 @@ import java.util.stream.Stream;
 public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 	private static final ResourceLocation BG_LOCATION = Atlantis.id("textures/gui/container/linguistic.png");
 
-	private static final Map<DyeColor, Color> colorMap = Stream.of(DyeColor.values()).collect(Collectors.toMap(a -> a, a -> new Color(a.getTextureDiffuseColors())));
+	private static final Map<DyeColor, ColorRGBA> colorMap = Stream.of(DyeColor.values()).collect(Collectors.toMap(a -> a, a -> new ColorRGBA(a.getTextureDiffuseColor())));
 
-	private static final Color defaultColor = new Color(140f / 255f, 174f / 255f, 210f / 255f);
+	private static final ColorRGBA defaultColor = new ColorRGBA(0x8caed2);
 
 	public LinguisticScreen(LinguisticMenu arg, Inventory arg2, Component arg3) {
 		super(arg, arg2, arg3);
@@ -79,9 +80,9 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 				RenderSystem.setShaderColor(1, 1, 1, 1);
 
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
-				Color color = colorMap.get(glyphBlock.getDyeColor());
+				ColorRGBA color = colorMap.get(glyphBlock.getDyeColor());
 
-				Objects.requireNonNullElse(color, defaultColor).setup();
+				Objects.requireNonNullElse(color, defaultColor);
 
 				arg.blit(glyphBlock.getGlyph().getTexture(), 0, 0, 34, 34, 0,0, 16,16,16,16);
 

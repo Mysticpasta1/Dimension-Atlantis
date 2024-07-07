@@ -39,20 +39,17 @@ public class AtlanteanPowerLeverBlock extends LeverBlock implements SimpleWaterl
 	}
 
 	@Override
-	public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
+	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
 		BlockState cycledState;
 		if (level.isClientSide) {
-			cycledState = targetState.cycle(POWERED);
-			if (cycledState.getValue(POWERED)) {
-				makeParticle(cycledState, level, targetPos, 1.0F);
+			BlockState blockstate = state.cycle(POWERED);
+			if (blockstate.getValue(POWERED)) {
+				makeParticle(blockstate, level, pos, 1.0F);
 			}
 
 			return InteractionResult.SUCCESS;
 		} else {
-			cycledState = this.pull(targetState, level, targetPos);
-			float powerMod = cycledState.getValue(POWERED) ? 0.6F : 0.5F;
-			level.playSound(null, targetPos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, powerMod);
-			level.gameEvent(player, cycledState.getValue(POWERED).booleanValue() ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, targetPos);
+			this.pull(state, level, pos, null);
 			return InteractionResult.CONSUME;
 		}
 	}

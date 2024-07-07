@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.util.Reference;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.Holder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -77,12 +78,12 @@ public class AtlantisModifierInit {
 			ItemStack ctxTool = context.getParamOrNull(LootContextParams.TOOL);
 			RandomSource random = context.getRandom();
 			if (ctxTool != null) {
-				int silkTouch = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, ctxTool);
+				int silkTouch = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.getEnchantmentHolder(context.getLevel(), Enchantments.SILK_TOUCH), ctxTool);
 				if (silkTouch > 0 || ctxTool.getItem() instanceof ShearsItem) {
 					return generatedLoot;
 				}
 			}
-			int bonusLevel = ctxTool != null ? EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FORTUNE, ctxTool) : 0;
+			int bonusLevel = ctxTool != null ? EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.getEnchantmentHolder(context.getLevel(), Enchantments.FORTUNE), ctxTool) : 0;
 			int seedRarity = (int) (0.5f - (bonusLevel * 2));
 			if (seedRarity < 1 || random.nextInt(seedRarity) == 0) {
 				BlockState ctxBlockState = context.getParamOrNull(LootContextParams.BLOCK_STATE);

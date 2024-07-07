@@ -117,7 +117,7 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
     }
 
     @Override
-    public boolean canBeLeashed(Player player) {
+    public boolean canBeLeashed() {
         return true;
     }
 

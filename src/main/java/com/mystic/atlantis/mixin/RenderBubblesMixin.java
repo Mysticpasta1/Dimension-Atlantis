@@ -20,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 public abstract class RenderBubblesMixin {
-    @Shadow protected static final ResourceLocation AIR_SPRITE = new ResourceLocation("hud/air");
-    @Shadow protected static final ResourceLocation AIR_BURSTING_SPRITE = new ResourceLocation("hud/air_bursting");
+    @Shadow protected static final ResourceLocation AIR_SPRITE = ResourceLocation.parse("hud/air");
+    @Shadow protected static final ResourceLocation AIR_BURSTING_SPRITE = ResourceLocation.parse("hud/air_bursting");
     @Shadow public int rightHeight;
 
     @Shadow
