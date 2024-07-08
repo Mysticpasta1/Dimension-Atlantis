@@ -180,7 +180,14 @@ public class ItemInit {
         return register;
     }
 
+    //S and N are used in shader stuff so do them in a special way
     static DeferredHolder<Item, Item> registerGlyph(LinguisticGlyph symbol) {
+        if(symbol == LinguisticGlyph.S || symbol == LinguisticGlyph.N) {
+            DeferredHolder<Item, Item> holder = registerToGlyph("linguistic_glyph" + symbol.toString() +"_scroll", () -> new LinguisticGlyphScrollItem(symbol));
+            scrolls.put(symbol, holder);
+            return holder;
+        }
+
         DeferredHolder<Item, Item> holder = registerToGlyph("linguistic_glyph_scroll" + symbol.toString(), () -> new LinguisticGlyphScrollItem(symbol));
         scrolls.put(symbol, holder);
         return holder;

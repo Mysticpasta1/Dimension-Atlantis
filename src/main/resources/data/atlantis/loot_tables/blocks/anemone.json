@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "atlantis:enenmomy"
+          "name": "atlantis:anemone"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "atlantis:blocks/enenmomy"
+  "random_sequence": "atlantis:blocks/anemone"
 }

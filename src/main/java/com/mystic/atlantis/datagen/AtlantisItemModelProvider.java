@@ -66,7 +66,7 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
             withParent(BlockInit.getLinguisticBlock(glyph, null), glyph);
         }
 
-        //        block(BlockInit.WRITING_BLOCK);
+        block((DeferredHolder<Block, Block>) BlockInit.LINGUISTIC_BLOCK);
         block((DeferredHolder<Block, Block>) BlockInit.ORICHALCUM_BLOCK);
 
         item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_INGOT);

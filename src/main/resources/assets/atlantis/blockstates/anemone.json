@@ -1,10 +1,10 @@
 {
   "variants": {
     "waterlogged=true": {
-      "model": "atlantis:block/enenmomy"
+      "model": "atlantis:block/anemone"
     },
     "waterlogged=false": {
-      "model": "atlantis:block/enenmomy"
+      "model": "atlantis:block/anemone"
     }
   }
 }

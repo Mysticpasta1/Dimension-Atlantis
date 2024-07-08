@@ -3,6 +3,7 @@ package com.mystic.atlantis.datagen;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
+import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetalBulbBlock;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -51,6 +52,7 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         registerStairs(group.cutStairs().get(), group.cut().get());
         registerTrapDoor(group.trapdoor().get());
         registerDoor(group.door().get());
+        registerBlockItem(group.grate().get());
     }
 
     private void registerBlockFamily(BlockFamily family) {
@@ -79,6 +81,8 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
             case WALL -> registerWall((WallBlock) variantTarget, original);
         }
     }
+
+
 
     private void registerStairs(StairBlock stairs, Block texturedBlock) {
         ResourceLocation texture = ModelLocationUtils.getModelLocation(texturedBlock);

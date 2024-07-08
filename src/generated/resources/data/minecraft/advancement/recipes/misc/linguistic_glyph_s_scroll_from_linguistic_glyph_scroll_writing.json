@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:linguistic_glyph_scroll_n_from_linguistic_glyph_scroll_writing"
+        "recipe": "minecraft:linguistic_glyph_s_scroll_from_linguistic_glyph_scroll_writing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:linguistic_glyph_scroll_n_from_linguistic_glyph_scroll_writing"
+      "minecraft:linguistic_glyph_s_scroll_from_linguistic_glyph_scroll_writing"
     ]
   }
 }
