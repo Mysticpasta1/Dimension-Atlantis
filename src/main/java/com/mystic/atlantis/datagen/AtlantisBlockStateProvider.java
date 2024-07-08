@@ -2,14 +2,13 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.BlockType;
+import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
-
-import java.util.function.Supplier;
 
 public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     public AtlantisBlockStateProvider(AtlantisMainProvider provider) {
@@ -19,25 +18,39 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     @Override
     public void registerStatesAndModels() {
         BlockType.getAllFamilies().filter(BlockFamily::shouldGenerateModel).forEach(this::registerBlockFamily);
+        BlockInit.ANCIENT_METALS.values().forEach(this::registerTrialGroup);
         this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), itemModels().existingFileHelper));
         this.simpleBlock(BlockInit.ORICHALCUM_BLOCK.get());
 
-        this.simpleBlock(BlockInit.BLACK_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.BLUE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.BROWN_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.CYAN_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.GRAY_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.GREEN_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.LIGHT_BLUE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.LIGHT_GRAY_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.LIME_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.MAGENTA_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.ORANGE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.PINK_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.PURPLE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.RED_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.WHITE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.YELLOW_PEARL_BLOCK.get());
+
+//        this.simpleBlock(BlockInit.BLACK_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.BLUE_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.BROWN_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.CYAN_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.GRAY_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.GREEN_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.LIGHT_BLUE_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.LIGHT_GRAY_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.LIME_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.MAGENTA_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.ORANGE_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.PINK_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.PURPLE_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.RED_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.WHITE_PEARL_BLOCK.get());
+//        this.simpleBlock(BlockInit.YELLOW_PEARL_BLOCK.get());
+
+
+    }
+
+    private void registerTrialGroup(TrailsGroup group) {
+        registerBlockItem(group.block().get());
+        registerBlockItem(group.chiseled().get());
+        registerBlockItem(group.cut().get());
+        registerSlab(group.cutSlab().get(), group.cut().get());
+        registerStairs(group.cutStairs().get(), group.cut().get());
+        registerTrapDoor(group.trapdoor().get());
+        registerDoor(group.door().get());
     }
 
     private void registerBlockFamily(BlockFamily family) {
@@ -45,7 +58,9 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         family.getVariants().keySet().forEach(variant -> processVariant(variant, family));
     }
 
-    private void registerBlockItem(Block block) {simpleBlockWithItem(block, cubeAll(block));}
+    private void registerBlockItem(Block block) {
+        simpleBlockWithItem(block, cubeAll(block));
+    }
 
     private void processVariant(BlockFamily.Variant variant, BlockFamily family) {
         Block original = family.getBaseBlock();
@@ -112,7 +127,7 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
 
     private void registerDoor(DoorBlock door) {
         ResourceLocation blockId = key(door);
-        doorBlockWithRenderType(door, ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/door/" + blockId.getPath() + "_bottom"), ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/door/" + blockId.getPath() + "_top"), "cutout");
+        doorBlockWithRenderType(door, ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath() + "_bottom"), ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath() + "_top"), "cutout");
     }
 
     private void registerPressurePlate(PressurePlateBlock pressurePlate, Block texturedBlock) {
@@ -137,7 +152,9 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         itemModels().trapdoorBottom(trapDoorId.getPath(), texture);
     }
 
-    private void registerTrapDoor(Supplier<TrapDoorBlock> trapDoor){registerTrapDoor(trapDoor.get(), trapDoor.get());}
+    private void registerTrapDoor(TrapDoorBlock trapDoor) {
+         registerTrapDoor(trapDoor, trapDoor);
+    }
 
     private void registerSign(StandingSignBlock sign, WallSignBlock wallsign, Block plank){signBlock(sign, wallsign, blockTexture(plank));}
 

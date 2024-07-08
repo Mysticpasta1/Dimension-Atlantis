@@ -6,26 +6,25 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.TrapDoorBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class WeatheringMetalTrapDoorBlock extends TrapDoorBlock implements WeatheringMetal {
     public static final MapCodec<WeatheringMetalTrapDoorBlock> CODEC = RecordCodecBuilder.mapCodec(
         p_308882_ -> p_308882_.group(
-                    WeatheringMetal.WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringMetalTrapDoorBlock::getAge),
+                    WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringMetalTrapDoorBlock::getAge),
                     propertiesCodec()
                 )
                 .apply(p_308882_, WeatheringMetalTrapDoorBlock::new)
     );
-    private final WeatheringMetal.WeatherState weatherState;
+    private final WeatherState weatherState;
 
     @Override
     public MapCodec<WeatheringMetalTrapDoorBlock> codec() {
         return CODEC;
     }
 
-    public WeatheringMetalTrapDoorBlock(WeatheringMetal.WeatherState p_309166_, BlockBehaviour.Properties p_308943_) {
+    public WeatheringMetalTrapDoorBlock(WeatherState p_309166_, Properties p_308943_) {
         super(BlockSetType.COPPER, p_308943_);
         this.weatherState = p_309166_;
     }
@@ -43,7 +42,7 @@ public class WeatheringMetalTrapDoorBlock extends TrapDoorBlock implements Weath
         return WeatheringMetal.getNext(pState.getBlock()).isPresent();
     }
 
-    public WeatheringMetal.WeatherState getAge() {
+    public WeatherState getAge() {
         return this.weatherState;
     }
 }

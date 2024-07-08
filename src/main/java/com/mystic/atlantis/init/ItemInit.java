@@ -6,9 +6,6 @@ import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.armor.ItemArmorOrichalcum;
 import com.mystic.atlantis.items.armor.ItemArmorWrought;
-import com.mystic.atlantis.items.tools.AtlanteanAmuletItem;
-import com.mystic.atlantis.items.AtlanteanCrystal;
-import com.mystic.atlantis.items.tools.AtlanteanSpearItem;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Direction;
@@ -26,12 +23,13 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class ItemInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Reference.MODID);
-    private static final Map<LinguisticGlyph, Supplier<Item>> scrolls = new HashMap<>();
+    private static final Map<LinguisticGlyph, DeferredHolder<Item, Item>> scrolls = new HashMap<>();
 
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1);
 
@@ -58,7 +56,7 @@ public class ItemInit {
     public static final Supplier<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new Item(ATLANTIS_SETTINGS.jukeboxPlayable(ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Reference.MODID, "column_cavitation")))));
 
     //ITEMS
-    public static final Supplier<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get()));
+    public static final Supplier<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get()));
     public static final Supplier<Item> BROKEN_SHELLS = register("broken_shells", DefaultItem::new);
     public static final Supplier<Item> SODIUM_NUGGET = register("sodium_nugget", () -> new SodiumItem(new Item.Properties()));
     public static final Supplier<Item> SEA_SALT = register("sea_salt", DefaultItem::new);
@@ -80,7 +78,7 @@ public class ItemInit {
     public static final Supplier<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties())));
     public static final Supplier<Item> SUBMARINE = register("submarine", () -> new SubmarineItem(new Item.Properties()));
     public static final Supplier<Item> WATER_PILL = register("water_pill", WaterPill::new);
-    public static final Supplier<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties(), BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
+    public static final Supplier<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties(), BlockInit.ATLANTEAN_SIGN.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
 
     public static final Supplier<Item> ATLANTEAN_FIRE_MELON_FRUIT = register("atlantean_fire_melon_fruit", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(1).build())));
     public static final Supplier<Item> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = register("atlantean_fire_melon_fruit_spiked", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));
@@ -88,43 +86,43 @@ public class ItemInit {
     public static final Supplier<Item> ATLANTEAN_FIRE_MELON_SEEDS = register("atlantean_fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(), new Item.Properties()));
     public static final Supplier<Item> ATLANTEAN_FIRE_MELON_SPIKE = register("atlantean_fire_melon_spike",  DefaultItem::new);
 
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL = registerGlyph(LinguisticGlyph.BLANK);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_A = registerGlyph(LinguisticGlyph.A);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_B = registerGlyph(LinguisticGlyph.B);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_C = registerGlyph(LinguisticGlyph.C);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_D = registerGlyph(LinguisticGlyph.D);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_E = registerGlyph(LinguisticGlyph.E);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_F = registerGlyph(LinguisticGlyph.F);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_G = registerGlyph(LinguisticGlyph.G);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_H = registerGlyph(LinguisticGlyph.H);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_I = registerGlyph(LinguisticGlyph.I);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_J = registerGlyph(LinguisticGlyph.J);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_K = registerGlyph(LinguisticGlyph.K);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_L = registerGlyph(LinguisticGlyph.L);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_M = registerGlyph(LinguisticGlyph.M);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_N = registerGlyph(LinguisticGlyph.N);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_O = registerGlyph(LinguisticGlyph.O);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_P = registerGlyph(LinguisticGlyph.P);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_Q = registerGlyph(LinguisticGlyph.Q);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_R = registerGlyph(LinguisticGlyph.R);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_S = registerGlyph(LinguisticGlyph.S);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_T = registerGlyph(LinguisticGlyph.T);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_U = registerGlyph(LinguisticGlyph.U);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_V = registerGlyph(LinguisticGlyph.V);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_W = registerGlyph(LinguisticGlyph.W);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_X = registerGlyph(LinguisticGlyph.X);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_Y = registerGlyph(LinguisticGlyph.Y);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_Z = registerGlyph(LinguisticGlyph.Z);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_0 = registerGlyph(LinguisticGlyph.ZERO);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_1 = registerGlyph(LinguisticGlyph.ONE);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_2 = registerGlyph(LinguisticGlyph.TWO);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_3 = registerGlyph(LinguisticGlyph.THREE);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_4 = registerGlyph(LinguisticGlyph.FOUR);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_5 = registerGlyph(LinguisticGlyph.FIVE);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_6 = registerGlyph(LinguisticGlyph.SIX);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_7 = registerGlyph(LinguisticGlyph.SEVEN);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_8 = registerGlyph(LinguisticGlyph.EIGHT);
-    public static final Supplier<Item> LINGUISTIC_GLYPH_SCROLL_9 = registerGlyph(LinguisticGlyph.NINE);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL = registerGlyph(LinguisticGlyph.BLANK);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_A = registerGlyph(LinguisticGlyph.A);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_B = registerGlyph(LinguisticGlyph.B);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_C = registerGlyph(LinguisticGlyph.C);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_D = registerGlyph(LinguisticGlyph.D);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_E = registerGlyph(LinguisticGlyph.E);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_F = registerGlyph(LinguisticGlyph.F);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_G = registerGlyph(LinguisticGlyph.G);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_H = registerGlyph(LinguisticGlyph.H);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_I = registerGlyph(LinguisticGlyph.I);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_J = registerGlyph(LinguisticGlyph.J);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_K = registerGlyph(LinguisticGlyph.K);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_L = registerGlyph(LinguisticGlyph.L);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_M = registerGlyph(LinguisticGlyph.M);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_N = registerGlyph(LinguisticGlyph.N);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_O = registerGlyph(LinguisticGlyph.O);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_P = registerGlyph(LinguisticGlyph.P);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_Q = registerGlyph(LinguisticGlyph.Q);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_R = registerGlyph(LinguisticGlyph.R);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_S = registerGlyph(LinguisticGlyph.S);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_T = registerGlyph(LinguisticGlyph.T);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_U = registerGlyph(LinguisticGlyph.U);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_V = registerGlyph(LinguisticGlyph.V);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_W = registerGlyph(LinguisticGlyph.W);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_X = registerGlyph(LinguisticGlyph.X);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_Y = registerGlyph(LinguisticGlyph.Y);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_Z = registerGlyph(LinguisticGlyph.Z);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_0 = registerGlyph(LinguisticGlyph.ZERO);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_1 = registerGlyph(LinguisticGlyph.ONE);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_2 = registerGlyph(LinguisticGlyph.TWO);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_3 = registerGlyph(LinguisticGlyph.THREE);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_4 = registerGlyph(LinguisticGlyph.FOUR);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_5 = registerGlyph(LinguisticGlyph.FIVE);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_6 = registerGlyph(LinguisticGlyph.SIX);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_7 = registerGlyph(LinguisticGlyph.SEVEN);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_8 = registerGlyph(LinguisticGlyph.EIGHT);
+    public static final DeferredHolder<Item, Item> LINGUISTIC_GLYPH_SCROLL_9 = registerGlyph(LinguisticGlyph.NINE);
 
     //Fluid Buckets
     public static final Supplier<Item> JETSTREAM_WATER_BUCKET = ITEMS.register("jetstream_water_bucket", () -> new BucketItem(FluidInit.JETSTREAM_WATER.get(),
@@ -176,20 +174,24 @@ public class ItemInit {
         return register;
     }
 
-    public static <T extends Item> Supplier<T> registerToGlyph(String name, Supplier<T> item) {
+    public static <T extends Item> DeferredHolder<Item, T> registerToGlyph(String name, Supplier<T> item) {
         var register = ITEMS.register(name, item);
         AtlantisGroupInit.addToGylphTabItems(register);
         return register;
     }
 
-    static Supplier<Item> registerGlyph(LinguisticGlyph symbol) {
-        Supplier<Item> Supplier = registerToGlyph("linguistic_glyph_scroll" + symbol.toString(), () -> new LinguisticGlyphScrollItem(symbol));
-        scrolls.put(symbol, Supplier);
-        return Supplier;
+    static DeferredHolder<Item, Item> registerGlyph(LinguisticGlyph symbol) {
+        DeferredHolder<Item, Item> holder = registerToGlyph("linguistic_glyph_scroll" + symbol.toString(), () -> new LinguisticGlyphScrollItem(symbol));
+        scrolls.put(symbol, holder);
+        return holder;
     }
     
     public static Supplier<Item> getScroll(LinguisticGlyph a) {
         return scrolls.get(a);
+    }
+
+    public static List<Item> getScrolls() {
+        return scrolls.values().stream().map(Supplier::get).toList();
     }
     
     public static void init(IEventBus bus) {

@@ -1,7 +1,6 @@
 package com.mystic.atlantis.inventory;
 
 import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.init.MenuTypeInit;
 import com.mystic.atlantis.init.RecipesInit;
 import com.mystic.atlantis.recipes.WritingRecipe;
@@ -161,8 +160,8 @@ public class WritingMenu extends AbstractContainerMenu {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, createRecipeInput(container), this.level);
-            System.out.println(this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING, createRecipeInput(container), this.level));
+            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING.get(), createRecipeInput(container), this.level);
+            System.out.println(this.level.getRecipeManager().getRecipesFor(RecipesInit.Types.WRITING.get(), createRecipeInput(container), this.level));
         }
     }
 

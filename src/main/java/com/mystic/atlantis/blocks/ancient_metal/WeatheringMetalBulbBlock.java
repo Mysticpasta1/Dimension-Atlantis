@@ -5,25 +5,23 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.CopperBulbBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class WeatheringMetalBulbBlock extends MetalBulbBlock implements WeatheringMetal {
     public static final MapCodec<WeatheringMetalBulbBlock> CODEC = RecordCodecBuilder.mapCodec(
         p_309135_ -> p_309135_.group(
-                    WeatheringMetal.WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringMetalBulbBlock::getAge), propertiesCodec()
+                    WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringMetalBulbBlock::getAge), propertiesCodec()
                 )
                 .apply(p_309135_, WeatheringMetalBulbBlock::new)
     );
-    private final WeatheringMetal.WeatherState weatherState;
+    private final WeatherState weatherState;
 
     @Override
     protected MapCodec<WeatheringMetalBulbBlock> codec() {
         return CODEC;
     }
 
-    public WeatheringMetalBulbBlock(WeatheringMetal.WeatherState p_308927_, BlockBehaviour.Properties p_309010_) {
+    public WeatheringMetalBulbBlock(WeatherState p_308927_, Properties p_309010_) {
         super(p_309010_);
         this.weatherState = p_308927_;
     }
@@ -41,7 +39,7 @@ public class WeatheringMetalBulbBlock extends MetalBulbBlock implements Weatheri
         return WeatheringMetal.getNext(pState.getBlock()).isPresent();
     }
 
-    public WeatheringMetal.WeatherState getAge() {
+    public WeatherState getAge() {
         return this.weatherState;
     }
 }
