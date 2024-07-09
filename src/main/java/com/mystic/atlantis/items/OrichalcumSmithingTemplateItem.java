@@ -33,7 +33,7 @@ public class OrichalcumSmithingTemplateItem extends SmithingTemplateItem {
     private static final ResourceLocation EMPTY_SLOT_LAPIS_LAZULI = ResourceLocation.parse("item/empty_slot_lapis_lazuli");
     private static final ResourceLocation EMPTY_SLOT_AMETHYST_SHARD = ResourceLocation.parse("item/empty_slot_amethyst_shard");
 
-    public OrichalcumSmithingTemplateItem() {
+    public OrichalcumSmithingTemplateItem(Properties properties) {
         super(ORICHALCUM_UPGRADE_APPLIES_TO, ORICHALCUM_UPGRADE_INGREDIENTS, ORICHALCUM_UPGRADE, ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION, ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, createOrichalcumUpgradeIconList(), createOrichalcumUpgradeMaterialList());
     }
 

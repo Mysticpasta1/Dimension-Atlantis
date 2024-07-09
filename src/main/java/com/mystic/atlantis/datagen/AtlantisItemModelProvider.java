@@ -3,6 +3,7 @@ package com.mystic.atlantis.datagen;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -66,38 +67,38 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
             withParent(BlockInit.getLinguisticBlock(glyph, null), glyph);
         }
 
-        block((DeferredHolder<Block, Block>) BlockInit.LINGUISTIC_BLOCK);
-        block((DeferredHolder<Block, Block>) BlockInit.ORICHALCUM_BLOCK);
+        block(BlockInit.LINGUISTIC_BLOCK);
+        block(BlockInit.ORICHALCUM_BLOCK);
 
-        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_INGOT);
-        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_BLEND);
+        item(ItemInit.ORICHALCUM_INGOT);
+        item(ItemInit.ORICHALCUM_BLEND);
 
-        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_HELMET);
-        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_CHESTPLATE);
-        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_LEGGINGS);
-        item((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_BOOTS);
-        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_AXE);
-        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_PICKAXE);
-        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_SHOVEL);
-        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_SWORD);
-        itemTool((DeferredHolder<Item, Item>) ItemInit.ORICHALCUM_HOE);
+        item(ItemInit.ORICHALCUM_HELMET);
+        item(ItemInit.ORICHALCUM_CHESTPLATE);
+        item(ItemInit.ORICHALCUM_LEGGINGS);
+        item(ItemInit.ORICHALCUM_BOOTS);
+        itemTool(ItemInit.ORICHALCUM_AXE);
+        itemTool(ItemInit.ORICHALCUM_PICKAXE);
+        itemTool(ItemInit.ORICHALCUM_SHOVEL);
+        itemTool(ItemInit.ORICHALCUM_SWORD);
+        itemTool(ItemInit.ORICHALCUM_HOE);
     }
 
-    private void itemTool(DeferredHolder<Item, Item> tool) {
+    private <T extends Item> void itemTool(DeferredHolder<Item, T> tool) {
         getBuilder(tool.getId().getPath())
                 .parent(getExistingFile(mcLoc("item/handheld")))
                 .texture("layer0", items(tool.getId()));
     }
 
-    private void withParent(DeferredHolder<Block, Block> block, LinguisticGlyph glyph) {
+    private void withParent(DeferredHolder<Block, GlyphBlock> block, LinguisticGlyph glyph) {
         withExistingParent(block.getId().getPath(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
     }
 
-    private void block(DeferredHolder<Block, Block> block) {
+    private <T extends Block> void block(DeferredHolder<Block, T> block) {
         withExistingParent(block.getId().getPath(), block(block.getId()));
     }
 
-    private void item(DeferredHolder<Item, Item> block) {
+    private <T extends Item> void item(DeferredHolder<Item, T> block) {
         try {
             getBuilder(block.getId().getPath())
                     .parent(getExistingFile(mcLoc("item/generated")))

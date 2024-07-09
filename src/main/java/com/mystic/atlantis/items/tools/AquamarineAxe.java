@@ -4,8 +4,8 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Tier;
 
 public class AquamarineAxe extends AxeItem {
-    public AquamarineAxe(Tier tier, float attack) {
-        super(tier, new Properties()
+    public AquamarineAxe(Tier tier, Properties properties) {
+        super(tier, properties
                 .stacksTo(1)
                 .durability(tier.getUses()));
     }

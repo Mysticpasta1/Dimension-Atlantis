@@ -4,8 +4,8 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.Tier;
 
 public class AquamarineShovel extends ShovelItem {
-    public AquamarineShovel(Tier tier, int attack) {
-        super(tier, new Properties()
+    public AquamarineShovel(Tier tier, Properties properties) {
+        super(tier, properties
                 .stacksTo(1)
                 .durability(tier.getUses()));
     }

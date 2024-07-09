@@ -98,7 +98,7 @@ public class Atlantis {
         event.register(AtlantisEntityInit.COCONUT_CRAB.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoconutCrabEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(AtlantisEntityInit.JELLYFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JellyfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StarfishEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(AtlantisEntityInit.STARFISH_ZOM.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StarfishZomEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StarfishZomEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(AtlantisEntityInit.SHRIMP.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShrimpEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(AtlantisEntityInit.LEVIATHAN.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LeviathanEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(AtlantisEntityInit.SEAHORSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SeahorseEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.AND);

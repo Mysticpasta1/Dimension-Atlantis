@@ -1,15 +1,16 @@
 package com.mystic.atlantis.blocks.ancient_metal;
 
-import java.util.function.Supplier;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public record TrailsGroup(
-        Supplier<WeatheringMetalFullBlock> block,
-        Supplier<WeatheringMetalFullBlock> cut,
-        Supplier<WeatheringMetalFullBlock> chiseled,
-        Supplier<WeatheringMetalStairBlock> cutStairs,
-        Supplier<WeatheringMetalSlabBlock> cutSlab,
-        Supplier<WeatheringMetalDoorBlock> door,
-        Supplier<WeatheringMetalTrapDoorBlock> trapdoor,
-        Supplier<WeatheringMetalGrateBlock> grate,
-        Supplier<WeatheringMetalBulbBlock> bulb) {
+        DeferredHolder<Block, WeatheringMetalFullBlock> block,
+        DeferredHolder<Block, WeatheringMetalFullBlock> cut,
+        DeferredHolder<Block, WeatheringMetalFullBlock> chiseled,
+        DeferredHolder<Block, WeatheringMetalStairBlock> cutStairs,
+        DeferredHolder<Block, WeatheringMetalSlabBlock> cutSlab,
+        DeferredHolder<Block, WeatheringMetalDoorBlock> door,
+        DeferredHolder<Block, WeatheringMetalTrapDoorBlock> trapdoor,
+        DeferredHolder<Block, WeatheringMetalGrateBlock> grate,
+        DeferredHolder<Block, WeatheringMetalBulbBlock> bulb) {
 }

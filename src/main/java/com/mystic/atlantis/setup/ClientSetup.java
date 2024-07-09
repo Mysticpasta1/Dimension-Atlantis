@@ -165,7 +165,7 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntityInit.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.SEAHORSE.get(), entityRenderDispatcher -> new SeahorseEntityRenderer(entityRenderDispatcher, new SeahorseEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.STARFISH.get(), entityRenderDispatcher -> new StarfishEntityRenderer(entityRenderDispatcher, new StarfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntityInit.STARFISH_ZOM.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
 
         bus.registerEntityRenderer(AtlantisEntityInit.BOMB.get(), SodiumBombRenderer::new);
     }
@@ -183,7 +183,7 @@ public class ClientSetup {
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> mapLinguistic = ArrayListMultimap.create();
 
-        for(Map<DyeColor, Supplier<Block>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, DeferredHolder<Block, GlyphBlock>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
             colorMapLinguistics.forEach((k,v) -> mapLinguistic.put(k, v.get()));
         }
 
@@ -310,7 +310,7 @@ public class ClientSetup {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
-        for(Map<DyeColor, Supplier<Block>> colorMap : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, DeferredHolder<Block, GlyphBlock>> colorMap : DYED_LINGUISTICS.values()) {
             colorMap.forEach((k,v) -> map.put(k, v.get()));
         }
 

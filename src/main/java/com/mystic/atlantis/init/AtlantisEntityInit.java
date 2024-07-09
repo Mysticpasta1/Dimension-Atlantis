@@ -11,7 +11,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -33,7 +32,7 @@ public class AtlantisEntityInit {
     public static final Supplier<EntityType<LeviathanEntity>> LEVIATHAN = register("leviathan", EntityType.Builder.of(LeviathanEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.7f));
     public static final Supplier<EntityType<SeahorseEntity>> SEAHORSE = register("atlantean_seahorse", EntityType.Builder.of(SeahorseEntity::new, MobCategory.CREATURE).sized(.4f, 1.5f));
     public static final Supplier<EntityType<StarfishEntity>> STARFISH = register("atlantean_starfish", EntityType.Builder.of(StarfishEntity::new, MobCategory.CREATURE).sized(1.5f, 0.7f));
-    public static final Supplier<EntityType<StarfishZomEntity>> STARFISH_ZOM = register("atlantean_starzomfish", EntityType.Builder.of(StarfishZomEntity::new, MobCategory.MONSTER).sized(1.5f, 0.7f));
+    public static final Supplier<EntityType<StarfishZomEntity>> ATLANTEAN_ZOMBIE_STARFISH = register("atlantean_starzomfish", EntityType.Builder.of(StarfishZomEntity::new, MobCategory.MONSTER).sized(1.5f, 0.7f));
 
     //Explosives
     public static final Supplier<EntityType<SodiumPrimedBombBlock>> BOMB = register("sodium_bomb", EntityType.Builder.<SodiumPrimedBombBlock>of(SodiumPrimedBombBlock::new, MobCategory.MISC).fireImmune().sized(0.98f, 0.98f).clientTrackingRange(10).updateInterval(10));
@@ -54,7 +53,7 @@ public class AtlantisEntityInit {
         event.put(AtlantisEntityInit.LEVIATHAN.get(), LeviathanEntity.createLeviathanAttributes().build());
         event.put(AtlantisEntityInit.SEAHORSE.get(), SeahorseEntity.createSeahorseAttributes().build());
         event.put(AtlantisEntityInit.STARFISH.get(), StarfishEntity.createStarfishAttributes().build());
-        event.put(AtlantisEntityInit.STARFISH_ZOM.get(), StarfishZomEntity.createStarfishAttributes().build());
+        event.put(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), StarfishZomEntity.createStarfishAttributes().build());
     }
 
     public static void init(IEventBus bus) {

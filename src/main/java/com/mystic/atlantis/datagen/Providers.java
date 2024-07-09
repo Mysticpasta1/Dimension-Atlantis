@@ -19,8 +19,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.function.Supplier;
-
 public class Providers {
     public static void init(IEventBus bus) {
         bus.addListener(Providers::dataGather);
@@ -70,7 +68,7 @@ public class Providers {
                 @Override
                 protected void addTags(HolderLookup.Provider pProvider) {
                     TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
-                    TagsInit.Item.getItemsThatCanSink().stream().map(Supplier::get).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
+                    TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
                 }
             });
         }
