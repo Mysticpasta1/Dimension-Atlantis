@@ -2,14 +2,19 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
+import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
+import com.mystic.atlantis.blocks.shells.CrackedShellBlock;
 import com.mystic.atlantis.init.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.apache.commons.lang3.text.WordUtils;
+
+import java.util.Map;
 
 //TODO Convert lang to pure data gen in the future. This will complain about duplicates if run without removing the existing en_us.json first
 public class AtlantisEnglishLanguageProvider extends LanguageProvider {
@@ -210,6 +215,43 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlocksFromType(BlockInit.MULTICOLOR_SEA_GLASS, "Multicolor Sea Glass");
         this.addBlock(BlockInit.COQUINA);
 
+        for (Map<DyeColor, DeferredHolder<Block, GlyphBlock>> block : BlockInit.DYED_LINGUISTICS.values()) {
+            for (DyeColor color : DyeColor.values()) {
+                this.addBlock(block.get(color), WordUtils.capitalize(block.get(color).get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            }
+        }
+
+        for (DeferredHolder<Block, GlyphBlock> block : BlockInit.NON_LINGUISTICS.values()) {
+            this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+        }
+
+        for (DeferredHolder<Block, ColoredShellBlock> block : BlockInit.COLORED_SHELL_BLOCKS.values()) {
+            this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+        }
+
+        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.values()) {
+            this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+        }
+
+        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.CRACKED_SHELL_BLOCKS.values()) {
+            this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+        }
+
+        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.MOSSY_SHELL_BLOCKS.values()) {
+            this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+        }
+
+        this.add("item.atlantis.smithing_template.orichalcum_upgrade.ingredients", "Orichalcum Ingot");
+        this.add("item.atlantis.smithing_template.orichalcum_upgrade.base_slot_description", "Add orichalcum armor, weapon, or tool");
+        this.add("item.atlantis.smithing_template.orichalcum_upgrade.additions_slot_description", "Add Orichalcum Ingot");
+        this.add("item.atlantis.smithing_template.orichalcum_upgrade.applies_to", "Aquamarine Equipment");
+        this.add("upgrade.atlantis.orichalcum_upgrade", "Orichalcum Upgrade Smithing Template");
+        this.add("enchantment.atlantis.lightning_protection", "Lightning Protection");
+        this.add("container.writing", "Writing");
+        this.add("container.linguistic", "Linguistic");
+        this.add("effect.atlantis.spikes", "Spikes");
+        this.add("effect.atlantis.spikes.description", "You attack with a thorns like effect");
+
         this.add(ItemInit.ATLANTEAN_AMULET.get(), "Atlantean Amulet");
         this.add(ItemInit.ATLANTEAN_SPEAR.get(), "Atlantean Spear");
         this.add(ItemInit.PALM_BOAT.get(), "Palm Boat");
@@ -255,6 +297,9 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
             this.add(group.grate().get(), WordUtils.capitalize(group.grate().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.bulb().get(), WordUtils.capitalize(group.bulb().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
+
+        this.addBlock(BlockInit.ANCIENT_METAL_ORE, "Ancient Metal Ore");
+        this.addBlock(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE, "Ancient Metal Deepslate Ore");
 
         add("block.atlantis.atlantean_sign", "Atlantean Sign");
         add("block.atlantis.atlantean_wall_sign", "Atlantean Wall Sign");

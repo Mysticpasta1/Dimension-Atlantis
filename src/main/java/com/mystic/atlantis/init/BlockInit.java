@@ -177,7 +177,8 @@ public class BlockInit {
     public static final DeferredHolder<Block, AncientWoodBlock> ANCIENT_BIRCH_WOOD_MOSS = registerBlock("ancient_birch_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
     public static final DeferredHolder<Block, AncientWoodBlock> ANCIENT_DARK_OAK_WOOD_MOSS = registerBlock("ancient_dark_oak_wood_moss", () -> new AncientWoodBlock(BlockBehaviour.Properties.of()));
     public static final DeferredHolder<Block, DropExperienceBlock> AQUAMARINE_ORE = registerBlock("aquamarine_ore", () -> new DropExperienceBlock(ConstantInt.of(5), BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(3.0F, 15.0F).lightLevel((state) -> 2)));
-
+    public static final DeferredHolder<Block, DropExperienceBlock> ANCIENT_METAL_ORE = registerBlock("ancient_metal_ore", () -> new DropExperienceBlock(ConstantInt.of(5), BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0F, 15.0F).lightLevel((state) -> 1)));
+    public static final DeferredHolder<Block, DropExperienceBlock> DEEPSLATE_ANCIENT_METAL_ORE = registerBlock("deepslate_ancient_metal_ore", () -> new DropExperienceBlock(ConstantInt.of(5), BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(4.0F, 15.0F).lightLevel((state) -> 3)));
     public static final DeferredHolder<Block, DropExperienceBlock> AQUAMARINE_DEEPSLATE_ORE = registerBlock("aquamarine_deepslate_ore", () -> new DropExperienceBlock(ConstantInt.of(5), BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(5.0F, 15.0F).lightLevel((state) -> 4)));
 
     public static final DeferredHolder<Block, SeaBedBlock> SEABED = registerBlock("seabed", () -> new SeaBedBlock(BlockBehaviour.Properties.of()));
@@ -276,7 +277,7 @@ public class BlockInit {
         DeferredHolder<Block, WeatheringMetalFullBlock> block = registerBlock(prefix + name + "_block", () -> new WeatheringMetalFullBlock(state, properties));
         DeferredHolder<Block, WeatheringMetalFullBlock> cut = registerBlock(prefix + "cut_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
         DeferredHolder<Block, WeatheringMetalFullBlock> chiseled = registerBlock(prefix + "chiseled_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
-        DeferredHolder<Block, WeatheringMetalStairBlock> cut_stairs = registerBlock(prefix + "cut_" + "_stairs", () -> new  WeatheringMetalStairBlock(state, cut.get().defaultBlockState(), properties));
+        DeferredHolder<Block, WeatheringMetalStairBlock> cut_stairs = registerBlock(prefix + "cut_" + name + "_stairs", () -> new  WeatheringMetalStairBlock(state, cut.get().defaultBlockState(), properties));
         DeferredHolder<Block, WeatheringMetalSlabBlock> cut_slab = registerBlock(prefix + "cut_" + name + "_slab", () -> new  WeatheringMetalSlabBlock(state, properties));
         DeferredHolder<Block, WeatheringMetalDoorBlock> door = registerBlock(prefix + name + "_door", () -> new WeatheringMetalDoorBlock(BlockSetType.COPPER, state, BlockBehaviour.Properties.ofFullCopy(block.get()).noOcclusion().pushReaction(PushReaction.DESTROY)));
         DeferredHolder<Block, WeatheringMetalTrapDoorBlock> trapdoor = registerBlock(prefix + name + "_trapdoor", () -> new WeatheringMetalTrapDoorBlock(state, BlockBehaviour.Properties.ofFullCopy(block.get()).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false)));
