@@ -30,15 +30,11 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib.GeckoLibClient;
 
 @Mod(Reference.MODID)
 @EventBusSubscriber(modid = Reference.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Atlantis {
-    public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
-
     public Atlantis(IEventBus bus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);

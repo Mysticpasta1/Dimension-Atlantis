@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "atlantis:waxed_weathered_chiseled_ancient_metal_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_weathered_chiseled_ancient_metal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "atlantis:weathered_chiseled_ancient_metal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_weathered_chiseled_ancient_metal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "atlantis:waxed_weathered_chiseled_ancient_metal_recipe"
+    ]
+  }
+}

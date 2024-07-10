@@ -70,10 +70,10 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
 
         block(BlockInit.LINGUISTIC_BLOCK);
         block(BlockInit.ORICHALCUM_BLOCK);
+        block(BlockInit.RAW_ANCIENT_METAL_BLOCK);
 
         item(ItemInit.ORICHALCUM_INGOT);
         item(ItemInit.ORICHALCUM_BLEND);
-
         item(ItemInit.ORICHALCUM_HELMET);
         item(ItemInit.ORICHALCUM_CHESTPLATE);
         item(ItemInit.ORICHALCUM_LEGGINGS);
@@ -83,6 +83,9 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         itemTool(ItemInit.ORICHALCUM_SHOVEL);
         itemTool(ItemInit.ORICHALCUM_SWORD);
         itemTool(ItemInit.ORICHALCUM_HOE);
+
+        item(ItemInit.ANCIENT_METAL_INGOT);
+        item(ItemInit.RAW_ANCIENT_METAL_INGOT);
     }
 
     private <T extends Item> void itemTool(DeferredHolder<Item, T> tool) {

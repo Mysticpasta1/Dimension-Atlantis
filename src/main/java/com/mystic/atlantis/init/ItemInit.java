@@ -64,6 +64,8 @@ public class ItemInit {
     public static final DeferredHolder<Item, Item> FIRE_MELON_JELLY_BOTTLE = register("fire_melon_jelly_bottle", FireMelonJellyBottle::new);
     public static final DeferredHolder<Item, Item> JELLY_BOTTLE = register("jellyfish_jelly_bottle", JellyfishJellyBottle::new);
     public static final DeferredHolder<Item, Item> AQUAMARINE_GEM = register("aquamarine_gem", Item::new);
+    public static final DeferredHolder<Item, Item> ANCIENT_METAL_INGOT = register("ancient_metal_ingot", Item::new);
+    public static final DeferredHolder<Item, Item> RAW_ANCIENT_METAL_INGOT = register("raw_ancient_metal_ingot", Item::new);
     public static final DeferredHolder<Item, Item> ORICHALCUM_INGOT = register("orichalcum_ingot", Item::new);
     public static final DeferredHolder<Item, Item> ORICHALCUM_BLEND = register("orichalcum_blend", Item::new);
     public static final DeferredHolder<Item, OrbOfAtlantis> ORB_OF_ATLANTIS = register("orb_of_atlantis", OrbOfAtlantis::new);

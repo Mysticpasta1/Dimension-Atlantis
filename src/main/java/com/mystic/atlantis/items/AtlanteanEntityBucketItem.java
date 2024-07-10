@@ -41,7 +41,9 @@ public class AtlanteanEntityBucketItem extends MobBucketItem {
         Entity entity = this.entityType.get().spawn(world, stack, (Player)null, pos, MobSpawnType.BUCKET, true, false);
         if (entity instanceof Bucketable) {
             Bucketable bucketable = (Bucketable)entity;
-            bucketable.loadFromBucketTag(Objects.requireNonNull(stack.get(DataComponents.BUCKET_ENTITY_DATA)).copyTag());
+            if(stack.get(DataComponents.BUCKET_ENTITY_DATA) != null) {
+                bucketable.loadFromBucketTag(Objects.requireNonNull(stack.get(DataComponents.BUCKET_ENTITY_DATA)).copyTag());
+            }
             bucketable.setFromBucket(true);
         }
     }

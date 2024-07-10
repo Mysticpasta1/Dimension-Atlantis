@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mystic.atlantis.dimension.AtlanteanPortalForcer;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +27,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;
 
 public class AtlantisClearPortalBlock extends EndPortalBlock implements SimpleWaterloggedBlock {
@@ -49,28 +52,53 @@ public class AtlantisClearPortalBlock extends EndPortalBlock implements SimpleWa
             ResourceKey<Level> resourcekey = DimensionAtlantis.isAtlantisDimension(pLevel) ? Level.OVERWORLD : DimensionAtlantis.ATLANTIS_WORLD;
             ResourceKey<Level> resourcekey2 = !DimensionAtlantis.isAtlantisDimension(pLevel) ? Level.OVERWORLD : DimensionAtlantis.ATLANTIS_WORLD;
             ServerLevel serverlevel = ((ServerLevel) pLevel).getServer().getLevel(resourcekey);
-            ServerLevel serverLevel2 = ((ServerLevel) pLevel).getServer().getLevel(resourcekey2);
-            if (serverlevel == null && serverLevel2 == null) {
+            ServerLevel serverlevel2 = ((ServerLevel) pLevel).getServer().getLevel(resourcekey2);
+            if (serverlevel == null && serverlevel2 == null) {
                 return;
             }
 
-            if (pEntity.canChangeDimensions(serverlevel, serverLevel2)) {
+            assert serverlevel2 != null;
+            assert serverlevel != null;
+
+            AtlanteanPortalForcer portalForcer = new AtlanteanPortalForcer(serverlevel);
+
+            if (pEntity.canChangeDimensions(serverlevel, serverlevel2)) {
 
                 if (pEntity instanceof ServerPlayer player) {
                     if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
                         player.changeDimension(new DimensionTransition(serverlevel, player, DimensionTransition.PLAY_PORTAL_SOUND));
                         player.setPortalCooldown(300);
+                        if(portalForcer.findPortalAround(player.blockPosition(), false, serverlevel.getWorldBorder()).equals(Optional.empty())) {
+                            portalForcer.createPortal(player.blockPosition(), Direction.Axis.X);
+                        } else {
+                            portalForcer.teleportToPortal(player.blockPosition(), false, serverlevel.getWorldBorder(), player);
+                        }
                     } else if (player.getPortalCooldown() == 0) {
                         player.changeDimension(new DimensionTransition(serverlevel, player, DimensionTransition.PLAY_PORTAL_SOUND));
                         player.setPortalCooldown(300);
+                        if(portalForcer.findPortalAround(player.blockPosition(), true, serverlevel.getWorldBorder()).equals(Optional.empty())) {
+                            portalForcer.createPortal(player.blockPosition(), Direction.Axis.X);
+                        } else {
+                            portalForcer.teleportToPortal(player.blockPosition(), true, serverlevel.getWorldBorder(), player);
+                        }
                     }
                 } else {
                     if (resourcekey.equals(DimensionAtlantis.ATLANTIS_WORLD) && pEntity.getPortalCooldown() == 0) {
                         pEntity.changeDimension(new DimensionTransition(serverlevel, pEntity, DimensionTransition.PLAY_PORTAL_SOUND));
                         pEntity.setPortalCooldown(300);
+                        if(portalForcer.findPortalAround(pEntity.blockPosition(), false, serverlevel.getWorldBorder()).equals(Optional.empty())) {
+                            portalForcer.createPortal(pEntity.blockPosition(), Direction.Axis.X);
+                        } else {
+                            portalForcer.teleportToPortal(pEntity.blockPosition(), false, serverlevel.getWorldBorder(), pEntity);
+                        }
                     } else if (pEntity.getPortalCooldown() == 0) {
                         pEntity.changeDimension(new DimensionTransition(serverlevel, pEntity, DimensionTransition.PLAY_PORTAL_SOUND));
                         pEntity.setPortalCooldown(300);
+                        if(portalForcer.findPortalAround(pEntity.blockPosition(), true, serverlevel.getWorldBorder()).equals(Optional.empty())) {
+                            portalForcer.createPortal(pEntity.blockPosition(), Direction.Axis.X);
+                        } else {
+                            portalForcer.teleportToPortal(pEntity.blockPosition(), true, serverlevel.getWorldBorder(), pEntity);
+                        }
                     }
                 }
             }

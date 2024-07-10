@@ -26,7 +26,7 @@ public class WeatheringMetalStairBlock extends StairBlock implements WeatheringM
     }
 
     public WeatheringMetalStairBlock(WeatherState p_154951_, BlockState p_154952_, Properties p_154953_) {
-        super(p_154952_, p_154953_);
+        super(p_154952_, p_154953_.randomTicks());
         this.weatherState = p_154951_;
     }
 

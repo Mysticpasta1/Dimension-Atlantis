@@ -22,7 +22,7 @@ public class WeatheringMetalBulbBlock extends MetalBulbBlock implements Weatheri
     }
 
     public WeatheringMetalBulbBlock(WeatherState p_308927_, Properties p_309010_) {
-        super(p_309010_);
+        super(p_309010_.randomTicks());
         this.weatherState = p_308927_;
     }
 

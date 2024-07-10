@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "atlantis:ancient_metal",
+  "step": "underground_ores"
+}

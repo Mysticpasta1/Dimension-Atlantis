@@ -31,10 +31,6 @@ public class AtlantisFeature {
             "shell_block_feature_atlantis",()-> new ShellBlockFeature(NoneFeatureConfiguration.CODEC));
     public static final Supplier<Feature<NoneFeatureConfiguration>> ATLANTEAN_ISLANDS = register(
             "atlantean_islands_feature_atlantis",()-> new AtlanteanIslands(NoneFeatureConfiguration.CODEC));
-    public static final Supplier< Feature<LakeFeature.Configuration>> JETSTREAM_LAKE_FEATURE_ATLANTIS =  register(
-            "jetstream_lake_feature_atlantis",()-> new LakeFeature(LakeFeature.Configuration.CODEC));
-    public static final Supplier< Feature<LakeFeature.Configuration>> SALTY_SEA_LAKE_FEATURE_ATLANTIS =  register(
-            "salty_sea_lake_feature_atlantis",()-> new LakeFeature(LakeFeature.Configuration.CODEC));
     public static final Supplier<Feature<NoneFeatureConfiguration>> ATLANTEAN_VOLCANO = register(
             "atlantean_volcano_feature_atlantis",()-> new AtlanteanVolcano(NoneFeatureConfiguration.CODEC));
     public static final Supplier<Feature<NoneFeatureConfiguration>> UNDERWATER_MUSHROOM_ATLANTIS = register(
