@@ -52,7 +52,7 @@ public class AtlantisEntityInit {
         event.put(AtlantisEntityInit.LEVIATHAN.get(), LeviathanEntity.createLeviathanAttributes().build());
         event.put(AtlantisEntityInit.SEAHORSE.get(), SeahorseEntity.createSeahorseAttributes().build());
         event.put(AtlantisEntityInit.STARFISH.get(), StarfishEntity.createStarfishAttributes().build());
-        event.put(AtlantisEntityInit.STARFISH_ZOM.get(), StarfishZomEntity.createStarfishAttributes().build());
+        event.put(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), StarfishZomEntity.createStarfishAttributes().build());
     }
 
     public static void init(IEventBus bus) {

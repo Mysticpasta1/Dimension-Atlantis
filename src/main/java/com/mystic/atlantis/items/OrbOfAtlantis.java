@@ -4,13 +4,18 @@ import com.mystic.atlantis.blocks.base.AtlanteanCoreFrame;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 
-public class OrbOfAtlantis extends DefaultItem {
+public class OrbOfAtlantis extends Item {
+    public OrbOfAtlantis(Properties properties) {
+        super(properties);
+    }
+
     public InteractionResult useOn(UseOnContext pContext) {
         Level level = pContext.getLevel();
         BlockPos blockpos = pContext.getClickedPos();

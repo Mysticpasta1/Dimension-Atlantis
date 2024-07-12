@@ -32,7 +32,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.addBlock(BlockInit.WATERFALL_BLOCK, "Waterfall Block");
-        this.addBlock(BlockInit.WAVE_BLOCK, "Wave Block");
+        this.addBlock(BlockInit.WAVE_BLOCK);
         this.addBlock(BlockInit.CRYSTAL_TRANSFERENCE, "Crystal Transference");
         this.addBlock(BlockInit.ATLANTEAN_PORTAL_FRAME, "Atlantean Portal Frame");
         this.addBlock(BlockInit.ATLANTIS_CLEAR_PORTAL, "Atlantis Clear Portal");
@@ -212,11 +212,11 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlocksFromType(BlockInit.CYAN_SEA_GLASS, "Cyan Sea Glass");
         this.addBlocksFromType(BlockInit.MONOCHROMATIC_SEA_GLASS, "Monochromatic Sea Glass");
         this.addBlocksFromType(BlockInit.MULTICOLOR_SEA_GLASS, "Multicolor Sea Glass");
-        this.add(BlockInit.COQUINA.get(), "Coquina");
+        this.addBlock(BlockInit.COQUINA);
 
         this.add(ItemInit.ATLANTEAN_AMULET.get(), "Atlantean Amulet");
         this.add(ItemInit.ATLANTEAN_SPEAR.get(), "Atlantean Spear");
-        this.add(ItemInit.PALM_BOAT.get(), "PALM_BOAT");
+        this.add(ItemInit.PALM_BOAT.get(), "Palm Boat");
         this.add(ItemInit.ATLANTEAN_BOAT.get(), "Atlantean Boat");
         this.add(ItemInit.ATLANTEAN_CRAB_EGG.get(), "Atlantean Crab Egg");
         this.add(ItemInit.ATLANTEAN_JELLYFISH_EGG.get(), "Atlantean Jellyfish Egg");
@@ -226,7 +226,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.COCONUT_CRAB_EGG.get(), "Coconut Crab Egg");
         this.add(ItemInit.STARFISH_EGG.get(), "Starfish Egg");
         this.add(ItemInit.STARFISH_ZOM_EGG.get(), "Starfish Zom Egg");
-        this.add(ItemInit.PANBEE.get(), "Panbee");
+        this.addRecord(ItemInit.PANBEE, " LudoCrypt - Panbee");
         this.add(ItemInit.COLUMN_CAVITATION.get(), "Column Cavitation");
         this.add(ItemInit.BROKEN_SHELLS.get(), "Broken Shells");
         this.add(ItemInit.SODIUM_NUGGET.get(), "Sodium Nugget");
@@ -259,6 +259,12 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
             this.add(group.grate().get(), WordUtils.capitalize(group.grate().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.bulb().get(), WordUtils.capitalize(group.bulb().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
+
+        add("block.atlantis.atlantean_sign", "Atlantean Sign");
+        add("block.atlantis.atlantean_wall_sign", "Atlantean Wall Sign");
+        add("block.atlantis.palm_wall_sign", "Palm Wall Sign");
+
+
         this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT.get(), "Atlantean Fire Melon Fruit");
         this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get(), "Atlantean Fire Melon Fruit Spiked");
         this.add(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get(), "Atlantean Fire Melon Seeds");
@@ -329,6 +335,53 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ORICHALCUM_CHESTPLATE.get(), "Orichalcum Chestplate");
         this.add(ItemInit.ORICHALCUM_LEGGINGS.get(), "Orichalcum Leggings");
         this.add(ItemInit.ORICHALCUM_BOOTS.get(), "Orichalcum Boots");
+
+        this.add(AtlantisEntityInit.PALM_BOAT.get(), "Palm_boat");
+        this.add(AtlantisEntityInit.ATLANTEAN_BOAT.get(), "Atlantean_boat");
+        this.add(AtlantisEntityInit.CRAB.get(), "Crab");
+        this.add(AtlantisEntityInit.COCONUT_CRAB.get(), "Coconut_crab");
+        this.add(AtlantisEntityInit.JELLYFISH.get(), "Jellyfish");
+        this.add(AtlantisEntityInit.SHRIMP.get(), "Shrimp");
+        this.add(AtlantisEntityInit.LEVIATHAN.get(), "Leviathan");
+        this.add(AtlantisEntityInit.SEAHORSE.get(), "Seahorse");
+        this.add(AtlantisEntityInit.STARFISH.get(), "Starfish");
+        this.add(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), "Atlantean Zombie Starfish");
+        this.add(AtlantisEntityInit.BOMB.get(), "Bomb");
+        this.add(AtlantisEntityInit.SUBMARINE.get(), "Submarine");
+
+        this.add("biome.atlantis.atlantean_garden", "Atlantean Garden");
+        this.add("biome.atlantis.atlantean_islands_biome", "Atlantean Islands Biome");
+        this.add("biome.atlantis.atlantis_biome", "Atlantis Biome");
+        this.add("biome.atlantis.coconut_isles", "Coconut Isles");
+        this.add("biome.atlantis.goo_lagoons", "Goo Lagoons");
+        this.add("biome.atlantis.jellyfish_fields", "Jellyfish Fields");
+        this.add("biome.atlantis.volcanic_darksea", "Volcanic Darksea");
+        this.add("structure.atlantis.atlantean_village", "Atlantean Village");
+        this.add("dimension.atlantis.atlantis", "Atlantis");
+        this.add("structure.atlantis.configured_atlantean_city", "Atlantean City");
+        this.add("structure.atlantis.configured_atlantean_fountain", "Atlantean Fountain");
+        this.add("structure.atlantis.configured_atlantean_house_1", "Atlantean House Variant 1");
+        this.add("structure.atlantis.configured_atlantean_house_3", "Atlantean House Variant 3");
+        this.add("structure.atlantis.configured_atlantean_spire", "Atlantean Spire");
+        this.add("structure.atlantis.configured_atlantean_temple", "Atlantean Temple");
+        this.add("structure.atlantis.configured_atlantean_tower", "Atlantean Tower");
+        this.add("structure.atlantis.configured_oyster_structure", "Giant Oyster");
+
+        this.add("itemGroup.atlantis.general", "Atlantis");
+        this.add("itemGroup.atlantis.glyph", "Atlantean Glyphs");
+        this.add("text.autoconfig.atlantis.option.calciteAcceleration", "Calcite Acceleration");
+        this.add("text.autoconfig.atlantis.option.calciteThreshold", "Calcite Threshold");
+        this.add("text.autoconfig.atlantis.option.general.calciteAcceleration", "Calcite Acceleration");
+        this.add("text.autoconfig.atlantis.option.general.calciteAcceleration.@Tooltip", "How fast you start to speed up at. Must reload world for it to work!");
+        this.add("text.autoconfig.atlantis.option.general.calciteThreshold", "Calcite Threshold");
+        this.add("text.autoconfig.atlantis.option.general.calciteThreshold.@Tooltip", "The maximum speed you can be at. Must reload world for it to work!");
+        this.add("text.autoconfig.atlantis.option.islandsOn", "Are islands on?");
+        this.add("text.autoconfig.atlantis.option.maxCrabSpawnHeight", "Maximum Crab Spawn Height");
+        this.add("text.autoconfig.atlantis.option.maxCrabSpawnHeight.@Tooltip", "The Maximum Height The Atlantean Crab Will Spawn At");
+        this.add("text.autoconfig.atlantis.option.minCrabSpawnHeight", "Minimum Crab Spawn Height");
+        this.add("text.autoconfig.atlantis.option.minCrabSpawnHeight.@Tooltip", "The Minimum Height The Atlantean Crab Will Spawn At");
+        this.add("text.autoconfig.atlantis.option.volcanoesOn", "Are volcanoes on?");
+        this.add("text.autoconfig.atlantis.title", "Atlantean Config");
     }
 
     private void addRecord(RegistryObject<Item> record, String s) {

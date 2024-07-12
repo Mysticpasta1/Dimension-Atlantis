@@ -17,8 +17,6 @@ import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-import java.util.function.Supplier;
-
 public class Providers {
     public static void init(IEventBus bus) {
         bus.addListener(Providers::dataGather);
@@ -74,7 +72,7 @@ public class Providers {
                 @Override
                 protected void addTags(HolderLookup.Provider pProvider) {
                     TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
-                    TagsInit.Item.getItemsThatCanSink().stream().map(Supplier::get).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
+                    TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
                 }
             });
         }
