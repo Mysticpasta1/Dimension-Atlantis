@@ -2,7 +2,6 @@ package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_metal.*;
-import com.mystic.atlantis.blocks.ancient_metal.WaterloggedTransparentBlock;
 import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
@@ -19,10 +18,8 @@ import com.mystic.atlantis.util.Reference;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
@@ -32,12 +29,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 public class BlockInit {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
@@ -93,7 +90,7 @@ public class BlockInit {
     public static final Supplier<AtlanteanWoodFenceBlock> PALM_FENCE = registerBlock("palm_fence", () -> new AtlanteanWoodFenceBlock(BlockBehaviour.Properties.of()));
     public static final Supplier<AtlanteanFenceGateBlock> PALM_FENCE_GATE = registerBlock("palm_fence_gate", () -> new AtlanteanFenceGateBlock(BlockBehaviour.Properties.of()));
     public static final Supplier<AtlanteanPressurePlateBlock> PALM_PRESSURE_PLATE = registerBlock("palm_pressure_plate", () -> new AtlanteanPressurePlateBlock(BlockBehaviour.Properties.of()));
-    public static final Supplier<AtlanteanSignBlock> PALM_SIGNS = registerOnlyBlock("palm_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(), PALM));
+    public static final Supplier<AtlanteanSignBlock> PALM_SIGN = registerOnlyBlock("palm_sign", () -> new AtlanteanSignBlock(BlockBehaviour.Properties.of(), PALM));
     public static final Supplier<AtlanteanWoodSlabBlock> PALM_SLAB = registerBlock("palm_slab", () -> new AtlanteanWoodSlabBlock(BlockBehaviour.Properties.of()));
     public static final Supplier<AtlanteanWoodStairBlock> PALM_STAIRS = registerBlock("palm_stairs", () -> new AtlanteanWoodStairBlock(BlockInit.PALM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of()));
     public static final Supplier<AtlanteanWoodTrapdoorBlock> PALM_TRAPDOOR = registerBlock("palm_trapdoor", () -> new AtlanteanWoodTrapdoorBlock(BlockBehaviour.Properties.of()));
@@ -282,7 +279,27 @@ public class BlockInit {
     public static final BlockType BROWN_SEA_GLASS = registerSeaGlass("brown");
     public static final BlockType LIME_SEA_GLASS = registerSeaGlass("lime");
 
-    public static final RegistryObject<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of() .sound(SoundType.BONE_BLOCK)
+    public static final BlockBehaviour.Properties ANCIENT_METAL_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL);
+
+    public static Map<WeatheringMetal.WeatherState, TrailsGroup> ANCIENT_METALS = Util.make(new HashMap<>(), map -> Arrays.stream(WeatheringMetal.WeatherState.values()).forEach(state -> map.put(state, registerTrialsGroup("ancient_metal", state, ANCIENT_METAL_PROPERTIES))));
+
+    private static TrailsGroup registerTrialsGroup(String name, WeatheringMetal.WeatherState state, BlockBehaviour.Properties properties) {
+        var prefix = state == WeatheringMetal.WeatherState.UNAFFECTED ? "" : state.getSerializedName() + "_";
+
+        Supplier<WeatheringMetalFullBlock> block = registerBlock(prefix + name + "_block", () -> new WeatheringMetalFullBlock(state, properties));
+        Supplier<WeatheringMetalFullBlock> cut = registerBlock(prefix + "cut_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
+        Supplier<WeatheringMetalFullBlock> chiseled = registerBlock(prefix + "chiseled_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
+        Supplier<WeatheringMetalStairBlock> cut_stairs = registerBlock(prefix + "cut_" + "_stairs", () -> new  WeatheringMetalStairBlock(state, cut.get().defaultBlockState(), properties));
+        Supplier<WeatheringMetalSlabBlock> cut_slab = registerBlock(prefix + "cut_" + name + "_slab", () -> new  WeatheringMetalSlabBlock(state, properties));
+        Supplier<WeatheringMetalDoorBlock> door = registerBlock(prefix + name + "_door", () -> new WeatheringMetalDoorBlock(BlockSetType.COPPER, state, BlockBehaviour.Properties.ofFullCopy(block.get()).noOcclusion().pushReaction(PushReaction.DESTROY)));
+        Supplier<WeatheringMetalTrapDoorBlock> trapdoor = registerBlock(prefix + name + "_trapdoor", () -> new WeatheringMetalTrapDoorBlock(state, BlockBehaviour.Properties.ofFullCopy(block.get()).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false)));
+        Supplier<WeatheringMetalGrateBlock> grate = registerBlock(prefix + name + "_grate", () -> new WeatheringMetalGrateBlock(state, BlockBehaviour.Properties.ofFullCopy(block.get()).sound(SoundType.COPPER_GRATE).requiresCorrectToolForDrops().noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false)));
+        Supplier<WeatheringMetalBulbBlock> bulb = registerBlock(prefix + name + "_bulb", () -> new  WeatheringMetalBulbBlock(state, BlockBehaviour.Properties.ofFullCopy(block.get()).sound(SoundType.COPPER_BULB).isRedstoneConductor((pState, pLevel, pPos) -> false).lightLevel(value -> state.lightLevel())));
+
+        return new TrailsGroup(block, cut, chiseled, cut_stairs, cut_slab, door, trapdoor, grate, bulb);
+    }
+
+    public static final Supplier<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of() .sound(SoundType.BONE_BLOCK)
             .requiresCorrectToolForDrops()
             .strength(3.0F, 7.0F)
     .mapColor(MapColor.TERRACOTTA_ORANGE)), registryObject -> () -> new BlockItem(registryObject.get(), new Item.Properties()));

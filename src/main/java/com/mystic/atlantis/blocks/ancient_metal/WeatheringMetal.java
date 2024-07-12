@@ -1,63 +1,51 @@
 package com.mystic.atlantis.blocks.ancient_metal;
 
 import com.google.common.base.Suppliers;
-import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
-import java.util.Optional;
-import java.util.function.Supplier;
+import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.common.extensions.IBlockExtension;
+import org.jetbrains.annotations.Nullable;
 
-public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.WeatherState> {
-    Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(
-            () -> ImmutableBiMap.<Block, Block>builder()
-                    .put(Blocks.COPPER_BLOCK, Blocks.EXPOSED_COPPER)
-                    .put(Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER)
-                    .put(Blocks.WEATHERED_COPPER, Blocks.OXIDIZED_COPPER)
-                    .put(Blocks.CUT_COPPER, Blocks.EXPOSED_CUT_COPPER)
-                    .put(Blocks.EXPOSED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER)
-                    .put(Blocks.WEATHERED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER)
-                    .put(Blocks.CHISELED_COPPER, Blocks.EXPOSED_CHISELED_COPPER)
-                    .put(Blocks.EXPOSED_CHISELED_COPPER, Blocks.WEATHERED_CHISELED_COPPER)
-                    .put(Blocks.WEATHERED_CHISELED_COPPER, Blocks.OXIDIZED_CHISELED_COPPER)
-                    .put(Blocks.CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER_SLAB)
-                    .put(Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER_SLAB)
-                    .put(Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER_SLAB)
-                    .put(Blocks.CUT_COPPER_STAIRS, Blocks.EXPOSED_CUT_COPPER_STAIRS)
-                    .put(Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.WEATHERED_CUT_COPPER_STAIRS)
-                    .put(Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.OXIDIZED_CUT_COPPER_STAIRS)
-                    .put(Blocks.COPPER_DOOR, Blocks.EXPOSED_COPPER_DOOR)
-                    .put(Blocks.EXPOSED_COPPER_DOOR, Blocks.WEATHERED_COPPER_DOOR)
-                    .put(Blocks.WEATHERED_COPPER_DOOR, Blocks.OXIDIZED_COPPER_DOOR)
-                    .put(Blocks.COPPER_TRAPDOOR, Blocks.EXPOSED_COPPER_TRAPDOOR)
-                    .put(Blocks.EXPOSED_COPPER_TRAPDOOR, Blocks.WEATHERED_COPPER_TRAPDOOR)
-                    .put(Blocks.WEATHERED_COPPER_TRAPDOOR, Blocks.OXIDIZED_COPPER_TRAPDOOR)
-                    .put(Blocks.COPPER_GRATE, Blocks.EXPOSED_COPPER_GRATE)
-                    .put(Blocks.EXPOSED_COPPER_GRATE, Blocks.WEATHERED_COPPER_GRATE)
-                    .put(Blocks.WEATHERED_COPPER_GRATE, Blocks.OXIDIZED_COPPER_GRATE)
-                    .put(Blocks.COPPER_BULB, Blocks.EXPOSED_COPPER_BULB)
-                    .put(Blocks.EXPOSED_COPPER_BULB, Blocks.WEATHERED_COPPER_BULB)
-                    .put(Blocks.WEATHERED_COPPER_BULB, Blocks.OXIDIZED_COPPER_BULB)
-                    .build()
-    );
-    Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());
+import java.util.Optional;
+import java.util.function.Supplier;
+
+import static com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal.WeatherState.*;
+
+public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.WeatherState>, IBlockExtension {
+    Supplier<ImmutableBiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> {
+        var builder = ImmutableBiMap.<Block, Block>builder();
+
+        link(builder, UNAFFECTED, EXPOSED);
+        link(builder, EXPOSED, WEATHERED);
+        link(builder, WEATHERED, OXIDIZED);
+
+        return builder.build();
+    });
+
+    static void link(ImmutableBiMap.Builder<Block, Block> builder, WeatherState before, WeatherState after) {
+        builder.put(BlockInit.ANCIENT_METALS.get(before).block().get(), BlockInit.ANCIENT_METALS.get(after).block().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).cut().get(), BlockInit.ANCIENT_METALS.get(after).cut().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).chiseled().get(), BlockInit.ANCIENT_METALS.get(after).chiseled().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).cutStairs().get(), BlockInit.ANCIENT_METALS.get(after).cutStairs().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).cutSlab().get(), BlockInit.ANCIENT_METALS.get(after).cutSlab().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).door().get(), BlockInit.ANCIENT_METALS.get(after).door().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).trapdoor().get(), BlockInit.ANCIENT_METALS.get(after).trapdoor().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).grate().get(), BlockInit.ANCIENT_METALS.get(after).grate().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).bulb().get(), BlockInit.ANCIENT_METALS.get(after).bulb().get());
+    }
+
+    Supplier<ImmutableBiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> NEXT_BY_BLOCK.get().inverse());
 
     static Optional<Block> getPrevious(Block pBlock) {
         return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(pBlock));
-    }
-
-    static Block getFirst(Block pBlock) {
-        Block block = pBlock;
-
-        for (Block block1 = PREVIOUS_BY_BLOCK.get().get(pBlock); block1 != null; block1 = PREVIOUS_BY_BLOCK.get().get(block1)) {
-            block = block1;
-        }
-
-        return block;
     }
 
     static Optional<BlockState> getPrevious(BlockState pState) {
@@ -68,10 +56,6 @@ public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.Wea
         return Optional.ofNullable(NEXT_BY_BLOCK.get().get(pBlock));
     }
 
-    static BlockState getFirst(BlockState pState) {
-        return getFirst(pState.getBlock()).withPropertiesOf(pState);
-    }
-
     @Override
     default Optional<BlockState> getNext(BlockState pState) {
         return getNext(pState.getBlock()).map(p_154896_ -> p_154896_.withPropertiesOf(pState));
@@ -79,26 +63,44 @@ public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.Wea
 
     @Override
     default float getChanceModifier() {
-        return this.getAge() == WeatheringMetal.WeatherState.UNAFFECTED ? 0.75F : 1.0F;
+        return this.getAge() == UNAFFECTED ? 0.75F : 1.0F;
     }
 
-    public static enum WeatherState implements StringRepresentable {
-        UNAFFECTED("unaffected"),
-        EXPOSED("exposed"),
-        WEATHERED("weathered"),
-        OXIDIZED("oxidized");
+    enum WeatherState implements StringRepresentable {
+        UNAFFECTED("unaffected", 15),
+        EXPOSED("exposed", 12),
+        WEATHERED("weathered", 8),
+        OXIDIZED("oxidized", 4);
 
-        public static final Codec<WeatheringMetal.WeatherState> CODEC = StringRepresentable.fromEnum(WeatheringMetal.WeatherState::values);
+        public static final Codec<WeatherState> CODEC = StringRepresentable.fromEnum(WeatherState::values);
         private final String name;
+        private final int lightLevel;
 
-        private WeatherState(String pName) {
+        WeatherState(String pName, int lightLevel) {
             this.name = pName;
+            this.lightLevel = lightLevel;
+        }
+
+        public int lightLevel() {
+            return lightLevel;
         }
 
         @Override
         public String getSerializedName() {
             return this.name;
         }
+    }
+
+    @Override
+    @Nullable
+    default BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
+        var newState = IBlockExtension.super.getToolModifiedState(state, context, itemAbility, simulate);
+
+        if(newState == null && ItemAbilities.AXE_SCRAPE == itemAbility) {
+            return getPrevious(state).orElse(null);
+        }
+
+        return newState;
     }
 }
 
