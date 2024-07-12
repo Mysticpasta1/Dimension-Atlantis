@@ -5,21 +5,16 @@ import com.google.common.collect.ImmutableBiMap;
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.common.extensions.IBlockExtension;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
 import static com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal.WeatherState.*;
 
-public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.WeatherState>, IBlockExtension {
+public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.WeatherState> {
     Supplier<ImmutableBiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() -> {
         var builder = ImmutableBiMap.<Block, Block>builder();
 
@@ -89,18 +84,6 @@ public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.Wea
         public String getSerializedName() {
             return this.name;
         }
-    }
-
-    @Override
-    @Nullable
-    default BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-        var newState = IBlockExtension.super.getToolModifiedState(state, context, itemAbility, simulate);
-
-        if(newState == null && ItemAbilities.AXE_SCRAPE == itemAbility) {
-            return getPrevious(state).orElse(null);
-        }
-
-        return newState;
     }
 }
 

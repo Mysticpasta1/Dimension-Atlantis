@@ -14,14 +14,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class MetalBulbBlock extends Block {
-    public static final MapCodec<MetalBulbBlock> CODEC = simpleCodec(MetalBulbBlock::new);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-
-    @Override
-    protected MapCodec<? extends MetalBulbBlock> codec() {
-        return CODEC;
-    }
 
     public MetalBulbBlock(BlockBehaviour.Properties p_308970_) {
         super(p_308970_);
@@ -29,14 +23,14 @@ public class MetalBulbBlock extends Block {
     }
 
     @Override
-    protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != pState.getBlock() && pLevel instanceof ServerLevel serverlevel) {
             this.checkAndFlip(pState, serverlevel, pPos);
         }
     }
 
     @Override
-    protected void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
         if (pLevel instanceof ServerLevel serverlevel) {
             this.checkAndFlip(pState, serverlevel, pPos);
         }
@@ -48,9 +42,6 @@ public class MetalBulbBlock extends Block {
             BlockState blockstate = pState;
             if (!pState.getValue(POWERED)) {
                 blockstate = pState.cycle(LIT);
-                pLevel.playSound(
-                    null, pPos, blockstate.getValue(LIT) ? SoundEvents.COPPER_BULB_TURN_ON : SoundEvents.COPPER_BULB_TURN_OFF, SoundSource.BLOCKS
-                );
             }
 
             pLevel.setBlock(pPos, blockstate.setValue(POWERED, Boolean.valueOf(flag)), 3);
@@ -66,7 +57,7 @@ public class MetalBulbBlock extends Block {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#hasAnalogOutputSignal} whenever possible. Implementing/overriding is fine.
      */
     @Override
-    protected boolean hasAnalogOutputSignal(BlockState pState) {
+    public boolean hasAnalogOutputSignal(BlockState pState) {
         return true;
     }
 
@@ -76,7 +67,7 @@ public class MetalBulbBlock extends Block {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#getAnalogOutputSignal} whenever possible. Implementing/overriding is fine.
      */
     @Override
-    protected int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         return pLevel.getBlockState(pPos).getValue(LIT) ? 15 : 0;
     }
 }

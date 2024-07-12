@@ -6,8 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -16,14 +16,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class WaterloggedTransparentBlock extends TransparentBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<WaterloggedTransparentBlock> CODEC = simpleCodec(WaterloggedTransparentBlock::new);
+public class WaterloggedTransparentBlock extends HalfTransparentBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
-    @Override
-    protected MapCodec<? extends WaterloggedTransparentBlock> codec() {
-        return CODEC;
-    }
 
     public WaterloggedTransparentBlock(BlockBehaviour.Properties p_313902_) {
         super(p_313902_);
@@ -38,7 +32,7 @@ public class WaterloggedTransparentBlock extends TransparentBlock implements Sim
     }
 
     @Override
-    protected BlockState updateShape(
+    public BlockState updateShape(
         BlockState p_313906_, Direction p_313739_, BlockState p_313829_, LevelAccessor p_313692_, BlockPos p_313842_, BlockPos p_313843_
     ) {
         if (p_313906_.getValue(WATERLOGGED)) {
@@ -49,7 +43,7 @@ public class WaterloggedTransparentBlock extends TransparentBlock implements Sim
     }
 
     @Override
-    protected FluidState getFluidState(BlockState p_313789_) {
+    public FluidState getFluidState(BlockState p_313789_) {
         return p_313789_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(true) : super.getFluidState(p_313789_);
     }
 

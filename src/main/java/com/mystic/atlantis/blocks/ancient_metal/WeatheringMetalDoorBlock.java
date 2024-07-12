@@ -11,23 +11,10 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class WeatheringMetalDoorBlock extends DoorBlock implements WeatheringMetal {
-    public static final MapCodec<WeatheringMetalDoorBlock> CODEC = RecordCodecBuilder.mapCodec(
-        p_309083_ -> p_309083_.group(
-                    BlockSetType.CODEC.fieldOf("block_set_type").forGetter(DoorBlock::type),
-                    WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringMetalDoorBlock::getAge),
-                    propertiesCodec()
-                )
-                .apply(p_309083_, WeatheringMetalDoorBlock::new)
-    );
     private final WeatherState weatherState;
 
-    @Override
-    public MapCodec<WeatheringMetalDoorBlock> codec() {
-        return CODEC;
-    }
-
     public WeatheringMetalDoorBlock(BlockSetType p_309051_, WeatherState p_308937_, Properties p_309122_) {
-        super(p_309051_, p_309122_.randomTicks());
+        super(p_309122_.randomTicks(), p_309051_);
         this.weatherState = p_308937_;
     }
 
@@ -35,14 +22,14 @@ public class WeatheringMetalDoorBlock extends DoorBlock implements WeatheringMet
      * Performs a random tick on a block.
      */
     @Override
-    protected void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (pState.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
-            this.changeOverTime(pState, pLevel, pPos, pRandom);
+            this.applyChangeOverTime(pState, pLevel, pPos, pRandom);
         }
     }
 
     @Override
-    protected boolean isRandomlyTicking(BlockState pState) {
+    public boolean isRandomlyTicking(BlockState pState) {
         return WeatheringMetal.getNext(pState.getBlock()).isPresent();
     }
 

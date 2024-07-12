@@ -4,18 +4,12 @@ import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal;
-import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetalBulbBlock;
-import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetalFullBlock;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.recipes.WritingRecipe;
-import it.unimi.dsi.fastutil.ints.IntSets;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceKey;
@@ -24,11 +18,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.enchantment.ConditionalEffect;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -36,28 +27,25 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
-import net.minecraft.world.level.storage.loot.providers.number.LootNumberProviderType;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
-import org.jetbrains.annotations.NotNull;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.loot.LootTableIdCondition;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Providers {
     public static void init(IEventBus bus) {
@@ -67,12 +55,6 @@ public class Providers {
     public static void dataGather(GatherDataEvent event) {
         var output = event.getGenerator().getPackOutput();
 
-
-        if(event.includeServer()) {
-            event.getGenerator().addProvider(true, new AtlantisLootTableProvider(event.getGenerator()));
-            event.getGenerator().addProvider(true, new AtlantisRecipeProvider(output));
-        }
-
         if(event.includeClient()) {
             event.getGenerator().addProvider(true, new AtlantisBlockModelProvider(output, event.getExistingFileHelper()));
             event.getGenerator().addProvider(true, new AtlantisMainProvider(output, event.getExistingFileHelper(), AtlantisBlockStateProvider::new));
@@ -80,36 +62,29 @@ public class Providers {
             event.getGenerator().addProvider(true, new AtlantisEnglishLanguageProvider(output));
             event.getGenerator().addProvider(true, new RecipeProvider(output, event.getLookupProvider()) {
                 @Override
-                protected void buildRecipes(RecipeOutput recipeOutput) {
-                    var list = ItemInit.getScrolls();
-                    var ingredient = Ingredient.of(list.toArray(Item[]::new));
-
-                    for (var result : list) {
-                        glyphScroll(recipeOutput, result, ingredient);
-                    }
-
+                protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
                     for (WeatheringMetal.WeatherState state : WeatheringMetal.WeatherState.values()) {
                         var group = BlockInit.ANCIENT_METALS.get(state);
-                        registerGroup(group, recipeOutput);
+                        registerGroup(group, consumer);
 
                         if(WeatheringMetal.WeatherState.UNAFFECTED == group.block().get().getAge()) {
                             SimpleCookingRecipeBuilder.smelting(Ingredient.of(BlockInit.RAW_ANCIENT_METAL_BLOCK.get()), RecipeCategory.BUILDING_BLOCKS, group.block().get(), 0.7F, 200)
-                                .unlockedBy(getHasName(group.block().get()), has(group.block().get()))
-                                .save(recipeOutput, Atlantis.id(group.block().get().getDescriptionId().replace("block.atlantis.", "") + "_smelting"));
+                                    .unlockedBy(getHasName(group.block().get()), has(group.block().get()))
+                                    .save(consumer, Atlantis.id(group.block().get().getDescriptionId().replace("block.atlantis.", "") + "_smelting"));
 
                             SimpleCookingRecipeBuilder.blasting(Ingredient.of(BlockInit.RAW_ANCIENT_METAL_BLOCK.get()), RecipeCategory.BUILDING_BLOCKS, group.block().get(), 0.7F, 100)
-                                .unlockedBy(getHasName(group.block().get()), has(group.block().get()))
-                                .save(recipeOutput, Atlantis.id(group.block().get().getDescriptionId().replace("block.atlantis.", "") + "_blasting"));
+                                    .unlockedBy(getHasName(group.block().get()), has(group.block().get()))
+                                    .save(consumer, Atlantis.id(group.block().get().getDescriptionId().replace("block.atlantis.", "") + "_blasting"));
                         }
                     }
 
                     SimpleCookingRecipeBuilder.smelting(Ingredient.of(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), RecipeCategory.BUILDING_BLOCKS, ItemInit.ANCIENT_METAL_INGOT.get(), 0.7F, 200)
                             .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
-                            .save(recipeOutput, Atlantis.id(ItemInit.ANCIENT_METAL_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_smelting"));
+                            .save(consumer, Atlantis.id(ItemInit.ANCIENT_METAL_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_smelting"));
 
                     SimpleCookingRecipeBuilder.blasting(Ingredient.of(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), RecipeCategory.BUILDING_BLOCKS, ItemInit.ANCIENT_METAL_INGOT.get(), 0.7F, 100)
                             .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
-                            .save(recipeOutput, Atlantis.id(ItemInit.ANCIENT_METAL_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_blasting"));
+                            .save(consumer, Atlantis.id(ItemInit.ANCIENT_METAL_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_blasting"));
 
                     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BlockInit.RAW_ANCIENT_METAL_BLOCK.get(), 1)
                             .pattern("###")
@@ -117,10 +92,10 @@ public class Providers {
                             .pattern("###")
                             .define('#', ItemInit.RAW_ANCIENT_METAL_INGOT.get())
                             .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
-                            .save(recipeOutput, Atlantis.id(BlockInit.RAW_ANCIENT_METAL_BLOCK.get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                            .save(consumer, Atlantis.id(BlockInit.RAW_ANCIENT_METAL_BLOCK.get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
                 }
 
-                private static void registerGroup(TrailsGroup group, RecipeOutput recipeOutput) {
+                private static void registerGroup(TrailsGroup group, Consumer<FinishedRecipe> recipeOutput) {
                     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, group.bulb().get(),1)
                             .pattern(" # ")
                             .pattern("#X#")
@@ -245,16 +220,6 @@ public class Providers {
                             .unlockedBy(getHasName(group.bulb().get()), has(group.bulb().get()))
                             .save(recipeOutput, Atlantis.id(group.waxed_bulb().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
                 }
-
-                private static void glyphScroll(RecipeOutput recipeOutput, ItemLike result, Ingredient material) {
-                    writing(material, RecipeCategory.MISC, result, 1)
-                            .unlockedBy(getHasName(ItemInit.LINGUISTIC_GLYPH_SCROLL.get()), has(ItemInit.LINGUISTIC_GLYPH_SCROLL.get()))
-                            .save(recipeOutput, getConversionRecipeName(result, ItemInit.LINGUISTIC_GLYPH_SCROLL.get()) + "_writing");
-                }
-
-                public static SingleItemRecipeBuilder writing(Ingredient ingredient, RecipeCategory category, ItemLike result, int count) {
-                    return new SingleItemRecipeBuilder(category, WritingRecipe::new, ingredient, result, count);
-                }
             });
 
             LootTableProvider.SubProviderEntry lootTableProvider = new LootTableProvider.SubProviderEntry(provider -> p_249643_ -> {
@@ -349,13 +314,13 @@ public class Providers {
                 @Override
                 protected void addTags(HolderLookup.Provider pProvider) {
                     TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
-                    TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
+                    TagsInit.Item.getItemsThatCanSink().stream().map(Supplier::get).forEach((item) -> tag.add());
                 }
             });
         }
     }
 
-    private static void dropSelf(Block block, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> builder){
+    private static void dropSelf(Block block, BiConsumer<ResourceLocation, LootTable.Builder> builder){
         builder.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(block).when(() -> new LootItemCondition() {
             @Override
             public LootItemConditionType getType() {

@@ -60,6 +60,8 @@ public class ItemInit {
     public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 10));
 
     //ITEMS
+    public static final RegistryObject<Item> ANCIENT_METAL_INGOT = register("ancient_metal_ingot", DefaultItem::new);
+    public static final RegistryObject<Item> RAW_ANCIENT_METAL_INGOT = register("raw_ancient_metal_ingot", DefaultItem::new);
     public static final RegistryObject<Item> BROKEN_SHELLS = register("broken_shells", DefaultItem::new);
     public static final RegistryObject<Item> SODIUM_NUGGET = register("sodium_nugget", () -> new SodiumItem(new Item.Properties()));
     public static final RegistryObject<Item> SEA_SALT = register("sea_salt", DefaultItem::new);

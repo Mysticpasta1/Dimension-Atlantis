@@ -1,6 +1,5 @@
 package com.mystic.atlantis.inventory;
 
-import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.MenuTypeInit;
 import com.mystic.atlantis.init.RecipesInit;
 import com.mystic.atlantis.recipes.WritingRecipe;

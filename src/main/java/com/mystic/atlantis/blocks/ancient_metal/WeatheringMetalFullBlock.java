@@ -10,16 +10,7 @@ import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class WeatheringMetalFullBlock extends Block implements WeatheringMetal {
-    public static final MapCodec<WeatheringMetalFullBlock> CODEC = RecordCodecBuilder.mapCodec(
-            p_308850_ -> p_308850_.group(WeatherState.CODEC.fieldOf("weathering_state").forGetter(ChangeOverTimeBlock::getAge), propertiesCodec())
-                    .apply(p_308850_, WeatheringMetalFullBlock::new)
-    );
     private final WeatherState weatherState;
-
-    @Override
-    public MapCodec<WeatheringMetalFullBlock> codec() {
-        return CODEC;
-    }
 
     public WeatheringMetalFullBlock(WeatherState p_154925_, Properties p_154926_) {
         super(p_154926_.randomTicks());
@@ -30,12 +21,12 @@ public class WeatheringMetalFullBlock extends Block implements WeatheringMetal {
      * Performs a random tick on a block.
      */
     @Override
-    protected void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        this.changeOverTime(pState, pLevel, pPos, pRandom);
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        this.applyChangeOverTime(pState, pLevel, pPos, pRandom);
     }
 
     @Override
-    protected boolean isRandomlyTicking(BlockState pState) {
+    public boolean isRandomlyTicking(BlockState pState) {
         return WeatheringMetal.getNext(pState.getBlock()).isPresent();
     }
 

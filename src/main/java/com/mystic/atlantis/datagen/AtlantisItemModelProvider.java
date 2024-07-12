@@ -6,7 +6,6 @@ import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.init.ItemInit;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
@@ -15,8 +14,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.io.DataOutput;
 
 public class AtlantisItemModelProvider extends ItemModelProvider {
     public AtlantisItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
@@ -91,7 +88,7 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         item(ItemInit.RAW_ANCIENT_METAL_INGOT);
     }
 
-    private void itemTool(RegistryObject<Item> tool) {
+    private <T extends Item> void itemTool(RegistryObject<T> tool) {
         getBuilder(tool.getId().getPath())
                 .parent(getExistingFile(mcLoc("item/handheld")))
                 .texture("layer0", items(tool.getId()));
@@ -101,11 +98,11 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         withExistingParent(block.getId().getPath(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
     }
 
-    private void block(RegistryObject<Block> block) {
+    private <T extends Block> void block(RegistryObject<T> block) {
         withExistingParent(block.getId().getPath(), block(block.getId()));
     }
 
-    private void item(RegistryObject<Item> block) {
+    private <T extends Item> void item(RegistryObject<T> block) {
         try {
             getBuilder(block.getId().getPath())
                     .parent(getExistingFile(mcLoc("item/generated")))

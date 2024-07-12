@@ -2,7 +2,6 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
-import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetalBulbBlock;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -39,19 +38,19 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
         });
     }
 
-    private void cubeAll(RegistryObject<Block> block) {
+    private <T extends Block> void cubeAll(RegistryObject<T> block) {
         this.cubeAll(block.getId().getPath(), blockTexture(block.getId()));
     }
 
-    private <T extends Block> void cubeAll(DeferredHolder<Block, T> block, String name) {
+    private <T extends Block> void cubeAll(RegistryObject<T> block, String name) {
         var texture = block.getId().withSuffix(name);
         this.cubeAll(texture.getPath(), blockTexture(texture));
     }
 
     private ResourceLocation blockTexture(ResourceLocation loc) {
         if (loc.getPath().contains("waxed")) {
-            return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
+            return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
         }
-        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath());
+        return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath());
     }
 }

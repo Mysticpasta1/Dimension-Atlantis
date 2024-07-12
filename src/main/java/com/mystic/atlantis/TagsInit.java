@@ -1,6 +1,8 @@
 package com.mystic.atlantis;
 
-import com.mystic.atlantis.init.BlockInit;
+import java.util.Set;
+import java.util.function.Supplier;
+
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;

@@ -1,13 +1,8 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.blocks.BlockType;
-import com.mystic.atlantis.blocks.SeaGlass;
-import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
-import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
-import com.mystic.atlantis.blocks.shells.CrackedShellBlock;
 import com.mystic.atlantis.init.*;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
@@ -84,7 +79,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.TUBER_UP_BLOCK, "Tuber Up Block");
         this.addBlock(BlockInit.BLUE_LILY_BLOCK, "Blue Lily Block");
         this.addBlock(BlockInit.BURNT_DEEP_BLOCK, "Burnt Deep Block");
-        this.addBlock(BlockInit.ANEMONE_BLOCK, "Anemone Block");
+        this.addBlock(BlockInit.ENENMOMY_BLOCK, "Anemone Block");
         this.addBlock(BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR, "Ancient Dark Oak Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR, "Ancient Birch Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR, "Ancient Spruce Wood Moss Trapdoor");
@@ -218,29 +213,29 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlocksFromType(BlockInit.MULTICOLOR_SEA_GLASS, "Multicolor Sea Glass");
         this.addBlock(BlockInit.COQUINA);
 
-        for (Map<DyeColor, DeferredHolder<Block, GlyphBlock>> block : BlockInit.DYED_LINGUISTICS.values()) {
+        for (Map<DyeColor, RegistryObject<Block>> block : BlockInit.DYED_LINGUISTICS.values()) {
             for (DyeColor color : DyeColor.values()) {
                 this.addBlock(block.get(color), WordUtils.capitalize(block.get(color).get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             }
         }
 
-        for (DeferredHolder<Block, GlyphBlock> block : BlockInit.NON_LINGUISTICS.values()) {
+        for (RegistryObject<Block> block : BlockInit.NON_LINGUISTICS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (DeferredHolder<Block, ColoredShellBlock> block : BlockInit.COLORED_SHELL_BLOCKS.values()) {
+        for (RegistryObject<Block> block : BlockInit.COLORED_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.values()) {
+        for (RegistryObject<Block> block : BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.CRACKED_SHELL_BLOCKS.values()) {
+        for (RegistryObject<Block> block : BlockInit.CRACKED_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.MOSSY_SHELL_BLOCKS.values()) {
+        for (RegistryObject<Block> block : BlockInit.MOSSY_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
@@ -403,7 +398,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(AtlantisEntityInit.LEVIATHAN.get(), "Leviathan");
         this.add(AtlantisEntityInit.SEAHORSE.get(), "Seahorse");
         this.add(AtlantisEntityInit.STARFISH.get(), "Starfish");
-        this.add(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), "Atlantean Zombie Starfish");
+        this.add(AtlantisEntityInit.STARFISH_ZOM.get(), "Atlantean Zombie Starfish");
         this.add(AtlantisEntityInit.BOMB.get(), "Bomb");
         this.add(AtlantisEntityInit.SUBMARINE.get(), "Submarine");
 
@@ -442,7 +437,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("text.autoconfig.atlantis.title", "Atlantean Config");
     }
 
-    private void addRecord(RegistryObject<Item> record, String s) {
+    private <T extends Item> void addRecord(RegistryObject<T> record, String s) {
         addItem(record, "Music Disc");
         add("item." + record.getId().getNamespace() + "." + record.getId().getPath() + ".desc", s);
     }
@@ -463,7 +458,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         addItem(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
     }
 
-    private void addBlock(RegistryObject<Block> registryObject) {
+    private <T extends Block> void addBlock(RegistryObject<T> registryObject) {
         addBlock(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
     }
 
