@@ -1,7 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
 import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.particles.ModParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

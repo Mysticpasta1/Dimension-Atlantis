@@ -2,7 +2,6 @@ package com.mystic.atlantis.blocks.base;
 
 import com.google.common.base.Predicates;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
-import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;

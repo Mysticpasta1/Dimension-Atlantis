@@ -5,7 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
-import com.mystic.atlantis.init.BlockInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;

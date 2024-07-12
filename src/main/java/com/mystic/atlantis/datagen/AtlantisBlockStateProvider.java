@@ -2,14 +2,17 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.BlockType;
+import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
+import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetalBulbBlock;
 import com.mystic.atlantis.init.BlockInit;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     public AtlantisBlockStateProvider(AtlantisMainProvider provider) {
@@ -19,25 +22,50 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     @Override
     public void registerStatesAndModels() {
         BlockType.getAllFamilies().filter(BlockFamily::shouldGenerateModel).forEach(this::registerBlockFamily);
+        BlockInit.ANCIENT_METALS.values().forEach(this::registerTrialGroup);
+        this.simpleBlock(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
         this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), itemModels().existingFileHelper));
         this.simpleBlock(BlockInit.ORICHALCUM_BLOCK.get());
+    }
 
-        this.simpleBlock(BlockInit.BLACK_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.BLUE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.BROWN_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.CYAN_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.GRAY_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.GREEN_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.LIGHT_BLUE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.LIGHT_GRAY_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.LIME_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.MAGENTA_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.ORANGE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.PINK_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.PURPLE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.RED_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.WHITE_PEARL_BLOCK.get());
-        this.simpleBlock(BlockInit.YELLOW_PEARL_BLOCK.get());
+    private void registerTrialGroup(TrailsGroup group) {
+        registerBlockItem(group.block().get());
+        registerBlockItem(group.chiseled().get());
+        registerBlockItem(group.cut().get());
+        registerSlab(group.cut_slab().get(), group.cut().get());
+        registerStairs(group.cut_stairs().get(), group.cut().get());
+        registerTrapDoor(group.trapdoor().get());
+        registerDoor(group.door().get());
+        registerBlockItem(group.grate().get());
+        registerBulb(group.bulb().get());
+        registerBlockItem(group.waxed_block().get(), group.block().get());
+        registerBlockItem(group.waxed_chiseled().get(), group.chiseled().get());
+        registerBlockItem(group.waxed_cut().get(), group.cut().get());
+        registerSlab(group.waxed_cut_slab().get(), group.cut().get());
+        registerStairs(group.waxed_cut_stairs().get(), group.cut().get());
+        registerTrapDoor(group.waxed_trapdoor().get(), group.trapdoor().get());
+        registerDoor(group.waxed_door().get(), group.door().get());
+        registerBlockItem(group.waxed_grate().get(), group.grate().get());
+        registerBulb(group.waxed_bulb().get(), group.bulb().get());
+    }
+
+    private void registerBulb(Block block) {
+        registerBulb(block, block);
+    }
+
+    private void registerBulb(Block bulb, Block texture) {
+        var unlit = this.blockTexture(texture).withSuffix("_unlit");
+        var lit = this.blockTexture(texture).withSuffix("_lit");
+        var unlit_powered = this.blockTexture(texture).withSuffix("_unlit_powered");
+        var lit_powered = this.blockTexture(texture).withSuffix("_lit_powered");
+
+
+        this.getVariantBuilder(bulb)
+                .partialState().with(WeatheringMetalBulbBlock.LIT, false).with(WeatheringMetalBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit)))
+                .partialState().with(WeatheringMetalBulbBlock.LIT, false).with(WeatheringMetalBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit_powered)))
+                .partialState().with(WeatheringMetalBulbBlock.LIT, true).with(WeatheringMetalBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit)))
+                .partialState().with(WeatheringMetalBulbBlock.LIT, true).with(WeatheringMetalBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit_powered)));
+        simpleBlockItem(bulb, new ModelFile.UncheckedModelFile(unlit));
     }
 
     private void registerBlockFamily(BlockFamily family) {
@@ -45,7 +73,13 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         family.getVariants().keySet().forEach(variant -> processVariant(variant, family));
     }
 
-    private void registerBlockItem(Block block) {simpleBlockWithItem(block, cubeAll(block));}
+    private void registerBlockItem(Block block) {
+        registerBlockItem(block, block);
+    }
+
+    private void registerBlockItem(Block block, Block texture) {
+        simpleBlockWithItem(block, cubeAll(texture));
+    }
 
     private void processVariant(BlockFamily.Variant variant, BlockFamily family) {
         Block original = family.getBaseBlock();
@@ -64,6 +98,8 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
             case WALL -> registerWall((WallBlock) variantTarget, original);
         }
     }
+
+
 
     private void registerStairs(StairBlock stairs, Block texturedBlock) {
         ResourceLocation texture = ModelLocationUtils.getModelLocation(texturedBlock);
@@ -111,8 +147,12 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     }
 
     private void registerDoor(DoorBlock door) {
-        ResourceLocation blockId = key(door);
-        doorBlockWithRenderType(door, new ResourceLocation(blockId.getNamespace(), "block/door/" + blockId.getPath() + "_bottom"), new ResourceLocation(blockId.getNamespace(), "block/door/" + blockId.getPath() + "_top"), "cutout");
+        registerDoor(door, door);
+    }
+
+    private void registerDoor(DoorBlock door, DoorBlock texturedBlock) {
+        ResourceLocation blockId = key(texturedBlock);
+        doorBlockWithRenderType(door, new ResourceLocation(blockId.getNamespace(), "block/" + blockId.getPath() + "_bottom"), new ResourceLocation(blockId.getNamespace(), "block/" + blockId.getPath() + "_top"), "cutout");
     }
 
     private void registerPressurePlate(PressurePlateBlock pressurePlate, Block texturedBlock) {
@@ -137,7 +177,9 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         itemModels().trapdoorBottom(trapDoorId.getPath(), texture);
     }
 
-    private void registerTrapDoor(RegistrySupplier<TrapDoorBlock> trapDoor){registerTrapDoor(trapDoor.get(), trapDoor.get());}
+    private void registerTrapDoor(TrapDoorBlock trapDoor) {
+         registerTrapDoor(trapDoor, trapDoor);
+    }
 
     private void registerSign(StandingSignBlock sign, WallSignBlock wallsign, Block plank){signBlock(sign, wallsign, blockTexture(plank));}
 
