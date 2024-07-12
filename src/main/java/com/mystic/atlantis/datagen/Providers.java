@@ -1,6 +1,7 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.TagsInit;
+import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.recipes.WritingRecipe;
@@ -63,6 +64,30 @@ public class Providers {
                 protected void addTags(HolderLookup.Provider pProvider) {
                     tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ORICHALCUM_BLOCK.get());
                     tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ORICHALCUM_BLOCK.get());
+                    for(TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.block().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.bulb().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.grate().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.cut().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.cutSlab().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.cutStairs().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.chiseled().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.door().get());
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(group.trapdoor().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.block().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.bulb().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.grate().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.cut().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.cutSlab().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.cutStairs().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.chiseled().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.door().get());
+                        tag(BlockTags.NEEDS_IRON_TOOL).add(group.trapdoor().get());
+                    }
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ANCIENT_METAL_ORE.get());
+                    tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ANCIENT_METAL_ORE.get());
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get());
+                    tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get());
                 }
             };
 

@@ -1,6 +1,7 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.GlyphBlock;
