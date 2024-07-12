@@ -25,7 +25,7 @@ public class WeatheringMetalTrapDoorBlock extends TrapDoorBlock implements Weath
     }
 
     public WeatheringMetalTrapDoorBlock(WeatherState p_309166_, Properties p_308943_) {
-        super(BlockSetType.COPPER, p_308943_);
+        super(BlockSetType.COPPER, p_308943_.randomTicks());
         this.weatherState = p_309166_;
     }
 

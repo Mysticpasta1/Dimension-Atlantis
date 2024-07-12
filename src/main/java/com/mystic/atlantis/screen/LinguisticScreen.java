@@ -85,16 +85,20 @@ public class LinguisticScreen extends AbstractContainerScreen<LinguisticMenu> {
 
 				arg.blit(glyphBlock.getGlyph().getTexture(), 0, 0, 34, 34, 0,0, 16,16,16,16);
 
-				RenderSystem.setShaderColor(1, 1, 1, 1);
+				RenderSystem.setShaderColor(1 , 1, 1, 1);
 
 				arg.pose().popPose();
 			}
 		}
 	}
 
-	private static record Color(float r, float g, float b) {
+	private record Color(float r, float g, float b) {
 		public Color(float[] color) {
 			this(color[0], color[1], color[2]);
+		}
+
+		public Color(int color) {
+			this(FastColor.ARGB32.red(color) / 255.0f, FastColor.ARGB32.green(color) / 255.0f, FastColor.ARGB32.blue(color) / 255.0f);
 		}
 
 		public void setup() {

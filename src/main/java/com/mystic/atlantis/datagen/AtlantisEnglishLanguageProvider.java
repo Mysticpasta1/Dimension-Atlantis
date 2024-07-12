@@ -293,16 +293,30 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
             this.add(group.block().get(), WordUtils.capitalize(group.block().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.chiseled().get(), WordUtils.capitalize(group.chiseled().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.cut().get(), WordUtils.capitalize(group.cut().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
-            this.add(group.cutSlab().get(), WordUtils.capitalize(group.cutSlab().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
-            this.add(group.cutStairs().get(), WordUtils.capitalize(group.cutStairs().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.cut_slab().get(), WordUtils.capitalize(group.cut_slab().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.cut_stairs().get(), WordUtils.capitalize(group.cut_stairs().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.trapdoor().get(), WordUtils.capitalize(group.trapdoor().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.door().get(), WordUtils.capitalize(group.door().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.grate().get(), WordUtils.capitalize(group.grate().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             this.add(group.bulb().get(), WordUtils.capitalize(group.bulb().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_block().get(), WordUtils.capitalize(group.waxed_block().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_chiseled().get(), WordUtils.capitalize(group.waxed_chiseled().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_cut().get(), WordUtils.capitalize(group.waxed_cut().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_cut_slab().get(), WordUtils.capitalize(group.waxed_cut_slab().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_cut_stairs().get(), WordUtils.capitalize(group.waxed_cut_stairs().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_trapdoor().get(), WordUtils.capitalize(group.waxed_trapdoor().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_door().get(), WordUtils.capitalize(group.waxed_door().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_grate().get(), WordUtils.capitalize(group.waxed_grate().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.waxed_bulb().get(), WordUtils.capitalize(group.waxed_bulb().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
         this.addBlock(BlockInit.ANCIENT_METAL_ORE, "Ancient Metal Ore");
         this.addBlock(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE, "Ancient Metal Deepslate Ore");
+        this.addBlock(BlockInit.RAW_ANCIENT_METAL_BLOCK, "Raw Ancient Metal Block");
+        this.add(ItemInit.ANCIENT_METAL_INGOT.get(), "Ancient Metal Ingot");
+        //TODO add -> this.add(ItemInit.ANCIENT_METAL_NUGGET.get(), "Ancient Metal Nugget");
+        //TODO add -> this.add(ItemInit.ANCIENT_METAL_SCRAP.get(), "Ancient Metal Scrap");
+        this.add(ItemInit.RAW_ANCIENT_METAL_INGOT.get(), "Raw Ancient Metal Ingot");
 
         add("block.atlantis.atlantean_sign", "Atlantean Sign");
         add("block.atlantis.atlantean_wall_sign", "Atlantean Wall Sign");

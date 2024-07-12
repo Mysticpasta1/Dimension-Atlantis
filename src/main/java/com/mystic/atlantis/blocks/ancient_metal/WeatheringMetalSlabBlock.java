@@ -22,7 +22,7 @@ public class WeatheringMetalSlabBlock extends SlabBlock implements WeatheringMet
     }
 
     public WeatheringMetalSlabBlock(WeatherState p_154938_, Properties p_154939_) {
-        super(p_154939_);
+        super(p_154939_.randomTicks());
         this.weatherState = p_154938_;
     }
 

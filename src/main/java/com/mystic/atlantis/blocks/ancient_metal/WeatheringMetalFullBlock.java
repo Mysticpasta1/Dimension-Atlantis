@@ -22,7 +22,7 @@ public class WeatheringMetalFullBlock extends Block implements WeatheringMetal {
     }
 
     public WeatheringMetalFullBlock(WeatherState p_154925_, Properties p_154926_) {
-        super(p_154926_);
+        super(p_154926_.randomTicks());
         this.weatherState = p_154925_;
     }
 

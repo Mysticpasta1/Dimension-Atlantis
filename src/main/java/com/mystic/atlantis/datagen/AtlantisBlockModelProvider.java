@@ -1,6 +1,7 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetalBulbBlock;
 import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.PackOutput;
@@ -23,14 +24,18 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
         this.cubeAll(BlockInit.ORICHALCUM_BLOCK);
         this.cubeBottomTop("writing_block", Atlantis.id("block/writing_table_side"), Atlantis.id("block/atlantean_planks"), Atlantis.id("block/writing_table_top"));
 
-        BlockInit.ANCIENT_METALS.values().stream().map(a -> a.bulb()).forEach(new Consumer<DeferredHolder<Block, WeatheringMetalBulbBlock>>() {
-            @Override
-            public void accept(DeferredHolder<Block, WeatheringMetalBulbBlock> holder) {
-                cubeAll(holder, "_unlit");
-                cubeAll(holder, "_lit");
-                cubeAll(holder, "_lit_powered");
-                cubeAll(holder, "_unlit_powered");
-            }
+        BlockInit.ANCIENT_METALS.values().stream().map(TrailsGroup::bulb).forEach(holder -> {
+            cubeAll(holder, "_unlit");
+            cubeAll(holder, "_lit");
+            cubeAll(holder, "_lit_powered");
+            cubeAll(holder, "_unlit_powered");
+        });
+
+        BlockInit.ANCIENT_METALS.values().stream().map(TrailsGroup::waxed_bulb).forEach(holder -> {
+            cubeAll(holder, "_unlit");
+            cubeAll(holder, "_lit");
+            cubeAll(holder, "_lit_powered");
+            cubeAll(holder, "_unlit_powered");
         });
     }
 
@@ -44,6 +49,9 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
     }
 
     private ResourceLocation blockTexture(ResourceLocation loc) {
-        return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath());
+        if (loc.getPath().contains("waxed")) {
+            return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
+        }
+        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath());
     }
 }

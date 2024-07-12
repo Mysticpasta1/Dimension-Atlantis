@@ -27,7 +27,7 @@ public class WeatheringMetalDoorBlock extends DoorBlock implements WeatheringMet
     }
 
     public WeatheringMetalDoorBlock(BlockSetType p_309051_, WeatherState p_308937_, Properties p_309122_) {
-        super(p_309051_, p_309122_);
+        super(p_309051_, p_309122_.randomTicks());
         this.weatherState = p_308937_;
     }
 

@@ -22,47 +22,41 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     public void registerStatesAndModels() {
         BlockType.getAllFamilies().filter(BlockFamily::shouldGenerateModel).forEach(this::registerBlockFamily);
         BlockInit.ANCIENT_METALS.values().forEach(this::registerTrialGroup);
+        this.simpleBlock(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
         this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), itemModels().existingFileHelper));
         this.simpleBlock(BlockInit.ORICHALCUM_BLOCK.get());
-
-//        this.simpleBlock(BlockInit.BLACK_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.BLUE_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.BROWN_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.CYAN_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.GRAY_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.GREEN_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.LIGHT_BLUE_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.LIGHT_GRAY_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.LIME_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.MAGENTA_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.ORANGE_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.PINK_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.PURPLE_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.RED_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.WHITE_PEARL_BLOCK.get());
-//        this.simpleBlock(BlockInit.YELLOW_PEARL_BLOCK.get());
-
-
     }
 
     private void registerTrialGroup(TrailsGroup group) {
         registerBlockItem(group.block().get());
         registerBlockItem(group.chiseled().get());
         registerBlockItem(group.cut().get());
-        registerSlab(group.cutSlab().get(), group.cut().get());
-        registerStairs(group.cutStairs().get(), group.cut().get());
+        registerSlab(group.cut_slab().get(), group.cut().get());
+        registerStairs(group.cut_stairs().get(), group.cut().get());
         registerTrapDoor(group.trapdoor().get());
         registerDoor(group.door().get());
         registerBlockItem(group.grate().get());
-
         registerBulb(group.bulb().get());
+        registerBlockItem(group.waxed_block().get(), group.block().get());
+        registerBlockItem(group.waxed_chiseled().get(), group.chiseled().get());
+        registerBlockItem(group.waxed_cut().get(), group.cut().get());
+        registerSlab(group.waxed_cut_slab().get(), group.cut().get());
+        registerStairs(group.waxed_cut_stairs().get(), group.cut().get());
+        registerTrapDoor(group.waxed_trapdoor().get(), group.trapdoor().get());
+        registerDoor(group.waxed_door().get(), group.door().get());
+        registerBlockItem(group.waxed_grate().get(), group.grate().get());
+        registerBulb(group.waxed_bulb().get(), group.bulb().get());
     }
 
-    private void registerBulb(WeatheringMetalBulbBlock bulb) {
-        var unlit = this.blockTexture(bulb).withSuffix("_unlit");
-        var lit = this.blockTexture(bulb).withSuffix("_lit");
-        var unlit_powered = this.blockTexture(bulb).withSuffix("_unlit_powered");
-        var lit_powered = this.blockTexture(bulb).withSuffix("_lit_powered");
+    private void registerBulb(Block block) {
+        registerBulb(block, block);
+    }
+
+    private void registerBulb(Block bulb, Block texture) {
+        var unlit = this.blockTexture(texture).withSuffix("_unlit");
+        var lit = this.blockTexture(texture).withSuffix("_lit");
+        var unlit_powered = this.blockTexture(texture).withSuffix("_unlit_powered");
+        var lit_powered = this.blockTexture(texture).withSuffix("_lit_powered");
 
 
         this.getVariantBuilder(bulb)
@@ -79,7 +73,11 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     }
 
     private void registerBlockItem(Block block) {
-        simpleBlockWithItem(block, cubeAll(block));
+        registerBlockItem(block, block);
+    }
+
+    private void registerBlockItem(Block block, Block texture) {
+        simpleBlockWithItem(block, cubeAll(texture));
     }
 
     private void processVariant(BlockFamily.Variant variant, BlockFamily family) {
@@ -146,7 +144,11 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     }
 
     private void registerDoor(DoorBlock door) {
-        ResourceLocation blockId = key(door);
+        registerDoor(door, door);
+    }
+
+    private void registerDoor(DoorBlock door, DoorBlock texturedBlock) {
+        ResourceLocation blockId = key(texturedBlock);
         doorBlockWithRenderType(door, ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath() + "_bottom"), ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(), "block/" + blockId.getPath() + "_top"), "cutout");
     }
 

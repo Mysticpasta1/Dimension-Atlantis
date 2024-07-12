@@ -34,8 +34,8 @@ public interface WeatheringMetal extends ChangeOverTimeBlock<WeatheringMetal.Wea
         builder.put(BlockInit.ANCIENT_METALS.get(before).block().get(), BlockInit.ANCIENT_METALS.get(after).block().get());
         builder.put(BlockInit.ANCIENT_METALS.get(before).cut().get(), BlockInit.ANCIENT_METALS.get(after).cut().get());
         builder.put(BlockInit.ANCIENT_METALS.get(before).chiseled().get(), BlockInit.ANCIENT_METALS.get(after).chiseled().get());
-        builder.put(BlockInit.ANCIENT_METALS.get(before).cutStairs().get(), BlockInit.ANCIENT_METALS.get(after).cutStairs().get());
-        builder.put(BlockInit.ANCIENT_METALS.get(before).cutSlab().get(), BlockInit.ANCIENT_METALS.get(after).cutSlab().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).cut_stairs().get(), BlockInit.ANCIENT_METALS.get(after).cut_stairs().get());
+        builder.put(BlockInit.ANCIENT_METALS.get(before).cut_slab().get(), BlockInit.ANCIENT_METALS.get(after).cut_slab().get());
         builder.put(BlockInit.ANCIENT_METALS.get(before).door().get(), BlockInit.ANCIENT_METALS.get(after).door().get());
         builder.put(BlockInit.ANCIENT_METALS.get(before).trapdoor().get(), BlockInit.ANCIENT_METALS.get(after).trapdoor().get());
         builder.put(BlockInit.ANCIENT_METALS.get(before).grate().get(), BlockInit.ANCIENT_METALS.get(after).grate().get());

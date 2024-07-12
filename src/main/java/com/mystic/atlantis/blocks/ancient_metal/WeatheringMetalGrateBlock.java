@@ -23,7 +23,7 @@ public class WeatheringMetalGrateBlock extends WaterloggedTransparentBlock imple
     }
 
     public WeatheringMetalGrateBlock(WeatherState p_309130_, Properties p_309077_) {
-        super(p_309077_);
+        super(p_309077_.randomTicks());
         this.weatherState = p_309130_;
     }
 
