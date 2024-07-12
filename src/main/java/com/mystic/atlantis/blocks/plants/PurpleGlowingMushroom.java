@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mystic.atlantis.init.BlockInit;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

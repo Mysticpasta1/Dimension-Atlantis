@@ -1,6 +1,7 @@
 package com.mystic.atlantis.items;
 
 import com.mystic.atlantis.blocks.base.AtlanteanCoreFrame;
+import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;

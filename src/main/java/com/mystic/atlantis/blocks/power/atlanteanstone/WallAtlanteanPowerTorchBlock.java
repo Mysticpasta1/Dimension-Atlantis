@@ -2,6 +2,7 @@ package com.mystic.atlantis.blocks.power.atlanteanstone;
 
 import java.util.Map;
 
+import com.mystic.atlantis.init.BlockInit;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.ImmutableMap;
@@ -38,7 +39,7 @@ public class WallAtlanteanPowerTorchBlock extends AtlanteanPowerTorchBlock {
 
 	public WallAtlanteanPowerTorchBlock(Properties settings) {
 		super(settings
-				.lootFrom(() -> BlockInit.ATLANTEAN_POWER_TORCH.get())
+				.lootFrom(BlockInit.ATLANTEAN_POWER_TORCH)
 				.noCollission()
 				.instabreak()
 				.lightLevel(level -> 7)

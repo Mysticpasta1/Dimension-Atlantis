@@ -94,7 +94,7 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
                 .texture("layer0", items(tool.getId()));
     }
 
-    private void withParent(RegistryObject<Block> block, LinguisticGlyph glyph) {
+    private void withParent(RegistryObject<GlyphBlock> block, LinguisticGlyph glyph) {
         withExistingParent(block.getId().getPath(), block(Atlantis.id("linguistic_" + glyph.name().toLowerCase())));
     }
 

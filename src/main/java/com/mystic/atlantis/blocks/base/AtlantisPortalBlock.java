@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mystic.atlantis.init.BlockInit;
 import org.jetbrains.annotations.Nullable;
 
 import com.mystic.atlantis.Atlantis;

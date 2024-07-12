@@ -37,7 +37,7 @@ public class ItemInit {
 
     private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1);
 
-    public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmuletItem::new);
+    public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", () -> new AtlanteanAmuletItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(ToolInit.AQUAMARINE, 5));
 
     //BOATS
@@ -70,8 +70,8 @@ public class ItemInit {
     public static final RegistryObject<Item> AQUAMARINE_GEM = register("aquamarine_gem", DefaultItem::new);
     public static final RegistryObject<Item> ORICHALCUM_INGOT = register("orichalcum_ingot", DefaultItem::new);
     public static final RegistryObject<Item> ORICHALCUM_BLEND = register("orichalcum_blend", DefaultItem::new);
-    public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis", OrbOfAtlantis::new);
-    public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = register("atlantean_crystal", AtlanteanCrystal::new);
+    public static final RegistryObject<Item> ORB_OF_ATLANTIS = register("orb_of_atlantis",() -> new OrbOfAtlantis(new Item.Properties()));
+    public static final RegistryObject<Item> ATLANTEAN_CRYSTAL = register("atlantean_crystal", () -> new AtlanteanCrystal(new Item.Properties()));
     public static final RegistryObject<Item> OCEAN_STONE = register("ocean_stone", DefaultItem::new);
     public static final RegistryObject<Item> DROP_OF_ATLANTIS = register("drop_of_atlantis", DefaultItem::new);
     public static final RegistryObject<Item> BROWN_WROUGHT_PATCHES = register("brown_wrought_patches", DefaultItem::new);
@@ -82,9 +82,9 @@ public class ItemInit {
     public static final RegistryObject<Item> ATLANTEAN_POWER_DUST = register("atlantean_power_dust",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get(), new Item.Properties()));
     public static final RegistryObject<Item> ATLANTEAN_STRING = register("atlantean_string",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_TRIPWIRE.get(), (new Item.Properties())));
     public static final RegistryObject<Item> SUBMARINE = register("submarine", () -> new SubmarineItem(new Item.Properties()));
-    public static final RegistryObject<Item> WATER_PILL = register("water_pill", WaterPill::new);
+    public static final RegistryObject<Item> WATER_PILL = register("water_pill", () -> new WaterPill(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> ATLANTEAN_SIGN = register("atlantean_sign", () -> new SignItem(new Item.Properties(), BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get()));
-    public static final RegistryObject<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get()));
+    public static final RegistryObject<Item> PALM_SIGN = register("palm_sign", () -> new SignItem(new Item.Properties(), BlockInit.PALM_SIGN.get(), BlockInit.PALM_WALL_SIGN.get()));
 
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT = register("atlantean_fire_melon_fruit", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).build())));
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_FRUIT_SPIKED = register("atlantean_fire_melon_fruit_spiked", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(1).effect(() -> new MobEffectInstance(MobEffects.HARM, 60), 1.0f).build())));
@@ -167,7 +167,7 @@ public class ItemInit {
     public static final RegistryObject<Item> BROWN_WROUGHT_CHESTPLATE = register("brown_wrought_chestplate", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
     public static final RegistryObject<Item> BROWN_WROUGHT_LEGGINGS= register("brown_wrought_leggings", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final RegistryObject<Item> BROWN_WROUGHT_BOOTS = register("brown_wrought_boots", () -> new ItemArmorWrought(BasicArmorMaterial.ARMOR_BROWN_WROUGHT, ArmorItem.Type.BOOTS, new Item.Properties()));
-    public static final RegistryObject<Item> ORICHALCUM_UPGRADE_SMITHING_TEMPLATE = register("orichalcum_upgrade_smithing_template", OrichalcumSmithingTemplateItem::new);
+    public static final RegistryObject<Item> ORICHALCUM_UPGRADE_SMITHING_TEMPLATE = register("orichalcum_upgrade_smithing_template", () -> new OrichalcumSmithingTemplateItem(new Item.Properties()));
 
     public static final RegistryObject<Item> ORICHALCUM_HELMET = register("orichalcum_helmet", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final RegistryObject<Item> ORICHALCUM_CHESTPLATE = register("orichalcum_chestplate", () -> new ItemArmorOrichalcum(BasicArmorMaterial.ARMOR_ORICHALCUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));

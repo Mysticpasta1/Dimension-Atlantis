@@ -5,7 +5,7 @@ import net.minecraft.world.item.Tier;
 
 public class AquamarineSword extends SwordItem {
     public AquamarineSword(Tier tier, int attack) {
-        super(tier, attack, -3.2F, new Item.Properties()
+        super(tier, attack, -3.2F, new Properties()
                 .stacksTo(1)
                 .defaultDurability(tier.getUses()));
     }
