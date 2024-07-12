@@ -2,6 +2,7 @@ package com.mystic.atlantis.setup;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.mystic.atlantis.AtlantisDimensionalEffect;
+import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -74,6 +75,11 @@ public class ClientSetup {
             registerBlockRenderLayers(RenderType.cutoutMipped(),
                     MOSSY_SHELL_BLOCKS.get(dyeColor).get(),
                     CRACKED_MOSSY_SHELL_BLOCKS.get(dyeColor).get());
+        }
+
+        for (TrailsGroup group : ANCIENT_METALS.values()) {
+            registerBlockRenderLayers(RenderType.cutoutMipped(),
+                    group.grate().get());
         }
 
         registerBlockRenderLayers(RenderType.cutout(),

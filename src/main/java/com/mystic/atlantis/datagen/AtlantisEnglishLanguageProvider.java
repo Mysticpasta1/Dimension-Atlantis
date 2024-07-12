@@ -3,6 +3,7 @@ package com.mystic.atlantis.datagen;
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.SeaGlass;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
+import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.init.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -20,6 +21,14 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         super(generator, "atlantis", "en_us");
     }
 
+
+    /* TODO: NEXT TIME YOU TOUCH THIS READ THIS WATERPICKER!!!
+        make all of the translations equal to the ones in the current lang files of en_us.json
+        add all of the translations for the items, blocks, etc
+        make lang files for other languages that we include at the current moment!
+        after this is done then and only then remove lang files from the normal resources folder
+    */
+
     @Override
     protected void addTranslations() {
         this.addBlock(BlockInit.WATERFALL_BLOCK, "Waterfall Block");
@@ -29,13 +38,13 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.ATLANTIS_CLEAR_PORTAL, "Atlantis Clear Portal");
         this.addBlock(BlockInit.JETSTREAM_WATER_BLOCK, "Jetstream Water Block");
         this.addBlock(BlockInit.SALTY_SEA_WATER_BLOCK, "Salty Sea Water Block");
-        this.addBlock(BlockInit.POTTERY_BLOCK_1, "Pottery Block 1");
-        this.addBlock(BlockInit.POTTERY_BLOCK_2, "Pottery Block 2");
-        this.addBlock(BlockInit.POTTERY_BLOCK_3, "Pottery Block 3");
-        this.addBlock(BlockInit.POTTERY_BLOCK_4, "Pottery Block 4");
-        this.addBlock(BlockInit.POTTERY_BLOCK_5, "Pottery Block 5");
-        this.addBlock(BlockInit.POTTERY_BLOCK_6, "Pottery Block 6");
-        this.addBlock(BlockInit.POTTERY_BLOCK_7, "Pottery Block 7");
+        this.addBlock(BlockInit.POTTERY_BLOCK_1, "Pottery Block Tuben");
+        this.addBlock(BlockInit.POTTERY_BLOCK_2, "Pottery Block Belen");
+        this.addBlock(BlockInit.POTTERY_BLOCK_3, "Pottery Block Toper");
+        this.addBlock(BlockInit.POTTERY_BLOCK_4, "Pottery Block Snown");
+        this.addBlock(BlockInit.POTTERY_BLOCK_5, "Pottery Block Horpen");
+        this.addBlock(BlockInit.POTTERY_BLOCK_6, "Pottery Block Celen");
+        this.addBlock(BlockInit.POTTERY_BLOCK_7, "Pottery Block Obemo");
         this.addBlock(BlockInit.COCONUT_SLICE, "Coconut Slice");
         this.addBlock(BlockInit.COCONUT, "Coconut");
         this.addBlock(BlockInit.CARVED_COCONUT, "Carved Coconut");
@@ -51,9 +60,9 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.PALM_SLAB, "Palm Slab");
         this.addBlock(BlockInit.PALM_STAIRS, "Palm Stairs");
         this.addBlock(BlockInit.PALM_TRAPDOOR, "Palm Trapdoor");
-//        this.addBlock(BlockInit.PALM_SIGN, "Palm Sign");
+ //       this.addBlock(BlockInit.PALM_SIGN, "Palm Sign");
 
-//        this.addBlock(BlockInit.PALM_WALL_SIGN, "Palm Wall Sign");
+        this.addBlock(BlockInit.PALM_WALL_SIGN, "Palm Wall Sign");
         this.addBlock(BlockInit.STRIPPED_ATLANTEAN_LOG, "Stripped Atlantean Log");
         this.addBlock(BlockInit.ATLANTEAN_BUTTON, "Atlantean Button");
         this.addBlock(BlockInit.ATLANTEAN_DOOR, "Atlantean Door");
@@ -64,14 +73,14 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.ATLANTEAN_SLAB, "Atlantean Slab");
         this.addBlock(BlockInit.ATLANTEAN_STAIRS, "Atlantean Stairs");
         this.addBlock(BlockInit.ATLANTEAN_TRAPDOOR, "Atlantean Trapdoor");
-//        this.addBlock(BlockInit.ATLANTEAN_WALL_SIGN, "Atlantean Wall Sign");
-//        this.addBlock(BlockInit.ATLANTEAN_SIGN, "Atlantean Sign");
+   //     this.addBlock(BlockInit.ATLANTEAN_WALL_SIGN, "Atlantean Wall Sign");
+   //     this.addBlock(BlockInit.ATLANTEAN_SIGN, "Atlantean Sign");
 
         this.addBlock(BlockInit.UNDERWATER_SHROOM_BLOCK, "Underwater Shroom Block");
         this.addBlock(BlockInit.TUBER_UP_BLOCK, "Tuber Up Block");
         this.addBlock(BlockInit.BLUE_LILY_BLOCK, "Blue Lily Block");
         this.addBlock(BlockInit.BURNT_DEEP_BLOCK, "Burnt Deep Block");
-        this.addBlock(BlockInit.ENENMOMY_BLOCK, "Enenmomy Block");
+        this.addBlock(BlockInit.ANEMONE_BLOCK, "Anemone Block");
         this.addBlock(BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR, "Ancient Dark Oak Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR, "Ancient Birch Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR, "Ancient Spruce Wood Moss Trapdoor");
@@ -239,6 +248,17 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ATLANTEAN_STRING.get(), "Atlantean String");
         this.add(ItemInit.SUBMARINE.get(), "Submarine");
         this.add(ItemInit.WATER_PILL.get(), "Water Pill");
+        for(TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
+            this.add(group.block().get(), WordUtils.capitalize(group.block().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.chiseled().get(), WordUtils.capitalize(group.chiseled().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.cut().get(), WordUtils.capitalize(group.cut().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.cutSlab().get(), WordUtils.capitalize(group.cutSlab().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.cutStairs().get(), WordUtils.capitalize(group.cutStairs().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.trapdoor().get(), WordUtils.capitalize(group.trapdoor().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.door().get(), WordUtils.capitalize(group.door().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.grate().get(), WordUtils.capitalize(group.grate().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+            this.add(group.bulb().get(), WordUtils.capitalize(group.bulb().get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
+        }
         this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT.get(), "Atlantean Fire Melon Fruit");
         this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get(), "Atlantean Fire Melon Fruit Spiked");
         this.add(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get(), "Atlantean Fire Melon Seeds");
