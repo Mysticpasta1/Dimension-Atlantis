@@ -25,7 +25,6 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), itemModels().existingFileHelper));
         this.simpleBlock(BlockInit.ORICHALCUM_BLOCK.get());
 
-
 //        this.simpleBlock(BlockInit.BLACK_PEARL_BLOCK.get());
 //        this.simpleBlock(BlockInit.BLUE_PEARL_BLOCK.get());
 //        this.simpleBlock(BlockInit.BROWN_PEARL_BLOCK.get());
@@ -55,6 +54,23 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
         registerTrapDoor(group.trapdoor().get());
         registerDoor(group.door().get());
         registerBlockItem(group.grate().get());
+
+        registerBulb(group.bulb().get());
+    }
+
+    private void registerBulb(WeatheringMetalBulbBlock bulb) {
+        var unlit = this.blockTexture(bulb).withSuffix("_unlit");
+        var lit = this.blockTexture(bulb).withSuffix("_lit");
+        var unlit_powered = this.blockTexture(bulb).withSuffix("_unlit_powered");
+        var lit_powered = this.blockTexture(bulb).withSuffix("_lit_powered");
+
+
+        this.getVariantBuilder(bulb)
+                .partialState().with(WeatheringMetalBulbBlock.LIT, false).with(WeatheringMetalBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit)))
+                .partialState().with(WeatheringMetalBulbBlock.LIT, false).with(WeatheringMetalBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(unlit_powered)))
+                .partialState().with(WeatheringMetalBulbBlock.LIT, true).with(WeatheringMetalBulbBlock.POWERED, false).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit)))
+                .partialState().with(WeatheringMetalBulbBlock.LIT, true).with(WeatheringMetalBulbBlock.POWERED, true).addModels(new ConfiguredModel(new ModelFile.UncheckedModelFile(lit_powered)));
+        simpleBlockItem(bulb, new ModelFile.UncheckedModelFile(unlit));
     }
 
     private void registerBlockFamily(BlockFamily family) {
