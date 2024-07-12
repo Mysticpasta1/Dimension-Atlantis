@@ -20,6 +20,14 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         super(generator, "atlantis", "en_us");
     }
 
+
+    /* TODO: NEXT TIME YOU TOUCH THIS READ THIS WATERPICKER!!!
+        make all of the translations equal to the ones in the current lang files of en_us.json
+        add all of the translations for the items, blocks, etc
+        make lang files for other languages that we include at the current moment!
+        after this is done then and only then remove lang files from the normal resources folder
+    */
+
     @Override
     protected void addTranslations() {
         this.addBlock(BlockInit.WATERFALL_BLOCK, "Waterfall Block");

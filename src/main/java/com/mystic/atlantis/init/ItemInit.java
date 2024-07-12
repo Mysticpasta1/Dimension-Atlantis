@@ -26,7 +26,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ItemInit {
@@ -192,6 +194,10 @@ public class ItemInit {
     
     public static RegistryObject<Item> getScroll(LinguisticGlyph a) {
         return scrolls.get(a);
+    }
+
+    public static List<Item> getScrolls() {
+        return scrolls.values().stream().map(Supplier::get).toList();
     }
     
     public static void init(IEventBus bus) {

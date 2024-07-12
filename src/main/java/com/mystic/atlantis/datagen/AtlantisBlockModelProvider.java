@@ -10,6 +10,8 @@ import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Consumer;
+
 public class AtlantisBlockModelProvider extends BlockModelProvider {
 
     public AtlantisBlockModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {

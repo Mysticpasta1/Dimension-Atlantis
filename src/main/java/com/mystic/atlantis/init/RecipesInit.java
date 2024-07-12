@@ -24,7 +24,7 @@ public class RecipesInit {
 
         public static final RegistryObject<RecipeSerializer<?>> WRITING_SERIALIZER = RECIPE_SERIALIZERS.register("writing", WritingRecipe.Serializer::new);
     }
-    
+
     public static void init(IEventBus bus) {
         Serializers.RECIPE_SERIALIZERS.register(bus);
         Types.RECIPE_WRITING.register(bus);
