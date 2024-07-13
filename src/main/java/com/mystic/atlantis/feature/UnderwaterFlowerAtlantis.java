@@ -1,6 +1,7 @@
 package com.mystic.atlantis.feature;
 
 import com.mojang.serialization.Codec;
+import com.mystic.atlantis.init.BlockInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;

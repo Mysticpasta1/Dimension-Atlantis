@@ -1,6 +1,7 @@
 package com.mystic.atlantis.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;

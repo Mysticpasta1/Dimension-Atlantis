@@ -2,11 +2,13 @@ package com.mystic.atlantis.dimension;
 
 import com.mystic.atlantis.blocks.base.AtlanteanCoreFrame;
 import com.mystic.atlantis.blocks.base.AtlantisClearPortalBlock;
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.POITypesInit;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
@@ -19,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 import static com.mystic.atlantis.blocks.plants.UnderwaterFlower.WATERLOGGED;

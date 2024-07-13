@@ -2,6 +2,7 @@ package com.mystic.atlantis.blocks.power.atlanteanstone;
 
 import com.google.common.collect.Sets;
 import com.mystic.atlantis.blocks.plants.UnderwaterFlower;
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.mixin.RedstoneAccessor;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;

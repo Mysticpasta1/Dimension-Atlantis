@@ -3,6 +3,7 @@ package com.mystic.atlantis;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 
 import net.minecraft.tags.ItemTags;

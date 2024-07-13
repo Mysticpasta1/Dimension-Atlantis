@@ -2,6 +2,7 @@ package com.mystic.atlantis.feature;
 
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.FastNoiseLite;
 
 import net.minecraft.core.BlockPos;

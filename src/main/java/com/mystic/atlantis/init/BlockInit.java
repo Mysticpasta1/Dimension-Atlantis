@@ -1,7 +1,6 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.BlockType;
-import com.mystic.atlantis.blocks.ancient_metal.*;
 import com.mystic.atlantis.blocks.base.*;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.plants.*;
@@ -14,10 +13,7 @@ import com.mystic.atlantis.blocks.signs.AtlanteanSignBlock;
 import com.mystic.atlantis.blocks.signs.AtlanteanWallSignBlock;
 import com.mystic.atlantis.blocks.slabs.AncientWoodSlabBlock;
 import com.mystic.atlantis.blocks.slabs.AtlanteanWoodSlabBlock;
-import com.mystic.atlantis.util.Lazy;
 import com.mystic.atlantis.util.Reference;
-import net.minecraft.Util;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -26,14 +22,12 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -245,9 +239,6 @@ public class BlockInit {
     public static final RegistryObject<AncientWoodSlabBlock> ANCIENT_DARK_OAK_WOOD_MOSS_SLAB = registerBlock("ancient_dark_oak_wood_moss_slab", () -> new AncientWoodSlabBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<AlgaeBlock> ALGAE_BLOCK = registerBlock("algae_block", () -> new AlgaeBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<ChiseledAquamarineBlock> CHISELED_AQUAMARINE = registerBlock("chiseled_aquamarine", () -> new ChiseledAquamarineBlock(BlockBehaviour.Properties.of()));
-    public static final RegistryObject<Block> RAW_ANCIENT_METAL_BLOCK = registerBlock("raw_ancient_metal_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL)));
-    public static final RegistryObject<DropExperienceBlock> ANCIENT_METAL_ORE = registerBlock("ancient_metal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0F, 15.0F).lightLevel((state) -> 1), ConstantInt.of(5)));
-    public static final RegistryObject<DropExperienceBlock> DEEPSLATE_ANCIENT_METAL_ORE = registerBlock("deepslate_ancient_metal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(4.0F, 15.0F).lightLevel((state) -> 3), ConstantInt.of(5)));
 
     public static final RegistryObject<Block> ORICHALCUM_BLOCK = registerBlock("orichalcum_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
 
@@ -366,37 +357,6 @@ public class BlockInit {
                 return NON_LINGUISTICS.get(LinguisticGlyph.BLANK);
             }
         }
-    }
-
-
-    public static final BlockBehaviour.Properties ANCIENT_METAL_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.METAL);
-
-    public static Map<WeatheringMetal.WeatherState, TrailsGroup> ANCIENT_METALS = Util.make(new HashMap<>(), map -> Arrays.stream(WeatheringMetal.WeatherState.values()).forEach(state -> map.put(state, registerTrialsGroup("ancient_metal", state, ANCIENT_METAL_PROPERTIES))));
-
-    private static TrailsGroup registerTrialsGroup(String name, WeatheringMetal.WeatherState state, BlockBehaviour.Properties properties) {
-        var prefix = state == WeatheringMetal.WeatherState.UNAFFECTED ? "" : state.getSerializedName() + "_";
-
-        RegistryObject<WeatheringMetalFullBlock> block = registerBlock(prefix + name + "_block", () -> new WeatheringMetalFullBlock(state, properties));
-        RegistryObject<WeatheringMetalFullBlock> cut = registerBlock(prefix + "cut_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
-        RegistryObject<WeatheringMetalFullBlock> chiseled = registerBlock(prefix + "chiseled_" + name, () -> new  WeatheringMetalFullBlock(state, properties));
-        RegistryObject<WeatheringMetalStairBlock> cut_stairs = registerBlock(prefix + "cut_" + name + "_stairs", () -> new  WeatheringMetalStairBlock(state, cut.get().defaultBlockState(), properties));
-        RegistryObject<WeatheringMetalSlabBlock> cut_slab = registerBlock(prefix + "cut_" + name + "_slab", () -> new  WeatheringMetalSlabBlock(state, properties));
-        RegistryObject<WeatheringMetalDoorBlock> door = registerBlock(prefix + name + "_door", () -> new WeatheringMetalDoorBlock(BlockSetType.IRON, state, BlockBehaviour.Properties.copy(block.get()).noOcclusion().pushReaction(PushReaction.DESTROY)));
-        RegistryObject<WeatheringMetalTrapDoorBlock> trapdoor = registerBlock(prefix + name + "_trapdoor", () -> new WeatheringMetalTrapDoorBlock(state, BlockBehaviour.Properties.copy(block.get()).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false)));
-        RegistryObject<WeatheringMetalGrateBlock> grate = registerBlock(prefix + name + "_grate", () -> new WeatheringMetalGrateBlock(state, BlockBehaviour.Properties.copy(block.get()).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false)));
-        RegistryObject<WeatheringMetalBulbBlock> bulb = registerBlock(prefix + name + "_bulb", () -> new WeatheringMetalBulbBlock(state, BlockBehaviour.Properties.copy(block.get()).sound(SoundType.GLASS).isRedstoneConductor((pState, pLevel, pPos) -> false).lightLevel(value -> value.getValue(WeatheringMetalBulbBlock.LIT) ? state.lightLevel() : 0)));
-
-        RegistryObject<Block> waxed_block = registerBlock("waxed_" + prefix + name + "_block", () -> new Block(BlockBehaviour.Properties.copy(block.get())));
-        RegistryObject<Block> waxed_cut = registerBlock("waxed_" + prefix + "cut_" + name, () -> new Block(BlockBehaviour.Properties.copy(cut.get())));
-        RegistryObject<Block> waxed_chiseled = registerBlock("waxed_" + prefix + "chiseled_" + name, () -> new Block(BlockBehaviour.Properties.copy(chiseled.get())));
-        RegistryObject<StairBlock> waxed_cut_stairs = registerBlock("waxed_" + prefix + "cut_" + name + "_stairs", () -> new StairBlock(cut.get().defaultBlockState(), BlockBehaviour.Properties.copy(cut_stairs.get())));
-        RegistryObject<SlabBlock> waxed_cut_slab = registerBlock("waxed_" + prefix + "cut_" + name + "_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(cut_slab.get())));
-        RegistryObject<DoorBlock> waxed_door = registerBlock("waxed_" + prefix + name + "_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(door.get()).noOcclusion().pushReaction(PushReaction.DESTROY), BlockSetType.IRON));
-        RegistryObject<TrapDoorBlock> waxed_trapdoor = registerBlock("waxed_" + prefix + name + "_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(trapdoor.get()).noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false), BlockSetType.IRON));
-        RegistryObject<Block> waxed_grate = registerBlock("waxed_" + prefix + name + "_grate", () -> new Block(BlockBehaviour.Properties.copy(grate.get()).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion().isValidSpawn((pState, pLevel, pPos, pValue) -> false).isRedstoneConductor((pState, pLevel, pPos) -> false).isSuffocating((pState, pLevel, pPos) -> false).isViewBlocking((pState, pLevel, pPos) -> false)));
-        RegistryObject<MetalBulbBlock> waxed_bulb = registerBlock("waxed_" + prefix + name + "_bulb", () -> new MetalBulbBlock(BlockBehaviour.Properties.copy(bulb.get()).sound(SoundType.GLASS).isRedstoneConductor((pState, pLevel, pPos) -> false).lightLevel(value -> value.getValue(MetalBulbBlock.LIT) ? state.lightLevel() : 0)));
-
-        return new TrailsGroup(block, cut, chiseled, cut_stairs, cut_slab, door, trapdoor, grate, bulb, waxed_block, waxed_cut, waxed_chiseled, waxed_cut_stairs, waxed_cut_slab, waxed_door, waxed_trapdoor, waxed_grate, waxed_bulb);
     }
 
     public static void init(IEventBus bus) {
