@@ -20,10 +20,9 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -309,16 +308,6 @@ public class Providers {
     }
 
     private static void dropSelf(Block block, BiConsumer<ResourceLocation, LootTable.Builder> builder){
-        builder.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(block).when(() -> new LootItemCondition() {
-            @Override
-            public LootItemConditionType getType() {
-                return LootItemConditions.SURVIVES_EXPLOSION;
-            }
-
-            @Override
-            public boolean test(LootContext lootContext) {
-                return true;
-            }
-        })).add(LootItem.lootTableItem(block))));
+        builder.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().when(ExplosionCondition.survivesExplosion()).add(LootItem.lootTableItem(block))));
     }
 }

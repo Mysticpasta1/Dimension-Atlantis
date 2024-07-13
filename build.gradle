@@ -1,5 +1,5 @@
 plugins {
-    id 'net.neoforged.gradle' version '[6.0.13, 6.2)'
+    id 'net.minecraftforge.gradle' version '[6.0.13, 6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
     id 'eclipse'
@@ -21,7 +21,8 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 minecraft {
     mappings channel: project.mappings, version: project.mappings_version
 
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    // Enable Access Transformer File
+    accessTransformer = rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -137,7 +138,7 @@ repositories {
 
 dependencies {
     // Base
-    minecraft "net.neoforged:forge:${minecraft_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // Libraries

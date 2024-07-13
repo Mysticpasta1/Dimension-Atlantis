@@ -164,6 +164,7 @@ public class AtlanteanPowerDustBlock extends RedStoneWireBlock implements Simple
         return ((RedstoneAccessor) this).getShouldSignal();
     }
 
+
     private int getWireSignal(BlockState targetState) {
         if (targetState.is(Blocks.REDSTONE_WIRE)) {
             return targetState.getValue(RedStoneWireBlock.POWER);

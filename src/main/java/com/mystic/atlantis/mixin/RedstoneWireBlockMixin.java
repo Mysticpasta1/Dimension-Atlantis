@@ -2,6 +2,7 @@ package com.mystic.atlantis.mixin;
 
 import com.mystic.atlantis.init.BlockInit;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -23,8 +24,8 @@ public abstract class RedstoneWireBlockMixin {
         return state.is(block) || state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get());
     }
 
-    @Redirect(method = "getWireSignal", at = @At("HEAD"))
-    public int getWireSignal(BlockState state) {
+    @Redirect(method = "getWireSignal", at = @At(value = "HEAD"))
+    private int getWireSignal(BlockState state) {
         if (state.is(Blocks.REDSTONE_WIRE)) {
             return state.getValue(RedStoneWireBlock.POWER);
         } else if (state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get())) {
