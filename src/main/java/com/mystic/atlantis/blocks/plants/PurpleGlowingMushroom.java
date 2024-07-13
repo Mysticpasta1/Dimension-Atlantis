@@ -2,8 +2,6 @@ package com.mystic.atlantis.blocks.plants;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.mystic.atlantis.init.BlockInit;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
