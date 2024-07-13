@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks.base;
 
-import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

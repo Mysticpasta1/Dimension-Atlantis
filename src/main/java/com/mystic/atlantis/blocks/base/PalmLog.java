@@ -1,6 +1,5 @@
 package com.mystic.atlantis.blocks.base;
 
-import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;

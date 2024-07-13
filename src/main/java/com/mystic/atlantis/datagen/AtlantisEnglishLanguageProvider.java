@@ -79,7 +79,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.TUBER_UP_BLOCK, "Tuber Up Block");
         this.addBlock(BlockInit.BLUE_LILY_BLOCK, "Blue Lily Block");
         this.addBlock(BlockInit.BURNT_DEEP_BLOCK, "Burnt Deep Block");
-        this.addBlock(BlockInit.ANEMONE_BLOCK, "Anemone Block");
+        this.addBlock(BlockInit.ENENMOMY_BLOCK, "Anemone Block");
         this.addBlock(BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR, "Ancient Dark Oak Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR, "Ancient Birch Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR, "Ancient Spruce Wood Moss Trapdoor");
@@ -213,13 +213,13 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlocksFromType(BlockInit.MULTICOLOR_SEA_GLASS, "Multicolor Sea Glass");
         this.addBlock(BlockInit.COQUINA);
 
-        for (Map<DyeColor, RegistryObject<GlyphBlock>> block : BlockInit.DYED_LINGUISTICS.values()) {
+        for (Map<DyeColor, RegistryObject<Block>> block : BlockInit.DYED_LINGUISTICS.values()) {
             for (DyeColor color : DyeColor.values()) {
                 this.addBlock(block.get(color), WordUtils.capitalize(block.get(color).get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             }
         }
 
-        for (RegistryObject<GlyphBlock> block : BlockInit.NON_LINGUISTICS.values()) {
+        for (RegistryObject<Block> block : BlockInit.NON_LINGUISTICS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 

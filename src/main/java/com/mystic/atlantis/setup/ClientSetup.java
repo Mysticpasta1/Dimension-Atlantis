@@ -85,7 +85,7 @@ public class ClientSetup {
         registerBlockRenderLayers(RenderType.cutout(),
                 BlockInit.BLUE_LILY_BLOCK.get(),
                 BlockInit.BURNT_DEEP_BLOCK.get(),
-                BlockInit.ANEMONE_BLOCK.get(),
+                BlockInit.ENENMOMY_BLOCK.get(),
                 BlockInit.TUBER_UP_BLOCK.get(),
                 BlockInit.UNDERWATER_SHROOM_BLOCK.get(),
                 BlockInit.ATLANTEAN_FIRE_MELON_FRUIT.get(),
@@ -165,7 +165,7 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntityInit.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.SEAHORSE.get(), entityRenderDispatcher -> new SeahorseEntityRenderer(entityRenderDispatcher, new SeahorseEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.STARFISH.get(), entityRenderDispatcher -> new StarfishEntityRenderer(entityRenderDispatcher, new StarfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntityInit.STARFISH_ZOM.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
 
         bus.registerEntityRenderer(AtlantisEntityInit.BOMB.get(), SodiumBombRenderer::new);
     }
@@ -183,7 +183,7 @@ public class ClientSetup {
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         ArrayListMultimap<DyeColor, Block> mapLinguistic = ArrayListMultimap.create();
 
-        for(Map<DyeColor, RegistryObject<GlyphBlock>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, RegistryObject<Block>> colorMapLinguistics : DYED_LINGUISTICS.values()) {
             colorMapLinguistics.forEach((k,v) -> mapLinguistic.put(k, v.get()));
         }
 
@@ -310,7 +310,7 @@ public class ClientSetup {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         ArrayListMultimap<DyeColor, Block> map = ArrayListMultimap.<DyeColor, Block>create();
 
-        for(Map<DyeColor, RegistryObject<GlyphBlock>> colorMap : DYED_LINGUISTICS.values()) {
+        for(Map<DyeColor, RegistryObject<Block>> colorMap : DYED_LINGUISTICS.values()) {
             colorMap.forEach((k,v) -> map.put(k, v.get()));
         }
 
