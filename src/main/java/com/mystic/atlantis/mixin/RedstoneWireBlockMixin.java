@@ -1,5 +1,6 @@
 package com.mystic.atlantis.mixin;
 
+import com.mystic.atlantis.init.BlockInit;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

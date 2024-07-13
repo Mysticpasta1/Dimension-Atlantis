@@ -6,20 +6,15 @@ import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
-import com.mystic.atlantis.recipes.WritingRecipe;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.enchantment.ConditionalEffect;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -32,17 +27,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.loot.LootTableIdCondition;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Providers {
@@ -58,7 +48,7 @@ public class Providers {
             event.getGenerator().addProvider(true, new AtlantisMainProvider(output, event.getExistingFileHelper(), AtlantisBlockStateProvider::new));
             event.getGenerator().addProvider(true, new AtlantisItemModelProvider(output, event.getExistingFileHelper()));
             event.getGenerator().addProvider(true, new AtlantisEnglishLanguageProvider(output));
-            event.getGenerator().addProvider(true, new RecipeProvider(output, event.getLookupProvider()) {
+            event.getGenerator().addProvider(true, new RecipeProvider(output) {
                 @Override
                 protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
                     for (WeatheringMetal.WeatherState state : WeatheringMetal.WeatherState.values()) {
@@ -220,7 +210,7 @@ public class Providers {
                 }
             });
 
-            LootTableProvider.SubProviderEntry lootTableProvider = new LootTableProvider.SubProviderEntry(provider -> p_249643_ -> {
+            LootTableProvider.SubProviderEntry lootTableProvider = new LootTableProvider.SubProviderEntry(() -> p_249643_ -> {
                 for (TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
                     dropSelf(group.block().get(), p_249643_);
                     dropSelf(group.bulb().get(), p_249643_);
@@ -247,7 +237,7 @@ public class Providers {
             }, LootContextParamSets.BLOCK);
 
 
-            event.getGenerator().addProvider(true, new LootTableProvider(output, Set.of(), List.of(), event.getLookupProvider()) {
+            event.getGenerator().addProvider(true, new LootTableProvider(output, Set.of(), List.of()) {
                 @Override
                 public @NotNull List<SubProviderEntry> getTables() {
                     return List.of(lootTableProvider);
