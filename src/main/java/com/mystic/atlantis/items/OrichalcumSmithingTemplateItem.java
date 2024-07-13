@@ -15,7 +15,7 @@ public class OrichalcumSmithingTemplateItem extends SmithingTemplateItem {
     private static final Component ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", new ResourceLocation("smithing_template.orichalcum_upgrade.base_slot_description")));
     private static final Component ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", new ResourceLocation("smithing_template.orichalcum_upgrade.additions_slot_description")));
 
-    public OrichalcumSmithingTemplateItem(Properties properties) {
+    public OrichalcumSmithingTemplateItem() {
         super(ORICHALCUM_UPGRADE_APPLIES_TO, ORICHALCUM_UPGRADE_INGREDIENTS, ORICHALCUM_UPGRADE, ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION, ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, createOrichalcumUpgradeIconList(), createOrichalcumUpgradeMaterialList());
     }
 

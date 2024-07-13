@@ -11,8 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class AtlanteanCrystal extends Item {
-    public AtlanteanCrystal(Properties properties) {
-        super(properties.stacksTo(32));
+    public AtlanteanCrystal() {
+        super(new Properties().stacksTo(32));
     }
 
     @Override

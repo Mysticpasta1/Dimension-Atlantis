@@ -2,7 +2,6 @@ package com.mystic.atlantis.setup;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.mystic.atlantis.AtlantisDimensionalEffect;
-import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -75,11 +74,6 @@ public class ClientSetup {
             registerBlockRenderLayers(RenderType.cutoutMipped(),
                     MOSSY_SHELL_BLOCKS.get(dyeColor).get(),
                     CRACKED_MOSSY_SHELL_BLOCKS.get(dyeColor).get());
-        }
-
-        for (TrailsGroup group : ANCIENT_METALS.values()) {
-            registerBlockRenderLayers(RenderType.cutoutMipped(),
-                    group.grate().get());
         }
 
         registerBlockRenderLayers(RenderType.cutout(),
@@ -165,7 +159,7 @@ public class ClientSetup {
         bus.registerEntityRenderer(AtlantisEntityInit.LEVIATHAN.get(), entityRenderDispatcher -> new LeviathanEntityRenderer(entityRenderDispatcher, new LeviathanEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.SEAHORSE.get(), entityRenderDispatcher -> new SeahorseEntityRenderer(entityRenderDispatcher, new SeahorseEntityModel()));
         bus.registerEntityRenderer(AtlantisEntityInit.STARFISH.get(), entityRenderDispatcher -> new StarfishEntityRenderer(entityRenderDispatcher, new StarfishEntityModel()));
-        bus.registerEntityRenderer(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
+        bus.registerEntityRenderer(AtlantisEntityInit.STARFISH_ZOM.get(), entityRenderDispatcher -> new StarfishZomEntityRenderer(entityRenderDispatcher, new StarfishZomEntityModel()));
 
         bus.registerEntityRenderer(AtlantisEntityInit.BOMB.get(), SodiumBombRenderer::new);
     }

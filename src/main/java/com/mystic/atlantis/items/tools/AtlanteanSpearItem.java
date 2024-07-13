@@ -1,5 +1,6 @@
 package com.mystic.atlantis.items.tools;
 
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 
