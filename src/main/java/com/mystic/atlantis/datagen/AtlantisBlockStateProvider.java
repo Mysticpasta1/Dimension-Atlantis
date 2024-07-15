@@ -21,6 +21,8 @@ public class AtlantisBlockStateProvider extends AtlantisMainProvider.Proxied {
     public void registerStatesAndModels() {
         BlockType.getAllFamilies().filter(BlockFamily::shouldGenerateModel).forEach(this::registerBlockFamily);
         BlockInit.ANCIENT_METALS.values().forEach(this::registerTrialGroup);
+        this.simpleBlock(BlockInit.ANCIENT_METAL_ORE.get());
+        this.simpleBlock(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get());
         this.simpleBlock(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
         this.horizontalBlock(BlockInit.WRITING_BLOCK.get(), new ModelFile.ExistingModelFile(Atlantis.id("block/writing_block"), itemModels().existingFileHelper));
         this.simpleBlock(BlockInit.ORICHALCUM_BLOCK.get());
