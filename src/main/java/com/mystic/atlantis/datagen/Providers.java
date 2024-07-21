@@ -6,10 +6,8 @@ import com.mystic.atlantis.biomes.BiomeInit;
 import com.mystic.atlantis.biomes.ConfiguredFeaturesInit;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal;
-import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.init.EnchantmentInit;
-import com.mystic.atlantis.init.FluidInit;
-import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.dimension.DimensionAtlantis;
+import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.recipes.WritingRecipe;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Holder;
@@ -27,12 +25,14 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -41,13 +41,16 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -64,7 +67,11 @@ public class Providers {
         var registryProvider = new DatapackBuiltinEntriesProvider(output, RegistryPatchGenerator.createLookup(event.getLookupProvider(), new RegistrySetBuilder()
                 .add(Registries.ENCHANTMENT, EnchantmentInit::bootstrap)
                 .add(Registries.BIOME, BiomeInit::bootstrap)
-                .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::bootstrap)),
+                .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::bootstrap)
+                .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
+                        OptionalLong.empty(),
+                        true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
+                )))),
                 Set.of(Reference.MODID));
 
         event.getGenerator().addProvider(true, registryProvider);
@@ -278,12 +285,20 @@ public class Providers {
         }, LootContextParamSets.BLOCK);
 
 
+
         event.getGenerator().addProvider(true, new LootTableProvider(output, Set.of(), List.of(), event.getLookupProvider()) {
             @Override
             public @NotNull List<SubProviderEntry> getTables() {
                 return List.of(lootTableProvider);
             }
         });
+
+        var globalLootModifer = new GlobalLootModifierProvider(output, event.getLookupProvider(), Reference.MODID) {
+            @Override
+            protected void start() {
+                add("seeds_drop", new AtlantisModifierInit.SeaGrassModifier(List.of(LootItemRandomChanceCondition.randomChance(0.5f).build()).toArray(LootItemCondition[]::new)));
+            }
+        };
 
         BlockTagsProvider blockTagsProvider = new BlockTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
             @Override

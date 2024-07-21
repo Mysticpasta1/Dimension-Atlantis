@@ -1,12 +1,10 @@
 package com.mystic.atlantis.init;
 
 import com.google.common.base.Suppliers;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.atlantis.util.Reference;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.core.Holder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +26,6 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -63,7 +60,7 @@ public class AtlantisModifierInit {
 		}
 	}
 
-	private static class SeaGrassModifier extends LootModifier {
+	public static class SeaGrassModifier extends LootModifier {
 		public static final Supplier<MapCodec<SeaGrassModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
 				.apply(inst, SeaGrassModifier::new)
 				));
