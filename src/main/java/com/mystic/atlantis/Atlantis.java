@@ -12,6 +12,7 @@ import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
+import com.mystic.atlantis.util.BlockSideHitListener;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -54,7 +56,12 @@ public class Atlantis {
         return ResourceKey.create(Registries.DIMENSION, OVERWORLD_ID);
     }
 
+    public static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, id(name));
+    }
+
     public void onInitialize(IEventBus bus) {
+        BlockSideHitListener.init();
         GeckoLibClient.init();
         BlockInit.init(bus);
         BasicArmorMaterial.init(bus);

@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -24,20 +23,21 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
 public class ACommonFEvents {
 
-    public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchantment) {
-        return itemStack.getEnchantments().getLevel(Holder.direct(enchantment)) > 0;
+    public static boolean hasEnchantment(Level level, ItemStack itemStack, ResourceKey<Enchantment> enchantment) {
+        return level.registryAccess().holder(enchantment).filter(holder -> itemStack.getEnchantments().getLevel(holder) > 0).isPresent();
     }
 
     @SubscribeEvent
@@ -128,7 +128,7 @@ public class ACommonFEvents {
     public static void onLivingHurtEvent(LivingDeathEvent event) {
         if (event.getEntity() instanceof Player player) {
             for (ItemStack stack : player.getArmorSlots()) {
-                if (hasEnchantment(stack, EnchantmentInit.LIGHTNING_PROTECTION.get())) {
+                if (hasEnchantment(player.level(), stack, EnchantmentInit.LIGHTNING_PROTECTION)) {
                     if (event.getSource().is(DamageTypes.LIGHTNING_BOLT)) {
                         event.setCanceled(true);
                     }

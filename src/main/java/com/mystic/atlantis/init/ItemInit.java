@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -144,16 +145,18 @@ public class ItemInit {
     public static final DeferredHolder<Item, Item> SEAHORSE_BUCKET = register("seahorse_bucket", properties -> new AtlanteanEntityBucketItem(AtlantisEntityInit.SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, properties.stacksTo(1)));
 
     //TOOLS
-    public static final DeferredHolder<Item, Item> AXE_AQUAMARINE = register("axe_aquamarine", properties -> new AquamarineAxe(ToolInit.AQUAMARINE, properties));
-    public static final DeferredHolder<Item, Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", properties -> new AquamarinePickaxe(ToolInit.AQUAMARINE, properties));
-    public static final DeferredHolder<Item, Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", properties -> new AquamarineShovel(ToolInit.AQUAMARINE, properties));
-    public static final DeferredHolder<Item, Item> HOE_AQUAMARINE = register("hoe_aquamarine", properties -> new AquamarineHoe(ToolInit.AQUAMARINE, properties));
-    public static final DeferredHolder<Item, Item> SWORD_AQUAMARINE = register("sword_aquamarine", properties -> new AquamarineSword(ToolInit.AQUAMARINE, properties));
-    public static final DeferredHolder<Item, Item> ORICHALCUM_AXE = register("orichalcum_axe", properties -> new AquamarineAxe(ToolInit.ORICHAClUM, properties));
-    public static final DeferredHolder<Item, Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", properties -> new AquamarinePickaxe(ToolInit.ORICHAClUM, properties));
-    public static final DeferredHolder<Item, Item> ORICHALCUM_SHOVEL = register("orichalcum_shovel", properties -> new AquamarineShovel(ToolInit.ORICHAClUM, properties));
-    public static final DeferredHolder<Item, Item> ORICHALCUM_HOE = register("orichalcum_hoe", properties -> new AquamarineHoe(ToolInit.ORICHAClUM, properties));
-    public static final DeferredHolder<Item, Item> ORICHALCUM_SWORD = register("orichalcum_sword", properties -> new AquamarineSword(ToolInit.ORICHAClUM, properties));
+    public static final DeferredHolder<Item, Item> AXE_AQUAMARINE = register("axe_aquamarine", properties -> new AtlanteanAxeItem(ToolInit.AQUAMARINE, 3));
+    public static final DeferredHolder<Item, Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", properties -> new AtlanteanPickaxeItem(ToolInit.AQUAMARINE, 2));
+    public static final DeferredHolder<Item, Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", properties -> new AtlanteanShovelItem(ToolInit.AQUAMARINE, 1));
+    public static final DeferredHolder<Item, Item> HOE_AQUAMARINE = register("hoe_aquamarine", properties -> new AtlanteanHoeItem(ToolInit.AQUAMARINE, 2));
+    public static final DeferredHolder<Item, Item> SWORD_AQUAMARINE = register("sword_aquamarine", properties -> new AtlanteanSwordItem(ToolInit.AQUAMARINE, 4));
+    public static final DeferredHolder<Item, Item> HAMMER_AQUAMARINE = register("hammer_aquamarine", properties -> new AtlanteanHammerItem(ToolInit.AQUAMARINE, 2, 3, Enchantments.SILK_TOUCH));
+
+    public static final DeferredHolder<Item, Item> ORICHALCUM_AXE = register("orichalcum_axe", properties -> new AtlanteanAxeItem(ToolInit.ORICHAClUM, 3));
+    public static final DeferredHolder<Item, Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", properties -> new AtlanteanPickaxeItem(ToolInit.ORICHAClUM, 2));
+    public static final DeferredHolder<Item, Item> ORICHALCUM_SHOVEL = register("orichalcum_shovel", properties -> new AtlanteanShovelItem(ToolInit.ORICHAClUM, 1));
+    public static final DeferredHolder<Item, Item> ORICHALCUM_HOE = register("orichalcum_hoe", properties -> new AtlanteanHoeItem(ToolInit.ORICHAClUM, 2));
+    public static final DeferredHolder<Item, Item> ORICHALCUM_SWORD = register("orichalcum_sword", properties -> new AtlanteanSwordItem(ToolInit.ORICHAClUM, 4));
 
     //ARMOR
     public static final DeferredHolder<Item, ItemArmorAtlantis> AQUAMARINE_HELMET = register("aquamarine_helmet", properties -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, ArmorItem.Type.HELMET, properties));
