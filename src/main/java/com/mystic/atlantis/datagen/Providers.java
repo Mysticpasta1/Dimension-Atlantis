@@ -73,9 +73,10 @@ public class Providers {
                 .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
                         OptionalLong.empty(),
                         true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
-                )))),
-//                .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)),
-                Set.of(Reference.MODID));
+                )))
+//                .add(Registries.TEMPLATE_POOL, TemplatePoolInit::bootstrap)),
+                .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)),
+                Set.of(Reference.MODID, "minecraft"));
 
         event.getGenerator().addProvider(true, registryProvider);
         event.getGenerator().addProvider(true, new AtlantisBlockModelProvider(output, event.getExistingFileHelper()));
