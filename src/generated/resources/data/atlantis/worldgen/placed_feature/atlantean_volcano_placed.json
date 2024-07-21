@@ -1,8 +1,5 @@
 {
-  "feature": {
-    "type": "atlantis:atlantean_glowstones_feature_atlantis",
-    "config": {}
-  },
+  "feature": "atlantis:atlantean_volcano_configured",
   "placement": [
     {
       "type": "minecraft:biome"
@@ -18,11 +15,11 @@
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
-        "min_inclusive": {
-          "absolute": 100
-        },
         "max_inclusive": {
           "absolute": 270
+        },
+        "min_inclusive": {
+          "absolute": 100
         }
       }
     }

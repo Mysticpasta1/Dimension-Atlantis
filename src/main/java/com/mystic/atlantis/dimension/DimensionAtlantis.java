@@ -1,11 +1,8 @@
 package com.mystic.atlantis.dimension;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.util.Reference;
-
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -14,10 +11,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -37,6 +34,7 @@ public class DimensionAtlantis
     public static DimensionType ATLANTIS_TYPE;
 
     public static ServerLevel ATLANTIS_DIMENSION;
+    public static ResourceKey<NoiseGeneratorSettings> ATLANTIS_DIMENSION_NOISE_SETTING = ResourceKey.create(Registries.NOISE_SETTINGS, ResourceLocation.parse("atlantis:atlantis"));;
 
     public static boolean isAtlantisDimension(Level world) {
         return world != null && world.dimension().equals(ATLANTIS_WORLD);

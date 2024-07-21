@@ -1,9 +1,9 @@
 {
-  "feature": "atlantis:ancient_metal",
+  "feature": "atlantis:aquamarine_configured",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 120
+      "count": 150
     },
     {
       "type": "minecraft:in_square"
@@ -12,11 +12,11 @@
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
-        "min_inclusive": {
-          "absolute": -64
-        },
         "max_inclusive": {
           "absolute": 450
+        },
+        "min_inclusive": {
+          "absolute": -64
         }
       }
     },
@@ -25,4 +25,3 @@
     }
   ]
 }
-

@@ -32,16 +32,17 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
@@ -68,10 +69,12 @@ public class Providers {
                 .add(Registries.ENCHANTMENT, EnchantmentInit::bootstrap)
                 .add(Registries.BIOME, BiomeInit::bootstrap)
                 .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::bootstrap)
+                        .add(Registries.PLACED_FEATURE, PlacedFeatureInit::bootstrap)
                 .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
                         OptionalLong.empty(),
                         true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
                 )))),
+//                .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)),
                 Set.of(Reference.MODID));
 
         event.getGenerator().addProvider(true, registryProvider);
@@ -293,12 +296,18 @@ public class Providers {
             }
         });
 
-        var globalLootModifer = new GlobalLootModifierProvider(output, event.getLookupProvider(), Reference.MODID) {
+        var globalLootModifierProvider = new GlobalLootModifierProvider(output, event.getLookupProvider(), Reference.MODID) {
             @Override
             protected void start() {
-                add("seeds_drop", new AtlantisModifierInit.SeaGrassModifier(List.of(LootItemRandomChanceCondition.randomChance(0.5f).build()).toArray(LootItemCondition[]::new)));
+                add("seeds_drop", new AtlantisModifierInit.SeaGrassModifier(
+                        new LootItemCondition[] {
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SEAGRASS).build()
+                        })
+                );
             }
         };
+
+
 
         BlockTagsProvider blockTagsProvider = new BlockTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
             @Override
@@ -497,6 +506,7 @@ public class Providers {
         event.getGenerator().addProvider(true, blockTagsProvider);
         event.getGenerator().addProvider(true, fluidTagsProvider);
         event.getGenerator().addProvider(true, biomeTagsProvider);
+        event.getGenerator().addProvider(true, globalLootModifierProvider);
 
         event.getGenerator().addProvider(true, new ItemTagsProvider(output, event.getLookupProvider(), blockTagsProvider.contentsGetter(), "atlantis", event.getExistingFileHelper()) {
             @Override

@@ -1,5 +1,5 @@
 {
-  "feature": "atlantis:salt_rock_geode_feature_atlantis",
+  "feature": "atlantis:salt_rock_geode_configured",
   "placement": [
     {
       "type": "minecraft:biome"
@@ -8,11 +8,11 @@
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:uniform",
-        "min_inclusive": {
-          "absolute": -30
-        },
         "max_inclusive": {
           "absolute": 70
+        },
+        "min_inclusive": {
+          "absolute": -30
         }
       }
     },

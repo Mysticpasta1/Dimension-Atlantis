@@ -1,12 +1,9 @@
 {
-  "feature": {
-    "type": "atlantis:shell_block_feature_atlantis",
-    "config": {}
-  },
+  "feature": "atlantis:underwater_mushroom_configured",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 1
+      "type": "minecraft:count",
+      "count": 1
     },
     {
       "type": "minecraft:biome"
@@ -19,8 +16,8 @@
       "type": "minecraft:count_on_every_layer",
       "count": {
         "type": "minecraft:biased_to_bottom",
-        "min_inclusive": 0,
-        "max_inclusive": 99
+        "max_inclusive": 99,
+        "min_inclusive": 0
       }
     }
   ]
