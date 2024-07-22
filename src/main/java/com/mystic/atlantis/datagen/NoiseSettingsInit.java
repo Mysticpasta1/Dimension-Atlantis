@@ -24,12 +24,10 @@ import static net.minecraft.world.level.levelgen.SurfaceRules.*;
 import static net.minecraft.world.level.levelgen.VerticalAnchor.absolute;
 
 public class NoiseSettingsInit {
-    private final BootstrapContext<NoiseGeneratorSettings> context;
     private final HolderGetter<NormalNoise.NoiseParameters> noiseRegistry;
     private final HolderGetter<DensityFunction> functionRegistry;
 
     public NoiseSettingsInit(BootstrapContext<NoiseGeneratorSettings> context) {
-        this.context = context;
         this.noiseRegistry = context.lookup(Registries.NOISE);
         this.functionRegistry = context.lookup(Registries.DENSITY_FUNCTION);
 
@@ -39,16 +37,16 @@ public class NoiseSettingsInit {
                     Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 0),
 
                     new NoiseRouter(
-                            noise(noiseRegistry.getOrThrow(Noises.AQUIFER_BARRIER), 1, 0.5),
-                            noise(noiseRegistry.getOrThrow(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 1, 0.67),
-                            noise(noiseRegistry.getOrThrow(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 1, 0.7142857142857143),
+                            noise(parameters(Noises.AQUIFER_BARRIER), 1, 0.5),
+                            noise(parameters(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 1, 0.67),
+                            noise(parameters(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 1, 0.7142857142857143),
                             zero(),
-                            shiftedNoise2d(noiseRegistry.getOrThrow(Noises.TEMPERATURE)),
-                            shiftedNoise2d(noiseRegistry.getOrThrow(Noises.VEGETATION)),
-                            function(functionRegistry, NoiseRouterData.CONTINENTS),
-                            function(functionRegistry, NoiseRouterData.EROSION),
-                            function(functionRegistry, NoiseRouterData.DEPTH),
-                            function(functionRegistry, NoiseRouterData.RIDGES),
+                            shiftedNoise2d(parameters(Noises.TEMPERATURE)),
+                            shiftedNoise2d(parameters(Noises.VEGETATION)),
+                            function(NoiseRouterData.CONTINENTS),
+                            function(NoiseRouterData.EROSION),
+                            function(NoiseRouterData.DEPTH),
+                            function(NoiseRouterData.RIDGES),
                             zero(),
                             mul(
                                     constant(0.64),
@@ -68,7 +66,7 @@ public class NoiseSettingsInit {
                                                                                                     constant(-2),
                                                                                                     mul(
                                                                                                             yClampedGradient(350, 450, 1, 0),
-                                                                                                            function(functionRegistry, NoiseRouterData.BASE_3D_NOISE_OVERWORLD)
+                                                                                                            function(NoiseRouterData.BASE_3D_NOISE_OVERWORLD)
                                                                                                     )
                                                                                             )
                                                                                     )
@@ -136,8 +134,12 @@ public class NoiseSettingsInit {
         return ifTrue(verticalGradient(name, absolute(min), absolute(max)), state(state));
     }
 
-    private static DensityFunction function(HolderGetter<DensityFunction> densityFunctions, ResourceKey<DensityFunction> key) {
-        return new DensityFunctions.HolderHolder(densityFunctions.getOrThrow(key));
+    private DensityFunction function(ResourceKey<DensityFunction> key) {
+        return new DensityFunctions.HolderHolder(functionRegistry.getOrThrow(key));
+    }
+
+    private Holder<NormalNoise.NoiseParameters> parameters(ResourceKey<NormalNoise.NoiseParameters> key) {
+        return noiseRegistry.getOrThrow(key);
     }
 
     private RuleSource conditionalVerticalBlockPlacement(String name, int min, int max, Block block) {
@@ -146,8 +148,8 @@ public class NoiseSettingsInit {
 
     private DensityFunction shiftedNoise2d(Holder<NormalNoise.NoiseParameters> noise) {
         return DensityFunctions.shiftedNoise2d(
-                function(functionRegistry, NoiseRouterData.SHIFT_X),
-                function(functionRegistry, NoiseRouterData.SHIFT_Z),
+                function(NoiseRouterData.SHIFT_X),
+                function(NoiseRouterData.SHIFT_Z),
                     0.25, noise);
     }
 }

@@ -1,0 +1,71 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "location_predicate": {
+            "block": "minecraft:sea_pickle",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "minecraft:kelp",
+            "Properties": {
+              "age": "25"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "location_predicate": {
+            "block": "minecraft:sea_pickle",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "minecraft:seagrass"
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "location_predicate": {
+            "block": "minecraft:sea_pickle",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "atlantis:atlantean_sapling",
+            "Properties": {
+              "stage": "1",
+              "waterlogged": "true"
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "location_predicate": {
+            "block": "minecraft:sea_pickle",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "atlantis:atlantean_fire_melon_top",
+            "Properties": {
+              "age": "25"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
