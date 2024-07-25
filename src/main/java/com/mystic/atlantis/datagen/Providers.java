@@ -2,8 +2,7 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.TagsInit;
-import com.mystic.atlantis.biomes.BiomeInit;
-import com.mystic.atlantis.biomes.ConfiguredFeaturesInit;
+import com.mystic.atlantis.biomes.AtlantisBiomeSource;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -12,6 +11,7 @@ import com.mystic.atlantis.recipes.WritingRecipe;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
@@ -21,10 +21,7 @@ import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.*;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -44,10 +41,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -74,7 +73,7 @@ public class Providers {
                         OptionalLong.empty(),
                         true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
                 )))
-                        .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
+                .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
                 .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
                 .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)
                 .add(Registries.STRUCTURE, StructureInit::new)),
@@ -87,7 +86,7 @@ public class Providers {
         event.getGenerator().addProvider(true, new AtlantisEnglishLanguageProvider(output));
         event.getGenerator().addProvider(true, new RecipeProvider(output, event.getLookupProvider()) {
             @Override
-            protected void buildRecipes(RecipeOutput recipeOutput) {
+            protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
                 var list = ItemInit.getScrolls();
                 var ingredient = Ingredient.of(list.toArray(Item[]::new));
 
@@ -314,7 +313,7 @@ public class Providers {
 
         BlockTagsProvider blockTagsProvider = new BlockTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
             @Override
-            protected void addTags(HolderLookup.Provider pProvider) {
+            protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ORICHALCUM_BLOCK.get());
                 tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ORICHALCUM_BLOCK.get());
                 for (TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
@@ -479,7 +478,7 @@ public class Providers {
 
         FluidTagsProvider fluidTagsProvider = new FluidTagsProvider(output, event.getLookupProvider(), Reference.MODID, event.getExistingFileHelper()) {
             @Override
-            protected void addTags(HolderLookup.Provider provider) {
+            protected void addTags(HolderLookup.@NotNull Provider provider) {
                 tag(FluidTags.WATER).add(
                         FluidInit.JETSTREAM_WATER.get(),
                         FluidInit.SALTY_SEA_WATER.get(),
@@ -491,18 +490,56 @@ public class Providers {
 
         BiomeTagsProvider biomeTagsProvider = new BiomeTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
             @Override
-            protected void addTags(HolderLookup.Provider pProvider) {
-                Stream.of(BiomeTags.IS_DEEP_OCEAN, BiomeTags.IS_OCEAN).map(this::tag).forEach(new Consumer<TagAppender<Biome>>() {
-                    @Override
-                    public void accept(TagAppender<Biome> appender) {
-                        appender.add(BiomeInit.ATLANTEAN_GARDEN,
-                                BiomeInit.ATLANTEAN_ISLANDS_BIOME,
-                                BiomeInit.ATLANTIS_BIOME,
-                                BiomeInit.GOO_LAGOONS,
-                                BiomeInit.JELLYFISH_FIELDS,
-                                BiomeInit.VOLCANIC_DARKSEA);
-                    }
-                });
+            protected void addTags(HolderLookup.@NotNull Provider provider) {
+                this.tag(BiomeTags.IS_OCEAN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS)
+                        .addOptionalTag(AtlantisBiomeSource.GOO_LAGOONS)
+                        .addOptionalTag(AtlantisBiomeSource.JELLYFISH_FIELDS)
+                        .addOptionalTag(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+                this.tag(BiomeTags.IS_DEEP_OCEAN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS)
+                        .addOptionalTag(AtlantisBiomeSource.GOO_LAGOONS)
+                        .addOptionalTag(AtlantisBiomeSource.JELLYFISH_FIELDS)
+                        .addOptionalTag(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+                this.tag(TagsInit.Biome.HAS_ATLANTEAN_VILLAGE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS)
+                        .addOptionalTag(AtlantisBiomeSource.GOO_LAGOONS)
+                        .addOptionalTag(AtlantisBiomeSource.JELLYFISH_FIELDS)
+                        .addOptionalTag(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_FOUNTAIN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_HOUSE_1)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_HOUSE_3)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_SPIRE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_TEMPLE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_TOWER)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);;
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_OYSTER_STRUCTURE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
             }
         };
 
@@ -513,7 +550,7 @@ public class Providers {
 
         event.getGenerator().addProvider(true, new ItemTagsProvider(output, event.getLookupProvider(), blockTagsProvider.contentsGetter(), "atlantis", event.getExistingFileHelper()) {
             @Override
-            protected void addTags(HolderLookup.Provider pProvider) {
+            protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
                 TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
 
@@ -540,7 +577,7 @@ public class Providers {
     private static void dropSelf(Block block, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> builder){
         builder.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(block).when(() -> new LootItemCondition() {
             @Override
-            public LootItemConditionType getType() {
+            public @NotNull LootItemConditionType getType() {
                 return LootItemConditions.SURVIVES_EXPLOSION;
             }
 

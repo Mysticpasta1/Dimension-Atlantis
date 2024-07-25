@@ -2,6 +2,7 @@ package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.datagen.BiomeInit;
 import com.mystic.atlantis.feature.FeaturesInit;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;

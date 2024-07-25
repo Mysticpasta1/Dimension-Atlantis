@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#atlantis:atlantis_biome",
+      "required": false
+    },
+    {
+      "id": "#atlantis:atlantean_garden",
+      "required": false
+    },
+    {
+      "id": "#atlantis:atlantean_islands_biome",
+      "required": false
+    }
+  ]
+}

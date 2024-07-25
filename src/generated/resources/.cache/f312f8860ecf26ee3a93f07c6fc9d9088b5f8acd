@@ -1,3 +1,11 @@
-// 1.21	2024-07-20T22:12:08.5994244	Tags for minecraft:worldgen/biome mod id atlantis
-354aef1bd8536c167ea2be92f6a713e0f20ae79f data/minecraft/tags/worldgen/biome/is_deep_ocean.json
-354aef1bd8536c167ea2be92f6a713e0f20ae79f data/minecraft/tags/worldgen/biome/is_ocean.json
+// 1.21	2024-07-24T20:01:56.100071247	Tags for minecraft:worldgen/biome mod id atlantis
+8b53cb41d6f931892dbad396ae02deb79b65d1d5 data/atlantis/tags/worldgen/biome/has_structure/has_atlantean_village.json
+bf19fa2cc5c814525239c3a9bba2f1f209f8cd60 data/atlantis/tags/worldgen/biome/has_structure/has_configured_atlantean_fountain.json
+bf19fa2cc5c814525239c3a9bba2f1f209f8cd60 data/atlantis/tags/worldgen/biome/has_structure/has_configured_atlantean_house_1.json
+bf19fa2cc5c814525239c3a9bba2f1f209f8cd60 data/atlantis/tags/worldgen/biome/has_structure/has_configured_atlantean_house_3.json
+bf19fa2cc5c814525239c3a9bba2f1f209f8cd60 data/atlantis/tags/worldgen/biome/has_structure/has_configured_atlantean_spire.json
+bf19fa2cc5c814525239c3a9bba2f1f209f8cd60 data/atlantis/tags/worldgen/biome/has_structure/has_configured_atlantean_temple.json
+bf19fa2cc5c814525239c3a9bba2f1f209f8cd60 data/atlantis/tags/worldgen/biome/has_structure/has_configured_atlantean_tower.json
+bf19fa2cc5c814525239c3a9bba2f1f209f8cd60 data/atlantis/tags/worldgen/biome/has_structure/has_configured_oyster_structure.json
+8b53cb41d6f931892dbad396ae02deb79b65d1d5 data/minecraft/tags/worldgen/biome/is_deep_ocean.json
+8b53cb41d6f931892dbad396ae02deb79b65d1d5 data/minecraft/tags/worldgen/biome/is_ocean.json
