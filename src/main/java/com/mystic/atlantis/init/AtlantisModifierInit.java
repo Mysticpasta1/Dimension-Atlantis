@@ -3,6 +3,7 @@ package com.mystic.atlantis.init;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mystic.atlantis.datagen.EnchantmentInit;
 import com.mystic.atlantis.util.Reference;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.util.RandomSource;

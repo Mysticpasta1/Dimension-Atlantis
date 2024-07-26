@@ -3,19 +3,24 @@
 	
 	"pattern":
 	[
-		"SSS",
+		"ISI",
 		"SWS",
-		"SSS"
+		"ISI"
 	],
 	
 	"key":
 	{
-		"W":
+		"S":
 		{
-			"item": "minecraft:gold_nugget"
+			"item": "minecraft:aquamarine_gem"
+		},
+
+		"I":
+		{
+			"item": "atlantis:ancient_metal_ingot"
 		},
 		
-		"S":
+		"W":
 		{
 			"item": "atlantis:ocean_stone"
 		}

@@ -3,7 +3,7 @@ package com.mystic.atlantis.event;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.EffectsInit;
-import com.mystic.atlantis.init.EnchantmentInit;
+import com.mystic.atlantis.datagen.EnchantmentInit;
 import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;

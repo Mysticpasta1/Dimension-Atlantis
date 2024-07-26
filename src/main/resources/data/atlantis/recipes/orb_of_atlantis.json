@@ -3,9 +3,9 @@
 	
 	"pattern":
 	[
-		" S ",
+		"ISI",
 		"SWS",
-		" S "
+		"ISI"
 	],
 	
 	"key":
@@ -13,6 +13,11 @@
 		"S":
 		{
 			"item": "atlantis:atlantean_crystal"
+		},
+
+		"I":
+		{
+			"item": "atlantis:ancient_metal_ingot"
 		},
 		
 		"W":

@@ -124,6 +124,7 @@ public class TagsInit {
                     ItemInit.ORICHALCUM_CHESTPLATE.get(),
                     ItemInit.ORICHALCUM_LEGGINGS.get(),
                     ItemInit.ORICHALCUM_BOOTS.get(),
+         //           ItemInit.ORICHALCUM_HAMMER.get(),
                     BlockInit.ORICHALCUM_BLOCK.get());
         }
 

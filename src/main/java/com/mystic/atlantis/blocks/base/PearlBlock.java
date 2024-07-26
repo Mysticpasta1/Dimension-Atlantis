@@ -3,7 +3,7 @@ package com.mystic.atlantis.blocks.base;
 
 import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
 
-import com.mystic.atlantis.init.EnchantmentInit;
+import com.mystic.atlantis.datagen.EnchantmentInit;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;

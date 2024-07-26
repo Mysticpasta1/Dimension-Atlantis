@@ -10,17 +10,17 @@
 	
 	"key":
 	{
-		"W":
+		"S":
 		{
-			"item": "minecraft:diamond"
+			"item": "atlantis:ancient_metal_ingot"
 		},
 		
-		"S":
+		"O":
 		{
 			"item": "atlantis:aquamarine_gem"
 		},
 		
-		"O":
+		"W":
 		{
 			"item": "minecraft:gold_nugget"
 		}

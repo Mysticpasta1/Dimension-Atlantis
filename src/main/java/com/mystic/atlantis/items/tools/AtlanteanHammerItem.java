@@ -1,37 +1,51 @@
 package com.mystic.atlantis.items.tools;
 
-import com.mystic.atlantis.util.ToolHarvestLogic;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-
-public class AtlanteanHammerItem extends PickaxeItem {
-
-	private final int size;
-	private final ResourceKey<Enchantment> enchantment;
-
-	public AtlanteanHammerItem(Tier pTier, int attack, int size, ResourceKey<Enchantment> enchantment) {
-		super(pTier, new Properties().attributes(createAttributes(pTier, attack, -3.2f)).durability(pTier.getUses()).stacksTo(1));
-		this.size = size;
-		this.enchantment = enchantment;
-	}
-
-	@Override
-	public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
-		var stack = player.getMainHandItem();
-		return stack.getCount() > 1 || ToolHarvestLogic.handleBlockBreak(stack, state, level, pos, player);
-	}
-
-	public int size() {
-		return size;
-	}
-
-	public ResourceKey<Enchantment> enchantment() {
-		return enchantment;
-	}
-}
+//import com.mystic.atlantis.datagen.EnchantmentInit;
+//import net.minecraft.core.BlockPos;
+//import net.minecraft.world.entity.LivingEntity;
+//import net.minecraft.world.entity.player.Player;
+//import net.minecraft.world.item.ItemStack;
+//import net.minecraft.world.item.Tier;
+//import net.minecraft.world.item.enchantment.EnchantmentHelper;
+//import net.minecraft.world.level.Level;
+//import net.minecraft.world.level.block.state.BlockState;
+//import org.jetbrains.annotations.NotNull;
+//import pro.mikey.justhammers.HammerItem;
+//
+//public class AtlanteanHammerItem extends HammerItem {
+//	public static int depth;
+//	public AtlanteanHammerItem(Tier pTier, int radius) {
+//		super(pTier, radius, depth, 0);
+//	}
+//
+//	public void depthEnchant(Level level, Player player) {
+//        if (EnchantmentHelper.getEnchantmentLevel(EnchantmentInit.getEnchantmentHolder(level, EnchantmentInit.DEEPER_DEPTH), player) == 0) {
+//			depth = getRadius();
+//		} else {
+//			depth = 0;
+//		}
+//	}
+//
+//	@Override
+//	public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull LivingEntity miningEntity) {
+//		if(miningEntity instanceof Player player) {
+//			depthEnchant(level, player);
+//		}
+//		return super.mineBlock(stack, level, state, pos, miningEntity);
+//	}
+//
+//	@Override
+//	public void onCraftedBy(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player) {
+//		super.onCraftedBy(stack, level, player);
+//		depthEnchant(level, player);
+//	}
+//
+//	@Override
+//	public void onUseTick(@NotNull Level level, @NotNull LivingEntity user, @NotNull ItemStack stack, int remainingUseTicks) {
+//		super.onUseTick(level, user, stack, remainingUseTicks);
+//		if (user instanceof Player player) {
+//			depthEnchant(level, player);
+//		}
+//    }
+//}
+//

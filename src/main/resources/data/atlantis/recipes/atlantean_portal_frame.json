@@ -2,25 +2,20 @@
 	"type": "minecraft:crafting_shaped",
 	"pattern":
 	[
-		"SOS",
-		"OWO",
-		"SOS"
+		"OOO",
+		"OSO",
+		"OOO"
 	],
 	"key":
 	{
-		"W":
-		{
-			"item": "atlantis:atlantean_core"
-		},
-		
 		"S":
 		{
-			"item": "atlantis:drop_of_atlantis"
+			"item": "atlantis:atlantean_core"
 		},
 
 		"O":
 		{
-			"item": "atlantis:ocean_stone"
+			"item": "atlantis:ancient_metal_ingot"
 		}
 	},
 	"result":

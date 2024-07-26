@@ -11,7 +11,6 @@ import com.mystic.atlantis.recipes.WritingRecipe;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
@@ -27,7 +26,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -41,20 +39,18 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
+//import pro.mikey.justhammers.HammerTags;
 
 import java.util.List;
 import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 public class Providers {
     public static void init(IEventBus bus) {
@@ -66,13 +62,14 @@ public class Providers {
 
         var registryProvider = new DatapackBuiltinEntriesProvider(output, RegistryPatchGenerator.createLookup(event.getLookupProvider(), new RegistrySetBuilder()
                 .add(Registries.ENCHANTMENT, EnchantmentInit::bootstrap)
-                .add(Registries.BIOME, BiomeInit::bootstrap)
+                .add(Registries.BIOME, BiomeInit::new)
                 .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::bootstrap)
-                        .add(Registries.PLACED_FEATURE, PlacedFeatureInit::bootstrap)
+                .add(Registries.PLACED_FEATURE, PlacedFeatureInit::bootstrap)
                 .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
                         OptionalLong.empty(),
                         true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
                 )))
+                .add(Registries.LEVEL_STEM, DimensionAtlantis::new)
                 .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
                 .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
                 .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)
@@ -553,7 +550,9 @@ public class Providers {
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
                 TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
-
+              //  tag(HammerTags.HAMMERS).add(
+              //          ItemInit.AQUAMARINE_HAMMER.get(),
+              //          ItemInit.ORICHALCUM_HAMMER.get());
                 tag(ItemTags.TRIMMABLE_ARMOR).add(
                         ItemInit.AQUAMARINE_BOOTS.get(),
                         ItemInit.AQUAMARINE_CHESTPLATE.get(),

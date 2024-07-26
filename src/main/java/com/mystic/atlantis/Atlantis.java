@@ -3,6 +3,8 @@ package com.mystic.atlantis;
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.datagen.BiomeInit;
+import com.mystic.atlantis.datagen.EnchantmentInit;
+import com.mystic.atlantis.datagen.NoiseSettingsInit;
 import com.mystic.atlantis.feature.FeaturesInit;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
@@ -13,7 +15,6 @@ import com.mystic.atlantis.particles.ModParticleTypes;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.structures.AtlantisStructures;
-import com.mystic.atlantis.util.BlockSideHitListener;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -62,7 +63,6 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
-        BlockSideHitListener.init();
         GeckoLibClient.init();
         BlockInit.init(bus);
         BasicArmorMaterial.init(bus);

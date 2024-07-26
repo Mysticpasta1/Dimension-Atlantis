@@ -26,16 +26,18 @@ public class BiomeInit {
     public static final ResourceKey<Biome> GOO_LAGOONS_KEY = key("goo_lagoons");
     public static final ResourceKey<Biome> JELLYFISH_FIELDS_KEY = key("jellyfish_fields");
     public static final ResourceKey<Biome> VOLCANIC_DARKSEA_KEY = key("volcanic_darksea");
+    private final BootstrapContext<Biome> context;
 
     public static ResourceKey<Biome> key(String name) {
         return ResourceKey.create(Registries.BIOME, Atlantis.id(name));
     }
 
-    public static void bootstrap(BootstrapContext<Biome> context) {
+    public BiomeInit(BootstrapContext<Biome> context) {
+        this.context = context;
         HolderGetter<PlacedFeature> holdergetter = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> holdergetter1 = context.lookup(Registries.CONFIGURED_CARVER);
 
-        context.register(ATLANTEAN_GARDEN_KEY, new Biome.BiomeBuilder()
+        register(ATLANTEAN_GARDEN_KEY, new Biome.BiomeBuilder()
                 .temperature(0.4f)
                 .downfall(0.0f)
                 .hasPrecipitation(false)
@@ -92,7 +94,7 @@ public class BiomeInit {
                 )
                 .build());
 
-        context.register(ATLANTEAN_ISLANDS_BIOME_KEY, new Biome.BiomeBuilder()
+        register(ATLANTEAN_ISLANDS_BIOME_KEY, new Biome.BiomeBuilder()
                 .temperature(0.5f)
                 .downfall(0.0f)
                 .hasPrecipitation(false)
@@ -153,7 +155,7 @@ public class BiomeInit {
                 )
                 .build());
 
-        context.register(ATLANTIS_BIOME_KEY, new Biome.BiomeBuilder()
+        register(ATLANTIS_BIOME_KEY, new Biome.BiomeBuilder()
                 .temperature(0.5f)
                 .downfall(0.0f)
                 .hasPrecipitation(false)
@@ -213,7 +215,7 @@ public class BiomeInit {
                 )
                 .build());
 
-        context.register(COCONUT_ISLES_KEY, new Biome.BiomeBuilder()
+        register(COCONUT_ISLES_KEY, new Biome.BiomeBuilder()
                 .temperature(0.7f)
                 .downfall(0.0f)
                 .hasPrecipitation(false)
@@ -273,7 +275,7 @@ public class BiomeInit {
                 )
                 .build());
 
-        context.register(GOO_LAGOONS_KEY, new Biome.BiomeBuilder()
+        register(GOO_LAGOONS_KEY, new Biome.BiomeBuilder()
                 .temperature(0.5f)
                 .downfall(0.0f)
                 .hasPrecipitation(false)
@@ -332,7 +334,7 @@ public class BiomeInit {
                 )
                 .build());
 
-        context.register(JELLYFISH_FIELDS_KEY, new Biome.BiomeBuilder()
+        register(JELLYFISH_FIELDS_KEY, new Biome.BiomeBuilder()
                 .temperature(0.5f)
                 .downfall(0.0f)
                 .hasPrecipitation(false)
@@ -390,7 +392,7 @@ public class BiomeInit {
                 )
                 .build());
 
-        context.register(VOLCANIC_DARKSEA_KEY, new Biome.BiomeBuilder()
+        register(VOLCANIC_DARKSEA_KEY, new Biome.BiomeBuilder()
                 .temperature(0.4f)
                 .downfall(0.0f)
                 .hasPrecipitation(false)
@@ -452,5 +454,9 @@ public class BiomeInit {
                 )
                 .build());
 
+    }
+
+    private void register(ResourceKey<Biome> key, Biome biome) {
+        context.register(key, biome);
     }
 }

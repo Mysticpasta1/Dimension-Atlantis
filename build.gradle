@@ -55,12 +55,16 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
+    maven { url "https://maven.shedaniel.me" }
 }
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     implementation "curse.maven:geckolib-388172:${geckolib_version}"
     implementation "org.reflections:reflections:${reflections_version}"
+ //  implementation "curse.maven:justhammers-681606:5565145"
+ //  api "dev.architectury:architectury-neoforge:13.0.6"
 }
 
 tasks.withType(ProcessResources).configureEach {

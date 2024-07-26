@@ -3,21 +3,16 @@
 	
 	"pattern":
 	[
-		"CIC",
+		"III",
 		"IOI",
-		"CIC"
+		"III"
 	],
 	
 	"key":
 	{
-		"C":
-		{
-			"item": "minecraft:cobblestone"
-		},
-		
 		"I":
 		{
-			"item": "minecraft:iron_ingot"
+			"item": "atlantis:ancient_metal_ingot"
 		},
 		
 		"O":

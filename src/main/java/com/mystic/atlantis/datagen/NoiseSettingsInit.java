@@ -24,63 +24,63 @@ import static net.minecraft.world.level.levelgen.SurfaceRules.*;
 import static net.minecraft.world.level.levelgen.VerticalAnchor.absolute;
 
 public class NoiseSettingsInit {
-    private final HolderGetter<NormalNoise.NoiseParameters> noiseRegistry;
-    private final HolderGetter<DensityFunction> functionRegistry;
+    private static HolderGetter<NormalNoise.NoiseParameters> noiseRegistry = null;
+    private static HolderGetter<DensityFunction> functionRegistry = null;
 
     public NoiseSettingsInit(BootstrapContext<NoiseGeneratorSettings> context) {
-        this.noiseRegistry = context.lookup(Registries.NOISE);
-        this.functionRegistry = context.lookup(Registries.DENSITY_FUNCTION);
+        noiseRegistry = context.lookup(Registries.NOISE);
+        functionRegistry = context.lookup(Registries.DENSITY_FUNCTION);
 
         context.register(DimensionAtlantis.ATLANTIS_DIMENSION_NOISE_SETTING, new NoiseGeneratorSettings(
-                    new NoiseSettings(-64, 512, 1, 2),
-                    Blocks.STONE.defaultBlockState(),
-                    Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 0),
+                new NoiseSettings(-64, 512, 1, 2),
+                Blocks.STONE.defaultBlockState(),
+                Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 0),
 
-                    new NoiseRouter(
-                            noise(parameters(Noises.AQUIFER_BARRIER), 1, 0.5),
-                            noise(parameters(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 1, 0.67),
-                            noise(parameters(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 1, 0.7142857142857143),
-                            zero(),
-                            shiftedNoise2d(parameters(Noises.TEMPERATURE)),
-                            shiftedNoise2d(parameters(Noises.VEGETATION)),
-                            function(NoiseRouterData.CONTINENTS),
-                            function(NoiseRouterData.EROSION),
-                            function(NoiseRouterData.DEPTH),
-                            function(NoiseRouterData.RIDGES),
-                            zero(),
-                            mul(
-                                    constant(0.64),
-                                    interpolated(
-                                            blendDensity(
-                                                    add(
-                                                            constant(2.5),
-                                                            mul(
-                                                                    yClampedGradient(100, 0, 1, 0),
-                                                                    add(
-                                                                            constant(-2.77),
-                                                                            add(
-                                                                                    constant(2),
-                                                                                    mul(
-                                                                                            yClampedGradient(100, 0, 1, 0),
-                                                                                            add(
-                                                                                                    constant(-2),
-                                                                                                    mul(
-                                                                                                            yClampedGradient(350, 450, 1, 0),
-                                                                                                            function(NoiseRouterData.BASE_3D_NOISE_OVERWORLD)
-                                                                                                    )
-                                                                                            )
-                                                                                    )
-                                                                            )
-                                                                    )
-                                                            )
-                                                    )
-                                            )
-                                    )
-                            ).squeeze(),
-                            zero(),
-                            zero(),
-                            zero()
-                    ),
+                new NoiseRouter(
+                        noise(parameters(Noises.AQUIFER_BARRIER), 1, 0.5),
+                        noise(parameters(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 1, 0.67),
+                        noise(parameters(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 1, 0.7142857142857143),
+                        zero(),
+                        shiftedNoise2d(parameters(Noises.TEMPERATURE)),
+                        shiftedNoise2d(parameters(Noises.VEGETATION)),
+                        function(NoiseRouterData.CONTINENTS),
+                        function(NoiseRouterData.EROSION),
+                        function(NoiseRouterData.DEPTH),
+                        function(NoiseRouterData.RIDGES),
+                        zero(),
+                        mul(
+                                constant(0.64),
+                                interpolated(
+                                        blendDensity(
+                                                add(
+                                                        constant(2.5),
+                                                        mul(
+                                                                yClampedGradient(100, 0, 1, 0),
+                                                                add(
+                                                                        constant(-2.77),
+                                                                        add(
+                                                                                constant(2),
+                                                                                mul(
+                                                                                        yClampedGradient(70, 0, 1, 0),
+                                                                                        add(
+                                                                                                constant(-2),
+                                                                                                mul(
+                                                                                                        yClampedGradient(350, 450, 1, 0),
+                                                                                                        function(NoiseRouterData.BASE_3D_NOISE_OVERWORLD)
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        ).squeeze(),
+                        zero(),
+                        zero(),
+                        zero()
+                ),
                 sequence(
                         conditionalVerticalBlockPlacement("minecraft:bedrock_floor", -58, -54, Blocks.BEDROCK),
                         sequence(
@@ -118,35 +118,35 @@ public class NoiseSettingsInit {
                 false,
                 true,
                 true,
-                false)
-        );
+                false
+        ));
     }
 
-    private RuleSource block(Block block) {
+    private static RuleSource block(Block block) {
         return state(block.defaultBlockState());
     }
 
-    private DensityFunction noise(Holder<NormalNoise.NoiseParameters> parameter, double xz_scale, double y_scale) {
+    private static DensityFunction noise(Holder<NormalNoise.NoiseParameters> parameter, double xz_scale, double y_scale) {
         return DensityFunctions.noise(parameter, xz_scale, y_scale);
     }
 
-    private RuleSource conditionalVerticalBlockPlacement(String name, int min, int max, BlockState state) {
+    private static RuleSource conditionalVerticalBlockPlacement(String name, int min, int max, BlockState state) {
         return ifTrue(verticalGradient(name, absolute(min), absolute(max)), state(state));
     }
 
-    private DensityFunction function(ResourceKey<DensityFunction> key) {
-        return new DensityFunctions.HolderHolder(functionRegistry.getOrThrow(key));
+    private static DensityFunction function(ResourceKey<DensityFunction> key) {
+        return new HolderHolder(functionRegistry.getOrThrow(key));
     }
 
-    private Holder<NormalNoise.NoiseParameters> parameters(ResourceKey<NormalNoise.NoiseParameters> key) {
+    private static Holder<NormalNoise.NoiseParameters> parameters(ResourceKey<NormalNoise.NoiseParameters> key) {
         return noiseRegistry.getOrThrow(key);
     }
 
-    private RuleSource conditionalVerticalBlockPlacement(String name, int min, int max, Block block) {
+    private static RuleSource conditionalVerticalBlockPlacement(String name, int min, int max, Block block) {
         return conditionalVerticalBlockPlacement(name, min, max, block.defaultBlockState());
     }
 
-    private DensityFunction shiftedNoise2d(Holder<NormalNoise.NoiseParameters> noise) {
+    private static DensityFunction shiftedNoise2d(Holder<NormalNoise.NoiseParameters> noise) {
         return DensityFunctions.shiftedNoise2d(
                 function(NoiseRouterData.SHIFT_X),
                 function(NoiseRouterData.SHIFT_Z),
