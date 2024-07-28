@@ -1,0 +1,35 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"OSO",
+		"SWS",
+		"OSO"
+	],
+	
+	"key":
+	{
+		"S":
+		{
+			"item": "atlantis:ancient_metal_ingot"
+		},
+		
+		"O":
+		{
+			"item": "atlantis:aquamarine_gem"
+		},
+		
+		"W":
+		{
+			"item": "minecraft:gold_nugget"
+		}
+	},
+	
+	"result":
+	{
+		"id": "atlantis:drop_of_atlantis",
+		"count": 2
+	}
+	
+}					

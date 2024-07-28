@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"OOO",
+		"OSO",
+		"OOO"
+	],
+	"key":
+	{
+		"S":
+		{
+			"item": "atlantis:atlantean_core"
+		},
+
+		"O":
+		{
+			"item": "atlantis:ancient_metal_ingot"
+		}
+	},
+	"result":
+	{
+		"id": "atlantis:atlantean_portal_frame",
+		"count": 1
+	}
+	
+}					

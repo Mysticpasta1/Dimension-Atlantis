@@ -83,6 +83,8 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         itemTool(ItemInit.ORICHALCUM_SHOVEL);
         itemTool(ItemInit.ORICHALCUM_SWORD);
         itemTool(ItemInit.ORICHALCUM_HOE);
+        itemTool(ItemInit.ORICHALCUM_HAMMER);
+        itemTool(ItemInit.AQUAMARINE_HAMMER);
 
         item(ItemInit.ANCIENT_METAL_INGOT);
         item(ItemInit.RAW_ANCIENT_METAL_INGOT);

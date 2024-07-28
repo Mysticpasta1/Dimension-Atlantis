@@ -2,7 +2,10 @@ package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
 import com.mystic.atlantis.config.AtlantisConfig;
-import com.mystic.atlantis.feature.AtlantisFeature;
+import com.mystic.atlantis.datagen.BiomeInit;
+import com.mystic.atlantis.datagen.EnchantmentInit;
+import com.mystic.atlantis.datagen.NoiseSettingsInit;
+import com.mystic.atlantis.feature.FeaturesInit;
 import com.mystic.atlantis.datagen.Providers;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.*;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -39,7 +43,7 @@ public class Atlantis {
         modContainer.registerConfig(ModConfig.Type.COMMON, AtlantisConfig.CONFIG_SPEC);
         ModParticleTypes.PARTICLES.register(bus);
         onInitialize(bus);
-        AtlantisFeature.init(bus);
+        FeaturesInit.init(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
     }
@@ -54,8 +58,11 @@ public class Atlantis {
         return ResourceKey.create(Registries.DIMENSION, OVERWORLD_ID);
     }
 
+    public static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, id(name));
+    }
+
     public void onInitialize(IEventBus bus) {
-        GeckoLibClient.init();
         BlockInit.init(bus);
         BasicArmorMaterial.init(bus);
         ItemInit.init(bus);

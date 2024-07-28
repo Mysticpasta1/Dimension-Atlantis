@@ -9,7 +9,10 @@ import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class OverlayEventHandler implements LayeredDraw.Layer {
 
     public static final ResourceLocation COCONUT_BLUR = ResourceLocation.fromNamespaceAndPath("atlantis", "textures/misc/coconutblur.png");

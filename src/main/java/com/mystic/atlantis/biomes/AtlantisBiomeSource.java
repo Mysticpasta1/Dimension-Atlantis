@@ -1,20 +1,24 @@
 package com.mystic.atlantis.biomes;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mystic.atlantis.Atlantis;
+import com.mystic.atlantis.datagen.BiomeInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 
@@ -23,6 +27,8 @@ public class AtlantisBiomeSource extends BiomeSource {
             RegistryOps.retrieveRegistryLookup(Registries.BIOME).forGetter(AtlantisBiomeSource::biomeHolderLookup),
             Codec.intRange(1, 20).fieldOf("biome_size").orElse(2).forGetter(AtlantisBiomeSource::biomeSize),
             Codec.LONG.fieldOf("seed").stable().forGetter(AtlantisBiomeSource::seed)).apply(instance, AtlantisBiomeSource::new));
+
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> PARAMETER_LIST = ResourceKey.create(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, ResourceLocation.parse("atlantis:atlantis_list"));
 
     public static final ResourceLocation ATLANTEAN_GARDEN = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "atlantean_garden");
     public static final ResourceLocation ATLANTIS_BIOME = ResourceLocation.fromNamespaceAndPath(Reference.MODID, "atlantis_biome");

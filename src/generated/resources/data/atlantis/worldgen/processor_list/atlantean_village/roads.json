@@ -1,0 +1,22 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "location_predicate": {
+            "block": "atlantis:atlantean_planks",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "minecraft:sand"
+          }
+        }
+      ]
+    }
+  ]
+}

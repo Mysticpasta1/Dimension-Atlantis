@@ -1,0 +1,30 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"III",
+		"IOI",
+		"III"
+	],
+	
+	"key":
+	{
+		"I":
+		{
+			"item": "atlantis:ancient_metal_ingot"
+		},
+		
+		"O":
+		{
+			"item": "atlantis:ocean_lantern"
+		}
+	},
+	
+	"result":
+	{
+		"id": "atlantis:atlantean_core",
+		"count": 1
+	}
+	
+}					

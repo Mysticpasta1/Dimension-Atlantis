@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "#atlantis:atlantis_biome",
+      "required": false
+    },
+    {
+      "id": "#atlantis:atlantean_garden",
+      "required": false
+    },
+    {
+      "id": "#atlantis:atlantean_islands_biome",
+      "required": false
+    },
+    {
+      "id": "#atlantis:goo_lagoons",
+      "required": false
+    },
+    {
+      "id": "#atlantis:jellyfish_fields",
+      "required": false
+    },
+    {
+      "id": "#atlantis:volcanic_darksea",
+      "required": false
+    }
+  ]
+}
