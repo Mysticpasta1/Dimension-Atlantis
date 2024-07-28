@@ -43,9 +43,8 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-//import pro.mikey.justhammers.HammerTags;
+import pro.mikey.justhammers.HammerTags;
 
 import java.util.List;
 import java.util.OptionalLong;
@@ -61,14 +60,14 @@ public class Providers {
         var output = event.getGenerator().getPackOutput();
 
         var registryProvider = new DatapackBuiltinEntriesProvider(output, RegistryPatchGenerator.createLookup(event.getLookupProvider(), new RegistrySetBuilder()
-                .add(Registries.ENCHANTMENT, EnchantmentInit::bootstrap)
-                .add(Registries.BIOME, BiomeInit::new)
-                .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::bootstrap)
-                .add(Registries.PLACED_FEATURE, PlacedFeatureInit::bootstrap)
+                .add(Registries.ENCHANTMENT, EnchantmentInit::new)
+                .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::new)
+                .add(Registries.PLACED_FEATURE, PlacedFeatureInit::new)
                 .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
                         OptionalLong.empty(),
                         true, false, false, false, 1, true, true, -64, 512, 512, BlockTags.INFINIBURN_OVERWORLD, DimensionAtlantis.ATLANTIS_DIMENSION_EFFECT, 0, new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
                 )))
+                .add(Registries.BIOME, BiomeInit::new)
                 .add(Registries.LEVEL_STEM, DimensionAtlantis::new)
                 .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
                 .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
@@ -157,7 +156,7 @@ public class Providers {
 
                 ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, group.cut_stairs().get(), 4)
                         .pattern("#  ")
-                        .pattern("## ")
+                        .pattern("## ")//import pro.mikey.justhammers.HammerTags;
                         .pattern("###")
                         .define('#', group.cut().get())
                         .unlockedBy(getHasName(ItemInit.ANCIENT_METAL_INGOT.get()), has(ItemInit.ANCIENT_METAL_INGOT.get()))
@@ -550,9 +549,9 @@ public class Providers {
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
                 TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
-              //  tag(HammerTags.HAMMERS).add(
-              //          ItemInit.AQUAMARINE_HAMMER.get(),
-              //          ItemInit.ORICHALCUM_HAMMER.get());
+                tag(HammerTags.HAMMERS).add(
+                        ItemInit.AQUAMARINE_HAMMER.get(),
+                        ItemInit.ORICHALCUM_HAMMER.get());
                 tag(ItemTags.TRIMMABLE_ARMOR).add(
                         ItemInit.AQUAMARINE_BOOTS.get(),
                         ItemInit.AQUAMARINE_CHESTPLATE.get(),

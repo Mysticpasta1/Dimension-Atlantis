@@ -1,5 +1,6 @@
 package com.mystic.atlantis.datagen;
 
+import com.mystic.atlantis.init.ItemInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -23,8 +24,6 @@ public class EnchantmentInit {
 
     public static final ResourceKey<Enchantment> LIGHTNING_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(Reference.MODID, "lightning_protection"));
 
-    public static final ResourceKey<Enchantment> DEEPER_DEPTH = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(Reference.MODID, "deeper_depth"));
-
     public static void init(IEventBus bus) {
         ENCHANTMENT.register(bus);
     }
@@ -33,18 +32,12 @@ public class EnchantmentInit {
         return level.registryAccess().registry(Registries.ENCHANTMENT).get().getHolderOrThrow(resourceKey);
     }
 
-    public static void bootstrap(BootstrapContext<Enchantment> context) {
+    public EnchantmentInit(BootstrapContext<Enchantment> context) {
         register(context, LIGHTNING_PROTECTION, new Enchantment.Builder(new Enchantment.EnchantmentDefinition(
                 HolderSet.direct(BuiltInRegistries.ITEM.getOrCreateTag(ItemTags.CHEST_ARMOR_ENCHANTABLE).stream().toList()),
                 Optional.of(HolderSet.direct(BuiltInRegistries.ITEM.getOrCreateTag(ItemTags.CHEST_ARMOR_ENCHANTABLE).stream().toList())),
                 1, 1, Enchantment.constantCost(2),Enchantment.constantCost(32),
                 3, List.of(EquipmentSlotGroup.CHEST))));
-
-        register(context, DEEPER_DEPTH, new Enchantment.Builder(new Enchantment.EnchantmentDefinition(
-                HolderSet.direct(BuiltInRegistries.ITEM.getOrCreateTag(ItemTags.MINING_ENCHANTABLE).stream().toList()),
-                Optional.of(HolderSet.direct(BuiltInRegistries.ITEM.getOrCreateTag(ItemTags.MINING_ENCHANTABLE).stream().toList())),
-                1, 1, Enchantment.constantCost(2),Enchantment.constantCost(32),
-                3, List.of(EquipmentSlotGroup.MAINHAND))));
     }
 
     private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {

@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.*;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class NoiseSettingsInit {
                                                 add(
                                                         constant(2.5),
                                                         mul(
-                                                                yClampedGradient(100, 0, 1, 0),
+                                                                yClampedGradient(70, 0, 1, 0),
                                                                 add(
                                                                         constant(-2.77),
                                                                         add(
@@ -82,35 +83,15 @@ public class NoiseSettingsInit {
                         zero()
                 ),
                 sequence(
-                        conditionalVerticalBlockPlacement("minecraft:bedrock_floor", -58, -54, Blocks.BEDROCK),
+                        conditionalVerticalBlockPlacement("minecraft:bedrock_floor", -55, -54, Blocks.BEDROCK),
                         sequence(
-                                conditionalVerticalBlockPlacement("atlantis:deepslate_layer", -1, 5, Blocks.DEEPSLATE.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X)),
-                                conditionalVerticalBlockPlacement("atlantis:stone_layer", 29, 34, Blocks.STONE),
-                                conditionalVerticalBlockPlacement("atlantis:detritus_sandstone_layer", 49, 56, BlockInit.DETRITUS_SANDSTONE.get()),
-                                conditionalVerticalBlockPlacement("atlantis:sandstone_layer", 58, 64, Blocks.SANDSTONE),
-                                conditionalVerticalBlockPlacement("atlantis:seabed_layer", 58, 64, BlockInit.SEABED.get()),
-                                ifTrue(waterBlockCheck(0, 0),
-                                        ifTrue(
-                                                waterBlockCheck(-1, 0),
-                                                sequence(
-                                                        sequence(
-                                                                sequence(
-                                                                        ifTrue(
-                                                                                waterBlockCheck(0, 0),
-                                                                                block(Blocks.SAND)
-                                                                        )
-                                                                )
-                                                        )
-                                                )
-                                        )
-                                ),
-                                ifTrue(waterStartCheck(2, -1),
-                                        sequence(
-                                                ifTrue(stoneDepthCheck(0, true, 0, CaveSurface.FLOOR),
-                                                        block(Blocks.SANDSTONE)
-                                                )
-                                        )
-                                )
+                                conditionalVerticalBlockPlacement("atlantis:deepslate_layer", 4, 5, Blocks.DEEPSLATE.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X)),
+                                conditionalVerticalBlockPlacement("atlantis:stone_layer", 33, 34, Blocks.STONE),
+                                conditionalVerticalBlockPlacement("atlantis:detritus_sandstone_layer", 55, 56, BlockInit.DETRITUS_SANDSTONE.get()),
+                                conditionalVerticalBlockPlacement("atlantis:sandstone_layer", 64, 65, Blocks.SANDSTONE),
+                                conditionalVerticalBlockPlacement("atlantis:seabed_layer", 199, 200, BlockInit.SEABED.get()),
+                                ifTrue(stoneDepthCheck(2, true, 3, CaveSurface.FLOOR), block(Blocks.SAND)),
+                                ifTrue(stoneDepthCheck(0, true, 2000, CaveSurface.FLOOR), block(Blocks.SANDSTONE))
                         )
                 ),
                 List.of(),

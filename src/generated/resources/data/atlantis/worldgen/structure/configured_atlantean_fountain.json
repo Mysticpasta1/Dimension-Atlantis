@@ -10,8 +10,8 @@
       "spawns": [
         {
           "type": "atlantis:atlantean_starfish",
-          "maxCount": 6,
-          "minCount": 3,
+          "maxCount": 2,
+          "minCount": 2,
           "weight": 25
         }
       ]

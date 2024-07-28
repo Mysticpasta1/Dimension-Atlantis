@@ -10,7 +10,7 @@
       "spawns": [
         {
           "type": "minecraft:guardian",
-          "maxCount": 5,
+          "maxCount": 2,
           "minCount": 2,
           "weight": 25
         }

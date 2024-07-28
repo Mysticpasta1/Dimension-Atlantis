@@ -63,7 +63,6 @@ public class Atlantis {
     }
 
     public void onInitialize(IEventBus bus) {
-        GeckoLibClient.init();
         BlockInit.init(bus);
         BasicArmorMaterial.init(bus);
         ItemInit.init(bus);

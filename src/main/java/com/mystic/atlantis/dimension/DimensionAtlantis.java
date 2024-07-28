@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.datagen.BiomeInit;
 import com.mystic.atlantis.datagen.NoiseSettingsInit;
 import com.mystic.atlantis.util.Reference;
+import dev.architectury.annotations.ForgeEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -28,7 +29,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = Reference.MODID, value = Dist.DEDICATED_SERVER)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = Reference.MODID)
 public class DimensionAtlantis {
     public static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCE = DeferredRegister.create(BuiltInRegistries.BIOME_SOURCE, Reference.MODID);
     public static ResourceKey<Level> ATLANTIS_WORLD = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("atlantis:atlantis"));

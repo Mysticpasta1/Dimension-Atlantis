@@ -72,7 +72,7 @@ public class ClientSetup {
         registerPlantRenderer(TileEntityInit.ANEMONE_TILE, "anemone");
 
         for (DyeColor dyeColor : DyeColor.values()) {
-            registerBlockRenderLayers(RenderType.translucent(),
+            registerBlockRenderLayers(RenderType.cutoutMipped(),
                     MOSSY_SHELL_BLOCKS.get(dyeColor).get(),
                     CRACKED_MOSSY_SHELL_BLOCKS.get(dyeColor).get());
         }

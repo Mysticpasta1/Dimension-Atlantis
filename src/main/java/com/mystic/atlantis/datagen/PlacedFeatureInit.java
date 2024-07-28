@@ -42,7 +42,7 @@ public class PlacedFeatureInit {
         return ResourceKey.create(Registries.PLACED_FEATURE, Atlantis.id(name));
     }
 
-    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
+    public PlacedFeatureInit(BootstrapContext<PlacedFeature> context) {
         var registry = context.lookup(Registries.CONFIGURED_FEATURE);
 
         register(context, registry, ANCIENT_METAL_PLACED, ANCIENT_METAL_CONFIGURED,

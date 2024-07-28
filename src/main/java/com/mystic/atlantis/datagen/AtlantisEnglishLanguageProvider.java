@@ -240,10 +240,10 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.MOSSY_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
-        //this.add(ItemInit.AQUAMARINE_HAMMER.get(), "Aquamarine Hammer");
+        this.add(ItemInit.AQUAMARINE_HAMMER.get(), "Aquamarine Hammer");
         this.add("aquamarine_hammer.description", "An ancient hammer from long ago");
         this.add("aquamarine_hammer.tooltip", "Right click to break blocks in a 3x3 area");
-        //this.add(ItemInit.ORICHALCUM_HAMMER.get(), "Orichalcum Hammer");
+        this.add(ItemInit.ORICHALCUM_HAMMER.get(), "Orichalcum Hammer");
         this.add("orichalcum_hammer.description", "A hammer made from the rarest of materials");
         this.add("orichalcum_hammer.tooltip", "Right click to break blocks in a 5x5 area");
         this.add("enchantment.atlantis.deeper_depth", "Deeper Depth");

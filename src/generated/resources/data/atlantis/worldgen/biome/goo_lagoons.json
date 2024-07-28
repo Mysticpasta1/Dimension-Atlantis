@@ -68,14 +68,14 @@
     "monster": [
       {
         "type": "minecraft:drowned",
-        "maxCount": 6,
-        "minCount": 4,
+        "maxCount": 2,
+        "minCount": 2,
         "weight": 25
       },
       {
         "type": "minecraft:skeleton",
-        "maxCount": 6,
-        "minCount": 4,
+        "maxCount": 2,
+        "minCount": 2,
         "weight": 25
       }
     ],
@@ -83,51 +83,45 @@
     "water_ambient": [
       {
         "type": "atlantis:atlantean_jellyfish",
-        "maxCount": 3,
+        "maxCount": 2,
         "minCount": 2,
         "weight": 25
       },
       {
         "type": "atlantis:atlantean_shrimp",
-        "maxCount": 5,
-        "minCount": 4,
+        "maxCount": 2,
+        "minCount": 2,
         "weight": 25
       },
       {
         "type": "minecraft:tropical_fish",
-        "maxCount": 20,
-        "minCount": 8,
+        "maxCount": 2,
+        "minCount": 2,
         "weight": 25
       }
     ],
     "water_creature": [
       {
         "type": "minecraft:squid",
-        "maxCount": 3,
+        "maxCount": 2,
         "minCount": 2,
         "weight": 25
       },
       {
         "type": "atlantis:atlantean_crab",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 25
-      },
-      {
-        "type": "atlantis:atlantean_seahorse",
-        "maxCount": 7,
+        "maxCount": 2,
         "minCount": 2,
         "weight": 25
       },
       {
         "type": "atlantis:atlantean_starfish",
-        "maxCount": 5,
-        "minCount": 3,
+        "maxCount": 2,
+        "minCount": 2,
         "weight": 25
       },
       {
-        "type": "atlantis:leviathan",
-        "maxCount": 3,
+        "type": "atlantis:atlantean_seahorse",
+        "maxCount": 2,
         "minCount": 2,
         "weight": 25
       }

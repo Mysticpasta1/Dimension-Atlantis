@@ -50,7 +50,7 @@ public class ConfiguredFeaturesInit {
     public static final ResourceKey<ConfiguredFeature<?, ?>> GARDEN_FOLIAGE_CONFIGURED = Atlantis.configuredFeatureKey("garden_foliage_configured");
     public static final ResourceKey<ConfiguredFeature<?, ?>> UNDERWATER_MUSHROOM_CONFIGURED = Atlantis.configuredFeatureKey("underwater_mushroom_configured");
 
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+    public ConfiguredFeaturesInit(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         registerOre(context, ANCIENT_METAL_CONFIGURED, BlockInit.ANCIENT_METAL_ORE, BlockInit.DEEPSLATE_ANCIENT_METAL_ORE, 12, 0);
         registerOre(context, AQUAMARINE_CONFIGURED, BlockInit.AQUAMARINE_ORE, BlockInit.AQUAMARINE_DEEPSLATE_ORE, 10, 0);
         registerOre(context, ORE_SUNKEN_GRAVEL_CONFIGURED, BlockInit.SUNKEN_GRAVEL, BlockInit.SUNKEN_GRAVEL, 40, 0);

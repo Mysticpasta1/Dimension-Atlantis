@@ -10,8 +10,8 @@
       "spawns": [
         {
           "type": "minecraft:drowned",
-          "maxCount": 12,
-          "minCount": 6,
+          "maxCount": 2,
+          "minCount": 2,
           "weight": 25
         }
       ]

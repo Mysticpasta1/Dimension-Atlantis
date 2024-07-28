@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/air",
   "textures": {
-  "particle": "atlantis:block/enenmomy"
+  "particle": "atlantis:block/anemone"
   }
 }

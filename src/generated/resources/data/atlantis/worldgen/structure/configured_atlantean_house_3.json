@@ -10,8 +10,8 @@
       "spawns": [
         {
           "type": "minecraft:tropical_fish",
-          "maxCount": 10,
-          "minCount": 4,
+          "maxCount": 2,
+          "minCount": 2,
           "weight": 25
         }
       ]

@@ -53,10 +53,10 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .spawnOverrides(Map.of(MobCategory.WATER_CREATURE, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(AtlantisEntityInit.STARFISH.get(),
-                                        25, 3, 6)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.BEARD_THIN)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.ATLANTEAN_VILLAGE_START).getDelegate(),
@@ -72,10 +72,10 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .spawnOverrides(Map.of(MobCategory.WATER_CREATURE, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(AtlantisEntityInit.STARFISH.get(),
-                                        25, 3, 6)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.NONE)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.ATLANTEAN_FOUNTAIN).getDelegate(),
@@ -89,7 +89,7 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.NONE)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.ATLANTIS_HOUSE_1).getDelegate(),
@@ -103,7 +103,7 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.NONE)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.ATLANTIS_HOUSE_3).getDelegate(),
@@ -117,13 +117,13 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .spawnOverrides(Map.of(MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(),
-                                        25, 3, 6)))))
+                                        25, 2, 2)))))
                         .spawnOverrides(Map.of(MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.DROWNED,
-                                        25, 6, 12)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.NONE)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.ATLANTEAN_SPIRE).getDelegate(),
@@ -137,10 +137,10 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .spawnOverrides(Map.of(MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.GUARDIAN,
-                                        25, 2, 5)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.NONE)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.ATLANTEAN_TEMPLE).getDelegate(),
@@ -154,7 +154,7 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.NONE)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.ATLANTIS_TOWER).getDelegate(),
@@ -168,10 +168,10 @@ public class StructureInit {
                         .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                         .spawnOverrides(Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
-                                        25, 4, 10)))))
+                                        25, 2, 2)))))
                         .spawnOverrides(Map.of(MobCategory.WATER_CREATURE, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(AtlantisEntityInit.STARFISH.get(),
-                                        25, 3, 6)))))
+                                        25, 2, 2)))))
                         .terrainAdapation(TerrainAdjustment.NONE)
                         .build(),
                 holderGetter1.getOrThrow(TemplatePoolInit.OYSTER_STRUCTURE).getDelegate(),
