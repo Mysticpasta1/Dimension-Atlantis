@@ -3,6 +3,7 @@ package com.mystic.atlantis.datagen;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.blocks.base.LinguisticGlyph;
 import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.GlyphBlock;
 import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -81,6 +82,8 @@ public class AtlantisItemModelProvider extends ItemModelProvider {
         itemTool(ItemInit.ORICHALCUM_SHOVEL);
         itemTool(ItemInit.ORICHALCUM_SWORD);
         itemTool(ItemInit.ORICHALCUM_HOE);
+        itemTool(ItemInit.ORICHALCUM_HAMMER);
+        itemTool(ItemInit.AQUAMARINE_HAMMER);
 
         item(ItemInit.ANCIENT_METAL_INGOT);
         item(ItemInit.RAW_ANCIENT_METAL_INGOT);

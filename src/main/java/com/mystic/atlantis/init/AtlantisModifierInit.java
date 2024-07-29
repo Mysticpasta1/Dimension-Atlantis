@@ -60,7 +60,7 @@ public class AtlantisModifierInit {
 		}
 	}
 
-	private static class SeaGrassModifier extends LootModifier {
+	public static class SeaGrassModifier extends LootModifier {
 		public static final Supplier<Codec<SeaGrassModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst)
 				.apply(inst, SeaGrassModifier::new)
 				));

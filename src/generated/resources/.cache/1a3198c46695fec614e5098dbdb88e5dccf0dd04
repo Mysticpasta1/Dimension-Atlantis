@@ -1,5 +1,6 @@
-// 1.20.1	2024-07-13T13:40:44.853975088	Item Models: atlantis
+// 1.20.1	2024-07-29T12:14:19.9011403	Item Models: atlantis
 e82ef1424abbedc5555c8b6f4f20dc142e29d12f assets/atlantis/models/item/ancient_metal_ingot.json
+930963084e9a291523dfdc18cfcd5f641d0a8cdd assets/atlantis/models/item/aquamarine_hammer.json
 beebc8b3b30d3adf0b798953152e0c8e6d0b05fa assets/atlantis/models/item/black_linguistic_glyph.json
 b674ed07b2975fad63b10811560d1234a989814f assets/atlantis/models/item/black_linguistic_glyph_0.json
 4e5cbb87c1a50d89f2d6e03cb1d42fdc6d2a3316 assets/atlantis/models/item/black_linguistic_glyph_1.json
@@ -487,6 +488,7 @@ d93f66b90889ed8c629f8bfc2cd0ecb2fc4e3bfc assets/atlantis/models/item/orange_ling
 c0b7e8ae45025370390f87c59c561ee9af6eff16 assets/atlantis/models/item/orichalcum_block.json
 9be346a182f5431f665620dd23eccfdea9480e6c assets/atlantis/models/item/orichalcum_boots.json
 90560d204f50a7e0a5d173412ffc5f8c79209c5b assets/atlantis/models/item/orichalcum_chestplate.json
+47764bbe580c925a59647ed98a006fd685dabe4a assets/atlantis/models/item/orichalcum_hammer.json
 f184d9eab7d46d5bf09227954bd7c16cfad648dc assets/atlantis/models/item/orichalcum_helmet.json
 8021496cf559dc4737b756378aa37fe91cc06aef assets/atlantis/models/item/orichalcum_hoe.json
 cfb9a862c398ac591359f22cebb29b9b05e45014 assets/atlantis/models/item/orichalcum_ingot.json

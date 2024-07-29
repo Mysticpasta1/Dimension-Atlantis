@@ -19,7 +19,13 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
     @Override
     protected void registerModels() {
         this.cubeAll(BlockInit.ORICHALCUM_BLOCK);
-        this.cubeBottomTop("writing_block", Atlantis.id("block/writing_table_side"), Atlantis.id("block/atlantean_planks"), Atlantis.id("block/writing_table_top"));
+        this.cube("writing_block",
+                Atlantis.id("block/writing_table_top"),
+                Atlantis.id("block/linguistic_table_bottom"),
+                Atlantis.id("block/writing_table_side"),
+                Atlantis.id("block/writing_table_side_1"),
+                Atlantis.id("block/writing_table_side_0"),
+                Atlantis.id("block/writing_table_side_2"));
 
         BlockInit.ANCIENT_METALS.values().stream().map(TrailsGroup::bulb).forEach(holder -> {
             cubeAll(holder, "_unlit");

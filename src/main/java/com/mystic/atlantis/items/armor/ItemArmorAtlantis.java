@@ -19,7 +19,7 @@ import java.util.Random;
 public class ItemArmorAtlantis extends ArmorItem {
     private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, MobEffect>())
-                    .put(BasicArmorMaterial.ARMOR_AQUAMARINE, MobEffects.DOLPHINS_GRACE).build();
+                    .put(BasicArmorMaterial.ARMOR_AQUAMARINE, MobEffects.DIG_SPEED).build();
 
     public ItemArmorAtlantis(ArmorMaterial material, Type slot, Properties settings) {
         super(material, slot, settings);

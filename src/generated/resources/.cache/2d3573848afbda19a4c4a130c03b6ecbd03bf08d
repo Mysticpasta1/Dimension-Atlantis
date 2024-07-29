@@ -1,2 +1,3 @@
-// 1.20.1	2024-07-13T13:40:44.852044399	Tags for minecraft:item mod id atlantis
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/atlantis/tags/items/can_item_sink.json
+// 1.20.1	2024-07-29T12:43:56.271042152	Tags for minecraft:item mod id atlantis
+827fd35f3821f9f71c3485590a0a04226b03e9b6 data/atlantis/tags/items/can_item_sink.json
+4ae8c8aa602c31a3c4bbc015e923d4b5dcb34aba data/minecraft/tags/items/trimmable_armor.json

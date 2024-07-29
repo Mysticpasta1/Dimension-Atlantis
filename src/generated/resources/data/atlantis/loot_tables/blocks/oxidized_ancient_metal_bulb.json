@@ -3,12 +3,16 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ],
+          "name": "atlantis:oxidized_ancient_metal_bulb"
+        },
         {
           "type": "minecraft:item",
           "name": "atlantis:oxidized_ancient_metal_bulb"

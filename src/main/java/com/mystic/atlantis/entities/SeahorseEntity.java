@@ -65,7 +65,7 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     }
 
     public static boolean canSpawn(EntityType<SeahorseEntity> seahorseEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
+        return pos.getY() >= 75 && 78 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
     }
 
     @Override

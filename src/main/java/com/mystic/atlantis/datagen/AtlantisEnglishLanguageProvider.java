@@ -2,7 +2,10 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
-import com.mystic.atlantis.init.*;
+import com.mystic.atlantis.init.AtlantisEntityInit;
+import com.mystic.atlantis.init.BlockInit;
+import com.mystic.atlantis.init.GlyphBlock;
+import com.mystic.atlantis.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
@@ -19,6 +22,14 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
     public AtlantisEnglishLanguageProvider(PackOutput generator) {
         super(generator, "atlantis", "en_us");
     }
+
+
+    /* TODO: NEXT TIME YOU TOUCH THIS READ THIS WATERPICKER!!!
+        make all of the translations equal to the ones in the current lang files of en_us.json
+        add all of the translations for the items, blocks, etc
+        make lang files for other languages that we include at the current moment!
+        after this is done then and only then remove lang files from the normal resources folder
+    */
 
     @Override
     protected void addTranslations() {
@@ -71,7 +82,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.TUBER_UP_BLOCK, "Tuber Up Block");
         this.addBlock(BlockInit.BLUE_LILY_BLOCK, "Blue Lily Block");
         this.addBlock(BlockInit.BURNT_DEEP_BLOCK, "Burnt Deep Block");
-        this.addBlock(BlockInit.ENENMOMY_BLOCK, "Anemone Block");
+        this.addBlock(BlockInit.ANEMONE_BLOCK, "Anemone Block");
         this.addBlock(BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR, "Ancient Dark Oak Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR, "Ancient Birch Wood Moss Trapdoor");
         this.addBlock(BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR, "Ancient Spruce Wood Moss Trapdoor");
@@ -230,6 +241,13 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         for (RegistryObject<Block> block : BlockInit.MOSSY_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
+        this.add(ItemInit.AQUAMARINE_HAMMER.get(), "Aquamarine Hammer");
+        this.add("aquamarine_hammer.description", "An ancient hammer from long ago");
+        this.add("aquamarine_hammer.tooltip", "Right click to break blocks in a 3x3 area");
+        this.add(ItemInit.ORICHALCUM_HAMMER.get(), "Orichalcum Hammer");
+        this.add("orichalcum_hammer.description", "A hammer made from the rarest of materials");
+        this.add("orichalcum_hammer.tooltip", "Right click to break blocks in a 5x5 area");
+        this.add("enchantment.atlantis.deeper_depth", "Deeper Depth");
 
         this.add("item.atlantis.smithing_template.orichalcum_upgrade.ingredients", "Orichalcum Ingot");
         this.add("item.atlantis.smithing_template.orichalcum_upgrade.base_slot_description", "Add orichalcum armor, weapon, or tool");
@@ -450,7 +468,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         addItem(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
     }
 
-    private <T extends Block> void addBlock(RegistryObject<T> registryObject) {
+    private <T extends Block> void addBlock(RegistryObject< T> registryObject) {
         addBlock(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
     }
 

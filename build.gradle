@@ -146,6 +146,7 @@ dependencies {
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}")
     implementation fg.deobf("curse.maven:architectury-api-419699:${architectury_version}")
     implementation fg.deobf("org.reflections:reflections:${reflections_version}")
+    implementation fg.deobf("curse.maven:justhammers-681606:4995650")
 }
 
 mixin {
@@ -153,10 +154,6 @@ mixin {
     config "atlantis.mixins.json"
     
     debug.verbose = true
-}
-
-processResources {
-    duplicatesStrategy = DuplicatesStrategy.WARN
 }
 
 jar {

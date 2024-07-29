@@ -26,6 +26,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -145,16 +146,18 @@ public class ItemInit {
     public static final RegistryObject<Item> SEAHORSE_BUCKET = register("seahorse_bucket", ()->new AtlanteanEntityBucketItem(AtlantisEntityInit.SEAHORSE, ()->Fluids.WATER, ()-> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
 
     //TOOLS
-    public static final RegistryObject<Item> AXE_AQUAMARINE = register("axe_aquamarine", () -> new AquamarineAxe(ToolInit.AQUAMARINE, 3));
-    public static final RegistryObject<Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", () -> new AquamarinePickaxe(ToolInit.AQUAMARINE, 2));
-    public static final RegistryObject<Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", () -> new AquamarineShovel(ToolInit.AQUAMARINE, 1));
-    public static final RegistryObject<Item> HOE_AQUAMARINE = register("hoe_aquamarine", () -> new AquamarineHoe(ToolInit.AQUAMARINE, 2));
-    public static final RegistryObject<Item> SWORD_AQUAMARINE = register("sword_aquamarine", () -> new AquamarineSword(ToolInit.AQUAMARINE, 4));
-    public static final RegistryObject<Item> ORICHALCUM_AXE = register("orichalcum_axe", () -> new AquamarineAxe(ToolInit.ORICHAClUM, 3));
-    public static final RegistryObject<Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", () -> new AquamarinePickaxe(ToolInit.ORICHAClUM, 2));
-    public static final RegistryObject<Item> ORICHALCUM_SHOVEL = register("orichalcum_shovel", () -> new AquamarineShovel(ToolInit.ORICHAClUM, 1));
-    public static final RegistryObject<Item> ORICHALCUM_HOE = register("orichalcum_hoe", () -> new AquamarineHoe(ToolInit.ORICHAClUM, 2));
-    public static final RegistryObject<Item> ORICHALCUM_SWORD = register("orichalcum_sword", () -> new AquamarineSword(ToolInit.ORICHAClUM, 4));
+    public static final RegistryObject<Item> AXE_AQUAMARINE = register("axe_aquamarine", () -> new AtlanteanAxe(ToolInit.AQUAMARINE, 3));
+    public static final RegistryObject<Item> PICKAXE_AQUAMARINE = register("pickaxe_aquamarine", () -> new AtlanteanPickaxe(ToolInit.AQUAMARINE, 2));
+    public static final RegistryObject<Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", () -> new AtlanteanShovel(ToolInit.AQUAMARINE, 1));
+    public static final RegistryObject<Item> HOE_AQUAMARINE = register("hoe_aquamarine", () -> new AtlanteanHoe(ToolInit.AQUAMARINE, 2));
+    public static final RegistryObject<Item> SWORD_AQUAMARINE = register("sword_aquamarine", () -> new AtlanteanSword(ToolInit.AQUAMARINE, 4));
+    public static final RegistryObject<Item> AQUAMARINE_HAMMER = register("aquamarine_hammer", AquamarineHammer::new);
+    public static final RegistryObject<Item> ORICHALCUM_AXE = register("orichalcum_axe", () -> new AtlanteanAxe(ToolInit.ORICHALCUM, 3));
+    public static final RegistryObject<Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", () -> new AtlanteanPickaxe(ToolInit.ORICHALCUM, 2));
+    public static final RegistryObject<Item> ORICHALCUM_SHOVEL = register("orichalcum_shovel", () -> new AtlanteanShovel(ToolInit.ORICHALCUM, 1));
+    public static final RegistryObject<Item> ORICHALCUM_HOE = register("orichalcum_hoe", () -> new AtlanteanHoe(ToolInit.ORICHALCUM, 2));
+    public static final RegistryObject<Item> ORICHALCUM_SWORD = register("orichalcum_sword", () -> new AtlanteanSword(ToolInit.ORICHALCUM, 4));
+    public static final RegistryObject<Item> ORICHALCUM_HAMMER = register("orichalcum_hammer", OrichalcumHammer::new);
 
     //ARMOR
     public static final RegistryObject<Item> AQUAMARINE_HELMET = register("aquamarine_helmet", () -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, ArmorItem.Type.HELMET, new Item.Properties()));
@@ -188,6 +191,10 @@ public class ItemInit {
         RegistryObject<Item> registryObject = registerToGlyph("linguistic_glyph_scroll" + symbol.toString(), () -> new LinguisticGlyphScrollItem(symbol));
         scrolls.put(symbol, registryObject);
         return registryObject;
+    }
+
+    public static List<Item> getScrolls() {
+        return scrolls.values().stream().map(Supplier::get).toList();
     }
     
     public static RegistryObject<Item> getScroll(LinguisticGlyph a) {

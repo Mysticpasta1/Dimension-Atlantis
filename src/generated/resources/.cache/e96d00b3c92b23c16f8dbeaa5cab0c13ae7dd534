@@ -1,3 +1,9 @@
-// 1.20.1	2024-07-13T13:40:44.868668813	Tags for minecraft:block mod id atlantis
-70afd51cbfe72d1a874d09dc18b94ae294210adc data/minecraft/tags/blocks/mineable/pickaxe.json
-70afd51cbfe72d1a874d09dc18b94ae294210adc data/minecraft/tags/blocks/needs_iron_tool.json
+// 1.20.1	2024-07-29T12:43:56.276691717	Tags for minecraft:block mod id atlantis
+9a662d1ed8234ae351134754011a8a37075bb340 data/minecraft/tags/blocks/climbable.json
+b1b73a6e1c9669cde24cfaf565b6b4037912f006 data/minecraft/tags/blocks/leaves.json
+dd675ae29c1b2fc250cf6156b174c5b772cb0c2c data/minecraft/tags/blocks/logs.json
+eac53552da959a8a51a8a8066a999e133e012013 data/minecraft/tags/blocks/mineable/axe.json
+8953c3efdec95e625c1618b58b00145c104fcebc data/minecraft/tags/blocks/mineable/hoe.json
+70807e8fada9145ff21cf16cc2abe2717b435563 data/minecraft/tags/blocks/mineable/pickaxe.json
+70807e8fada9145ff21cf16cc2abe2717b435563 data/minecraft/tags/blocks/needs_iron_tool.json
+297ae931f87a98a2acf56db58bd889a07e0bbd4b data/minecraft/tags/blocks/wooden_fences.json
