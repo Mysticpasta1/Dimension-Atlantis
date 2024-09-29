@@ -1,21 +1,14 @@
 pluginManagement {
     repositories {
+        maven { url "https://maven.fabricmc.net/" }
+        maven { url "https://maven.architectury.dev/" }
+        maven { url "https://files.minecraftforge.net/maven/" }
         gradlePluginPortal()
-        maven { url = 'https://maven.minecraftforge.net/' }
-        maven { url = 'https://maven.parchmentmc.org' }
-    }
-    resolutionStrategy {
-        eachPlugin {
-            switch (requested.id.toString()) {
-                case "net.neoforged:forge": {
-                    useModule("${requested.id}:ForgeGradle:${requested.version}")
-                    break
-                }
-                case "org.spongepowered.mixin": {
-                    useModule("org.spongepowered:mixingradle:${requested.version}")
-                    break;
-                }
-            }
-        }
     }
 }
+
+rootProject.name = 'atlantis'
+
+include 'common'
+include 'fabric'
+include 'neoforge'
