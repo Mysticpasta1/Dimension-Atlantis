@@ -1,0 +1,35 @@
+{
+	"type": "minecraft:crafting_shaped",
+	
+	"pattern":
+	[
+		"ISI",
+		"SWS",
+		"ISI"
+	],
+	
+	"key":
+	{
+		"S":
+		{
+			"item": "atlantis:atlantean_crystal"
+		},
+
+		"I":
+		{
+			"item": "atlantis:ancient_metal_ingot"
+		},
+		
+		"W":
+		{
+			"item": "atlantis:drop_of_atlantis"
+		}
+	},
+	
+	"result":
+	{
+		"id": "atlantis:orb_of_atlantis",
+		"count": 1
+	}
+	
+}					

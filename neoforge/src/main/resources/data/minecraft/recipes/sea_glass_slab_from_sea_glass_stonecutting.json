@@ -4,5 +4,7 @@
   "ingredient": {
     "item": "atlantis:sea_glass"
   },
-  "result": "atlantis:sea_glass_slab"
+  "result": {
+    "id": "atlantis:sea_glass_slab"
+  }
 }

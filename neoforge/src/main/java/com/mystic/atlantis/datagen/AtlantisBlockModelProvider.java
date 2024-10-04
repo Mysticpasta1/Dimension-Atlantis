@@ -6,9 +6,9 @@ import com.mystic.atlantis.init.BlockInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.BlockModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class AtlantisBlockModelProvider extends BlockModelProvider {
 
@@ -42,19 +42,19 @@ public class AtlantisBlockModelProvider extends BlockModelProvider {
         });
     }
 
-    private <T extends Block> void cubeAll(RegistryObject<T> block) {
+    private <T extends Block> void cubeAll(DeferredHolder<Block, T> block) {
         this.cubeAll(block.getId().getPath(), blockTexture(block.getId()));
     }
 
-    private <T extends Block> void cubeAll(RegistryObject<T> block, String name) {
+    private <T extends Block> void cubeAll(DeferredHolder<Block, T> block, String name) {
         var texture = block.getId().withSuffix(name);
         this.cubeAll(texture.getPath(), blockTexture(texture));
     }
 
     private ResourceLocation blockTexture(ResourceLocation loc) {
         if (loc.getPath().contains("waxed")) {
-            return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
+            return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath().replace("waxed_", ""));
         }
-        return new ResourceLocation(loc.getNamespace(), "block/" + loc.getPath());
+        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "block/" + loc.getPath());
     }
 }

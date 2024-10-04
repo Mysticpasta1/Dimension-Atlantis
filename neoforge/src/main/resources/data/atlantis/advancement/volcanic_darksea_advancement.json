@@ -1,0 +1,52 @@
+{
+    "display": {
+        "icon": {
+            "item": "atlantis:orb_of_atlantis"
+        },
+        "title": {
+            "text": "Darker yet Darkest of seas",
+            "color": "aqua",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "description": {
+            "text": "Locate the Volcanic Darksea Biome",
+            "color": "blue",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "atlantis:dimension_advancement",
+    "criteria": {
+        "atlantis": {
+            "trigger": "minecraft:location",
+            "conditions": {
+                "player": {
+                    "location": {
+                        "biome": "atlantis:volanic_darksea",
+                        "dimension": "atlantis:atlantis"
+                    }
+                }
+            }
+        }
+    },
+    "requirements": [
+        [
+            "atlantis"
+        ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
+}

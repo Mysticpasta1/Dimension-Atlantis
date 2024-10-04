@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "atlantis:aquamarine_ore"
+  },
+  "result": {
+    "id": "atlantis:aquamarine_gem"
+  },
+  "experience": 0.3,
+  "cookingtime": 180
+}

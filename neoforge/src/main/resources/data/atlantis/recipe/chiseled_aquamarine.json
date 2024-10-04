@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		"   ",
+		"WW ",
+		"   "
+	],
+	"key":
+	{
+		"W":
+		{
+			"item": "atlantis:block_of_aquamarine"
+		}
+	},
+	"result":
+	{
+		"id": "atlantis:chiseled_aquamarine",
+		"count": 1
+	}
+	
+}					

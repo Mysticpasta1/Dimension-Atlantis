@@ -1,0 +1,55 @@
+{
+    "display": {
+        "icon": {
+            "item": "atlantis:jellyfish_bucket"
+        },
+        "title": {
+            "text": "Squishy Jellies",
+            "color": "aqua",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "description": {
+            "text": "Pick up a jellyfish in a bucket",
+            "color": "blue",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "atlantis:jellyfish_advancement",
+    "criteria": {
+        "atlantis": {
+            "trigger": "minecraft:player_interacted_with_entity",
+            "conditions": {
+                "item": {
+                    "items": [
+                        "minecraft:water_bucket"
+                    ],
+                    "count": 1
+                },
+                "entity": {
+                    "type": "atlantis:atlantean_jellyfish"
+                }
+            }
+        }
+    },
+    "requirements": [
+        [
+            "atlantis"
+        ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
+}

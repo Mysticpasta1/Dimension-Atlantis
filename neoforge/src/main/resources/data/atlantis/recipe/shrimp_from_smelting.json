@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "atlantis:shrimp"
+  },
+  "result": {
+    "id": "atlantis:cooked_shrimp"
+  },
+  "experience": 0.5,
+  "cookingtime": 200
+}

@@ -1,0 +1,52 @@
+{
+    "display": {
+        "icon": {
+            "item": "atlantis:orb_of_atlantis"
+        },
+        "title": {
+            "text": "Arg matey, There be land here",
+            "color": "aqua",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "description": {
+            "text": "Locate the Atlantean Islands Biome",
+            "color": "blue",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "atlantis:dimension_advancement",
+    "criteria": {
+        "atlantis": {
+            "trigger": "minecraft:location",
+            "conditions": {
+                "player": {
+                    "location": {
+                        "biome": "atlantis:atlantean_islands_biome",
+                        "dimension": "atlantis:atlantis"
+                    }
+                }
+            }
+        }
+    },
+    "requirements": [
+        [
+            "atlantis"
+        ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
+}

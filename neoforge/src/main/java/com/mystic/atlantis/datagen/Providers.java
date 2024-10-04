@@ -15,15 +15,12 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.recipes.*;
+import net.minecraft.data.registries.RegistryPatchGenerator;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.*;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -37,12 +34,15 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.GlobalLootModifierProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 import pro.mikey.justhammers.HammerTags;
 
@@ -50,8 +50,6 @@ import java.util.List;
 import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class Providers {
     public static void init(IEventBus bus) {
@@ -61,7 +59,8 @@ public class Providers {
     public static void dataGather(GatherDataEvent event) {
         var output = event.getGenerator().getPackOutput();
 
-        var registryProvider = new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), new RegistrySetBuilder()
+        var registryProvider = new DatapackBuiltinEntriesProvider(output, RegistryPatchGenerator.createLookup(event.getLookupProvider(), new RegistrySetBuilder()
+                .add(Registries.ENCHANTMENT, EnchantmentInit::new)
                 .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesInit::new)
                 .add(Registries.PLACED_FEATURE, PlacedFeatureInit::new)
                 .add(Registries.DIMENSION_TYPE, context -> context.register(DimensionAtlantis.ATLANTIS_DIMENSION_TYPE_KEY, new DimensionType(
@@ -73,7 +72,7 @@ public class Providers {
                 .add(Registries.PROCESSOR_LIST, ProcessorListInit::new)
                 .add(Registries.TEMPLATE_POOL, TemplatePoolInit::new)
                 .add(Registries.NOISE_SETTINGS, NoiseSettingsInit::new)
-                .add(Registries.STRUCTURE, StructureInit::new),
+                .add(Registries.STRUCTURE, StructureInit::new)),
                 Set.of(Reference.MODID));
 
         event.getGenerator().addProvider(true, registryProvider);
@@ -81,9 +80,9 @@ public class Providers {
         event.getGenerator().addProvider(true, new AtlantisMainProvider(output, event.getExistingFileHelper(), AtlantisBlockStateProvider::new));
         event.getGenerator().addProvider(true, new AtlantisItemModelProvider(output, event.getExistingFileHelper()));
         event.getGenerator().addProvider(true, new AtlantisEnglishLanguageProvider(output));
-        event.getGenerator().addProvider(true, new RecipeProvider(output) {
+        event.getGenerator().addProvider(true, new RecipeProvider(output, event.getLookupProvider()) {
             @Override
-            protected void buildRecipes(@NotNull Consumer<FinishedRecipe> recipeOutput) {
+            protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
                 var list = ItemInit.getScrolls();
                 var ingredient = Ingredient.of(list.toArray(Item[]::new));
 
@@ -123,7 +122,7 @@ public class Providers {
                         .save(recipeOutput, Atlantis.id(BlockInit.RAW_ANCIENT_METAL_BLOCK.get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
             }
 
-            private static void registerGroup(TrailsGroup group, Consumer<FinishedRecipe> recipeOutput) {
+            private static void registerGroup(TrailsGroup group, RecipeOutput recipeOutput) {
                 ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, group.bulb().get(), 1)
                         .pattern(" # ")
                         .pattern("#X#")
@@ -249,18 +248,18 @@ public class Providers {
                         .save(recipeOutput, Atlantis.id(group.waxed_bulb().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
             }
 
-            private static void glyphScroll(Consumer<FinishedRecipe> recipeOutput, ItemLike result, Ingredient material) {
+            private static void glyphScroll(RecipeOutput recipeOutput, ItemLike result, Ingredient material) {
                 writing(material, RecipeCategory.MISC, result, 1)
                         .unlockedBy(getHasName(ItemInit.LINGUISTIC_GLYPH_SCROLL.get()), has(ItemInit.LINGUISTIC_GLYPH_SCROLL.get()))
                         .save(recipeOutput, getConversionRecipeName(result, ItemInit.LINGUISTIC_GLYPH_SCROLL.get()) + "_writing");
             }
 
             public static SingleItemRecipeBuilder writing(Ingredient ingredient, RecipeCategory category, ItemLike result, int count) {
-                return new SingleItemRecipeBuilder(category, RecipesInit.Serializers.WRITING_SERIALIZER.get(), ingredient, result, count);
+                return new SingleItemRecipeBuilder(category, WritingRecipe::new, ingredient, result, count);
             }
         });
 
-        LootTableProvider.SubProviderEntry lootTableProvider = new LootTableProvider.SubProviderEntry(() -> p_249643_ -> {
+        LootTableProvider.SubProviderEntry lootTableProvider = new LootTableProvider.SubProviderEntry(provider -> p_249643_ -> {
             for (TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
                 dropSelf(group.block().get(), p_249643_);
                 dropSelf(group.bulb().get(), p_249643_);
@@ -288,14 +287,14 @@ public class Providers {
 
 
 
-        event.getGenerator().addProvider(true, new LootTableProvider(output, Set.of(), List.of()) {
+        event.getGenerator().addProvider(true, new LootTableProvider(output, Set.of(), List.of(), event.getLookupProvider()) {
             @Override
             public @NotNull List<SubProviderEntry> getTables() {
                 return List.of(lootTableProvider);
             }
         });
 
-        var globalLootModifierProvider = new GlobalLootModifierProvider(output, Reference.MODID) {
+        var globalLootModifierProvider = new GlobalLootModifierProvider(output, event.getLookupProvider(), Reference.MODID) {
             @Override
             protected void start() {
                 add("seeds_drop", new AtlantisModifierInit.SeaGrassModifier(
@@ -358,73 +357,73 @@ public class Providers {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get());
                 tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get());
                 tag(BlockTags.MINEABLE_WITH_AXE).add(
-                        BlockInit.PALM_BUTTON.get(),
-                        BlockInit.PALM_DOOR.get(),
-                        BlockInit.PALM_FENCE.get(),
-                        BlockInit.PALM_FENCE_GATE.get(),
-                        BlockInit.PALM_PRESSURE_PLATE.get(),
-                        BlockInit.PALM_SIGNS.get(),
-                        BlockInit.PALM_SLAB.get(),
-                        BlockInit.PALM_STAIRS.get(),
-                        BlockInit.PALM_TRAPDOOR.get(),
-                        BlockInit.PALM_WALL_SIGN.get(),
-                        BlockInit.PALM_PLANKS.get(),
-                        BlockInit.STRIPPED_PALM_LOG.get(),
-                        BlockInit.STRIPPED_ATLANTEAN_LOG.get(),
-                        BlockInit.COCONUT_SLICE.get(),
-                        BlockInit.SATIRE_LANTERN.get(),
-                        BlockInit.CARVED_COCONUT.get(),
-                        BlockInit.COCONUT.get(),
-                        BlockInit.PALM_LOG.get(),
-                        BlockInit.ATLANTEAN_BUTTON.get(),
-                        BlockInit.ATLANTEAN_DOOR.get(),
-                        BlockInit.ATLANTEAN_FENCE.get(),
-                        BlockInit.ATLANTEAN_FENCE_GATE.get(),
-                        BlockInit.ATLANTEAN_PLANKS.get(),
-                        BlockInit.ATLANTEAN_PRESSURE_PLATE.get(),
-                        BlockInit.ATLANTEAN_SIGNS.get(),
-                        BlockInit.ATLANTEAN_SLAB.get(),
-                        BlockInit.ATLANTEAN_STAIRS.get(),
-                        BlockInit.ATLANTEAN_TRAPDOOR.get(),
-                        BlockInit.ATLANTEAN_WALL_SIGN.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_STAIRS.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_FENCE.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_DOOR.get(),
-                        BlockInit.ATLANTEAN_LOGS.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS.get(),
-                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_OAK_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_SLAB.get(),
-                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_SLAB.get()
+                        BlockInit.PALM_BUTTON.value(),
+                        BlockInit.PALM_DOOR.value(),
+                        BlockInit.PALM_FENCE.value(),
+                        BlockInit.PALM_FENCE_GATE.value(),
+                        BlockInit.PALM_PRESSURE_PLATE.value(),
+                        BlockInit.PALM_SIGN.value(),
+                        BlockInit.PALM_SLAB.value(),
+                        BlockInit.PALM_STAIRS.value(),
+                        BlockInit.PALM_TRAPDOOR.value(),
+                        BlockInit.PALM_WALL_SIGN.value(),
+                        BlockInit.PALM_PLANKS.value(),
+                        BlockInit.STRIPPED_PALM_LOG.value(),
+                        BlockInit.STRIPPED_ATLANTEAN_LOG.value(),
+                        BlockInit.COCONUT_SLICE.value(),
+                        BlockInit.SATIRE_LANTERN.value(),
+                        BlockInit.CARVED_COCONUT.value(),
+                        BlockInit.COCONUT.value(),
+                        BlockInit.PALM_LOG.value(),
+                        BlockInit.ATLANTEAN_BUTTON.value(),
+                        BlockInit.ATLANTEAN_DOOR.value(),
+                        BlockInit.ATLANTEAN_FENCE.value(),
+                        BlockInit.ATLANTEAN_FENCE_GATE.value(),
+                        BlockInit.ATLANTEAN_PLANKS.value(),
+                        BlockInit.ATLANTEAN_PRESSURE_PLATE.value(),
+                        BlockInit.ATLANTEAN_SIGN.value(),
+                        BlockInit.ATLANTEAN_SLAB.value(),
+                        BlockInit.ATLANTEAN_STAIRS.value(),
+                        BlockInit.ATLANTEAN_TRAPDOOR.value(),
+                        BlockInit.ATLANTEAN_WALL_SIGN.value(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_TRAPDOOR.value(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_TRAPDOOR.value(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_TRAPDOOR.value(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_TRAPDOOR.value(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS_TRAPDOOR.value(),
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR.value(),
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_TRAPDOOR.value(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_STAIRS.value(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_STAIRS.value(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_STAIRS.value(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_STAIRS.value(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS_STAIRS.value(),
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_STAIRS.value(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_FENCE.value(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_FENCE.value(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_FENCE.value(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_FENCE.value(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS_FENCE.value(),
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_FENCE.value(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_DOOR.value(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_DOOR.value(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_DOOR.value(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_DOOR.value(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS_DOOR.value(),
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_DOOR.value(),
+                        BlockInit.ATLANTEAN_LOGS.value(),
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS.value(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS.value(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS.value(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS.value(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS.value(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS.value(),
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS_SLAB.value(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS_SLAB.value(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS_SLAB.value(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS_SLAB.value(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS_SLAB.value(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS_SLAB.value()
                 );
 
                 tag(BlockTags.MINEABLE_WITH_HOE).add(
@@ -449,15 +448,15 @@ public class Providers {
                         BlockInit.ALGAE_BLOCK.get()
                 );
 
-                tag(BlockTags.CLIMBABLE).add(BlockInit.ALGAE.get());
+                tag(BlockTags.CLIMBABLE).add(BlockInit.ALGAE.value());
 
                 tag(BlockTags.LEAVES).add(
-                        BlockInit.PALM_LEAVES.get(),
+                        BlockInit.PALM_LEAVES.value(),
                         BlockInit.ATLANTEAN_LEAVES.get()
                 );
 
                 tag(BlockTags.LOGS).add(
-                        BlockInit.ATLANTEAN_LOGS.get(),
+                        BlockInit.ATLANTEAN_LOGS.value(),
                         BlockInit.PALM_LOG.get()
                 );
 
@@ -485,15 +484,74 @@ public class Providers {
             }
         };
 
+        BiomeTagsProvider biomeTagsProvider = new BiomeTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
+            @Override
+            protected void addTags(HolderLookup.@NotNull Provider provider) {
+                this.tag(BiomeTags.IS_OCEAN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS)
+                        .addOptionalTag(AtlantisBiomeSource.GOO_LAGOONS)
+                        .addOptionalTag(AtlantisBiomeSource.JELLYFISH_FIELDS)
+                        .addOptionalTag(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+                this.tag(BiomeTags.IS_DEEP_OCEAN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS)
+                        .addOptionalTag(AtlantisBiomeSource.GOO_LAGOONS)
+                        .addOptionalTag(AtlantisBiomeSource.JELLYFISH_FIELDS)
+                        .addOptionalTag(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+                this.tag(TagsInit.Biome.HAS_ATLANTEAN_VILLAGE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS)
+                        .addOptionalTag(AtlantisBiomeSource.GOO_LAGOONS)
+                        .addOptionalTag(AtlantisBiomeSource.JELLYFISH_FIELDS)
+                        .addOptionalTag(AtlantisBiomeSource.VOLCANIC_DARKSEA);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_FOUNTAIN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_HOUSE_1)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_HOUSE_3)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_SPIRE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_TEMPLE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_ATLANTEAN_TOWER)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);;
+                this.tag(TagsInit.Biome.HAS_CONFIGURED_OYSTER_STRUCTURE)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTIS_BIOME)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_GARDEN)
+                        .addOptionalTag(AtlantisBiomeSource.ATLANTEAN_ISLANDS);
+            }
+        };
+
         event.getGenerator().addProvider(true, blockTagsProvider);
         event.getGenerator().addProvider(true, fluidTagsProvider);
+        event.getGenerator().addProvider(true, biomeTagsProvider);
         event.getGenerator().addProvider(true, globalLootModifierProvider);
 
         event.getGenerator().addProvider(true, new ItemTagsProvider(output, event.getLookupProvider(), blockTagsProvider.contentsGetter(), "atlantis", event.getExistingFileHelper()) {
             @Override
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
-                TagsInit.Item.getItemsThatCanSink().stream().map(Supplier::get).map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
+                TagsInit.Item.getItemsThatCanSink().stream().map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
+                tag(HammerTags.HAMMERS).add(
+                        ItemInit.AQUAMARINE_HAMMER.get(),
+                        ItemInit.ORICHALCUM_HAMMER.get());
                 tag(ItemTags.TRIMMABLE_ARMOR).add(
                         ItemInit.AQUAMARINE_BOOTS.get(),
                         ItemInit.AQUAMARINE_CHESTPLATE.get(),
@@ -514,7 +572,17 @@ public class Providers {
 
 
 
-    private static void dropSelf(Block block, BiConsumer<ResourceLocation, LootTable.Builder> builder){
-        builder.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(block).when(ExplosionCondition.survivesExplosion())).add(LootItem.lootTableItem(block))));
+    private static void dropSelf(Block block, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> builder){
+        builder.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(block).when(() -> new LootItemCondition() {
+            @Override
+            public @NotNull LootItemConditionType getType() {
+                return LootItemConditions.SURVIVES_EXPLOSION;
+            }
+
+            @Override
+            public boolean test(LootContext lootContext) {
+                return true;
+            }
+        })).add(LootItem.lootTableItem(block))));
     }
 }

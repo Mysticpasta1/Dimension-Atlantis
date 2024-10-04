@@ -4,5 +4,7 @@
   "ingredient": {
     "item": "atlantis:purple_sea_glass"
   },
-  "result": "atlantis:purple_sea_glass_wall"
+  "result": {
+    "id": "atlantis:purple_sea_glass_wall"
+  }
 }

@@ -1,0 +1,48 @@
+{
+    "display": {
+        "icon": {
+            "item": "atlantis:orb_of_atlantis"
+        },
+        "title": {
+            "text": "The garden of the Atlanteans",
+            "color": "aqua",
+            "bold": false,
+            "italic": false,
+            "underlined": false,
+            "strikethrough": false,
+            "obfuscated": false
+        },
+        "description": {
+            "text": "Locate the Atlantean Garden Biome",
+            "color": "blue"
+        },
+        "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+        "frame": "task",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "atlantis:dimension_advancement",
+    "criteria": {
+        "atlantis": {
+            "trigger": "minecraft:location",
+            "conditions": {
+                "player": {
+                    "type": "minecraft:player",
+                    "location": {
+                        "biome": "atlantis:atlantean_gardens",
+                        "dimension": "atlantis:atlantis"
+                    }
+                }
+            }
+        }
+    },
+    "requirements": [
+        [
+            "atlantis"
+        ]
+    ],
+    "rewards": {
+        "experience": 200
+    }
+}

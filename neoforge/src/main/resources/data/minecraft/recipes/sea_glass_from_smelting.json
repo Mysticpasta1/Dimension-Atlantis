@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "atlantis:sunken_gravel"
   },
-  "result": "atlantis:sea_glass"
+  "result": {
+    "id": "atlantis:sea_glass"
+  }
 }

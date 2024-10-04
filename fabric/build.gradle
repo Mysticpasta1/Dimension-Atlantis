@@ -35,6 +35,9 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+
+    modApi "me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config}"
+    modImplementation "curse.maven:geckolib-388172:${rootProject.geckolib_version_fabric}"
 }
 
 processResources {

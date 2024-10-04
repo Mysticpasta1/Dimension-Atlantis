@@ -1,13 +1,14 @@
 package com.mystic.atlantis.mixin;
 
-import com.mystic.atlantis.init.BlockInit;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import com.mystic.atlantis.init.BlockInit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-@Mixin(value = RedStoneWireBlock.class, priority = 99999)
+@Mixin(RedStoneWireBlock.class)
 public abstract class RedstoneWireBlockMixin {
 
     @Redirect(method = "shouldConnectTo(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 0))
@@ -25,7 +26,11 @@ public abstract class RedstoneWireBlockMixin {
         return state.is(block) || state.is(BlockInit.ATLANTEAN_POWER_DUST_WIRE.get());
     }
 
-    @Unique
+    /**
+     * @author WaterPicker
+     * @reason valid reason here :P
+     */
+    @Overwrite
     private int getWireSignal(BlockState state) {
         if (state.is(Blocks.REDSTONE_WIRE)) {
             return state.getValue(RedStoneWireBlock.POWER);
@@ -35,7 +40,7 @@ public abstract class RedstoneWireBlockMixin {
         return 0;
     }
 
-    @Inject(method = "calculateTargetStrength", at = @At(value = "HEAD"), cancellable = true, require = 1)
+    @Inject(method = "calculateTargetStrength", at = @At(value = "HEAD"), cancellable = true)
     public void setPowerToWires1(Level level, BlockPos targetPos, CallbackInfoReturnable<Integer> cir) {
         cir.cancel();
         ((RedstoneAccessor) ((RedStoneWireBlock) (Object) this)).setShouldSignal(false);
@@ -44,9 +49,9 @@ public abstract class RedstoneWireBlockMixin {
         int calculatedPower = 0;
         if(receivedPower >= 15) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
-                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
-                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
-                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().get() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
+                if (level.getBlockState(targetPos.relative(direction)).getBlockHolder().value() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
+                        || level.getBlockState(targetPos.relative(direction).below()).getBlockHolder().value() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()
+                || level.getBlockState(targetPos.relative(direction).above()).getBlockHolder().value() == BlockInit.ATLANTEAN_POWER_DUST_WIRE.get()) {
                     cir.setReturnValue(Math.max(receivedPower - 1, calculatedPower - 1));
                 }
             }

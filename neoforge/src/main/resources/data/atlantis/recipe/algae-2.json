@@ -1,0 +1,26 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern":
+	[
+		" B ",
+		"BAB",
+		" B "
+	],
+	"key":
+	{
+		"B":
+		{
+			"item": "minecraft:kelp"
+		},
+		"A":
+		{
+			"item": "minecraft:sand"
+		}
+	},
+	"result":
+	{
+		"id": "atlantis:algae",
+		"count": 4
+	}
+	
+}					

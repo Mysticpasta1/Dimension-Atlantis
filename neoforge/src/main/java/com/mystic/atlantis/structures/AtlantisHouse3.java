@@ -2,6 +2,10 @@ package com.mystic.atlantis.structures;
 
 import java.util.Optional;
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -20,7 +24,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 public class AtlantisHouse3 extends Structure {
 
-    public static final Codec<AtlantisHouse3> CODEC = RecordCodecBuilder.<AtlantisHouse3>mapCodec(instance ->
+    public static final MapCodec<AtlantisHouse3> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(AtlantisHouse3.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -28,7 +32,7 @@ public class AtlantisHouse3 extends Structure {
                     HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
                     Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
-            ).apply(instance, AtlantisHouse3::new)).codec();
+            ).apply(instance, AtlantisHouse3::new));
 
 
     private final Holder<StructureTemplatePool> startPool;
@@ -63,7 +67,7 @@ public class AtlantisHouse3 extends Structure {
                 JigsawPlacement.addPieces(
                         context,
                         this.startPool, this.startJigsawName, this.size, blockPos,
-                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter);
+                        false, this.projectStartToHeightmap, this.maxDistanceFromCenter, PoolAliasLookup.EMPTY, DimensionPadding.ZERO, LiquidSettings.APPLY_WATERLOGGING);
         return structurePiecesGenerator;
     }
 

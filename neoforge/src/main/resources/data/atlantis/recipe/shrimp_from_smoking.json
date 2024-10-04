@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "atlantis:shrimp"
+  },
+  "result": {
+    "id": "minecraft:dried_kelp"
+  },
+  "experience": 0.5,
+  "cookingtime": 50
+}

@@ -2,17 +2,16 @@ package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
-import com.mystic.atlantis.init.AtlantisEntityInit;
-import com.mystic.atlantis.init.BlockInit;
-import com.mystic.atlantis.init.GlyphBlock;
-import com.mystic.atlantis.init.ItemInit;
+import com.mystic.atlantis.blocks.shells.ColoredShellBlock;
+import com.mystic.atlantis.blocks.shells.CrackedShellBlock;
+import com.mystic.atlantis.init.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Map;
@@ -216,29 +215,29 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlocksFromType(BlockInit.MULTICOLOR_SEA_GLASS, "Multicolor Sea Glass");
         this.addBlock(BlockInit.COQUINA);
 
-        for (Map<DyeColor, RegistryObject<Block>> block : BlockInit.DYED_LINGUISTICS.values()) {
+        for (Map<DyeColor, DeferredHolder<Block, GlyphBlock>> block : BlockInit.DYED_LINGUISTICS.values()) {
             for (DyeColor color : DyeColor.values()) {
                 this.addBlock(block.get(color), WordUtils.capitalize(block.get(color).get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
             }
         }
 
-        for (RegistryObject<Block> block : BlockInit.NON_LINGUISTICS.values()) {
+        for (DeferredHolder<Block, GlyphBlock> block : BlockInit.NON_LINGUISTICS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (RegistryObject<Block> block : BlockInit.COLORED_SHELL_BLOCKS.values()) {
+        for (DeferredHolder<Block, ColoredShellBlock> block : BlockInit.COLORED_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (RegistryObject<Block> block : BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.values()) {
+        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.CRACKED_MOSSY_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (RegistryObject<Block> block : BlockInit.CRACKED_SHELL_BLOCKS.values()) {
+        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.CRACKED_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
 
-        for (RegistryObject<Block> block : BlockInit.MOSSY_SHELL_BLOCKS.values()) {
+        for (DeferredHolder<Block, CrackedShellBlock> block : BlockInit.MOSSY_SHELL_BLOCKS.values()) {
             this.addBlock(block, WordUtils.capitalize(block.get().getDescriptionId().replace("block.atlantis.", "").replace("_", " ")));
         }
         this.add(ItemInit.AQUAMARINE_HAMMER.get(), "Aquamarine Hammer");
@@ -408,7 +407,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(AtlantisEntityInit.LEVIATHAN.get(), "Leviathan");
         this.add(AtlantisEntityInit.SEAHORSE.get(), "Seahorse");
         this.add(AtlantisEntityInit.STARFISH.get(), "Starfish");
-        this.add(AtlantisEntityInit.STARFISH_ZOM.get(), "Atlantean Zombie Starfish");
+        this.add(AtlantisEntityInit.ATLANTEAN_ZOMBIE_STARFISH.get(), "Atlantean Zombie Starfish");
         this.add(AtlantisEntityInit.BOMB.get(), "Bomb");
         this.add(AtlantisEntityInit.SUBMARINE.get(), "Submarine");
 
@@ -447,7 +446,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("text.autoconfig.atlantis.title", "Atlantean Config");
     }
 
-    private <T extends Item> void addRecord(RegistryObject<T> record, String s) {
+    private <T extends Item> void addRecord(DeferredHolder<Item, T> record, String s) {
         addItem(record, "Music Disc");
         add("item." + record.getId().getNamespace() + "." + record.getId().getPath() + ".desc", s);
     }
@@ -464,16 +463,16 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         if(type.wall() != null) addBlock(type.wall(), base + " Wall");
     }
 
-    private void addItem(RegistryObject<Item> registryObject) {
+    private void addItem(DeferredHolder<Item, Item> registryObject) {
         addItem(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
     }
 
-    private <T extends Block> void addBlock(RegistryObject< T> registryObject) {
+    private <T extends Block> void addBlock(DeferredHolder<Block, T> registryObject) {
         addBlock(registryObject, WordUtils.capitalizeFully(registryObject.getId().getPath().replace("_", " ")));
     }
 
 
-    private void add(RegistryObject<CreativeModeTab> tab, String entry) {
+    private void add(DeferredHolder<CreativeModeTab, CreativeModeTab> tab, String entry) {
         this.add("itemGroup." + tab.getId().toLanguageKey(), entry);
     }
 }
