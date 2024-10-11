@@ -1,6 +1,6 @@
 package com.mystic.atlantis.items;
 
-import com.mystic.atlantis.AtlantisForge;
+import com.mystic.atlantis.Atlantis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
@@ -10,11 +10,11 @@ import net.minecraft.world.item.SmithingTemplateItem;
 import java.util.List;
 
 public class OrichalcumSmithingTemplateItem extends SmithingTemplateItem {
-    private static final Component ORICHALCUM_UPGRADE = Component.translatable(Util.makeDescriptionId("upgrade", AtlantisForge.id("orichalcum_upgrade"))).withStyle(ChatFormatting.GRAY);
-    private static final Component ORICHALCUM_UPGRADE_APPLIES_TO = Component.translatable(Util.makeDescriptionId("item", AtlantisForge.id("smithing_template.orichalcum_upgrade.applies_to"))).withStyle(ChatFormatting.BLUE);
-    private static final Component ORICHALCUM_UPGRADE_INGREDIENTS = Component.translatable(Util.makeDescriptionId("item", AtlantisForge.id("smithing_template.orichalcum_upgrade.ingredients"))).withStyle(ChatFormatting.BLUE);
-    private static final Component ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", AtlantisForge.id("smithing_template.orichalcum_upgrade.base_slot_description")));
-    private static final Component ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", AtlantisForge.id("smithing_template.orichalcum_upgrade.additions_slot_description")));
+    private static final Component ORICHALCUM_UPGRADE = Component.translatable(Util.makeDescriptionId("upgrade", Atlantis.id("orichalcum_upgrade"))).withStyle(ChatFormatting.GRAY);
+    private static final Component ORICHALCUM_UPGRADE_APPLIES_TO = Component.translatable(Util.makeDescriptionId("item", Atlantis.id("smithing_template.orichalcum_upgrade.applies_to"))).withStyle(ChatFormatting.BLUE);
+    private static final Component ORICHALCUM_UPGRADE_INGREDIENTS = Component.translatable(Util.makeDescriptionId("item", Atlantis.id("smithing_template.orichalcum_upgrade.ingredients"))).withStyle(ChatFormatting.BLUE);
+    private static final Component ORICHALCUM_UPGRADE_BASE_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", Atlantis.id("smithing_template.orichalcum_upgrade.base_slot_description")));
+    private static final Component ORICHALCUM_UPGRADE_ADDITIONS_SLOT_DESCRIPTION = Component.translatable(Util.makeDescriptionId("item", Atlantis.id("smithing_template.orichalcum_upgrade.additions_slot_description")));
 
     private static final ResourceLocation EMPTY_SLOT_HELMET = ResourceLocation.parse("item/empty_armor_slot_helmet");
     private static final ResourceLocation EMPTY_SLOT_CHESTPLATE = ResourceLocation.parse("item/empty_armor_slot_chestplate");

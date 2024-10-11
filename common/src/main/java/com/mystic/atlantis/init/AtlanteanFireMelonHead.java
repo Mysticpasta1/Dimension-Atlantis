@@ -1,17 +1,13 @@
 package com.mystic.atlantis.init;
 
-import javax.annotation.Nullable;
-
 import com.mojang.serialization.MapCodec;
-import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.common.CommonHooks;
-import org.jetbrains.annotations.NotNull;
-
+import com.mystic.atlantis.blocks.base.AtlanteanFireMelonSpikedFruitBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -25,6 +21,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements LiquidBlockContainer {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 9.0, 16.0);
@@ -42,11 +40,11 @@ public class AtlanteanFireMelonHead extends GrowingPlantHeadBlock implements Liq
 
     @Override
     public void randomTick(BlockState arg, ServerLevel arg2, BlockPos arg3, RandomSource random) {
-        if (arg.getValue(AGE) < 8 && CommonHooks.canCropGrow(arg2, arg3.relative(this.growthDirection), arg2.getBlockState(arg3.relative(this.growthDirection)), random.nextDouble() < GROW_PER_TICK_PROBABILITY)) {
+        if (arg.getValue(AGE) < 8 && AtlanteanFireMelonSpikedFruitBlock.canCropGrow(arg2, arg3.relative(this.growthDirection), arg2.getBlockState(arg3.relative(this.growthDirection)), random.nextDouble() < GROW_PER_TICK_PROBABILITY)) {
             BlockPos blockpos = arg3.relative(this.growthDirection);
             if (this.canGrowInto(arg2.getBlockState(blockpos))) {
                 arg2.setBlockAndUpdate(blockpos, this.getGrowIntoState(arg, arg2.random));
-                CommonHooks.fireCropGrowPost(arg2, blockpos, arg2.getBlockState(blockpos));
+                AtlanteanFireMelonSpikedFruitBlock.fireCropGrowPost(arg2, blockpos, arg2.getBlockState(blockpos));
             }
         }
     }

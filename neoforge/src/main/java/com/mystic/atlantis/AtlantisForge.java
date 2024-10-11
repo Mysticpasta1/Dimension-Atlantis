@@ -8,6 +8,8 @@ import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.screen.LinguisticScreen;
 import com.mystic.atlantis.screen.WritingScreen;
 import com.mystic.atlantis.util.Reference;
+import com.mystic.atlantis.util.Strippable;
+import com.mystic.atlantis.util.neoforge.StrippableImpl;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -25,6 +27,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 
 @Mod(Reference.MODID)
@@ -35,15 +38,10 @@ public class AtlantisForge {
 
         Atlantis.init();
 
+        NeoForge.EVENT_BUS.addListener(StrippableImpl::init);
+
 
         Providers.init(bus);
-        AtlantisModifierInit.init(bus);
-    }
-
-    //Don't remove needed for legacy portal block!
-    public static ResourceKey<Level> getOverworldKey() {
-        ResourceLocation OVERWORLD_ID = LevelStem.OVERWORLD.location();
-        return ResourceKey.create(Registries.DIMENSION, OVERWORLD_ID);
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey(String name) {

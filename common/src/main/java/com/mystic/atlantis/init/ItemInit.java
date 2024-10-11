@@ -149,14 +149,14 @@ public class ItemInit {
     public static final RegistrySupplier<Item> SHOVEL_AQUAMARINE = register("shovel_aquamarine", properties -> new AtlanteanShovelItem(ToolInit.AQUAMARINE, 1));
     public static final RegistrySupplier<Item> HOE_AQUAMARINE = register("hoe_aquamarine", properties -> new AtlanteanHoeItem(ToolInit.AQUAMARINE, 2));
     public static final RegistrySupplier<Item> SWORD_AQUAMARINE = register("sword_aquamarine", properties -> new AtlanteanSwordItem(ToolInit.AQUAMARINE, 4));
-    public static final RegistrySupplier<Item> AQUAMARINE_HAMMER = register("aquamarine_hammer", properties -> new AquamarineHammer());
+//    public static final RegistrySupplier<Item> AQUAMARINE_HAMMER = register("aquamarine_hammer", properties -> new AquamarineHammer());
 
     public static final RegistrySupplier<Item> ORICHALCUM_AXE = register("orichalcum_axe", properties -> new AtlanteanAxeItem(ToolInit.ORICHALCUM, 3));
     public static final RegistrySupplier<Item> ORICHALCUM_PICKAXE = register("orichalcum_pickaxe", properties -> new AtlanteanPickaxeItem(ToolInit.ORICHALCUM, 2));
     public static final RegistrySupplier<Item> ORICHALCUM_SHOVEL = register("orichalcum_shovel", properties -> new AtlanteanShovelItem(ToolInit.ORICHALCUM, 1));
     public static final RegistrySupplier<Item> ORICHALCUM_HOE = register("orichalcum_hoe", properties -> new AtlanteanHoeItem(ToolInit.ORICHALCUM, 2));
     public static final RegistrySupplier<Item> ORICHALCUM_SWORD = register("orichalcum_sword", properties -> new AtlanteanSwordItem(ToolInit.ORICHALCUM, 4));
-    public static final RegistrySupplier<Item> ORICHALCUM_HAMMER = register("orichalcum_hammer", properties -> new OrichalcumHammer());
+//    public static final RegistrySupplier<Item> ORICHALCUM_HAMMER = register("orichalcum_hammer", properties -> new OrichalcumHammer());
 
     //ARMOR
     public static final RegistrySupplier<ItemArmorAtlantis> AQUAMARINE_HELMET = register("aquamarine_helmet", properties -> new ItemArmorAtlantis(BasicArmorMaterial.ARMOR_AQUAMARINE, ArmorItem.Type.HELMET, properties));

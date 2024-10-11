@@ -3,9 +3,9 @@ package com.mystic.atlantis.init;
 import static com.mystic.atlantis.blocks.power.atlanteanstone.AtlanteanPowerTorchBlock.WATERLOGGED;
 
 import com.mojang.serialization.MapCodec;
+import com.mystic.atlantis.blocks.base.AtlanteanFireMelonSpikedFruitBlock;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelReader;
-import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -51,12 +51,12 @@ public class AtlanteanFireMelonBody extends GrowingPlantBodyBlock implements Liq
         if(level.getBlockState(blockpos.offset(direction.getOpposite().getNormal().multiply(2))) == Blocks.WATER.defaultBlockState()) {
             if (level.isAreaLoaded(blockPos, 1)) {
                 int f = CropBlock.getId(this.defaultBlockState());
-                if (CommonHooks.canCropGrow(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
+                if (AtlanteanFireMelonSpikedFruitBlock.canCropGrow(level, blockPos, blockState, random.nextInt((int) (5.0F / f) + 1) == 5 || random.nextInt((int) (5.0F / f) + 1) == 0)) {
                     if (level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(Fluids.WATER))) {
                         level.setBlockAndUpdate(blockpos.offset(direction.getOpposite().getNormal().multiply(2)), BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                     }
 
-                    CommonHooks.fireCropGrowPost(level, blockPos, blockState);
+                    AtlanteanFireMelonSpikedFruitBlock.fireCropGrowPost(level, blockPos, blockState);
                 }
             }
         }

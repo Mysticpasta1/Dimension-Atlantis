@@ -5,15 +5,14 @@ import java.util.function.Supplier;
 import com.mystic.atlantis.effects.SpikesEffect;
 import com.mystic.atlantis.util.Reference;
 
+import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class EffectsInit {
 
-    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, Reference.MODID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Reference.MODID, BuiltInRegistries.MOB_EFFECT);
 
     public static final Supplier<SpikesEffect> SPIKES = registerEffects("spikes", () -> new SpikesEffect(MobEffectCategory.BENEFICIAL, 0xff0000));
     
@@ -22,8 +21,8 @@ public class EffectsInit {
         return reg;
     }
     
-    public static void init(IEventBus bus) {
-        MOB_EFFECTS.register(bus);
+    public static void init() {
+        MOB_EFFECTS.register();
     }
 
 }

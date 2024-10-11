@@ -1,22 +1,19 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.util.Reference;
-
+import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class AtlantisSoundEventInit {
-	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, Reference.MODID);
-    public static final DeferredRegister<JukeboxSong> SONGS = DeferredRegister.create(Registries.JUKEBOX_SONG, Reference.MODID);
+	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Reference.MODID, Registries.SOUND_EVENT);
+    public static final DeferredRegister<JukeboxSong> SONGS = DeferredRegister.create(Reference.MODID, Registries.JUKEBOX_SONG);
 
     public static final Supplier<SoundEvent> PANBEE = registerSound("panbee");
     public static final Supplier<SoundEvent> COLUMN = registerSound("column_cavitation");
@@ -28,8 +25,8 @@ public class AtlantisSoundEventInit {
         return SOUNDS.register(name, () ->  SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Reference.MODID, name)));
     }
     
-    public static void init(IEventBus bus) {
-    	SOUNDS.register(bus);;
-        SONGS.register(bus);
+    public static void init() {
+    	SOUNDS.register();
+        SONGS.register();
     }
 }

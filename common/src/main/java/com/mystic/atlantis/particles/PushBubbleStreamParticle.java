@@ -1,5 +1,6 @@
 package com.mystic.atlantis.particles;
 
+import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
@@ -7,11 +8,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
-@OnlyIn(Dist.CLIENT)
+import static net.fabricmc.api.EnvType.CLIENT;
+
+@Environment(CLIENT)
 public class PushBubbleStreamParticle extends TextureSheetParticle {
    /**
     * The angle, in radians, of the horizontal acceleration of the particle.
@@ -79,7 +80,7 @@ public class PushBubbleStreamParticle extends TextureSheetParticle {
       }
    }
 
-   @OnlyIn(Dist.CLIENT)
+   @Environment(CLIENT)
    public static class Factory implements ParticleProvider<SimpleParticleType> {
       private final SpriteSet spriteProvider;
 

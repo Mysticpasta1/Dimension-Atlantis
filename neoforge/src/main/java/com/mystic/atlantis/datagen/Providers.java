@@ -294,19 +294,6 @@ public class Providers {
             }
         });
 
-        var globalLootModifierProvider = new GlobalLootModifierProvider(output, event.getLookupProvider(), Reference.MODID) {
-            @Override
-            protected void start() {
-                add("seeds_drop", new AtlantisModifierInit.SeaGrassModifier(
-                        new LootItemCondition[] {
-                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SEAGRASS).build()
-                        })
-                );
-            }
-        };
-
-
-
         BlockTagsProvider blockTagsProvider = new BlockTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
             @Override
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
@@ -542,7 +529,6 @@ public class Providers {
         event.getGenerator().addProvider(true, blockTagsProvider);
         event.getGenerator().addProvider(true, fluidTagsProvider);
         event.getGenerator().addProvider(true, biomeTagsProvider);
-        event.getGenerator().addProvider(true, globalLootModifierProvider);
 
         event.getGenerator().addProvider(true, new ItemTagsProvider(output, event.getLookupProvider(), blockTagsProvider.contentsGetter(), "atlantis", event.getExistingFileHelper()) {
             @Override

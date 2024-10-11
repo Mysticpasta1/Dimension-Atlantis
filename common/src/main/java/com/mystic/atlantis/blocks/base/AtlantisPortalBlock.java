@@ -1,8 +1,8 @@
 package com.mystic.atlantis.blocks.base;
 
+import com.mystic.atlantis.Atlantis;
 import org.jetbrains.annotations.Nullable;
 
-import com.mystic.atlantis.AtlantisForge;
 import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.BlockInit;
@@ -36,7 +36,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
 			if(!level.isClientSide) {
 				// From Overworld to Atlantis
 				ServerLevel atlantis = player.getServer().getLevel(DimensionAtlantis.ATLANTIS_WORLD);
-				ServerLevel overWorld = player.getServer().getLevel(AtlantisForge.getOverworldKey());
+				ServerLevel overWorld = player.getServer().getLevel(Atlantis.getOverworldKey());
 				atlantis.getBlockState(targetPos);
 				BlockEntity targetTileEntity = level.getBlockEntity(targetPos);
 				DummyDataStorage dataStorage = (DummyDataStorage) targetTileEntity;
@@ -82,7 +82,7 @@ public class AtlantisPortalBlock extends Block implements EntityBlock {
 			}
 		} else {
 			if (!level.isClientSide) {
-				ServerLevel overworld = level.getServer().getLevel(AtlantisForge.getOverworldKey());
+				ServerLevel overworld = level.getServer().getLevel(Atlantis.getOverworldKey());
 				if (level != null) {
 					overworld.getBlockState(targetPos);
 					BlockEntity entity = level.getBlockEntity(targetPos);

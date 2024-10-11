@@ -3,6 +3,7 @@ package com.mystic.atlantis.blocks.base;
 import com.mojang.serialization.MapCodec;
 import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.init.ItemInit;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -36,10 +37,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.ItemAbilities;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
 
@@ -71,11 +69,23 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     public void randomTick(BlockState targetState, ServerLevel level, BlockPos targetPos, RandomSource random) {
         int age = targetState.getValue(AGE);
         
-        if (age < 4 && CommonHooks.canCropGrow(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
+        if (age < 4 && canCropGrow(level, targetPos, targetState, level.random.nextInt(4) == 0)) {
             level.setBlock(targetPos, targetState.setValue(AGE, age + 1), 4);
-            CommonHooks.fireCropGrowPost(level, targetPos, targetState);
+            fireCropGrowPost(level, targetPos, targetState);
         }
 
+
+
+    }
+
+    @ExpectPlatform
+    public static void fireCropGrowPost(ServerLevel level, BlockPos targetPos, BlockState targetState) {
+        throw new RuntimeException();
+    }
+
+    @ExpectPlatform
+    public static boolean canCropGrow(ServerLevel level, BlockPos targetPos, BlockState targetState, boolean b) {
+        throw new RuntimeException();
     }
 
     public HolderSet<Block> getAir(){
@@ -173,7 +183,7 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
     public InteractionResult useWithoutItem(BlockState targetState, Level level, BlockPos targetPos, Player player, BlockHitResult result) {
         ItemStack mainHandStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         
-        if (mainHandStack.canPerformAction(ItemAbilities.SHEARS_CARVE) && targetState.getValue(SPIKED)) {
+        if (canShear(mainHandStack) && targetState.getValue(SPIKED)) {
             if (!level.isClientSide) {
                 Direction resultDir = result.getDirection();
                 Direction oppositeDir = resultDir.getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : resultDir;
@@ -197,5 +207,10 @@ public class AtlanteanFireMelonSpikedFruitBlock extends HorizontalDirectionalBlo
         } else {
             return super.useWithoutItem(targetState, level, targetPos, player, result);
         }
+    }
+
+    @ExpectPlatform
+    private static  boolean canShear(ItemStack mainHandStack) {
+        throw new RuntimeException();
     }
 }
