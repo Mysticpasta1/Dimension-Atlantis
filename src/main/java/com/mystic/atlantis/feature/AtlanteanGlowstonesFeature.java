@@ -32,7 +32,7 @@ public class AtlanteanGlowstonesFeature extends Feature<NoneFeatureConfiguration
             return false;
         }
 
-        if (context.level().getBlockState(context.origin().below()).isAir() || context.level().getBlockState(context.origin().below()).is(Blocks.WATER) || context.level().getBlockState(context.origin().below()).is(Blocks.LAVA) || context.level().getHeight(Heightmap.Types.OCEAN_FLOOR_WG, context.origin().getX(), context.origin().getZ()) < 4)
+        if (!context.level().getBlockState(context.origin().below()).isSolidRender(context.level(), pos))
             return false;
 
         if(AtlantisConfig.INSTANCE.glowstoneCrystsOn.get()) {

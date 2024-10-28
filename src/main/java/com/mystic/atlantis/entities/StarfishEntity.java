@@ -186,10 +186,6 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         //goalSelector.addGoal(0, new LatchOntoGoal<>(this, Player.class, true));
     }
 
-    public static boolean canSpawn(EntityType<StarfishEntity> starfishEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
-    }
-
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (player.getItemInHand(hand).getItem() == ItemInit.SHRIMP.get()) {

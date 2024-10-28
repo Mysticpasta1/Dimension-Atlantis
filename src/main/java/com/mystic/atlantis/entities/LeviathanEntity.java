@@ -294,10 +294,6 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
         }
     }
 
-    public static boolean canSpawn(EntityType<LeviathanEntity> leviathanEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 75 && 105 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
-    }
-
     class LeviathanEntityAttackPlayerTargetGoal extends Goal {
         private final TargetingConditions attackTargeting = TargetingConditions.forCombat().range(64.0D);
         private int nextScanTick = reducedTickDelay(20);

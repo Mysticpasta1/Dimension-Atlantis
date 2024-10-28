@@ -1,5 +1,6 @@
 {
 	"parent": "block/block",
+	"render_type": "minecraft:cutout_mipped",
 	"textures": {
 		"particle": "atlantis:block/palm_leaves",
 		"top": "atlantis:block/palm_leaves",
@@ -60,6 +61,7 @@
 		{
 			"from": [-3, 0, 8],
 			"to": [19, 16, 8],
+			"shade": false,
 			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#side"},
@@ -69,12 +71,12 @@
 		{
 			"from": [8, 0, -3],
 			"to": [8, 16, 19],
+			"shade": false,
 			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
 				"east": {"uv": [16, 0, 0, 16], "texture": "#side"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#side"}
 			}
 		}
-	],
-	"display": {}
+	]
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "atlantis:block/sea_glass_wall",
+  "render_type": "translucent",
+  "textures": {
+    "wall": "atlantis:block/purple_sea_glass"
+  }
+}

@@ -42,7 +42,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     public static final IntegerProperty DECAY = IntegerProperty.create("decay", 0, 30);
 
     public PushBubbleColumnBlock(Properties settings) {
-        super(settings/*.noCollission()*/);
+        super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(DECAY, 0));
     }
 
@@ -70,7 +70,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
             BlockPos.MutableBlockPos bubblePos = pos.mutable();
             for (int i = 1; i < AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get();  i++) {
                 BlockState bubbleState = level.getBlockState(pos.relative(direction, i));
-                BlockState previousBubbleState = level.getBlockState(pos.relative(direction,i - 1));
+                BlockState previousBubbleState = level.getBlockState(pos.relative(direction, i - 1));
                 bubbleState = getBubbleState(previousBubbleState, bubbleState, direction);
 
                 if (bubbleState == null)
@@ -126,7 +126,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
             return Blocks.WATER.defaultBlockState();
         }
 
-        System.out.println("No specific state change detected. Returning null.");
+        System.out.println("unknown state detected, returning null!");
         return null;
     }
     @Override
@@ -159,7 +159,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
 
         BlockState relativeState = reader.getBlockState(targetPos.relative(pushDir.getOpposite()));
 
-        if(relativeState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()) && relativeState.getValue(PUSH).equals(pushDir)) {
+        if(relativeState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()) && relativeState.getValue(PUSH).equals(pushDir)) {;
             return relativeState.getValue(DECAY) >= 0;
         }
 

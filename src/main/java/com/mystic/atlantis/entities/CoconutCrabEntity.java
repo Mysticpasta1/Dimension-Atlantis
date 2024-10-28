@@ -66,10 +66,6 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
         return world.isUnobstructed(this);
     }
 
-    public static boolean canSpawn(EntityType<CoconutCrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 350 && 512 >= pos.getY();
-    }
-
     @Override
     public MobType getMobType() {
         return MobType.WATER;

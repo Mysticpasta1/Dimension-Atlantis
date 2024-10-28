@@ -31,16 +31,16 @@ public class AtlanteanVolcano extends Feature<NoneFeatureConfiguration> {
             return false;
         }
 
-        if (context.level().getBlockState(context.origin().below()).isAir() || context.level().getBlockState(context.origin().below()).is(Blocks.WATER) || context.level().getBlockState(context.origin().below()).is(Blocks.LAVA) || context.level().getHeight(Heightmap.Types.OCEAN_FLOOR_WG, context.origin().getX(), context.origin().getZ()) < 4)
+        if (!context.level().getBlockState(context.origin().below()).isSolidRender(context.level(), pos))
             return false;
 
         if(AtlantisConfig.INSTANCE.volcanoesOn.get()) {
             BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-            double baseRadius = 10;
+            double baseRadius = 15;
             double waterLeakage = 0.7;
             double calciteBase = 0.6;
-            int volcanoConeSize = 50;
+            int volcanoConeSize = 55;
             int volcanoStartHeight = volcanoConeSize - 5;
             double threshold = 0.5;
 

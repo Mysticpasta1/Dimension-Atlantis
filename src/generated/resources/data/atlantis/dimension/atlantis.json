@@ -8,85 +8,85 @@
         {
           "biome": "atlantis:goo_lagoons",
           "parameters": {
+            "temperature": 0.1,
+            "humidity": 0.1,
             "continentalness": 0.1,
-            "depth": 0.2,
-            "erosion": 0.5,
-            "humidity": 0.2,
-            "offset": 0.3,
-            "temperature": 0.5,
-            "weirdness": 0.1
+            "erosion": 0.1,
+            "weirdness": 0,
+            "depth": 1,
+            "offset": 0
           }
         },
         {
           "biome": "atlantis:coconut_isles",
           "parameters": {
-            "continentalness": 0.1,
-            "depth": 0.0,
-            "erosion": 0.5,
-            "humidity": 0.2,
-            "offset": 0.3,
-            "temperature": 0.2,
-            "weirdness": 0.1
+            "temperature": 1,
+            "humidity": 1,
+            "continentalness": 1,
+            "erosion": 1,
+            "weirdness": 1,
+            "depth": 1,
+            "offset": 0
           }
         },
         {
           "biome": "atlantis:atlantean_garden",
           "parameters": {
+            "temperature": 0.3,
+            "humidity": 0.2,
             "continentalness": 0.1,
-            "depth": 0.2,
-            "erosion": 0.5,
-            "humidity": 0.4,
-            "offset": 0.3,
-            "temperature": 0.2,
-            "weirdness": 0.1
+            "erosion": 0.2,
+            "weirdness": 0,
+            "depth": 1,
+            "offset": 0
           }
         },
         {
           "biome": "atlantis:atlantis_biome",
           "parameters": {
-            "continentalness": 0.3,
-            "depth": 0.2,
-            "erosion": 0.5,
-            "humidity": 0.2,
-            "offset": 0.3,
-            "temperature": 0.2,
-            "weirdness": 0.1
+            "temperature": 0.1,
+            "humidity": 0.1,
+            "continentalness": 0.2,
+            "erosion": 0.1,
+            "weirdness": 0,
+            "depth": 1,
+            "offset": 0
           }
         },
         {
           "biome": "atlantis:jellyfish_fields",
           "parameters": {
+            "temperature": 0.1,
+            "humidity": 0.1,
             "continentalness": 0.1,
-            "depth": 0.2,
-            "erosion": 0.7,
-            "humidity": 0.2,
-            "offset": 0.3,
-            "temperature": 0.2,
-            "weirdness": 0.1
+            "erosion": 0.2,
+            "weirdness": 0,
+            "depth": 1,
+            "offset": 0
           }
         },
         {
           "biome": "atlantis:atlantean_islands_biome",
           "parameters": {
-            "continentalness": 0.1,
-            "depth": 0.2,
-            "erosion": 0.5,
-            "humidity": 0.2,
-            "offset": 0.3,
             "temperature": 0.2,
-            "weirdness": 0.3
+            "humidity": 0.1,
+            "continentalness": 0.1,
+            "erosion": 0.1,
+            "weirdness": 0,
+            "depth": 1,
+            "offset": 0
           }
         },
         {
           "biome": "atlantis:volcanic_darksea",
           "parameters": {
-            "continentalness": 0.1,
-            "depth": 0.2,
-            "erosion": 0.5,
+            "temperature": 0.1,
             "humidity": 0.2,
-            "offset": 0.5,
-            "temperature": 0.2,
-            "weirdness": 0.1
+            "continentalness": 0.1,
+            "erosion": 0.1,
+            "weirdness": 0,
+            "depth": 1,
+            "offset": 0
           }
         }
       ]

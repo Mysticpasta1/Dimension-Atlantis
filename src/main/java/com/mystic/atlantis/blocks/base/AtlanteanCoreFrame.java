@@ -29,7 +29,7 @@ public class AtlanteanCoreFrame extends EndPortalFrameBlock implements SimpleWat
 
     public AtlanteanCoreFrame() {
         super(Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.GLASS)
-                .lightLevel((p_50847_) -> 1).strength(3.0F, 12f));
+                .lightLevel((p_50847_) -> 1).strength(3.0F, 100000f));
         this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE);
     }
 

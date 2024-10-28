@@ -74,18 +74,18 @@ public class PlacedFeatureInit {
                 biome(),
                 spread(),
                 onHeightmap(OCEAN_FLOOR_WG),
-                absolute(100, 270));
+                absolute(65, 300));
 
         register(context, registry, ATLANTEAN_ISLANDS_PLACED, ATLANTEAN_ISLANDS_CONFIGURED,
                 biome(),
                 spread(),
-                absolute(100, 270));
+                absolute(90, 270));
 
         register(context, registry, ATLANTEAN_VOLCANO_PLACED, ATLANTEAN_VOLCANO_CONFiGURED,
                 biome(),
                 spread(),
                 onHeightmap(OCEAN_FLOOR_WG),
-                absolute(100, 270));
+                absolute(65, 300));
 
         register(context, registry, UNDERWATER_FLOWER_PLACED, UNDERWATER_FLOWER_CONFIGURED,
                 onAverageOnceEvery(1),

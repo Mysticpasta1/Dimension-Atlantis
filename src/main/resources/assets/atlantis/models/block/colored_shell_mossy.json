@@ -1,5 +1,6 @@
 {
 	"parent": "block/block",
+	"render_type": "translucent",
 	"textures": {
         "particle": "atlantis:block/colored_shell_faces",
         "down": "atlantis:block/colored_shell_faces",

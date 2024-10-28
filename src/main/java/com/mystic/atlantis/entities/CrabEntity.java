@@ -235,8 +235,4 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
-
-    public static boolean canSpawn(EntityType<CrabEntity> crabEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= AtlantisConfig.INSTANCE.minCrabSpawnHeight.get() && AtlantisConfig.INSTANCE.maxCrabSpawnHeight.get() >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
-    }
 }

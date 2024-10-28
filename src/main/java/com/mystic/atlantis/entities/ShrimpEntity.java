@@ -50,10 +50,6 @@ public class ShrimpEntity extends AbstractSchoolingFish implements GeoEntity, Bu
         return createAttributes().add(Attributes.MOVEMENT_SPEED, 2d);
     }
 
-    public static boolean canSpawn(EntityType<ShrimpEntity> shrimpEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
-    }
-
     @Override
     public float getScale() {
         return 0.5f;

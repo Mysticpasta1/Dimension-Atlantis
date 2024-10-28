@@ -149,7 +149,7 @@
         "type": "atlantis:atlantean_seahorse",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 25
+        "weight": 1
       }
     ]
   },

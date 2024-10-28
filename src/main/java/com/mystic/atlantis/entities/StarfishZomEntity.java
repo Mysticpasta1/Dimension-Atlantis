@@ -116,10 +116,6 @@ public class StarfishZomEntity extends Monster implements GeoEntity {
         }
     }
 
-    public static boolean canSpawn(EntityType<StarfishZomEntity> starfishZomEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 75 && 95 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
-    }
-
     @Override
     public boolean canBeLeashed(Player player) {
         return true;

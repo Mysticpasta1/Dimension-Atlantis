@@ -5,6 +5,7 @@ import com.mystic.atlantis.dimension.DimensionAtlantis;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -78,6 +79,13 @@ public class AtlantisClearPortalBlock extends EndPortalBlock implements SimpleWa
                 }
             }
         }
+    }
+
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        double $$4 = (double)pPos.getX() + pRandom.nextDouble();
+        double $$5 = (double)pPos.getY() + 0.8;
+        double $$6 = (double)pPos.getZ() + pRandom.nextDouble();
+        pLevel.addParticle(ParticleTypes.BUBBLE_POP, $$4, $$5, $$6, 0.0, 0.0, 0.0);
     }
 
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {

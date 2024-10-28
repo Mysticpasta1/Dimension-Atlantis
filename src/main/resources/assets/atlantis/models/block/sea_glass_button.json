@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/button",
+	"render_type": "translucent",
+  "textures": {
+    "texture": "atlantis:block/sea_glass"
+  }
+}

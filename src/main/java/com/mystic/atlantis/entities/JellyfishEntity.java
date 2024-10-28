@@ -73,10 +73,6 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
         return createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2d).add(Attributes.MOVEMENT_SPEED, 0.5d);
     }
 
-    public static boolean canSpawn(EntityType<JellyfishEntity> jellyfishEntityType, ServerLevelAccessor serverWorldAccess, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-        return pos.getY() >= 75 && 105 >= pos.getY() && serverWorldAccess.getBlockState(pos).is(Blocks.WATER);
-    }
-
     @Override
     public boolean isVisuallySwimming() {
         return true;

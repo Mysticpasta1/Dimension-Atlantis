@@ -64,13 +64,13 @@ public class DimensionAtlantis
                 new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromList(
                         new Climate.ParameterList<>(
                                 List.of(
-                                        Pair.of(Climate.parameters(0.5F, 0.2F, 0.1F, 0.5F, 0.2F, 0.1F, 0.3F), holderGetter.getOrThrow(BiomeInit.GOO_LAGOONS_KEY)),
-                                        Pair.of(Climate.parameters(0.2F, 0.2F, 0.1F, 0.5F, 0.0F, 0.1F, 0.3F), holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
-                                        Pair.of(Climate.parameters(0.2F, 0.4F, 0.1F, 0.5F, 0.2F, 0.1F, 0.3F), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY)),
-                                        Pair.of(Climate.parameters(0.2F, 0.2F, 0.3F, 0.5F, 0.2F, 0.1F, 0.3F), holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY)),
-                                        Pair.of(Climate.parameters(0.2F, 0.2F, 0.1F, 0.7F, 0.2F, 0.1F, 0.3F), holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY)),
-                                        Pair.of(Climate.parameters(0.2F, 0.2F, 0.1F, 0.5F, 0.2F, 0.3F, 0.3F), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY)),
-                                        Pair.of(Climate.parameters(0.2F, 0.2F, 0.1F, 0.5F, 0.2F, 0.1F, 0.5F), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY))
+                                        Pair.of(Climate.parameters(0.1F, 0.1F, 0.1F, 0.1F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.GOO_LAGOONS_KEY)),
+                                        Pair.of(Climate.parameters(1F, 1F, 1F, 1F, 1F, 1F, 0F), holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
+                                        Pair.of(Climate.parameters(0.3F, 0.2F, 0.1F, 0.2F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY)),
+                                        Pair.of(Climate.parameters(0.1F, 0.1F, 0.2F, 0.1F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY)),
+                                        Pair.of(Climate.parameters(0.1F, 0.1F, 0.1F, 0.2F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY)),
+                                        Pair.of(Climate.parameters(0.2F, 0.1F, 0.1F, 0.1F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY)),
+                                        Pair.of(Climate.parameters(0.1F, 0.2F, 0.1F, 0.1F, 1F, 0F, 0F), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY))
                                 ))), holderGetter2.getOrThrow(ATLANTIS_DIMENSION_NOISE_SETTING))));
     }
 }
