@@ -320,7 +320,6 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.RAW_ANCIENT_METAL_BLOCK, "Raw Ancient Metal Block");
         this.add(ItemInit.ANCIENT_METAL_INGOT.get(), "Ancient Metal Ingot");
         //TODO add -> this.add(ItemInit.ANCIENT_METAL_NUGGET.get(), "Ancient Metal Nugget");
-        //TODO add -> this.add(ItemInit.ANCIENT_METAL_SCRAP.get(), "Ancient Metal Scrap");
         this.add(ItemInit.RAW_ANCIENT_METAL_INGOT.get(), "Raw Ancient Metal Ingot");
 
         add("block.atlantis.atlantean_sign", "Atlantean Sign");
@@ -400,9 +399,9 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ORICHALCUM_BOOTS.get(), "Orichalcum Boots");
 
         this.add(AtlantisEntityInit.PALM_BOAT.get(), "Palm_boat");
-        this.add(AtlantisEntityInit.ATLANTEAN_BOAT.get(), "Atlantean_boat");
+        this.add(AtlantisEntityInit.ATLANTEAN_BOAT.get(), "Atlantean Boat");
         this.add(AtlantisEntityInit.CRAB.get(), "Crab");
-        this.add(AtlantisEntityInit.COCONUT_CRAB.get(), "Coconut_crab");
+        this.add(AtlantisEntityInit.COCONUT_CRAB.get(), "Coconut Crab");
         this.add(AtlantisEntityInit.JELLYFISH.get(), "Jellyfish");
         this.add(AtlantisEntityInit.SHRIMP.get(), "Shrimp");
         this.add(AtlantisEntityInit.LEVIATHAN.get(), "Leviathan");
@@ -458,8 +457,8 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         if(type.button() != null) addBlock(type.button(), base + " Button");
         if(type.slab() != null) addBlock(type.slab(), base + " Slab");
         if(type.fence() != null) addBlock(type.fence(), base + " Fence");
-        if(type.fenceGate() != null) addBlock(type.fenceGate(), base + "Fence Gate");
-        if(type.pressurePlate() != null) addBlock(type.pressurePlate(), base + "Pressure Plate");
+        if(type.fenceGate() != null) addBlock(type.fenceGate(), base + " Fence Gate");
+        if(type.pressurePlate() != null) addBlock(type.pressurePlate(), base + " Pressure Plate");
         if(type.trapDoor() != null) addBlock(type.trapDoor(), base + " Trapdoor");
         if(type.wall() != null) addBlock(type.wall(), base + " Wall");
     }

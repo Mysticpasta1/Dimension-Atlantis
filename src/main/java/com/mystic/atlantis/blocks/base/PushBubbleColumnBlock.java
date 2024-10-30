@@ -42,14 +42,14 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     public static final IntegerProperty DECAY = IntegerProperty.create("decay", 0, 30);
 
     public PushBubbleColumnBlock(Properties settings) {
-        super(settings);
+        super(settings.replaceable());
         this.registerDefaultState(this.stateDefinition.any().setValue(DECAY, 0));
     }
 
     @Override
     public void entityInside(BlockState targetState, Level level, BlockPos targetPos, Entity targetEntity) {
         BlockState aboveState = level.getBlockState(targetPos.above());
-        
+
         if (aboveState.isAir()) {
             onBubbleColumnSurfaceCollision(targetEntity, targetState.getValue(PUSH));
             if (!level.isClientSide) {
@@ -57,7 +57,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
 
                 for (int i = 0; i < 2; ++i) {
                     serverLevel.sendParticles(ParticleTypes.SPLASH, (double) targetPos.getX() + level.random.nextDouble(), targetPos.getY() + 1, (double) targetPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
-                    serverLevel.sendParticles(ParticleTypes.BUBBLE, (double) targetPos.getX() + level.random.nextDouble(), targetPos.getY() + 1, (double) targetPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
+                    serverLevel.sendParticles(ModParticleTypes.PUSH_BUBBLESTREAM.get(), (double) targetPos.getX() + level.random.nextDouble(), targetPos.getY() + 1, (double) targetPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
                 }
             }
         } else {
@@ -68,18 +68,23 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     public static void update(ServerLevel level, BlockPos pos) {
         for (Direction direction : Direction.values()) {
             BlockPos.MutableBlockPos bubblePos = pos.mutable();
-            for (int i = 1; i < AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get();  i++) {
-                BlockState bubbleState = level.getBlockState(pos.relative(direction, i));
-                BlockState previousBubbleState = level.getBlockState(pos.relative(direction, i - 1));
-                bubbleState = getBubbleState(previousBubbleState, bubbleState, direction);
 
-                if (bubbleState == null)
+            for (int i = 1; i < AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get(); i++) {
+                bubblePos.move(direction);
+                BlockState previousState = level.getBlockState(bubblePos.relative(direction.getOpposite()));
+                BlockState targetState = level.getBlockState(bubblePos);
+
+                BlockState newState = getBubbleState(previousState, targetState, direction);
+
+                if (newState == null) {
+                    System.out.println("Stopping bubble column decay at " + bubblePos + " due to null state.");
                     break;
+                }
 
-                level.setBlock(bubblePos.move(direction.getNormal()), bubbleState, Block.UPDATE_ALL);
+                level.setBlock(bubblePos, newState, Block.UPDATE_ALL);
             }
         }
-     }
+    }
 
     @NotNull
     @Override
@@ -97,8 +102,10 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
         System.out.println("Target State: " + targetState.toString());
         System.out.println("Current Direction: " + curDir.toString());
 
-        if (targetState.is(BlockInit.BUBBLE_MAGMA.get()))
+        if (targetState.is(BlockInit.BUBBLE_MAGMA.get())) {
+            System.out.println("Target is BUBBLE_MAGMA, returning null.");
             return null;
+        }
 
         if (previousState.is(BlockInit.BUBBLE_MAGMA.get())) {
             if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
@@ -129,13 +136,15 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
         System.out.println("unknown state detected, returning null!");
         return null;
     }
+
     @Override
     public void animateTick(BlockState targetState, Level level, BlockPos targetPos, RandomSource random) {
         double x = targetPos.getX();
         double y = targetPos.getY();
         double z = targetPos.getZ();
 
-        level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM.get(), x + 0.5D, y + 0.8D, z, targetState.getValue(PUSH).get3DDataValue(), 0.0D, 0.0D);
+        level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM.get(), x + 0.5D, y + 0.5D, z, 0.0, 0.04D, 0.0D);
+        level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM.get(), x + (double)random.nextFloat(), y + (double)random.nextFloat(), z + (double)random.nextFloat(), 0.0D, 0.04D, 0.0D);
 
         if (random.nextInt(200) == 0) {
             level.playLocalSound(x, y, z, SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundSource.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
@@ -146,7 +155,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     @Override
     public BlockState updateShape(BlockState targetState, Direction curDir, BlockState neighborState, LevelAccessor level, BlockPos targetPos, BlockPos neighborPos) {
         level.scheduleTick(targetPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-        
+
         if (!this.canSurvive(targetState, level, targetPos) && !neighborState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()) && isStillWater(neighborState)) {
             level.scheduleTick(targetPos, this, 1);
         }
@@ -159,7 +168,8 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
 
         BlockState relativeState = reader.getBlockState(targetPos.relative(pushDir.getOpposite()));
 
-        if(relativeState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()) && relativeState.getValue(PUSH).equals(pushDir)) {;
+        if (relativeState.is(BlockInit.PUSH_BUBBLE_COLUMN.get()) && relativeState.getValue(PUSH).equals(pushDir)) {
+            ;
             return relativeState.getValue(DECAY) >= 0;
         }
 
@@ -216,7 +226,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     }
 
     public double getAdjustedMagLimit(Direction.AxisDirection curAxisDir, double magnitude, double limit) {
-        if(curAxisDir == Direction.AxisDirection.POSITIVE) {
+        if (curAxisDir == Direction.AxisDirection.POSITIVE) {
             return Math.max(magnitude, limit);
         } else {
             return Math.min(magnitude, limit);

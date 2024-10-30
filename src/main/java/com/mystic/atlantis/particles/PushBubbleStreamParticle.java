@@ -6,34 +6,31 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public class PushBubbleStreamParticle extends TextureSheetParticle {
-   /**
-    * The angle, in radians, of the horizontal acceleration of the particle.
-    */
-   private float accelerationAngle;
 
-   private Direction direction;
+   private final Direction direction;
 
    PushBubbleStreamParticle(ClientLevel clientWorld, double x, double y, double z, Direction direction) {
       super(clientWorld, x, y, z);
       this.direction = direction;
-      this.lifetime = (int)(Math.random() * 60.0D) + 30;
+      this.lifetime = (int)(40.0 / (Math.random() * 0.8 + 0.2));
       this.hasPhysics = false;
 
       Vector3f vec = direction.step();
-      vec.mul(0.5f);
 
-      this.setParticleSpeed(vec.x(), vec.y(), vec.z());
+      // Set initial directional velocity based on the direction
+      this.xd = vec.x() * 0.2 + (Math.random() * 0.02 - 0.01);  // Small randomization for natural look
+      this.yd = vec.y() * 0.2 + (Math.random() * 0.02 - 0.01);
+      this.zd = vec.z() * 0.2 + (Math.random() * 0.02 - 0.01);
 
       this.setSize(0.02F, 0.02F);
       this.quadSize *= this.random.nextFloat() * 0.6F + 0.2F;
-      this.gravity = 0.002F;
+      this.gravity = -0.125F;
    }
 
    public ParticleRenderType getRenderType() {
@@ -44,38 +41,24 @@ public class PushBubbleStreamParticle extends TextureSheetParticle {
       this.xo = this.x;
       this.yo = this.y;
       this.zo = this.z;
+
       if (this.age++ >= this.lifetime) {
          this.remove();
       } else {
-         float f = 0.6F;
+         // Adjust velocity slightly each tick to continue movement in push direction
+         Vector3f vec = direction.step();
+         float speedFactor = 0.02F;  // Consistent speed factor
+         this.xd = vec.x() * speedFactor;
+         this.yd = vec.y() * speedFactor;
+         this.zd = vec.z() * speedFactor;
 
-         switch (direction.getAxis()) {
-            case Y -> {
-               this.xd += f * Mth.cos(this.accelerationAngle);
-               this.zd += f * Mth.sin(this.accelerationAngle);
-               this.xd *= 0.7F;
-               this.zd *= 0.7F;
-            }
-            case X -> {
-               this.yd += f * Mth.cos(this.accelerationAngle);
-               this.zd += f * Mth.sin(this.accelerationAngle);
-               this.yd *= 0.7F;
-               this.zd *= 0.7F;
-            }
-            case Z -> {
-               this.xd += f * Mth.cos(this.accelerationAngle);
-               this.yd += f * Mth.sin(this.accelerationAngle);
-               xd *= 0.7F;
-               yd *= 0.7F;
-            }
-
-         }
+         // Move in the current direction
          this.move(this.xd, this.yd, this.zd);
+
+         // Check if particle is still in water, if not remove
          if (!this.level.getFluidState(new BlockPos((int) this.x, (int) this.y, (int) this.z)).is(FluidTags.WATER) || this.onGround) {
             this.remove();
          }
-
-         this.accelerationAngle = (float)((double)this.accelerationAngle + ((direction.getAxis().equals(Direction.AxisDirection.NEGATIVE) ? 0.08D : -0.08D)));
       }
    }
 
