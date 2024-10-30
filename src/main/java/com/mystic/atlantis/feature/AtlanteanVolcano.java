@@ -2,6 +2,7 @@ package com.mystic.atlantis.feature;
 
 import com.mojang.serialization.Codec;
 import com.mystic.atlantis.config.AtlantisConfig;
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -60,7 +61,7 @@ public class AtlanteanVolcano extends Feature<NoneFeatureConfiguration> {
                         }
                         if (scaledNoise - calciteBase >= threshold) {
                             if (mutable.getY() <= 70 && mutable.getY() >= 40) {
-                                context.level().setBlock(mutable, Blocks.MAGMA_BLOCK.defaultBlockState(), 2);
+                                context.level().setBlock(mutable, BlockInit.BUBBLE_MAGMA.get().defaultBlockState(), 2);
                             }
                         }
                     }

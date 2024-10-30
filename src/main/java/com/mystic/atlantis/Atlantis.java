@@ -1,6 +1,7 @@
 package com.mystic.atlantis;
 
 import com.mystic.atlantis.blocks.base.ExtendedBlockEntity;
+import com.mystic.atlantis.blocks.power.atlanteanstone.SodiumPrimedBombBlock;
 import com.mystic.atlantis.config.AtlantisConfig;
 import com.mystic.atlantis.feature.AtlantisFeature;
 import com.mystic.atlantis.datagen.Providers;
@@ -14,13 +15,24 @@ import com.mystic.atlantis.structures.AtlantisStructures;
 import com.mystic.atlantis.util.Reference;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraftforge.client.ConfigScreenHandler;
@@ -53,6 +65,24 @@ public class Atlantis {
         AtlantisFeature.init(bus);
         AtlantisStructures.DEFERRED_REGISTRY_STRUCTURE.register(bus);
         Providers.init(bus);
+    }
+
+    public static void registerDispenserBehavior() {
+        DispenserBlock.registerBehavior(BlockInit.SODIUM_BOMB.get(), new DefaultDispenseItemBehavior() {
+            /**
+             * Dispense the specified stack, play the dispense sound, and spawn particles.
+             */
+            protected ItemStack execute(BlockSource p_123425_, ItemStack p_123426_) {
+                Level level = p_123425_.getLevel();
+                BlockPos blockpos = p_123425_.getPos().relative(p_123425_.getBlockState().getValue(DispenserBlock.FACING));
+                SodiumPrimedBombBlock primedtnt = new SodiumPrimedBombBlock(level, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, (LivingEntity)null);
+                level.addFreshEntity(primedtnt);
+                level.playSound((Player)null, primedtnt.getX(), primedtnt.getY(), primedtnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.gameEvent((Entity)null, GameEvent.ENTITY_PLACE, blockpos);
+                p_123426_.shrink(1);
+                return p_123426_;
+            }
+        });
     }
 
     @SubscribeEvent
@@ -113,5 +143,7 @@ public class Atlantis {
 
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.ATLANTEAN_SIGNS.get(), BlockInit.ATLANTEAN_WALL_SIGN.get());
         ((ExtendedBlockEntity) BlockEntityType.SIGN).addAdditionalValidBlock(BlockInit.PALM_SIGNS.get(), BlockInit.PALM_WALL_SIGN.get());
+
+        registerDispenserBehavior();
     }
 }

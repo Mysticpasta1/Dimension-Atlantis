@@ -5,13 +5,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-
-import static com.mystic.atlantis.blocks.base.PushBubbleColumnBlock.DECAY;
 
 public class BubbleMagmaBlock extends Block {
     public BubbleMagmaBlock(Properties settings) {
@@ -39,6 +38,15 @@ public class BubbleMagmaBlock extends Block {
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        level.scheduleTick(pos, this, 20);
+        if (!level.isClientSide()) {
+            PushBubbleColumnBlock.update((ServerLevel) (level), pos);
+        }
+    }
+
+    @Override
+    public void wasExploded(Level level, BlockPos pos, Explosion pExplosion) {
+        if (!level.isClientSide()) {
+            PushBubbleColumnBlock.update((ServerLevel) (level), pos);
+        }
     }
 }

@@ -14,14 +14,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -36,6 +30,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+
+import static com.mystic.atlantis.blocks.base.AtlanteanWoodDoorBlock.WATERLOGGED;
 
 public class PushBubbleColumnBlock extends Block implements BucketPickup {
     public static final DirectionProperty PUSH = BlockStateProperties.FACING;
@@ -57,7 +53,7 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
 
                 for (int i = 0; i < 2; ++i) {
                     serverLevel.sendParticles(ParticleTypes.SPLASH, (double) targetPos.getX() + level.random.nextDouble(), targetPos.getY() + 1, (double) targetPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
-                    serverLevel.sendParticles(ModParticleTypes.PUSH_BUBBLESTREAM.get(), (double) targetPos.getX() + level.random.nextDouble(), targetPos.getY() + 1, (double) targetPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
+                    serverLevel.sendParticles(ParticleTypes.BUBBLE, (double) targetPos.getX() + level.random.nextDouble(), targetPos.getY() + 1, (double) targetPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 0.02D);
                 }
             }
         } else {
@@ -72,12 +68,13 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
             for (int i = 1; i < AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get(); i++) {
                 bubblePos.move(direction);
                 BlockState previousState = level.getBlockState(bubblePos.relative(direction.getOpposite()));
+                var previousFluidState = level.getFluidState(bubblePos.relative(direction.getOpposite()));
                 BlockState targetState = level.getBlockState(bubblePos);
 
-                BlockState newState = getBubbleState(previousState, targetState, direction);
+                BlockState newState = getBubbleState(previousState, previousFluidState, targetState, direction);
 
                 if (newState == null) {
-                    System.out.println("Stopping bubble column decay at " + bubblePos + " due to null state.");
+                    //System.out.println("Stopping bubble column decay at " + bubblePos + " due to null state.");
                     break;
                 }
 
@@ -96,44 +93,42 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
         return state.is(Blocks.WATER) && state.getFluidState().getAmount() >= 8 && state.getFluidState().isSource();
     }
 
-    private static BlockState getBubbleState(BlockState previousState, BlockState targetState, Direction curDir) {
+    private static BlockState getBubbleState(BlockState previousState, FluidState fluidState, BlockState targetState, Direction curDir) {
         System.out.println("Debugging getBubbleState method:");
         System.out.println("Previous State: " + previousState.toString());
         System.out.println("Target State: " + targetState.toString());
         System.out.println("Current Direction: " + curDir.toString());
+        System.out.println("Previous Fluid State: " + fluidState.toString());
 
         if (targetState.is(BlockInit.BUBBLE_MAGMA.get())) {
-            System.out.println("Target is BUBBLE_MAGMA, returning null.");
+            //System.out.println("Target is BUBBLE_MAGMA, returning null.");
             return null;
         }
 
         if (previousState.is(BlockInit.BUBBLE_MAGMA.get())) {
             if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                System.out.println("Setting PUSH_BUBBLE_COLUMN state");
+                //System.out.println("Setting PUSH_BUBBLE_COLUMN state");
                 return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, AtlantisConfig.INSTANCE.maxDistanceOfPushBubbleColumn.get());
             }
         } else if (previousState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-            if (previousState.getValue(DECAY) == 0 && !previousState.getValue(PUSH).equals(curDir)) {
-                System.out.println("Returning default WATER state");
+            if (previousState.getValue(DECAY) == 0) {
+                //System.out.println("Returning default WATER state");
                 return Blocks.WATER.defaultBlockState();
-            }
-
-            if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                System.out.println("Setting PUSH_BUBBLE_COLUMN state with reduced decay");
-                System.out.println("Previous decay value: " + previousState.getValue(DECAY));
+            } else if(!previousState.getValue(PUSH).equals(curDir)) {
+                return null;
+            } else if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
+                //System.out.println("Setting PUSH_BUBBLE_COLUMN state with reduced decay");
+                //System.out.println("Previous decay value: " + previousState.getValue(DECAY));
                 return BlockInit.PUSH_BUBBLE_COLUMN.get().defaultBlockState().setValue(PUSH, curDir).setValue(DECAY, previousState.getValue(DECAY) - 1);
             }
-        } else if (isStillWater(previousState)) {
+        } else if (fluidState.isEmpty() || isStillWater(previousState)) {
             if (isStillWater(targetState) || targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-                System.out.println("Returning default WATER state");
+                //System.out.println("Returning default WATER state");
                 return Blocks.WATER.defaultBlockState();
             }
-        } else if (targetState.is(BlockInit.PUSH_BUBBLE_COLUMN.get())) {
-            System.out.println("Returning default WATER state");
-            return Blocks.WATER.defaultBlockState();
         }
 
-        System.out.println("unknown state detected, returning null!");
+        //System.out.println("unknown state detected, returning null!");
         return null;
     }
 
@@ -143,13 +138,32 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
         double y = targetPos.getY();
         double z = targetPos.getZ();
 
-        level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM.get(), x + 0.5D, y + 0.5D, z, 0.0, 0.04D, 0.0D);
-        level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM.get(), x + (double)random.nextFloat(), y + (double)random.nextFloat(), z + (double)random.nextFloat(), 0.0D, 0.04D, 0.0D);
+        switch(targetState.getValue(PUSH)) {
+            case UP -> level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM_UP.get(), x + (double) random.nextFloat(), y + (double) random.nextFloat(), z + (double) random.nextFloat(), 0.0D, 0.0D, 0.0D);
+            case DOWN -> level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM_DOWN.get(), x + (double) random.nextFloat(), y + (double) random.nextFloat(), z + (double) random.nextFloat(), 0.0D, 0.0D, 0.0D);
+            case NORTH -> level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM_NORTH.get(), x + (double) random.nextFloat(), y + (double) random.nextFloat(), z + (double) random.nextFloat(), 0.0D, 0.0D, 0.0D);
+            case SOUTH -> level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM_SOUTH.get(), x + (double) random.nextFloat(), y + (double) random.nextFloat(), z + (double) random.nextFloat(), 0.0D, 0.0D, 0.0D);
+            case EAST -> level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM_EAST.get(), x + (double) random.nextFloat(), y + (double) random.nextFloat(), z + (double) random.nextFloat(), 0.0D, 0.0D, 0.0D);
+            case WEST -> level.addAlwaysVisibleParticle(ModParticleTypes.PUSH_BUBBLESTREAM_WEST.get(), x + (double) random.nextFloat(), y + (double) random.nextFloat(), z + (double) random.nextFloat(), 0.0D, 0.0D, 0.0D);
+        }
 
         if (random.nextInt(200) == 0) {
             level.playLocalSound(x, y, z, SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_AMBIENT, SoundSource.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);
         }
+    }
 
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!level.isClientSide()) {
+            update((ServerLevel) (level), pos);
+        }
+    }
+
+    @Override
+    public void wasExploded(Level level, BlockPos pos, Explosion pExplosion) {
+        if (!level.isClientSide()) {
+            update((ServerLevel) (level), pos);
+        }
     }
 
     @Override

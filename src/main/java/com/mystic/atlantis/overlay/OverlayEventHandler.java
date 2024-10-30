@@ -12,6 +12,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 public class OverlayEventHandler implements IGuiOverlay {
 
     protected static final ResourceLocation COCONUT_BLUR = new ResourceLocation("atlantis", "textures/misc/coconutblur.png");
+    protected static final ResourceLocation COCONUT_BLUR_2 = new ResourceLocation("atlantis", "textures/misc/coconutblur2.png");
 
     public OverlayEventHandler() {
     }
@@ -31,6 +32,8 @@ public class OverlayEventHandler implements IGuiOverlay {
                     ItemStack itemstack = minecraft.player.getInventory().getArmor(3);
                     if (itemstack.is(BlockInit.CARVED_COCONUT.get().asItem())) {
                         renderTextureOverlay(stack, COCONUT_BLUR, 1.0f, screenWidth, screenHeight);
+                    } else if (itemstack.is(BlockInit.COCONUT.get().asItem())) {
+                        renderTextureOverlay(stack, COCONUT_BLUR_2, 1.0f, screenWidth, screenHeight);
                     }
                 }
             }

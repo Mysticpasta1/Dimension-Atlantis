@@ -9,7 +9,7 @@ import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.entities.models.*;
 import com.mystic.atlantis.entities.renders.*;
 import com.mystic.atlantis.init.*;
-import com.mystic.atlantis.particles.PushBubbleStreamParticle;
+import com.mystic.atlantis.particles.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
@@ -46,9 +46,6 @@ import static com.mystic.atlantis.init.BlockInit.ANEMONE_BLOCK;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
-    public static DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Reference.MODID);
-    public static final RegistryObject<SimpleParticleType> PUSH_BUBBLESTREAM = PARTICLES.register("push_bubblestream", () -> new SimpleParticleType(false));
-
     @SubscribeEvent
     public static void onInitializeClient(FMLClientSetupEvent event) {
 
@@ -301,7 +298,12 @@ public class ClientSetup {
     }
     @SubscribeEvent
     public static void init(RegisterParticleProvidersEvent bus) {
-        Minecraft.getInstance().particleEngine.register(PUSH_BUBBLESTREAM.get(), PushBubbleStreamParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_UP.get(), PushBubbleStreamParticleUp.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_DOWN.get(), PushBubbleStreamParticleDown.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_NORTH.get(), PushBubbleStreamParticleNorth.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_SOUTH.get(), PushBubbleStreamParticleSouth.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_EAST.get(), PushBubbleStreamParticleEast.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_WEST.get(), PushBubbleStreamParticleWest.Factory::new);
     }
 
     private static void registerBlockRenderLayers(RenderType layer, Block... blocks) {
