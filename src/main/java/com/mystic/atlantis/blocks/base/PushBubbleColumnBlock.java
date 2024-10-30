@@ -94,11 +94,11 @@ public class PushBubbleColumnBlock extends Block implements BucketPickup {
     }
 
     private static BlockState getBubbleState(BlockState previousState, FluidState fluidState, BlockState targetState, Direction curDir) {
-        System.out.println("Debugging getBubbleState method:");
-        System.out.println("Previous State: " + previousState.toString());
-        System.out.println("Target State: " + targetState.toString());
-        System.out.println("Current Direction: " + curDir.toString());
-        System.out.println("Previous Fluid State: " + fluidState.toString());
+        //System.out.println("Debugging getBubbleState method:");
+        //System.out.println("Previous State: " + previousState.toString());
+        //System.out.println("Target State: " + targetState.toString());
+        //System.out.println("Current Direction: " + curDir.toString());
+        //System.out.println("Previous Fluid State: " + fluidState.toString());
 
         if (targetState.is(BlockInit.BUBBLE_MAGMA.get())) {
             //System.out.println("Target is BUBBLE_MAGMA, returning null.");
