@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	
+	"ingredients":
+	[
+	
+	{
+		"item": "atlantis:coconut"
+	}
+	
+	],
+	
+	"result":
+	{
+		"item": "atlantis:coconut_slice",
+		"count": 2
+	}
+}	

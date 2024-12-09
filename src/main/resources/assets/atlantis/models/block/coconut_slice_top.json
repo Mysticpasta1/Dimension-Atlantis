@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "atlantis:block/coconut_side",
+		"1": "atlantis:block/coconut_inner",
+		"particle": "atlantis:block/coconut_side"
+	},
+	"elements": [
+		{
+			"from": [0, 8, 0],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 0]},
+			"faces": {
+				"north": {"uv": [8, 8, 0, 0], "texture": "#0"},
+				"east": {"uv": [8, 8, 0, 0], "texture": "#0"},
+				"south": {"uv": [8, 8, 0, 0], "texture": "#0"},
+				"west": {"uv": [8, 8, 0, 0], "texture": "#0"},
+				"up": {"uv": [16, 16, 0, 0], "texture": "#0"},
+				"down": {"uv": [16, 16, 0, 0], "texture": "#1"}
+			}
+		}
+	]
+}

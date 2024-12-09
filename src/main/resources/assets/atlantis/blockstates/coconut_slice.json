@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "atlantis:block/coconut_slice_bottom"
+    },
+    "type=double": {
+      "model": "atlantis:block/coconut_slice"
+    },
+    "type=top": {
+      "model": "atlantis:block/coconut_slice_top"
+    }
+  }
+}
