@@ -3,10 +3,10 @@
   "textures": {
     "down": "atlantis:block/coconut_side",
     "east": "atlantis:block/coconut_side",
-    "north": "atlantis:block/coconut_side",
+    "north": "atlantis:block/coconut",
     "particle": "atlantis:block/coconut_side",
     "south": "atlantis:block/coconut_side",
-    "up": "atlantis:block/coconut",
+    "up": "atlantis:block/coconut_side",
     "west": "atlantis:block/coconut_side"
   }
 }

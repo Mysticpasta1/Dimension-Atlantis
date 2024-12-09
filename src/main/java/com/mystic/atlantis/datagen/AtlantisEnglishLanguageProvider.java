@@ -456,6 +456,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         if(type.door() != null) addBlock(type.door(), base + " Door");
         if(type.button() != null) addBlock(type.button(), base + " Button");
         if(type.slab() != null) addBlock(type.slab(), base + " Slab");
+        if(type.stairs() != null) addBlock(type.stairs(), base + " Stairs");
         if(type.fence() != null) addBlock(type.fence(), base + " Fence");
         if(type.fenceGate() != null) addBlock(type.fenceGate(), base + " Fence Gate");
         if(type.pressurePlate() != null) addBlock(type.pressurePlate(), base + " Pressure Plate");

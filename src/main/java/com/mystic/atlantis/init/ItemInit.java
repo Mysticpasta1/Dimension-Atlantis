@@ -6,6 +6,7 @@ import com.mystic.atlantis.items.armor.BasicArmorMaterial;
 import com.mystic.atlantis.items.armor.ItemArmorAtlantis;
 import com.mystic.atlantis.items.armor.ItemArmorOrichalcum;
 import com.mystic.atlantis.items.armor.ItemArmorWrought;
+import com.mystic.atlantis.items.food.*;
 import com.mystic.atlantis.items.tools.AtlanteanAmuletItem;
 import com.mystic.atlantis.items.AtlanteanCrystal;
 import com.mystic.atlantis.items.tools.AtlanteanSpearItem;
@@ -90,6 +91,8 @@ public class ItemInit {
 
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SEEDS = register("atlantean_fire_melon_fruit_seeds",  () -> new ItemNameBlockItem(BlockInit.ATLANTEAN_FIRE_MELON_TOP.get(), new Item.Properties()));
     public static final RegistryObject<Item> ATLANTEAN_FIRE_MELON_SPIKE = register("atlantean_fire_melon_spike",  DefaultItem::new);
+
+    public static final RegistryObject<Item> COCONUT_SLICE_ITEM = register("coconut_slice", () -> new CoconutSliceItem(new Item.Properties()));
 
     public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL = registerGlyph(LinguisticGlyph.BLANK);
     public static final RegistryObject<Item> LINGUISTIC_GLYPH_SCROLL_A = registerGlyph(LinguisticGlyph.A);

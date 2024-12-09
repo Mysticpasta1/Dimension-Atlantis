@@ -60,7 +60,6 @@ public class PlacedFeatureInit {
         register(context, registry, ATLANTEAN_PALM_TREE_PLACED, ATLANTEAN_PALM_TREE_CONFIGURED,
                 count(2),
                 spread(),
-                forMaxDepth(0),
                 onHeightmap(OCEAN_FLOOR_WG),
                 biome());
 

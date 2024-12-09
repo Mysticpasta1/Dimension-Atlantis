@@ -20,10 +20,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -66,7 +63,6 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
     public JellyfishEntity(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
         this.randomTimer = this.getRandom().nextInt(61);
-        this.setNoGravity(true);
     }
 
     public static AttributeSupplier.Builder createJellyfishAttributes() {
@@ -119,10 +115,12 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(0, new JellyFishRandomMovementGoal(this));
-        goalSelector.addGoal(1, new RandomLookAroundGoal(this));
-        goalSelector.addGoal(2, new TryFindWaterGoal(this));
-        goalSelector.addGoal(3, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
+        goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 0.2));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomStrollGoal(this, 0.2));
+        goalSelector.addGoal(1, new JellyFishRandomMovementGoal(this));
+        goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(3, new TryFindWaterGoal(this));
+        goalSelector.addGoal(4, new TemptGoal(this, 1, Ingredient.of(ItemInit.CRAB_LEGS.get()), false));
     }
 
     public boolean fromBucket() {

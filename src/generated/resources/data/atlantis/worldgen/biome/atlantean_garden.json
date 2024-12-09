@@ -104,7 +104,7 @@
       },
       {
         "type": "atlantis:atlantean_starfish",
-        "maxCount": 4,
+        "maxCount": 2,
         "minCount": 2,
         "weight": 25
       },

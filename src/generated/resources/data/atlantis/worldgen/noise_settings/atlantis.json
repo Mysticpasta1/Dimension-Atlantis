@@ -125,7 +125,7 @@
     "vein_toggle": 0.0
   },
   "ore_veins_enabled": true,
-  "sea_level": 350,
+  "sea_level": 512,
   "spawn_target": [],
   "surface_rule": {
     "type": "minecraft:sequence",
@@ -217,11 +217,11 @@
             "if_true": {
               "type": "minecraft:vertical_gradient",
               "false_at_and_above": {
-                "absolute": 65
+                "absolute": 200
               },
               "random_name": "atlantis:sandstone_layer",
               "true_at_and_below": {
-                "absolute": 64
+                "absolute": 199
               }
             },
             "then_run": {
@@ -236,49 +236,17 @@
             "if_true": {
               "type": "minecraft:vertical_gradient",
               "false_at_and_above": {
-                "absolute": 200
+                "absolute": 512
               },
               "random_name": "atlantis:seabed_layer",
               "true_at_and_below": {
-                "absolute": 199
+                "absolute": 511
               }
             },
             "then_run": {
               "type": "minecraft:block",
               "result_state": {
                 "Name": "atlantis:seabed"
-              }
-            }
-          },
-          {
-            "type": "minecraft:condition",
-            "if_true": {
-              "type": "minecraft:stone_depth",
-              "add_surface_depth": true,
-              "offset": 2,
-              "secondary_depth_range": 3,
-              "surface_type": "floor"
-            },
-            "then_run": {
-              "type": "minecraft:block",
-              "result_state": {
-                "Name": "minecraft:sand"
-              }
-            }
-          },
-          {
-            "type": "minecraft:condition",
-            "if_true": {
-              "type": "minecraft:stone_depth",
-              "add_surface_depth": true,
-              "offset": 0,
-              "secondary_depth_range": 2000,
-              "surface_type": "floor"
-            },
-            "then_run": {
-              "type": "minecraft:block",
-              "result_state": {
-                "Name": "minecraft:sandstone"
               }
             }
           }

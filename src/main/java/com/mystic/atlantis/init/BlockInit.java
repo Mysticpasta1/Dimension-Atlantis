@@ -75,9 +75,6 @@ public class BlockInit {
     public static final RegistryObject<LiquidBlock> SALTY_SEA_WATER_BLOCK = BLOCKS.register("salty_sea_water",
             () -> new LiquidBlock(FluidInit.SALTY_SEA_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
 
-    //public static final RegistryObject<LiquidBlock> COCONUT_MILK = BLOCKS.register("coconut_milk",
-    //        () -> new LiquidBlock(FluidInit.COCONUT_MILK, BlockBehaviour.Properties.copy(Blocks.WATER)));
-
     //Atlantean Wood Type
     public static final WoodType ATLANTEAN = WoodType.register(new WoodType("atlantean", BlockSetType.OAK));
     public static final WoodType PALM = WoodType.register(new WoodType("palm", BlockSetType.OAK));
@@ -92,7 +89,7 @@ public class BlockInit {
     public static final RegistryObject<Block> POTTERY_BLOCK_7 = registerBlock("pottery_7_off", () -> new ObemoPotteryBlock(BlockBehaviour.Properties.copy(Blocks.DECORATED_POT).sound(SoundType.DECORATED_POT)));
 
     //Coconut stuff
-    public static final RegistryObject<CoconutSlice> COCONUT_SLICE = registerBlock("coconut_slab", () -> new CoconutSlice(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<CoconutSlice> COCONUT_SLICE = registerOnlyBlock("coconut_slice", () -> new CoconutSlice(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Coconut> COCONUT = registerBlock("coconut", () -> new EquipableCoconut(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(1.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<EquipableCarvedCoconut> CARVED_COCONUT = registerBlock("carved_coconut", () -> new EquipableCarvedCoconut(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(1.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<CarvedCoconut> SATIRE_LANTERN = registerBlock("satire_lantern", () -> new CarvedCoconut(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(1.0F).sound(SoundType.WOOD).lightLevel((p_50870_) -> 15)));

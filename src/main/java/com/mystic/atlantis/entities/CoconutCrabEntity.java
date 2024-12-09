@@ -33,6 +33,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -45,7 +46,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatable {
+public class CoconutCrabEntity extends CrabEntity implements NeutralMob, GeoAnimatable {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private final AnimationController<CoconutCrabEntity> mainController = new AnimationController<CoconutCrabEntity>(this, "coconutCrabController", 2, this::mainPredicate);
@@ -57,7 +58,7 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
     @Nullable
     private UUID persistentAngerTarget;
 
-    public CoconutCrabEntity(EntityType<? extends Animal> entityType, Level world) {
+    public CoconutCrabEntity(EntityType<? extends CrabEntity> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -122,7 +123,7 @@ public class CoconutCrabEntity extends Animal implements NeutralMob, GeoAnimatab
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (player.getItemInHand(hand).getItem() == Blocks.SEAGRASS.asItem()) {
             if (player instanceof ServerPlayer) {
                 if (this.isFood(Blocks.SEAGRASS.asItem().getDefaultInstance())) {

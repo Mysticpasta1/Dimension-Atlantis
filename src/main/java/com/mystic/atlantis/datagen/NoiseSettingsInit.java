@@ -89,14 +89,12 @@ public class NoiseSettingsInit {
                                 conditionalVerticalBlockPlacement("atlantis:deepslate_layer", 4, 5, Blocks.DEEPSLATE.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X)),
                                 conditionalVerticalBlockPlacement("atlantis:stone_layer", 33, 34, Blocks.STONE),
                                 conditionalVerticalBlockPlacement("atlantis:detritus_sandstone_layer", 55, 56, BlockInit.DETRITUS_SANDSTONE.get()),
-                                conditionalVerticalBlockPlacement("atlantis:sandstone_layer", 64, 65, Blocks.SANDSTONE),
-                                conditionalVerticalBlockPlacement("atlantis:seabed_layer", 199, 200, BlockInit.SEABED.get()),
-                                ifTrue(stoneDepthCheck(2, true, 3, CaveSurface.FLOOR), block(Blocks.SAND)),
-                                ifTrue(stoneDepthCheck(0, true, 2000, CaveSurface.FLOOR), block(Blocks.SANDSTONE))
+                                conditionalVerticalBlockPlacement("atlantis:sandstone_layer", 199, 200, Blocks.SANDSTONE),
+                                conditionalVerticalBlockPlacement("atlantis:seabed_layer", 511, 512, BlockInit.SEABED.get())
                         )
                 ),
                 List.of(),
-                350,
+                512,
                 false,
                 true,
                 true,

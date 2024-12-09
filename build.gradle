@@ -156,6 +156,10 @@ mixin {
     debug.verbose = true
 }
 
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 jar {
     manifest {
         attributes([

@@ -10,7 +10,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,12 +21,13 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -73,11 +73,13 @@ public class LeviathanEntity extends WaterAnimal implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackStrategyGoal());
-        this.goalSelector.addGoal(2, new LeviathanEntity.LeviathanEntitySweepAttackGoal());
-        this.goalSelector.addGoal(3, new LeviathanEntity.LeviathanEntityCircleAroundAnchorGoal());
-        this.targetSelector.addGoal(0, new LeviathanEntity.LeviathanEntityAttackJellyfishGoal());
-        this.targetSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackPlayerTargetGoal());
+        this.goalSelector.addGoal(2, new LeviathanEntity.LeviathanEntityAttackStrategyGoal());
+        this.goalSelector.addGoal(3, new LeviathanEntity.LeviathanEntitySweepAttackGoal());
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 0.2));
+        this.goalSelector.addGoal(4, new LeviathanEntity.LeviathanEntityCircleAroundAnchorGoal());
+        this.targetSelector.addGoal(1, new LeviathanEntity.LeviathanEntityAttackJellyfishGoal());
+        this.targetSelector.addGoal(2, new LeviathanEntity.LeviathanEntityAttackPlayerTargetGoal());
     }
 
     @Override

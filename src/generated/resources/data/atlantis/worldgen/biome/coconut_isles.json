@@ -75,31 +75,7 @@
     "misc": [],
     "monster": [
       {
-        "type": "minecraft:zombie",
-        "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
-      },
-      {
         "type": "minecraft:drowned",
-        "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
-      },
-      {
-        "type": "minecraft:creeper",
-        "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
-      },
-      {
-        "type": "minecraft:drowned",
-        "maxCount": 2,
-        "minCount": 2,
-        "weight": 25
-      },
-      {
-        "type": "minecraft:skeleton",
         "maxCount": 2,
         "minCount": 2,
         "weight": 25
@@ -141,7 +117,7 @@
       },
       {
         "type": "atlantis:atlantean_starfish",
-        "maxCount": 4,
+        "maxCount": 2,
         "minCount": 2,
         "weight": 25
       },
