@@ -46,15 +46,15 @@ public class PlacedFeatureInit {
         var registry = context.lookup(Registries.CONFIGURED_FEATURE);
 
         register(context, registry, ANCIENT_METAL_PLACED, ANCIENT_METAL_CONFIGURED,
-                count( 120),
+                count(20),
                 spread(),
-                absolute(-64, 450),
+                absolute(-64, 64),
                 biome());
 
         register(context, registry, AQUAMARINE_PLACED, AQUAMARINE_CONFIGURED,
-                count(150),
+                count(25),
                 spread(),
-                absolute(-64, 450),
+                absolute(-64, 64),
                 biome());
 
         register(context, registry, ATLANTEAN_PALM_TREE_PLACED, ATLANTEAN_PALM_TREE_CONFIGURED,

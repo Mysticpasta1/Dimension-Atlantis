@@ -3,7 +3,8 @@
   "biomes": [
     "atlantis:atlantis_biome",
     "atlantis:atlantean_islands_biome",
-    "atlantis:atlantean_garden"
+    "atlantis:atlantean_garden",
+    "atlantis:coconut_isles"
   ],
   "max_distance_from_center": 1,
   "project_start_to_heightmap": "OCEAN_FLOOR_WG",

@@ -51,8 +51,8 @@ public class ConfiguredFeaturesInit {
     public static final ResourceKey<ConfiguredFeature<?, ?>> UNDERWATER_MUSHROOM_CONFIGURED = Atlantis.configuredFeatureKey("underwater_mushroom_configured");
 
     public ConfiguredFeaturesInit(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        registerOre(context, ANCIENT_METAL_CONFIGURED, BlockInit.ANCIENT_METAL_ORE, BlockInit.DEEPSLATE_ANCIENT_METAL_ORE, 12, 0);
-        registerOre(context, AQUAMARINE_CONFIGURED, BlockInit.AQUAMARINE_ORE, BlockInit.AQUAMARINE_DEEPSLATE_ORE, 10, 0);
+        registerOre(context, ANCIENT_METAL_CONFIGURED, BlockInit.ANCIENT_METAL_ORE, BlockInit.DEEPSLATE_ANCIENT_METAL_ORE, 6, 0);
+        registerOre(context, AQUAMARINE_CONFIGURED, BlockInit.AQUAMARINE_ORE, BlockInit.AQUAMARINE_DEEPSLATE_ORE, 4, 0);
         registerOre(context, ORE_SUNKEN_GRAVEL_CONFIGURED, BlockInit.SUNKEN_GRAVEL, BlockInit.SUNKEN_GRAVEL, 40, 0);
         register(context, SALT_ROCK_GEODE_CONFIGURED, Feature.GEODE, new GeodeConfiguration(
                 new GeodeBlockSettings(
