@@ -3,7 +3,7 @@
   "config": {
     "decorators": [
       {
-        "type": "minecraft:attached_to_leaves",
+        "type": "atlantis:water_attached_to_leaves",
         "block_provider": {
           "type": "minecraft:simple_state_provider",
           "state": {
@@ -21,8 +21,7 @@
         ],
         "exclusion_radius_xz": 0,
         "exclusion_radius_y": 0,
-        "probability": 0.25,
-        "required_empty_blocks": 1
+        "probability": 0.25
       }
     ],
     "dirt_provider": {

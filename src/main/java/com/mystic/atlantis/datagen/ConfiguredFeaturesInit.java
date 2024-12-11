@@ -23,7 +23,6 @@ import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSi
 import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
@@ -88,7 +87,7 @@ public class ConfiguredFeaturesInit {
                 new AcaciaFoliagePlacer(ConstantInt.of(3), ConstantInt.ZERO),
                 Optional.empty(),
                 new TwoLayersFeatureSize(1, 0, 1)).dirt(BlockStateProvider.simple(Blocks.SANDSTONE))
-                        .decorators(List.of(new AttachedToLeavesDecorator(0.25f, 0, 0, BlockStateProvider.simple(BlockInit.COCONUT.get().defaultBlockState()), 1, List.of(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST))))
+                        .decorators(List.of(new WaterAttachedToLeavesDecorator(0.25f, 0, 0, BlockStateProvider.simple(BlockInit.COCONUT.get().defaultBlockState()), List.of(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST))))
                 .ignoreVines().build());
         registerNone(context, ATLANTEAN_GLOWSTONES_CONFIGURED, AtlantisFeature.ATLANTEAN_GLOWSTONES_FEATURE);
         registerNone(context, ATLANTEAN_ISLANDS_CONFIGURED, AtlantisFeature.ATLANTEAN_ISLANDS);

@@ -1,5 +1,6 @@
 package com.mystic.atlantis.blocks.plants;
 
+import com.mystic.atlantis.init.BlockInit;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -137,7 +138,7 @@ public class AtlanteanSaplingBlock extends SaplingBlock implements SimpleWaterlo
     }
 
     public boolean canPlaceOn(BlockState targetState) {
-        return targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
+        return targetState.getBlock() == BlockInit.SEABED.get() || targetState.getBlock() == Blocks.GRAVEL || targetState.getBlock() == Blocks.SANDSTONE || targetState.getBlock() == Blocks.GRASS || targetState.getBlock() == Blocks.DIRT || targetState.getBlock() == Blocks.SAND;
     }
 
     public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {
