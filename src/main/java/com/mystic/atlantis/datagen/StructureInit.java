@@ -1,7 +1,6 @@
 package com.mystic.atlantis.datagen;
 
 import com.mystic.atlantis.Atlantis;
-import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.init.AtlantisEntityInit;
 import com.mystic.atlantis.structures.*;
 import net.minecraft.core.HolderGetter;
@@ -49,7 +48,8 @@ public class StructureInit {
                 new Structure.StructureSettings(
                         HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
                                 holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.GOO_LAGOONS_KEY),
-                                holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY)),
+                                holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY),
+                                holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                         Map.of(
                                 MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
@@ -69,7 +69,8 @@ public class StructureInit {
                 new Structure.StructureSettings(
                         HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
                                 holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.GOO_LAGOONS_KEY),
-                                holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY)),
+                                holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY),
+                                holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                         Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
                                         25, 2, 2))), MobCategory.WATER_CREATURE, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
@@ -99,7 +100,7 @@ public class StructureInit {
         context.register(CONFIGURED_ATLANTEAN_HOUSE_3, new AtlantisHouse3(
                 new Structure.StructureSettings(
                         HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
-                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY)),
+                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                         Map.of(MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
                                         25, 2, 2)))),
@@ -113,7 +114,7 @@ public class StructureInit {
         context.register(CONFIGURED_ATLANTEAN_SPIRE, new AtlanteanFountain(
                 new Structure.StructureSettings(
                         HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
-                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY)),
+                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                         Map.of(
                                 MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
@@ -134,7 +135,7 @@ public class StructureInit {
         context.register(CONFIGURED_ATLANTEAN_TEMPLE, new AtlanteanTemple(
                 new Structure.StructureSettings(
                         HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
-                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY)),
+                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                         Map.of(
                                 MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
@@ -152,7 +153,7 @@ public class StructureInit {
         context.register(CONFIGURED_ATLANTEAN_TOWER, new AtlantisTower(
                 new Structure.StructureSettings(
                         HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
-                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY)),
+                                holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                         Map.of(
                                 MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
@@ -168,7 +169,8 @@ public class StructureInit {
                 new Structure.StructureSettings(
                         HolderSet.direct(holderGetter.getOrThrow(BiomeInit.ATLANTIS_BIOME_KEY), holderGetter.getOrThrow(BiomeInit.ATLANTEAN_ISLANDS_BIOME_KEY),
                                 holderGetter.getOrThrow(BiomeInit.ATLANTEAN_GARDEN_KEY), holderGetter.getOrThrow(BiomeInit.GOO_LAGOONS_KEY),
-                                holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY)),
+                                holderGetter.getOrThrow(BiomeInit.JELLYFISH_FIELDS_KEY), holderGetter.getOrThrow(BiomeInit.VOLCANIC_DARKSEA_KEY),
+                                holderGetter.getOrThrow(BiomeInit.COCONUT_ISLES_KEY)),
                         Map.of(
                                 MobCategory.WATER_AMBIENT, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE,
                                 WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH,
