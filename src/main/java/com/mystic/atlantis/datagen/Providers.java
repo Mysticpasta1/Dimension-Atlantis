@@ -3,12 +3,16 @@ package com.mystic.atlantis.datagen;
 import com.mystic.atlantis.Atlantis;
 import com.mystic.atlantis.TagsInit;
 import com.mystic.atlantis.biomes.AtlantisBiomeSource;
+import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.ancient_metal.WeatheringMetal;
 import com.mystic.atlantis.dimension.DimensionAtlantis;
 import com.mystic.atlantis.init.*;
 import com.mystic.atlantis.recipes.WritingRecipe;
 import com.mystic.atlantis.util.Reference;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -25,9 +29,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -43,6 +49,7 @@ import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import pro.mikey.justhammers.HammerTags;
 
@@ -52,6 +59,8 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import static com.mystic.atlantis.init.BlockInit.SEA_GLASS_LIST;
 
 public class Providers {
     public static void init(IEventBus bus) {
@@ -106,6 +115,8 @@ public class Providers {
                     }
                 }
 
+                registerBlockType(recipeOutput);
+
                 SimpleCookingRecipeBuilder.smelting(Ingredient.of(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), RecipeCategory.BUILDING_BLOCKS, ItemInit.ANCIENT_METAL_INGOT.get(), 0.7F, 200)
                         .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(ItemInit.ANCIENT_METAL_INGOT.get().getDescriptionId().replace("item.atlantis.", "") + "_smelting"));
@@ -121,6 +132,47 @@ public class Providers {
                         .define('#', ItemInit.RAW_ANCIENT_METAL_INGOT.get())
                         .unlockedBy(getHasName(ItemInit.RAW_ANCIENT_METAL_INGOT.get()), has(ItemInit.RAW_ANCIENT_METAL_INGOT.get()))
                         .save(recipeOutput, Atlantis.id(BlockInit.RAW_ANCIENT_METAL_BLOCK.get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+            }
+
+            private static void registerBlockType(Consumer<FinishedRecipe> recipeOutput) {
+                for (DyeColor color : DyeColor.values()) {
+                    var blockType = BlockInit.SEA_GLASS_PATTERNS.get(color);
+                    var blockType2 = SEA_GLASS_LIST.get(color);
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockType.block().get(), 4)
+                            .pattern("## ")
+                            .pattern("## ")
+                            .pattern("   ")
+                            .define('#', blockType2.block().get())
+                            .unlockedBy(getHasName(blockType2.block().get().asItem()), has(blockType2.block().get().asItem()))
+                            .save(recipeOutput, Atlantis.id(blockType.block().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, blockType.button().get())
+                            .requires(blockType.block().get())
+                            .unlockedBy(getHasName(blockType.block().get()), has(blockType.block().get()))
+                            .save(recipeOutput, Atlantis.id(blockType.button().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockType.slab().get(), 6)
+                            .pattern("###")
+                            .define('#', blockType.block().get())
+                            .unlockedBy(getHasName(blockType.block().get()), has(blockType.block().get()))
+                            .save(recipeOutput, Atlantis.id(blockType.slab().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockType.stairs().get(), 4)
+                            .pattern("#  ")
+                            .pattern("## ")
+                            .pattern("###")
+                            .define('#', blockType.block().get())
+                            .unlockedBy(getHasName(blockType.block().get()), has(blockType.block().get()))
+                            .save(recipeOutput, Atlantis.id(blockType.stairs().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, blockType.wall().get(), 6)
+                            .pattern("###")
+                            .pattern("###")
+                            .define('#', blockType.block().get())
+                            .unlockedBy(getHasName(blockType.block().get()), has(blockType.block().get()))
+                            .save(recipeOutput, Atlantis.id(blockType.wall().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, blockType.pressurePlate().get(), 1)
+                            .pattern("## ")
+                            .define('#', blockType.block().get())
+                            .unlockedBy(getHasName(blockType.block().get()), has(blockType.block().get()))
+                            .save(recipeOutput, Atlantis.id(blockType.pressurePlate().get().getDescriptionId().replace("block.atlantis.", "") + "_recipe"));
+                }
             }
 
             private static void registerGroup(TrailsGroup group, Consumer<FinishedRecipe> recipeOutput) {
@@ -281,6 +333,17 @@ public class Providers {
                 dropSelf(group.waxed_door().get(), p_249643_);
                 dropSelf(group.waxed_trapdoor().get(), p_249643_);
             }
+
+            for (DyeColor color : DyeColor.values()) {
+                var blockType = BlockInit.SEA_GLASS_PATTERNS.get(color);
+                dropSelfIfSilkTouched(blockType.block().get(), p_249643_);
+                dropSelfIfSilkTouched(blockType.slab().get(), p_249643_);
+                dropSelfIfSilkTouched(blockType.stairs().get(), p_249643_);
+                dropSelfIfSilkTouched(blockType.pressurePlate().get(), p_249643_);
+                dropSelfIfSilkTouched(blockType.button().get(), p_249643_);
+                dropSelfIfSilkTouched(blockType.wall().get(), p_249643_);
+            }
+
             dropSelf(BlockInit.ANCIENT_METAL_ORE.get(), p_249643_);
             dropSelf(BlockInit.DEEPSLATE_ANCIENT_METAL_ORE.get(), p_249643_);
             dropSelf(BlockInit.RAW_ANCIENT_METAL_BLOCK.get(), p_249643_);
@@ -350,6 +413,14 @@ public class Providers {
                     tag(BlockTags.NEEDS_IRON_TOOL).add(group.waxed_chiseled().get());
                     tag(BlockTags.NEEDS_IRON_TOOL).add(group.waxed_door().get());
                     tag(BlockTags.NEEDS_IRON_TOOL).add(group.waxed_trapdoor().get());
+                }
+                for(DyeColor color : DyeColor.values()) {
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).block().get());
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).slab().get());
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).stairs().get());
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).pressurePlate().get());
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).button().get());
+                    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.SEA_GLASS_PATTERNS.get(color).wall().get());
                 }
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
                 tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.RAW_ANCIENT_METAL_BLOCK.get());
@@ -493,6 +564,8 @@ public class Providers {
             @Override
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
+                tag(ItemTags.MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
+                tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
                 TagsInit.Item.getItemsThatCanSink().stream().map(Supplier::get).map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);
                 tag(ItemTags.TRIMMABLE_ARMOR).add(
                         ItemInit.AQUAMARINE_BOOTS.get(),
@@ -512,6 +585,11 @@ public class Providers {
         });
     }
 
+    private static void dropSelfIfSilkTouched(Block block, BiConsumer<ResourceLocation, LootTable.Builder> builder) {
+        builder.accept(block.getLootTable(), LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(block).when(MatchTool.toolMatches(
+                ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.ANY))
+        )))));
+    }
 
 
     private static void dropSelf(Block block, BiConsumer<ResourceLocation, LootTable.Builder> builder){

@@ -2,6 +2,7 @@ package com.mystic.atlantis.setup;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.mystic.atlantis.AtlantisDimensionalEffect;
+import com.mystic.atlantis.blocks.BlockType;
 import com.mystic.atlantis.blocks.ancient_metal.TrailsGroup;
 import com.mystic.atlantis.blocks.blockentities.plants.GeneralPlantBlockEntity;
 import com.mystic.atlantis.blocks.blockentities.renderers.*;
@@ -89,6 +90,26 @@ public class ClientSetup {
                     group.grate().get());
         }
 
+        for (BlockType seaGlass : SEA_GLASS_LIST.values()) {
+            registerBlockRenderLayers(RenderType.translucent(),
+                    seaGlass.block().get(),
+                    seaGlass.button().get(),
+                    seaGlass.wall().get(),
+                    seaGlass.slab().get(),
+                    seaGlass.pressurePlate().get(),
+                    seaGlass.stairs().get());
+        }
+
+        for (BlockType seaGlass : SEA_GLASS_PATTERNS.values()) {
+            registerBlockRenderLayers(RenderType.translucent(),
+                    seaGlass.block().get(),
+                    seaGlass.button().get(),
+                    seaGlass.wall().get(),
+                    seaGlass.slab().get(),
+                    seaGlass.pressurePlate().get(),
+                    seaGlass.stairs().get());
+        }
+
         registerBlockRenderLayers(RenderType.cutout(),
                 BLUE_LILY_BLOCK.get(),
                 BURNT_DEEP_BLOCK.get(),
@@ -146,126 +167,6 @@ public class ClientSetup {
                 CYAN_PEARL_BLOCK.get(),
                 BROWN_PEARL_BLOCK.get(),
                 ATLANTIS_CLEAR_PORTAL.get());
-                SEA_GLASS.block().get();
-                SEA_GLASS.stairs().get();
-                SEA_GLASS.slab().get();
-                SEA_GLASS.wall().get();
-                SEA_GLASS.button().get();
-                SEA_GLASS.pressurePlate().get();
-                MAGENTA_SEA_GLASS.block().get();
-                MAGENTA_SEA_GLASS.stairs().get();
-                MAGENTA_SEA_GLASS.slab().get();
-                MAGENTA_SEA_GLASS.wall().get();
-                MAGENTA_SEA_GLASS.button().get();
-                MAGENTA_SEA_GLASS.pressurePlate().get();
-                ORANGE_SEA_GLASS.block().get();
-                ORANGE_SEA_GLASS.stairs().get();
-                ORANGE_SEA_GLASS.slab().get();
-                ORANGE_SEA_GLASS.wall().get();
-                ORANGE_SEA_GLASS.button().get();
-                ORANGE_SEA_GLASS.pressurePlate().get();
-                YELLOW_SEA_GLASS.block().get();
-                YELLOW_SEA_GLASS.stairs().get();
-                YELLOW_SEA_GLASS.slab().get();
-                YELLOW_SEA_GLASS.wall().get();
-                YELLOW_SEA_GLASS.button().get();
-                YELLOW_SEA_GLASS.pressurePlate().get();
-                GREEN_SEA_GLASS.block().get();
-                GREEN_SEA_GLASS.stairs().get();
-                GREEN_SEA_GLASS.slab().get();
-                GREEN_SEA_GLASS.wall().get();
-                GREEN_SEA_GLASS.button().get();
-                GREEN_SEA_GLASS.pressurePlate().get();
-                BLUE_SEA_GLASS.block().get();
-                BLUE_SEA_GLASS.stairs().get();
-                BLUE_SEA_GLASS.slab().get();
-                BLUE_SEA_GLASS.wall().get();
-                BLUE_SEA_GLASS.button().get();
-                BLUE_SEA_GLASS.pressurePlate().get();
-                RED_SEA_GLASS.block().get();
-                RED_SEA_GLASS.stairs().get();
-                RED_SEA_GLASS.slab().get();
-                RED_SEA_GLASS.wall().get();
-                RED_SEA_GLASS.button().get();
-                RED_SEA_GLASS.pressurePlate().get();
-                PURPLE_SEA_GLASS.block().get();
-                PURPLE_SEA_GLASS.stairs().get();
-                PURPLE_SEA_GLASS.slab().get();
-                PURPLE_SEA_GLASS.wall().get();
-                PURPLE_SEA_GLASS.button().get();
-                PURPLE_SEA_GLASS.pressurePlate().get();
-                CYAN_SEA_GLASS.block().get();
-                CYAN_SEA_GLASS.stairs().get();
-                CYAN_SEA_GLASS.slab().get();
-                CYAN_SEA_GLASS.wall().get();
-                CYAN_SEA_GLASS.button().get();
-                CYAN_SEA_GLASS.pressurePlate().get();
-                LIME_SEA_GLASS.block().get();
-                LIME_SEA_GLASS.stairs().get();
-                LIME_SEA_GLASS.slab().get();
-                LIME_SEA_GLASS.wall().get();
-                LIME_SEA_GLASS.button().get();
-                LIME_SEA_GLASS.pressurePlate().get();
-                LIGHT_BLUE_SEA_GLASS.block().get();
-                LIGHT_BLUE_SEA_GLASS.stairs().get();
-                LIGHT_BLUE_SEA_GLASS.slab().get();
-                LIGHT_BLUE_SEA_GLASS.wall().get();
-                LIGHT_BLUE_SEA_GLASS.button().get();
-                LIGHT_BLUE_SEA_GLASS.pressurePlate().get();
-                GRAY_SEA_GLASS.block().get();
-                GRAY_SEA_GLASS.stairs().get();
-                GRAY_SEA_GLASS.slab().get();
-                GRAY_SEA_GLASS.wall().get();
-                GRAY_SEA_GLASS.button().get();
-                GRAY_SEA_GLASS.pressurePlate().get();
-                BLACK_SEA_GLASS.block().get();
-                BLACK_SEA_GLASS.stairs().get();
-                BLACK_SEA_GLASS.slab().get();
-                BLACK_SEA_GLASS.wall().get();
-                BLACK_SEA_GLASS.button().get();
-                BLACK_SEA_GLASS.pressurePlate().get();
-                WHITE_SEA_GLASS.block().get();
-                WHITE_SEA_GLASS.stairs().get();
-                WHITE_SEA_GLASS.slab().get();
-                WHITE_SEA_GLASS.wall().get();
-                WHITE_SEA_GLASS.button().get();
-                WHITE_SEA_GLASS.pressurePlate().get();
-                LIGHT_GRAY_SEA_GLASS.block().get();
-                LIGHT_GRAY_SEA_GLASS.stairs().get();
-                LIGHT_GRAY_SEA_GLASS.slab().get();
-                LIGHT_GRAY_SEA_GLASS.wall().get();
-                LIGHT_GRAY_SEA_GLASS.button().get();
-                LIGHT_GRAY_SEA_GLASS.pressurePlate().get();
-                BROWN_SEA_GLASS.block().get();
-                BROWN_SEA_GLASS.stairs().get();
-                BROWN_SEA_GLASS.slab().get();
-                BROWN_SEA_GLASS.wall().get();
-                BROWN_SEA_GLASS.button().get();
-                BROWN_SEA_GLASS.pressurePlate().get();
-                LIME_SEA_GLASS.block().get();
-                LIME_SEA_GLASS.stairs().get();
-                LIME_SEA_GLASS.slab().get();
-                LIME_SEA_GLASS.wall().get();
-                LIME_SEA_GLASS.button().get();
-                LIME_SEA_GLASS.pressurePlate().get();
-                PINK_SEA_GLASS.block().get();
-                PINK_SEA_GLASS.stairs().get();
-                PINK_SEA_GLASS.slab().get();
-                PINK_SEA_GLASS.wall().get();
-                PINK_SEA_GLASS.button().get();
-                PINK_SEA_GLASS.pressurePlate().get();
-                MULTICOLOR_SEA_GLASS.block().get();
-                MULTICOLOR_SEA_GLASS.stairs().get();
-                MULTICOLOR_SEA_GLASS.slab().get();
-                MULTICOLOR_SEA_GLASS.wall().get();
-                MULTICOLOR_SEA_GLASS.button().get();
-                MULTICOLOR_SEA_GLASS.pressurePlate().get();
-                MONOCHROMATIC_SEA_GLASS.block().get();
-                MONOCHROMATIC_SEA_GLASS.stairs().get();
-                MONOCHROMATIC_SEA_GLASS.slab().get();
-                MONOCHROMATIC_SEA_GLASS.wall().get();
-                MONOCHROMATIC_SEA_GLASS.button().get();
-                MONOCHROMATIC_SEA_GLASS.pressurePlate().get();
         registerBlockRenderLayers(RenderType.cutoutMipped(),
                 PALM_LEAVES.get(),
                 ATLANTEAN_LEAVES.get());

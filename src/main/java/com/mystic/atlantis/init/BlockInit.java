@@ -45,9 +45,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -61,6 +59,8 @@ public class BlockInit {
     public static final Map<DyeColor, RegistryObject<Block>> CRACKED_SHELL_BLOCKS = new HashMap<>();
     public static final Map<DyeColor, RegistryObject<Block>> CRACKED_MOSSY_SHELL_BLOCKS = new HashMap<>();
     public static final Map<DyeColor, RegistryObject<Block>> MOSSY_SHELL_BLOCKS = new HashMap<>();
+    public static final Map<DyeColor, BlockType> SEA_GLASS_PATTERNS = new HashMap<>();
+    public static final Map<DyeColor, BlockType> SEA_GLASS_LIST = new HashMap<>();
     public static final RegistryObject<Block> WATERFALL_BLOCK = registerBlock("waterfall_block", () -> new WaterfallBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> WAVE_BLOCK = registerBlock("wave_block", () -> new WaveBlock(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Block> CRYSTAL_TRANSFERENCE = registerBlock("crystal_transference_block", () -> new CrystalRedstoneTransferenceBlock(BlockBehaviour.Properties.of()));
@@ -295,6 +295,23 @@ public class BlockInit {
     public static final BlockType BROWN_SEA_GLASS = registerSeaGlass("brown");
     public static final BlockType LIME_SEA_GLASS = registerSeaGlass("lime");
 
+    public static final BlockType MAGENTA_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("magenta");
+    public static final BlockType LIGHT_GRAY_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("light_gray");
+    public static final BlockType PINK_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("pink");
+    public static final BlockType YELLOW_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("yellow");
+    public static final BlockType PURPLE_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("purple");
+    public static final BlockType LIGHT_BLUE_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("light_blue");
+    public static final BlockType RED_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("red");
+    public static final BlockType GREEN_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("green");
+    public static final BlockType WHITE_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("white");
+    public static final BlockType CYAN_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("cyan");
+    public static final BlockType ORANGE_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("orange");
+    public static final BlockType BLACK_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("black");
+    public static final BlockType GRAY_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("gray");
+    public static final BlockType BLUE_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("blue");
+    public static final BlockType BROWN_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("brown");
+    public static final BlockType LIME_PATTERNED_SEA_GLASS = registerSeaGlassPatterned("lime");
+
     public static final RegistryObject<RotatedPillarBlock> COQUINA = registerMainTabBlock("coquina", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of() .sound(SoundType.BONE_BLOCK)
             .requiresCorrectToolForDrops()
             .strength(3.0F, 7.0F)
@@ -338,7 +355,29 @@ public class BlockInit {
         } else {
             blockName = name + "_sea_glass";
         }
-        return registerBlockType(blockName, Block::new, BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.GLASS), false, BlockSetType.IRON, null, 40, true);
+
+        BlockType blockType = registerBlockType(blockName, HalfTransparentBlock::new, BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.GLASS), false, BlockSetType.IRON, null, 40, true);
+
+        if(!name.equals("monochromatic") && !name.equals("multicolor") && !name.isEmpty()) {
+            addToSeaGlassList(name, blockType);
+        }
+
+        return blockType;
+    }
+
+    private static BlockType registerSeaGlassPatterned(String name) {
+        var blockName = name + "_patterned_sea_glass";
+        BlockType blockType = registerBlockType(blockName, HalfTransparentBlock::new, BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.GLASS), false, BlockSetType.IRON, null, 40, true);
+        addToSeaGlassPatternList(name, blockType);
+        return blockType;
+    }
+
+    private static void addToSeaGlassPatternList(String name, BlockType blockType) {
+        SEA_GLASS_PATTERNS.put(DyeColor.valueOf(name.toUpperCase(Locale.ROOT)), blockType);
+    }
+
+    private static void addToSeaGlassList(String name, BlockType blockType) {
+        SEA_GLASS_LIST.put(DyeColor.valueOf(name.toUpperCase(Locale.ROOT)), blockType);
     }
 
     private static <B extends Block, I extends BlockItem> RegistryObject<B> registerMainTabBlock(String name, Supplier<B> block, Function<RegistryObject<B>, Supplier<I>> item) {

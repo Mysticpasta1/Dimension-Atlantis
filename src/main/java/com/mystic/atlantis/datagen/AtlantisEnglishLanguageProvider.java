@@ -212,6 +212,22 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlocksFromType(BlockInit.WHITE_SEA_GLASS, "White Sea Glass");
         this.addBlocksFromType(BlockInit.BROWN_SEA_GLASS, "Brown Sea Glass");
         this.addBlocksFromType(BlockInit.CYAN_SEA_GLASS, "Cyan Sea Glass");
+        this.addBlocksFromType(BlockInit.BLUE_PATTERNED_SEA_GLASS, "Blue Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.RED_PATTERNED_SEA_GLASS, "Red Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.ORANGE_PATTERNED_SEA_GLASS, "Orange Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.YELLOW_PATTERNED_SEA_GLASS, "Yellow Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.GREEN_PATTERNED_SEA_GLASS, "Green Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.LIME_PATTERNED_SEA_GLASS, "Lime Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.LIGHT_BLUE_PATTERNED_SEA_GLASS, "Light Blue Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.LIGHT_GRAY_PATTERNED_SEA_GLASS, "Light Gray Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.MAGENTA_PATTERNED_SEA_GLASS, "Magenta Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.PURPLE_PATTERNED_SEA_GLASS, "Purple Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.PINK_PATTERNED_SEA_GLASS, "Pink Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.BLACK_PATTERNED_SEA_GLASS, "Black Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.GRAY_PATTERNED_SEA_GLASS, "Gray Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.WHITE_PATTERNED_SEA_GLASS, "White Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.BROWN_PATTERNED_SEA_GLASS, "Brown Patterned Sea Glass");
+        this.addBlocksFromType(BlockInit.CYAN_PATTERNED_SEA_GLASS, "Cyan Patterned Sea Glass");
         this.addBlocksFromType(BlockInit.MONOCHROMATIC_SEA_GLASS, "Monochromatic Sea Glass");
         this.addBlocksFromType(BlockInit.MULTICOLOR_SEA_GLASS, "Multicolor Sea Glass");
         this.addBlock(BlockInit.COQUINA);
@@ -272,8 +288,8 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.COCONUT_CRAB_EGG.get(), "Coconut Crab Egg");
         this.add(ItemInit.STARFISH_EGG.get(), "Starfish Egg");
         this.add(ItemInit.STARFISH_ZOM_EGG.get(), "Starfish Zom Egg");
-        this.addRecord(ItemInit.PANBEE, " LudoCrypt - Panbee");
-        this.add(ItemInit.COLUMN_CAVITATION.get(), "Column Cavitation");
+        this.addRecord(ItemInit.PANBEE, "LudoCrypt - Panbee");
+        this.addRecord(ItemInit.COLUMN_CAVITATION, "Firel - Column Cavitation");
         this.add(ItemInit.BROKEN_SHELLS.get(), "Broken Shells");
         this.add(ItemInit.SODIUM_NUGGET.get(), "Sodium Nugget");
         this.add(ItemInit.SEA_SALT.get(), "Sea Salt");
@@ -370,10 +386,10 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.LINGUISTIC_GLYPH_SCROLL_9.get(), "Linguistic Glyph Scroll 9");
         this.add(ItemInit.JETSTREAM_WATER_BUCKET.get(), "Jetstream Water Bucket");
         this.add(ItemInit.SALTY_SEA_WATER_BUCKET.get(), "Salty Sea Water Bucket");
-        this.add(ItemInit.CRAB_BUCKET.get(), "Crab Bucket");
-        this.add(ItemInit.JELLYFISH_BUCKET.get(), "Jellyfish Bucket");
-        this.add(ItemInit.SHRIMP_BUCKET.get(), "Shrimp Bucket");
-        this.add(ItemInit.SEAHORSE_BUCKET.get(), "Seahorse Bucket");
+        this.add(ItemInit.CRAB_BUCKET.get(), "Bucket of Crab");
+        this.add(ItemInit.JELLYFISH_BUCKET.get(), "Bucket of Jellyfish");
+        this.add(ItemInit.SHRIMP_BUCKET.get(), "Bucket of Shrimp");
+        this.add(ItemInit.SEAHORSE_BUCKET.get(), "Bucket of Seahorse");
         this.add(ItemInit.AXE_AQUAMARINE.get(), "Aquamarine Axe");
         this.add(ItemInit.PICKAXE_AQUAMARINE.get(), "Aquamarine Pickaxe");
         this.add(ItemInit.SHOVEL_AQUAMARINE.get(), "Aquamarine Shovel");
@@ -428,7 +444,6 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("structure.atlantis.configured_atlantean_temple", "Atlantean Temple");
         this.add("structure.atlantis.configured_atlantean_tower", "Atlantean Tower");
         this.add("structure.atlantis.configured_oyster_structure", "Giant Oyster");
-
         this.add("itemGroup.atlantis.general", "Atlantis");
         this.add("itemGroup.atlantis.glyph", "Atlantean Glyphs");
         this.add("text.autoconfig.atlantis.option.calciteAcceleration", "Calcite Acceleration");

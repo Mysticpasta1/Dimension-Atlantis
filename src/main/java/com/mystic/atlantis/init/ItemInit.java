@@ -10,7 +10,6 @@ import com.mystic.atlantis.items.food.*;
 import com.mystic.atlantis.items.tools.AtlanteanAmuletItem;
 import com.mystic.atlantis.items.AtlanteanCrystal;
 import com.mystic.atlantis.items.tools.AtlanteanSpearItem;
-import com.mystic.atlantis.items.musicdisc.AtlantisMusicDisc;
 import com.mystic.atlantis.items.tools.*;
 import com.mystic.atlantis.util.Reference;
 import net.minecraft.core.Direction;
@@ -35,7 +34,7 @@ public class ItemInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MODID);
     private static final Map<LinguisticGlyph, RegistryObject<Item>> scrolls = new HashMap<>();
 
-    private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).stacksTo(1);
+    private static final Item.Properties ATLANTIS_SETTINGS = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON);
 
     public static final RegistryObject<Item> ATLANTEAN_AMULET = register("atlantean_amulet", AtlanteanAmuletItem::new);
     public static final RegistryObject<Item> ATLANTEAN_SPEAR = register("atlantean_spear", () -> new AtlanteanSpearItem(ToolInit.AQUAMARINE, 5));
@@ -56,8 +55,8 @@ public class ItemInit {
     public static final RegistryObject<Item> STARFISH_EGG = register("atlantean_starfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH, 0xFFA41D, 0xF6E25F, new Item.Properties()));
     public static final RegistryObject<Item> STARFISH_ZOM_EGG = register("atlantean_starzomfish_egg", () -> new ForgeSpawnEggItem(AtlantisEntityInit.STARFISH_ZOM, 0xFE00F6, 0x00A170, new Item.Properties()));
     //MUSIC DISC
-    public static final RegistryObject<Item> PANBEE = register("panbee", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.PANBEE, ATLANTIS_SETTINGS, 10));
-    public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new AtlantisMusicDisc(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 10));
+    public static final RegistryObject<Item> PANBEE = register("panbee", () -> new RecordItem(15, AtlantisSoundEventInit.PANBEE, ATLANTIS_SETTINGS, 4040));
+    public static final RegistryObject<Item> COLUMN_CAVITATION = register("column_cavitation", () -> new RecordItem(15, AtlantisSoundEventInit.COLUMN, ATLANTIS_SETTINGS, 4420));
 
     //ITEMS
     public static final RegistryObject<Item> ANCIENT_METAL_INGOT = register("ancient_metal_ingot", DefaultItem::new);
