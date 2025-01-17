@@ -107,21 +107,17 @@ public class YellowGlowingMushroom extends BushBlock implements SimpleWaterlogge
         return canPlaceBlockAt(worldReader, pos);
     }
 
-    public boolean blockTypes(BlockState blockState){
+    public boolean canPlaceOn(BlockState blockState){
         return blockState.getBlock() == Blocks.GRAVEL || blockState.getBlock() == Blocks.SANDSTONE || blockState.getBlock() == Blocks.GRASS || blockState.getBlock() == Blocks.DIRT || blockState.getBlock() == Blocks.SAND;
     }
 
-    public boolean canPlaceBlockAt(LevelReader worldReader, BlockPos pos) {
-        BlockState state = worldReader.getBlockState(pos.below());
+    public boolean canPlaceBlockAt(LevelReader reader, BlockPos targetPos) {
+        BlockState targetState = reader.getBlockState(targetPos.below());
 
-        if (worldReader.getBlockState(pos.above()).is(Blocks.WATER))
-        {
-            return true;
-        }
-        if(blockTypes(state)) {
-            return false;
+        if (reader.getBlockState(targetPos.above()).is(Blocks.WATER)) {
+            return canPlaceOn(targetState);
         }
 
-        return true;
+        return false;
     }
 }

@@ -3,7 +3,7 @@
 	"pattern":
 	[
 		"   ",
-		" S ",
+		"   ",
 		"WWW"
 	],
 	"key":
@@ -11,10 +11,6 @@
 		"W":
 		{
 			"item": "atlantis:atlantean_slab"
-		},
-		"S":
-		{
-			"item": "atlantis:atlantean_power_dust"
 		}
 	},
 	"result":

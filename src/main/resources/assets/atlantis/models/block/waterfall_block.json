@@ -1,9 +1,12 @@
 {
-  "parent": "minecraft:block/orientable_with_bottom",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "bottom": "atlantis:block/waterfall_block_bottom",
-    "front": "atlantis:block/waterfall_block_front",
-    "side": "atlantis:block/waterfall_block_side",
-    "top": "atlantis:block/waterfall_block_top"
+    "particle": "atlantis:block/waterfall_block_bottom",
+    "up": "atlantis:block/waterfall_block_top",
+    "down": "atlantis:block/waterfall_block_bottom",
+    "east": "atlantis:block/waterfall_block_side",
+    "west": "atlantis:block/waterfall_block_side",
+    "north": "atlantis:block/waterfall_block_front",
+    "south": "atlantis:block/waterfall_block_side"
   }
 }

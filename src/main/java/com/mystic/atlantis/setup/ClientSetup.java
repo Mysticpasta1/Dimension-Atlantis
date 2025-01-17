@@ -20,23 +20,22 @@ import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.FastColor;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
@@ -197,6 +196,14 @@ public class ClientSetup {
 
         bus.registerEntityRenderer(AtlantisEntityInit.BOMB.get(), SodiumBombRenderer::new);
     }
+
+    @SubscribeEvent
+    public static void spawnRules(SpawnPlacementRegisterEvent event) {
+        event.register(AtlantisEntityInit.STARFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(AtlantisEntityInit.STARFISH_ZOM.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(AtlantisEntityInit.SEAHORSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR_WG, (pEntityType, pServerLevel, pSpawnType, pPos, pRandom) -> true, SpawnPlacementRegisterEvent.Operation.OR);
+    }
+
     @SubscribeEvent
     public static void init(RegisterParticleProvidersEvent bus) {
         Minecraft.getInstance().particleEngine.register(ModParticleTypes.PUSH_BUBBLESTREAM_UP.get(), PushBubbleStreamParticleUp.Factory::new);

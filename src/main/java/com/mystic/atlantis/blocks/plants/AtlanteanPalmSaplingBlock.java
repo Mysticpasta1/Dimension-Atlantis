@@ -149,13 +149,9 @@ public class AtlanteanPalmSaplingBlock extends SaplingBlock implements SimpleWat
         BlockState targetState = reader.getBlockState(targetPos.below());
 
         if (reader.getBlockState(targetPos.above()).is(Blocks.WATER)) {
-            return true;
+            return canPlaceOn(targetState);
         }
 
-        if (canPlaceOn(targetState)) {
-            return false;
-        }
-
-        return true;
+        return false;
     }
 }

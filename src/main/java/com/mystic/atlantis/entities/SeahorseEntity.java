@@ -29,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -61,7 +62,7 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     }
 
     public static AttributeSupplier.Builder createSeahorseAttributes() {
-        return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 2.5d);
+        return createMobAttributes().add(Attributes.MOVEMENT_SPEED, 2.5d).add(Attributes.MAX_HEALTH, 2);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class WaveBlock extends DirectionalBlock {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, pContext.getClickedFace().getOpposite());
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {

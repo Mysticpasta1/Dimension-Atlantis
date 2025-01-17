@@ -28,7 +28,7 @@ public class AtlanteanTripwireBlock extends TripWireBlock implements SimpleWater
 	public AtlanteanTripwireBlock(AtlanteanTripwireHook hookBlock, Properties settings) {
 		super(hookBlock, settings.instabreak());
 		this.hookBlock = hookBlock;
-		this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false).setValue(ATTACHED, false).setValue(DISARMED, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(WATERLOGGED, true));
+		this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false).setValue(ATTACHED, false).setValue(DISARMED, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(WATERLOGGED, false));
 	}
 
 	@Override

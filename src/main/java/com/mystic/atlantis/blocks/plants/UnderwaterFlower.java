@@ -104,13 +104,9 @@ public class UnderwaterFlower extends BushBlock implements SimpleWaterloggedBloc
         BlockState targetState = reader.getBlockState(targetPos.below());
 
         if (reader.getBlockState(targetPos.above()).is(Blocks.WATER)) {
-            return true;
-        }
-        
-        if(canPlaceOn(targetState)) {
-            return false;
+            return canPlaceOn(targetState);
         }
 
-        return true;
+        return false;
     }
 }

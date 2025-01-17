@@ -37,7 +37,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.WAVE_BLOCK);
         this.addBlock(BlockInit.CRYSTAL_TRANSFERENCE, "Crystal Transference");
         this.addBlock(BlockInit.ATLANTEAN_PORTAL_FRAME, "Atlantean Portal Frame");
-        this.addBlock(BlockInit.ATLANTIS_CLEAR_PORTAL, "Atlantis Clear Portal");
+        this.addBlock(BlockInit.ATLANTIS_CLEAR_PORTAL, "Atlantean Portal");
         this.addBlock(BlockInit.JETSTREAM_WATER_BLOCK, "Jetstream Water Block");
         this.addBlock(BlockInit.SALTY_SEA_WATER_BLOCK, "Salty Sea Water Block");
         this.addBlock(BlockInit.POTTERY_BLOCK_1, "Pottery Block Tuben");
@@ -65,20 +65,18 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
  //       this.addBlock(BlockInit.PALM_SIGN, "Palm Sign");
 
         this.addBlock(BlockInit.PALM_WALL_SIGN, "Palm Wall Sign");
-        this.addBlock(BlockInit.STRIPPED_ATLANTEAN_LOG, "Stripped Atlantean Log");
-        this.addBlock(BlockInit.ATLANTEAN_BUTTON, "Atlantean Button");
-        this.addBlock(BlockInit.ATLANTEAN_DOOR, "Atlantean Door");
-        this.addBlock(BlockInit.ATLANTEAN_FENCE, "Atlantean Fence");
-        this.addBlock(BlockInit.ATLANTEAN_FENCE_GATE, "Atlantean Fence Gate");
-        this.addBlock(BlockInit.ATLANTEAN_PLANKS, "Atlantean Planks");
-        this.addBlock(BlockInit.ATLANTEAN_PRESSURE_PLATE, "Atlantean Pressure Plate");
-        this.addBlock(BlockInit.ATLANTEAN_SLAB, "Atlantean Slab");
-        this.addBlock(BlockInit.ATLANTEAN_STAIRS, "Atlantean Stairs");
-        this.addBlock(BlockInit.ATLANTEAN_TRAPDOOR, "Atlantean Trapdoor");
-   //     this.addBlock(BlockInit.ATLANTEAN_WALL_SIGN, "Atlantean Wall Sign");
-   //     this.addBlock(BlockInit.ATLANTEAN_SIGN, "Atlantean Sign");
+        this.addBlock(BlockInit.STRIPPED_ATLANTEAN_LOG, "Stripped Nymph Log");
+        this.addBlock(BlockInit.ATLANTEAN_BUTTON, "Nymph Button");
+        this.addBlock(BlockInit.ATLANTEAN_DOOR, "Nymph Door");
+        this.addBlock(BlockInit.ATLANTEAN_FENCE, "Nymph Fence");
+        this.addBlock(BlockInit.ATLANTEAN_FENCE_GATE, "Nymph Fence Gate");
+        this.addBlock(BlockInit.ATLANTEAN_PLANKS, "Nymph Planks");
+        this.addBlock(BlockInit.ATLANTEAN_PRESSURE_PLATE, "Nymph Pressure Plate");
+        this.addBlock(BlockInit.ATLANTEAN_SLAB, "Nymph Slab");
+        this.addBlock(BlockInit.ATLANTEAN_STAIRS, "Nymph Stairs");
+        this.addBlock(BlockInit.ATLANTEAN_TRAPDOOR, "Nymph Trapdoor");
 
-        this.addBlock(BlockInit.UNDERWATER_SHROOM_BLOCK, "Underwater Shroom Block");
+        this.addBlock(BlockInit.UNDERWATER_SHROOM_BLOCK, "Tideshroom Block");
         this.addBlock(BlockInit.TUBER_UP_BLOCK, "Tuber Up Block");
         this.addBlock(BlockInit.BLUE_LILY_BLOCK, "Blue Lily Block");
         this.addBlock(BlockInit.BURNT_DEEP_BLOCK, "Burnt Deep Block");
@@ -122,11 +120,11 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.DEAD_GLOWSTONE, "Dead Glowstone");
         this.addBlock(BlockInit.ALGAE_DETRITUS_STONE, "Algae Detritus Stone");
         this.addBlock(BlockInit.DETRITUS_SANDSTONE, "Detritus Sandstone");
-        this.addBlock(BlockInit.ATLANTEAN_PRISMARINE, "Atlantean Prismarine");
+        this.addBlock(BlockInit.ATLANTEAN_PRISMARINE, "Luminescent Prismarine");
         this.addBlock(BlockInit.BUBBLE_MAGMA, "Bubble Magma");
         this.addBlock(BlockInit.PALM_LEAVES, "Palm Leaves");
-        this.addBlock(BlockInit.ATLANTEAN_LEAVES, "Atlantean Leaves");
-        this.addBlock(BlockInit.ATLANTEAN_LOGS, "Atlantean Logs");
+        this.addBlock(BlockInit.ATLANTEAN_LEAVES, "Nymph Leaves");
+        this.addBlock(BlockInit.ATLANTEAN_LOGS, "Nymph Logs");
         this.addBlock(BlockInit.ANCIENT_ACACIA_WOOD_MOSS, "Ancient Acacia Wood Moss");
         this.addBlock(BlockInit.ANCIENT_OAK_WOOD_MOSS, "Ancient Oak Wood Moss");
         this.addBlock(BlockInit.ANCIENT_JUNGLE_WOOD_MOSS, "Ancient Jungle Wood Moss");
@@ -137,7 +135,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.AQUAMARINE_DEEPSLATE_ORE, "Aquamarine Deepslate Ore");
         this.addBlock(BlockInit.SEABED, "Seabed");
         this.addBlock(BlockInit.OCEAN_LANTERN, "Ocean Lantern");
-        this.addBlock(BlockInit.ATLANTEAN_SEA_LANTERN, "Atlantean Sea Lantern");
+        this.addBlock(BlockInit.ATLANTEAN_SEA_LANTERN, "SurgeLantern");
         this.addBlock(BlockInit.ATLANTEAN_CORE, "Atlantean Core");
         this.addBlock(BlockInit.BLOCK_OF_AQUAMARINE, "Block Of Aquamarine");
         this.addBlock(BlockInit.CHISELED_GOLDEN_BLOCK, "Chiseled Golden Block");
@@ -158,24 +156,23 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.RED_PEARL_BLOCK, "Red Pearl Block");
         this.addBlock(BlockInit.WHITE_PEARL_BLOCK, "White Pearl Block");
         this.addBlock(BlockInit.YELLOW_PEARL_BLOCK, "Yellow Pearl Block");
-        this.addBlock(BlockInit.ATLANTIS_PORTAL, "Atlantis Portal");
-        this.addBlock(BlockInit.UNDERWATER_FLOWER, "Underwater Flower");
-        this.addBlock(BlockInit.RED_UNDERWATER_FLOWER, "Red Underwater Flower");
-        this.addBlock(BlockInit.PURPLE_GLOWING_MUSHROOM, "Purple Glowing Mushroom");
-        this.addBlock(BlockInit.YELLOW_GLOWING_MUSHROOM, "Yellow Glowing Mushroom");
-        this.addBlock(BlockInit.YELLOW_UNDERWATER_FLOWER, "Yellow Underwater Flower");
+        this.addBlock(BlockInit.UNDERWATER_FLOWER, "Tidepetal");
+        this.addBlock(BlockInit.RED_UNDERWATER_FLOWER, "Red Tidepetal");
+        this.addBlock(BlockInit.PURPLE_GLOWING_MUSHROOM, "Purple Tideshroom");
+        this.addBlock(BlockInit.YELLOW_GLOWING_MUSHROOM, "Yellow Tideshroom");
+        this.addBlock(BlockInit.YELLOW_UNDERWATER_FLOWER, "Yellow Tidepetal");
         this.addBlock(BlockInit.ALGAE, "Algae");
-        this.addBlock(BlockInit.ATLANTEAN_POWER_STONE, "Atlantean Power Stone");
-        this.addBlock(BlockInit.ATLANTEAN_POWER_LAMP, "Atlantean Power Lamp");
-        this.addBlock(BlockInit.ATLANTEAN_POWER_TORCH, "Atlantean Power Torch");
-        this.addBlock(BlockInit.WALL_ATLANTEAN_POWER_TORCH, "Wall Atlantean Power Torch");
-        this.addBlock(BlockInit.ATLANTEAN_POWER_DUST_WIRE, "Atlantean Power Dust Wire");
-        this.addBlock(BlockInit.ATLANTEAN_POWER_REPEATER, "Atlantean Power Repeater");
-        this.addBlock(BlockInit.ATLANTEAN_TRIPWIRE_HOOK, "Atlantean Tripwire Hook");
-        this.addBlock(BlockInit.ATLANTEAN_TRIPWIRE, "Atlantean Tripwire");
-        this.addBlock(BlockInit.ATLANTEAN_POWER_LEVER, "Atlantean Power Lever");
-        this.addBlock(BlockInit.ATLANTEAN_POWER_COMPARATOR, "Atlantean Power Comparator");
-        this.addBlock(BlockInit.CALCITE_BLOCK, "Calcite Block");
+        this.addBlock(BlockInit.ATLANTEAN_POWER_STONE, "Power Stone");
+        this.addBlock(BlockInit.ATLANTEAN_POWER_LAMP, "Power Lamp");
+        this.addBlock(BlockInit.ATLANTEAN_POWER_TORCH, "Power Torch");
+        this.addBlock(BlockInit.WALL_ATLANTEAN_POWER_TORCH, "Wall Power Torch");
+        this.addBlock(BlockInit.ATLANTEAN_POWER_DUST_WIRE, "Power Dust Wire");
+        this.addBlock(BlockInit.ATLANTEAN_POWER_REPEATER, "Power Repeater");
+        this.addBlock(BlockInit.ATLANTEAN_TRIPWIRE_HOOK, "Power Tripwire Hook");
+        this.addBlock(BlockInit.ATLANTEAN_TRIPWIRE, "Power Tripwire");
+        this.addBlock(BlockInit.ATLANTEAN_POWER_LEVER, "Power Lever");
+        this.addBlock(BlockInit.ATLANTEAN_POWER_COMPARATOR, "Power Comparator");
+        this.addBlock(BlockInit.CALCITE_BLOCK, "Hardened Calcite Block");
         this.addBlock(BlockInit.PUSH_BUBBLE_COLUMN, "Push Bubble Column");
         this.addBlock(BlockInit.ANCIENT_ACACIA_WOOD_MOSS_SLAB, "Ancient Acacia Wood Moss Slab");
         this.addBlock(BlockInit.ANCIENT_OAK_WOOD_MOSS_SLAB, "Ancient Oak Wood Moss Slab");
@@ -188,12 +185,12 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.addBlock(BlockInit.ORICHALCUM_BLOCK, "Orichalcum Block");
         this.addBlock(BlockInit.LINGUISTIC_BLOCK, "Linguistic Block");
         this.addBlock(BlockInit.WRITING_BLOCK, "Writing Block");
-        this.addBlock(BlockInit.ATLANTEAN_SAPLING, "Atlantean Sapling");
-        this.addBlock(BlockInit.ATLANTEAN_PALM_SAPLING, "Atlantean Palm Sapling");
-        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED, "Atlantean Fire Melon Fruit Spiked");
-        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_FRUIT, "Atlantean Fire Melon Fruit");
-        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_STEM, "Atlantean Fire Melon Stem");
-        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_TOP, "Atlantean Fire Melon Top");
+        this.addBlock(BlockInit.ATLANTEAN_SAPLING, "Nymph Sapling");
+        this.addBlock(BlockInit.ATLANTEAN_PALM_SAPLING, "Palm Sapling");
+        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED, "Fire Melon Fruit Spiked");
+        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_FRUIT, "Fire Melon Fruit");
+        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_STEM, "Fire Melon Stem");
+        this.addBlock(BlockInit.ATLANTEAN_FIRE_MELON_TOP, "Fire Melon Top");
 
         this.addBlocksFromType(BlockInit.SEA_GLASS, "Sea Glass");
         this.addBlocksFromType(BlockInit.BLUE_SEA_GLASS, "Blue Sea Glass");
@@ -279,12 +276,12 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ATLANTEAN_AMULET.get(), "Atlantean Amulet");
         this.add(ItemInit.ATLANTEAN_SPEAR.get(), "Atlantean Spear");
         this.add(ItemInit.PALM_BOAT.get(), "Palm Boat");
-        this.add(ItemInit.ATLANTEAN_BOAT.get(), "Atlantean Boat");
-        this.add(ItemInit.ATLANTEAN_CRAB_EGG.get(), "Atlantean Crab Egg");
-        this.add(ItemInit.ATLANTEAN_JELLYFISH_EGG.get(), "Atlantean Jellyfish Egg");
-        this.add(ItemInit.ATLANTEAN_SHRIMP_EGG.get(), "Atlantean Shrimp Egg");
+        this.add(ItemInit.ATLANTEAN_BOAT.get(), "Nymph Boat");
+        this.add(ItemInit.ATLANTEAN_CRAB_EGG.get(), "Rubyclaw Crab Egg");
+        this.add(ItemInit.ATLANTEAN_JELLYFISH_EGG.get(), "Aquaiel Jellyfish Egg");
+        this.add(ItemInit.ATLANTEAN_SHRIMP_EGG.get(), "Glittertail Shrimp Egg");
         this.add(ItemInit.LEVIATHAN_EGG.get(), "Leviathan Egg");
-        this.add(ItemInit.ATLANTEAN_SEAHORSE_EGG.get(), "Atlantean Seahorse Egg");
+        this.add(ItemInit.ATLANTEAN_SEAHORSE_EGG.get(), "Thalassian Seahorse Egg");
         this.add(ItemInit.COCONUT_CRAB_EGG.get(), "Coconut Crab Egg");
         this.add(ItemInit.STARFISH_EGG.get(), "Starfish Egg");
         this.add(ItemInit.STARFISH_ZOM_EGG.get(), "Starfish Zom Egg");
@@ -299,15 +296,15 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ORICHALCUM_INGOT.get(), "Orichalcum Ingot");
         this.add(ItemInit.ORICHALCUM_BLEND.get(), "Orichalcum Blend");
         this.add(ItemInit.ORB_OF_ATLANTIS.get(), "Orb Of Atlantis");
-        this.add(ItemInit.ATLANTEAN_CRYSTAL.get(), "Atlantean Crystal");
+        this.add(ItemInit.ATLANTEAN_CRYSTAL.get(), "Flow-Water Crystal");
         this.add(ItemInit.OCEAN_STONE.get(), "Ocean Stone");
         this.add(ItemInit.DROP_OF_ATLANTIS.get(), "Drop Of Atlantis");
         this.add(ItemInit.BROWN_WROUGHT_PATCHES.get(), "Brown Wrought Patches");
         this.add(ItemInit.CRAB_LEGS.get(), "Crab Legs");
         this.add(ItemInit.SHRIMP.get(), "Shrimp");
         this.add(ItemInit.COOKED_SHRIMP.get(), "Cooked Shrimp");
-        this.add(ItemInit.ATLANTEAN_POWER_DUST.get(), "Atlantean Power Dust");
-        this.add(ItemInit.ATLANTEAN_STRING.get(), "Atlantean String");
+        this.add(ItemInit.ATLANTEAN_POWER_DUST.get(), "Power Dust");
+        this.add(ItemInit.ATLANTEAN_STRING.get(), "Aquariel String");
         this.add(ItemInit.SUBMARINE.get(), "Submarine");
         this.add(ItemInit.WATER_PILL.get(), "Water Pill");
         for(TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
@@ -338,15 +335,15 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         //TODO add -> this.add(ItemInit.ANCIENT_METAL_NUGGET.get(), "Ancient Metal Nugget");
         this.add(ItemInit.RAW_ANCIENT_METAL_INGOT.get(), "Raw Ancient Metal Ingot");
 
-        add("block.atlantis.atlantean_sign", "Atlantean Sign");
-        add("block.atlantis.atlantean_wall_sign", "Atlantean Wall Sign");
+        add("block.atlantis.atlantean_sign", "Nymph Sign");
+        add("block.atlantis.atlantean_wall_sign", "Nymph Wall Sign");
         add("block.atlantis.palm_wall_sign", "Palm Wall Sign");
 
 
-        this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT.get(), "Atlantean Fire Melon Fruit");
-        this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get(), "Atlantean Fire Melon Fruit Spiked");
-        this.add(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get(), "Atlantean Fire Melon Seeds");
-        this.add(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get(), "Atlantean Fire Melon Spike");
+        this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT.get(), "Fire Melon Fruit");
+        this.add(ItemInit.ATLANTEAN_FIRE_MELON_FRUIT_SPIKED.get(), "Fire Melon Fruit Spiked");
+        this.add(ItemInit.ATLANTEAN_FIRE_MELON_SEEDS.get(), "Fire Melon Seeds");
+        this.add(ItemInit.ATLANTEAN_FIRE_MELON_SPIKE.get(), "Fire Melon Spike");
         this.add(ItemInit.LINGUISTIC_GLYPH_SCROLL.get(), "Linguistic Glyph Scroll");
         this.add(ItemInit.LINGUISTIC_GLYPH_SCROLL_A.get(), "Linguistic Glyph Scroll A");
         this.add(ItemInit.LINGUISTIC_GLYPH_SCROLL_B.get(), "Linguistic Glyph Scroll B");
@@ -415,7 +412,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(ItemInit.ORICHALCUM_BOOTS.get(), "Orichalcum Boots");
 
         this.add(AtlantisEntityInit.PALM_BOAT.get(), "Palm_boat");
-        this.add(AtlantisEntityInit.ATLANTEAN_BOAT.get(), "Atlantean Boat");
+        this.add(AtlantisEntityInit.ATLANTEAN_BOAT.get(), "Nymph Boat");
         this.add(AtlantisEntityInit.CRAB.get(), "Crab");
         this.add(AtlantisEntityInit.COCONUT_CRAB.get(), "Coconut Crab");
         this.add(AtlantisEntityInit.JELLYFISH.get(), "Jellyfish");
@@ -423,12 +420,12 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add(AtlantisEntityInit.LEVIATHAN.get(), "Leviathan");
         this.add(AtlantisEntityInit.SEAHORSE.get(), "Seahorse");
         this.add(AtlantisEntityInit.STARFISH.get(), "Starfish");
-        this.add(AtlantisEntityInit.STARFISH_ZOM.get(), "Atlantean Zombie Starfish");
+        this.add(AtlantisEntityInit.STARFISH_ZOM.get(), "Zombie Starfish");
         this.add(AtlantisEntityInit.BOMB.get(), "Bomb");
         this.add(AtlantisEntityInit.SUBMARINE.get(), "Submarine");
 
         this.add("biome.atlantis.atlantean_garden", "Atlantean Garden");
-        this.add("biome.atlantis.atlantean_islands_biome", "Atlantean Islands Biome");
+        this.add("biome.atlantis.atlantean_islands_biome", "Atlantean Islands");
         this.add("biome.atlantis.atlantis_biome", "Atlantis Biome");
         this.add("biome.atlantis.coconut_isles", "Coconut Isles");
         this.add("biome.atlantis.goo_lagoons", "Goo Lagoons");
@@ -445,7 +442,7 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("structure.atlantis.configured_atlantean_tower", "Atlantean Tower");
         this.add("structure.atlantis.configured_oyster_structure", "Giant Oyster");
         this.add("itemGroup.atlantis.general", "Atlantis");
-        this.add("itemGroup.atlantis.glyph", "Atlantean Glyphs");
+        this.add("itemGroup.atlantis.glyph", "Glyphs");
         this.add("text.autoconfig.atlantis.option.calciteAcceleration", "Calcite Acceleration");
         this.add("text.autoconfig.atlantis.option.calciteThreshold", "Calcite Threshold");
         this.add("text.autoconfig.atlantis.option.general.calciteAcceleration", "Calcite Acceleration");
@@ -454,9 +451,9 @@ public class AtlantisEnglishLanguageProvider extends LanguageProvider {
         this.add("text.autoconfig.atlantis.option.general.calciteThreshold.@Tooltip", "The maximum speed you can be at. Must reload world for it to work!");
         this.add("text.autoconfig.atlantis.option.islandsOn", "Are islands on?");
         this.add("text.autoconfig.atlantis.option.maxCrabSpawnHeight", "Maximum Crab Spawn Height");
-        this.add("text.autoconfig.atlantis.option.maxCrabSpawnHeight.@Tooltip", "The Maximum Height The Atlantean Crab Will Spawn At");
+        this.add("text.autoconfig.atlantis.option.maxCrabSpawnHeight.@Tooltip", "The Maximum Height The Rubyclaw Crab Will Spawn At");
         this.add("text.autoconfig.atlantis.option.minCrabSpawnHeight", "Minimum Crab Spawn Height");
-        this.add("text.autoconfig.atlantis.option.minCrabSpawnHeight.@Tooltip", "The Minimum Height The Atlantean Crab Will Spawn At");
+        this.add("text.autoconfig.atlantis.option.minCrabSpawnHeight.@Tooltip", "The Minimum Height The Rubyclaw Crab Will Spawn At");
         this.add("text.autoconfig.atlantis.option.volcanoesOn", "Are volcanoes on?");
         this.add("text.autoconfig.atlantis.title", "Atlantean Config");
     }

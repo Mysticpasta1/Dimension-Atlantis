@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "atlantis:coconut_slab"
+          "name": "atlantis:coconut_slice"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "atlantis:blocks/coconut_slab"
+  "random_sequence": "atlantis:blocks/coconut_slice"
 }

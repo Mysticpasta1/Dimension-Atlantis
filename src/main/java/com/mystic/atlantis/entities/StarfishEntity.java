@@ -18,10 +18,12 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -133,8 +135,8 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
 
     public void rideTick() {
         final Entity entity = this.getVehicle();
-        if(entity instanceof Player player) {
-            if(player.isShiftKeyDown()) {
+        if (entity instanceof Player player) {
+            if (player.isShiftKeyDown()) {
                 this.stopRiding();
             }
         }
@@ -144,10 +146,10 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
         } else {
             this.setDeltaMovement(0, 0, 0);
             this.tick();
-            if(entity instanceof Player player) {
+            if (entity instanceof Player player) {
                 this.setPos(player.getX(), Math.max(player.getY() + player.getEyeHeight(), player.getY()), player.getZ());
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1, 5));
-                if(player.getHealth() > 1.0f) {
+                if (player.getHealth() > 1.0f) {
                     player.hurt(damageSources().mobAttack(this), 1.0f);
                 }
 
@@ -164,7 +166,6 @@ public class StarfishEntity extends Animal implements GeoEntity { //TODO make bu
             }
         }
     }
-
 
 
     @Override

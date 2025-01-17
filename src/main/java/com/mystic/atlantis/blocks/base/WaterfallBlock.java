@@ -25,7 +25,7 @@ public class WaterfallBlock extends DirectionalBlock {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, pContext.getClickedFace());
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {

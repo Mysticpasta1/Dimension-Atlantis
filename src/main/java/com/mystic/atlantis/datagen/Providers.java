@@ -374,6 +374,7 @@ public class Providers {
         BlockTagsProvider blockTagsProvider = new BlockTagsProvider(output, event.getLookupProvider(), "atlantis", event.getExistingFileHelper()) {
             @Override
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
+                tag(BlockTags.ANIMALS_SPAWNABLE_ON).add(BlockInit.SEABED.get());
                 tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.ORICHALCUM_BLOCK.get());
                 tag(BlockTags.NEEDS_IRON_TOOL).add(BlockInit.ORICHALCUM_BLOCK.get());
                 for (TrailsGroup group : BlockInit.ANCIENT_METALS.values()) {
@@ -529,7 +530,9 @@ public class Providers {
 
                 tag(BlockTags.LOGS).add(
                         BlockInit.ATLANTEAN_LOGS.get(),
-                        BlockInit.PALM_LOG.get()
+                        BlockInit.PALM_LOG.get(),
+                        BlockInit.STRIPPED_PALM_LOG.get(),
+                        BlockInit.STRIPPED_ATLANTEAN_LOG.get()
                 );
 
                 tag(BlockTags.WOODEN_FENCES).add(
@@ -564,6 +567,30 @@ public class Providers {
             @Override
             protected void addTags(HolderLookup.@NotNull Provider pProvider) {
                 TagAppender<Item> tag = tag(TagsInit.Item.CAN_ITEM_SINK);
+                tag(ItemTags.LOGS_THAT_BURN).add(
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS.get().asItem(),
+                        BlockInit.ATLANTEAN_LOGS.get().asItem(),
+                        BlockInit.STRIPPED_ATLANTEAN_LOG.get().asItem(),
+                        BlockInit.PALM_LOG.get().asItem(),
+                        BlockInit.STRIPPED_PALM_LOG.get().asItem()
+                );
+                tag(ItemTags.LOGS).add(
+                        BlockInit.ANCIENT_ACACIA_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_BIRCH_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_DARK_OAK_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_OAK_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_JUNGLE_WOOD_MOSS.get().asItem(),
+                        BlockInit.ANCIENT_SPRUCE_WOOD_MOSS.get().asItem(),
+                        BlockInit.ATLANTEAN_LOGS.get().asItem(),
+                        BlockInit.STRIPPED_ATLANTEAN_LOG.get().asItem(),
+                        BlockInit.PALM_LOG.get().asItem(),
+                        BlockInit.STRIPPED_PALM_LOG.get().asItem()
+                );
                 tag(ItemTags.MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
                 tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ItemInit.PANBEE.get(), ItemInit.COLUMN_CAVITATION.get());
                 TagsInit.Item.getItemsThatCanSink().stream().map(Supplier::get).map(ItemLike::asItem).map(Item::builtInRegistryHolder).map(Holder.Reference::key).forEach(tag::add);

@@ -45,7 +45,7 @@ public class Coconut extends DirectionalBlock {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, pContext.getClickedFace());
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {

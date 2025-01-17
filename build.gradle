@@ -147,6 +147,7 @@ dependencies {
     implementation fg.deobf("curse.maven:architectury-api-419699:${architectury_version}")
     implementation fg.deobf("org.reflections:reflections:${reflections_version}")
     implementation fg.deobf("curse.maven:justhammers-681606:4995650")
+    implementation fg.deobf("curse.maven:neruina-851046:5666519")
 }
 
 mixin {

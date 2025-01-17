@@ -1,7 +1,6 @@
 package com.mystic.atlantis.init;
 
 import com.mystic.atlantis.blocks.blockentities.AtlantisPortalBlockEntity;
-import com.mystic.atlantis.blocks.blockentities.DummyDataStorage;
 import com.mystic.atlantis.blocks.blockentities.plants.*;
 import com.mystic.atlantis.blocks.blockentities.plants.AnemoneTileEntity;
 import com.mystic.atlantis.util.Reference;
@@ -23,7 +22,6 @@ public class TileEntityInit {
 	public static final RegistryObject<BlockEntityType<BurntDeepTileEntity>> BURNT_DEEP_TILE = TILE_ENTITIES.register("burnt_deep", () -> BlockEntityType.Builder.of(BurntDeepTileEntity::new, BlockInit.BURNT_DEEP_BLOCK.get()).build(null));
 	public static final RegistryObject<BlockEntityType<AnemoneTileEntity>> ANEMONE_TILE = TILE_ENTITIES.register("anemone", () -> BlockEntityType.Builder.of(AnemoneTileEntity::new, BlockInit.ANEMONE_BLOCK.get()).build(null));
 	public static final RegistryObject<BlockEntityType<AtlantisPortalBlockEntity>> ATLANTIS_PORTAL = TILE_ENTITIES.register("atlantis_portal", () -> BlockEntityType.Builder.of(AtlantisPortalBlockEntity::new, BlockInit.ATLANTIS_CLEAR_PORTAL.get()).build(null));
-	public static final RegistryObject<BlockEntityType<DummyDataStorage>> DUMMY_DATA_STORAGE = TILE_ENTITIES.register("dummydatastorage", () -> BlockEntityType.Builder.of(DummyDataStorage::new, BlockInit.ATLANTIS_PORTAL.get()).build(null));
 	public static void init(IEventBus bus) {
 		TILE_ENTITIES.register(bus);
 	}
